@@ -1,0 +1,40 @@
+<!-- {%load static%} -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link type="text/css" rel="stylesheet" media="all" href="{%static 'css/main.css'%}">
+<link type="text/css" rel="stylesheet" media="all" href="{%static 'css/layout.css'%}">
+<!-- <script src="{%static 'www/js/jquery-1.6.2.js'%}"></script> -->
+<title>TRENOVKR</title>
+
+</head>
+<body>
+    <div class="top">
+        <div class="nav">
+            <div>
+                <a class="trenovkr_logo" href="http://i369.fun">
+                    <h1>39Kr</h1>
+                </a>
+            </div>
+            <div class="Project flex_container">
+                <div><h3><a href="">About</a></h3></div>
+                <div><h3><a href="{{ url.0 }}">{{ appTitle.0 }}</a></h3></div>
+                <div><h3><a href="{{ url.1 }}">{{ appTitle.1 }}</a></h3></div>
+                <div><h3><a href="{{ url.2 }}">{{ appTitle.2 }}</a></h3></div>
+                <div><h3><a href="{{ url.3 }}">{{ appTitle.3 }}</a></h3></div>
+                <div><h3><a href="{{ url.4 }}">{{ appTitle.4 }}</a></h3></div>
+            </div>
+            <div><a href="">BAG</a></div>
+        </div>
+    </div>
+
+
+    <div class="worth flex_container" style="flex-wrap: wrap;">
+    {%for x in amz_img%}
+        <div style="width: 310px;"><img width="310" src="{{x}}" alt="src路径正确 但图片不显示"></div>
+    {%endfor%}
+    </div>
+
+</body>
+</html>

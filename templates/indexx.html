@@ -1,0 +1,82 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link type="text/css" rel="stylesheet" media="all" href="{%static 'css/main.css'%}">
+<link type="text/css" rel="stylesheet" media="all" href="{%static 'css/layout.css'%}">
+<script src="{%static 'js/jquery-1.6.2.js'%}"></script>
+<title>TRENOVKR</title>
+
+</head>
+<body>
+    <div class="top">
+        <div class="nav">
+            <div>
+                <a class="trenovkr_logo" href="http://i369.fun">
+                    <h1>39Kr</h1>
+                </a>
+            </div>
+            <div>
+                <ul class="project">
+                    <li class="nav_focus"><h3><a href="">Products</a></h3></li>
+                    <li><h3><a href="">About</a></h3></li>
+                    <li><h3>{{ appTitle|safe }}</h3></li>
+                </ul>
+            </div>
+            <div><span>Bag</span></div>
+        </div>
+    </div>
+    image\trenovkr\img
+    <div class="wrap">
+        <!-- <div class="worth">
+            <div class="unit-1">
+                
+                    <video width="1280" height="693" autoplay="autoplay" controls="controls">
+                        <source src="{%static 'image/trenovkr/video/f150.mp4'%}" type="video/mp4"></source>
+                    </video>
+                
+            </div>
+        </div> -->
+        <div class="worth">
+            <div class="unit-1">
+                <img width="1280" src="{%static 'image/trenovkr/img/1800.jpg'%}" alt="">
+            </div>
+        </div>
+        <div class="worth">
+            
+            {% for i in imagesName %}
+            <div class="unit-4">
+                <img width="100%" src="{{i}}" alt="">
+            </div>
+            {% endfor %}
+        </div>
+        <div class="worth"><div class="unit-2"></div><div class="unit-2"></div><div class="clear"></div></div>
+        <div class="worth"><div class="unit-3"></div><div class="unit-3"></div><div class="unit-3"></div><div class="clear"></div></div>
+        <div class="worth"><div class="unit-4"></div><div class="unit-4"></div><div class="unit-4"></div><div class="unit-4"></div><div class="clear"></div></div>
+    </div>
+    
+
+
+    <footer>
+        <div class="container footer">
+            <div>
+                <ul>
+                    <li><strong>Servies</strong></li>
+                    <li><p><a href="">Trenovkr</a></p></li>
+                    <li><p><a href="">BOBODOO</a></p></li>
+                </ul>
+                <ul>
+                    <li><strong>About US</strong></li>
+                    <li><p><a href="">Brand Story</a></p></li>
+                    <li><p><a href="">Contact</a></p></li>
+                </ul>
+            </div>
+            <div><p>Copyright © 2022 3.9Kr Inc. All rights reserved. </p></div>
+        </div>
+        
+    </footer>
+    
+    <script src="{%static 'js/lfeng.js'%}"></script>
+</body>
+</html>

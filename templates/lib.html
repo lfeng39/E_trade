@@ -1,0 +1,91 @@
+<!-- {%load static%} -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link type="text/css" rel="stylesheet" media="all" href="{%static 'css/main.css'%}">
+<link type="text/css" rel="stylesheet" media="all" href="{%static 'css/layout.css'%}">
+<!-- <script src="{%static 'js/jquery-1.6.2.js'%}"></script> -->
+<title>TRENOVKR</title>
+
+</head>
+<body>
+    <div class="top">
+        <div class="nav">
+            <div>
+                <a class="trenovkr_logo" href="http://i369.fun">
+                    <h1>39Kr</h1>
+                </a>
+            </div>
+            <div class="Project flex_container">
+                <div><h3><a href="">About</a></h3></div>
+                <div><h3><a href="{{ url.0 }}">{{ appTitle.0 }}</a></h3></div>
+                <div><h3><a href="{{ url.1 }}">{{ appTitle.1 }}</a></h3></div>
+                <div><h3><a href="{{ url.2 }}">{{ appTitle.2 }}</a></h3></div>
+                <div><h3><a href="{{ url.3 }}">{{ appTitle.3 }}</a></h3></div>
+            </div>
+            <div><a href="">BAG</a></div>
+        </div>
+    </div>
+
+    <div class="wrap">
+        <div class="worth">
+            <!-- <h1>BSR</h1> -->
+            <h3>AdHolder:<span>{{ amz_ad_count }}</span></h3>
+        </div>
+        <div class="worth flex_container" style="flex-wrap: wrap;">
+            {%for x in amz_ad%}
+                <div style="width: 180px;">
+                    <div style="height: 230px;">
+                        <img width="180" src="{{ x.3 }}" alt="src路径正确 但图片不显示">
+                    </div>
+                    <!-- <p>{{ x.2 }}</p> -->
+                    <p>{{ x.0 }}</p>
+                    <!-- <p>{{ x.5 }}</p> -->
+                    <!-- <p>{{ x.6 }}</p> -->
+                    <!-- <p>{{ x.4 }}</p> -->
+                </div>
+            {%endfor%}
+        </div>
+
+        <div class="worth">
+            <!-- <h1>BSR</h1> -->
+            <h3>Natural:<span>{{ amz_na_count }}</span></h3>
+        </div>
+        <div class="worth flex_container" style="flex-wrap: wrap;">
+            {%for x in amz_na%}
+                <div style="width: 180px;">
+                    <img width="180" src="{{ x.3 }}" alt="src路径正确 但图片不显示">
+                    <!-- <p>{{ x.2 }}</p> -->
+                    <p>{{ x.0 }}</p>
+                    <!-- <p>{{ x.5 }}</p> -->
+                    <!-- <p>{{ x.6 }}</p> -->
+                    <!-- <p>{{ x.4 }}</p> -->
+                </div>
+            {%endfor%}
+        </div>
+    </div>
+    
+
+    <footer>
+        <div class="container footer">
+            <div>
+                <ul>
+                    <li><strong>Servies</strong></li>
+                    <li><p><a href="">Trenovkr</a></p></li>
+                    <li><p><a href="">BOBODOO</a></p></li>
+                </ul>
+                <ul>
+                    <li><strong>About US</strong></li>
+                    <li><p><a href="">Brand Story</a></p></li>
+                    <li><p><a href="">Contact</a></p></li>
+                </ul>
+            </div>
+            <div><p>Copyright © 2022 3.9Kr Inc. All rights reserved. </p></div>
+        </div>
+        
+    </footer>
+    
+    <script src="{%static 'js/lfeng.js'%}"></script>
+</body>
+</html>
