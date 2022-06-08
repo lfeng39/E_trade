@@ -3,30 +3,52 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!-- <link type="text/css" rel="stylesheet" media="all" href="{%static 'css/main.css'%}"> -->
+<link type="text/css" rel="stylesheet" media="all" href="{%static 'css/main.css'%}">
 <link type="text/css" rel="stylesheet" media="all" href="{%static 'css/layout.css'%}">
 <!-- <script src="{%static 'www/js/jquery-1.6.2.js'%}"></script> -->
 <title>JAL</title>
 
 </head>
 <body>
-    <!-- 产品图片及价格信息 -->
-    <div>
-        <!-- 产品图片 -->
-        <div></div>
-        <!-- 价格信息 -->
-        <div>
-            <!-- 标题 -->
+
+    <div class="top">
+        <div class="nav">
             <div>
-                <h1></h1>
+                <a class="" href="">
+                    <h1>JAL</h1>
+                </a>
             </div>
-            <!-- 价格 -->
-            <div>
-                <span></span>
+            <div class="app flex_container">
+                <div><h3><a href="{{ url.0 }}">{{ appTitle.0 }}</a></h3></div>
+                <div><h3><a href="{{ url.1 }}">{{ appTitle.1 }}</a></h3></div>
+                <div><h3><a href="{{ url.2 }}">{{ appTitle.2 }}</a></h3></div>
+                <div><h3><a href="{{ url.3 }}">{{ appTitle.3 }}</a></h3></div>
+                <div><h3><a href="{{ url.4 }}">{{ appTitle.4 }}</a></h3></div>
             </div>
-            <!-- 简介 -->
+            <div><a href="">BAG</a></div>
+        </div>
+    </div>
+
+
+    <div class="wrap">
+        <!-- 产品图片及价格信息 -->
+        <div class="flex_container container-standard">
+            <!-- 产品图片 -->
+            <div><a href=""><img src="" alt=""></a></div>
+            <!-- 价格信息 -->
             <div>
-                <p></p>
+                <!-- 标题 -->
+                <div>
+                    <h1>title</h1>
+                </div>
+                <!-- 价格 -->
+                <div>
+                    <span>price</span>
+                </div>
+                <!-- 简介 -->
+                <div>
+                    <p>discription</p>
+                </div>
             </div>
         </div>
     </div>
@@ -36,5 +58,25 @@
 
     <!-- 保养及维护 -->
     <div></div>
+
+    <footer>
+        <div class="container-standard footer">
+            <div>
+                <ul>
+                    <li><strong>Servies</strong></li>
+                    <li><p><a href="">Trenovkr</a></p></li>
+                    <li><p><a href="">BOBODOO</a></p></li>
+                </ul>
+                <ul>
+                    <li><strong>About US</strong></li>
+                    <li><p><a href="">Brand Story</a></p></li>
+                    <li><p><a href="">Contact</a></p></li>
+                </ul>
+            </div>
+            <div><p>Copyright © 2022 3.9Kr Inc. All rights reserved. </p></div>
+        </div>
+        
+    </footer>
+
 </body>
 </html>

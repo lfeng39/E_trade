@@ -12,11 +12,27 @@ from . import models
 
 def index(request):
     
-
     indexApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
-
     }
 
     return render(request, 'index.html', indexApi)
+    
+def detail(request):
+    
+    indexApi = {
+        'url': models.nav('url'),
+        'appTitle': models.nav('appTitle'),
+    }
+
+    return render(request, 'detail.html', indexApi)
+    
+def products(request):
+    
+    indexApi = {
+        'url': models.nav('url'),
+        'appTitle': models.nav('appTitle'),
+    }
+
+    return render(request, 'products.html', indexApi)

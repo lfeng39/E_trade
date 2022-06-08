@@ -6,8 +6,8 @@ urlpatterns = [
     # ex: /polls/
     path('', views.index, name='index'),
     # path('about',views.about, name='about'),
-    # path('product',views.product, name='product'),
-    # path('zmh',views.zmh, name='zmh'),
+    path('product',views.products, name='product'),
+    path('zmh',views.detail, name='zmh'),
     # path('ydj',views.ydj, name='ydj'),
     # path('ddl',views.ddl, name='ddl'),
 ]
