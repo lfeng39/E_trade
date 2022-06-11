@@ -32,22 +32,25 @@ nav-start
 /* 
 container-start
 */
-.card-standard
+.container-standard
   {
     width: 1280px;
+    min-height: 100px;
+    border-top: solid 1px #000;
     margin: 0 auto;
-    /* overflow: hidden; */
   }
-.card-large
+.card-standard
   {
     width: 100%;
-    margin: 0 auto;
+    min-height: 100px;
+    margin: 20px 0;
+    /* overflow: hidden; */
+    border: #000 1px solid;
   }
-.card-4
+.card-2
   {
-    width: 24%;
+    width: 49.84%;
     min-height: 150px;
-    margin-top: 15px;
     border: #000 solid 1px;
   }
 .card-3
@@ -56,12 +59,14 @@ container-start
     min-height: 150px;
     border: #000 solid 1px;
   }
-.container-standard
+.card-4
   {
-    width: 1280px;
-    border-top: solid 1px #000;
-    margin: 0 auto;
+    width: 24%;
+    min-height: 150px;
+    margin-top: 15px;
+    border: #000 solid 1px;
   }
+
 .flex_container
   {
     display: flex;
