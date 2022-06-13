@@ -5,9 +5,10 @@ from . import views
 urlpatterns = [
     # ex: /polls/
     path('', views.index, name='index'),
-    # path('about',views.about, name='about'),
+    path('index', views.index, name='index'),
+    path('about',views.about, name='about'),
     path('product',views.products, name='product'),
     path('zmh',views.detail, name='zmh'),
-    # path('ydj',views.ydj, name='ydj'),
-    # path('ddl',views.ddl, name='ddl'),
+    path('ydj',views.detail, name='ydj'),
+    path('ddl',views.detail, name='ddl'),
 ]

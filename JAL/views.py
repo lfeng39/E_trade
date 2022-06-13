@@ -18,7 +18,16 @@ def index(request):
     }
 
     return render(request, 'index.html', indexApi)
+
+def about(request):
     
+    indexApi = {
+        'url': models.nav('url'),
+        'appTitle': models.nav('appTitle'),
+    }
+
+    return render(request, 'about.html', indexApi)
+
 def detail(request):
     
     indexApi = {

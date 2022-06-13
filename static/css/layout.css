@@ -35,54 +35,47 @@ container-start
 .container-standard
   {
     width: 1280px;
-    min-height: 100px;
+    min-height: 150px;
     border-top: solid 1px #000;
     margin: 0 auto;
   }
+.container-standard > div
+  {
+    border: #000 1px solid;
+  }
 .card-standard
   {
-    width: 100%;
-    min-height: 100px;
-    margin: 20px 0;
+    max-width: 100%;
+    min-height: 150px;
     /* overflow: hidden; */
-    border: #000 1px solid;
   }
 .card-2
   {
-    width: 49.84%;
+    width: 49.845%;
     min-height: 150px;
-    border: #000 solid 1px;
   }
 .card-3
   {
-    width: 30%;
+    width: 33.16%;
     min-height: 150px;
-    border: #000 solid 1px;
   }
 .card-4
   {
     width: 24%;
     min-height: 150px;
     margin-top: 15px;
-    border: #000 solid 1px;
   }
 
 .flex_container
   {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
+    /* flex-direction: row; */
     /* flex-shrink: 0; */
     /* justify-content: flex-start; */
     justify-content: space-between;
   }
-.flex_container > div
-  {  
-    /* width: 100%; */
-    /* display: inline-block; */
-    border-left: #000 solid 1px;
-    /* line-height: 100%; */
-  }
+
   /* 
   container-end
   */
@@ -90,7 +83,6 @@ container-start
   /* 
   footer-start
   */
-
 footer > div > div
   {
     overflow: hidden;
