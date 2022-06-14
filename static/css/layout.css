@@ -43,6 +43,11 @@ container-start
   {
     border: #000 1px solid;
   }
+.container-standard > div > div > img
+  {
+    height: 150px;
+
+  }
 .card-standard
   {
     max-width: 100%;

@@ -1,3 +1,4 @@
+from urllib import response
 from django.shortcuts import get_object_or_404, render
 from . import models
 # from . import images
@@ -12,36 +13,60 @@ from . import models
 
 def index(request):
     
-    indexApi = {
+    navApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
     }
 
-    return render(request, 'index.html', indexApi)
+    return render(request, 'index.html', navApi)
 
 def about(request):
     
-    indexApi = {
+    navApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
     }
 
-    return render(request, 'about.html', indexApi)
+    return render(request, 'about.html', navApi)
 
 def detail(request):
-    
-    indexApi = {
+
+    navApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
+    
+        'asin': {1:'a', 'name':'b'}
     }
 
-    return render(request, 'detail.html', indexApi)
+    return render(request, 'detail.html', navApi)
     
 def products(request):
     
-    indexApi = {
+    navApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
     }
 
-    return render(request, 'products.html', indexApi)
+    return render(request, 'products.html', navApi)
+
+def zmh(request):
+
+    navApi = {
+        'url': models.nav('url'),
+        'appTitle': models.nav('appTitle'),
+    
+        'asin': 'ZMH'
+    }
+
+    return render(request, 'detail.html', navApi)
+
+def ydj(request):
+
+    navApi = {
+        'url': models.nav('url'),
+        'appTitle': models.nav('appTitle'),
+    
+        'asin': 'YDJ'
+    }
+
+    return render(request, 'detail.html', navApi)
