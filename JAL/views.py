@@ -54,8 +54,8 @@ def zmh(request):
     navApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
-    
-        'asin': 'ZMH'
+        'asin': 59.97,
+        'listing': models.listingCon(),
     }
 
     return render(request, 'detail.html', navApi)

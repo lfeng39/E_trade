@@ -37,11 +37,15 @@
                 <img src="" alt="" />
             </div>
             <div class="card-2">
-                <div><h1>{{ asin }}</h1></div>
-                <div>$<span>{{ asin.name }}</span></div>
+                <div><h1>{{ listing.0 }}</h1></div>
+                <div>$<span>{{ asin }}</span></div>
                 <div>
                     <ul>
-                        <li><p>point-01</p></li>
+                        <li><p>{{ listing.1 }}</p></li>
+                        <li><p>{{ listing.2 }}</p></li>
+                        <li><p>{{ listing.3 }}</p></li>
+                        <li><p>{{ listing.4 }}</p></li>
+                        <li><p>{{ listing.5 }}</p></li>
                     </ul>
                 </div>
             </div>
@@ -50,7 +54,7 @@
         <div class="container-standard">
             <div><h3>Discription</h3></div>
             <div>
-                <p>text</p>
+                <p>{{ listing.6 }}</p>
             </div>
             <div class="card-standard">img</div>
         </div>
