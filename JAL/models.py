@@ -4,7 +4,7 @@ import pandas as pd
 # Create your models here.
 def nav(type):
     
-    url = ['index', 'about', 'product', 'zmh', 'ydj', 'ddl',]
+    url = ['index', 'about', 'product', 'B09YLLXKDT', 'B09YLKWBMV', 'ddl',]
     appTitle = ['JAL', 'About', 'Product', 'ZMH', 'YDJ', 'DDL',]
     
     nav = {
@@ -26,7 +26,7 @@ def nav(type):
 
 def test():
 
-    data_listing = pd.read_excel('static/csv/listing.xlsx', sheet_name='listing')
+    data_listing = pd.read_excel('static/csv/B09YLLXKDT.xlsx', sheet_name='listing')
     # listing_version = pd_listing.iloc[2,1]
     key = data_listing.iloc[1,0]
     # print(key)
@@ -40,14 +40,22 @@ def test():
         # }
     listing_Dict = dict(zip(key,value))
 
-    # what = data_listing.index
-
     return list(listing_Dict.values())
 # print(test())
 
-def listingCon():
+def conData(asin):
 
-    data_listing = pd.read_csv('static/csv/listing.csv', encoding = 'GBK', engine='python')
+    if asin == 'B09YLLXKDT':
+        dataFile = 'static/csv/' + asin + '.csv'
+    elif asin == 'B09YLKWBMV':
+        dataFile = 'static/csv/' + asin + '.csv'
+    # print(dataFile)
+    data_listing = pd.read_csv(dataFile, encoding = 'GBK', engine='python')
+
+    return data_listing
+
+def listingCon(asin):
+    data_listing = conData(asin)
 
     key = []
     value = []

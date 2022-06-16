@@ -55,7 +55,7 @@ def zmh(request):
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
         'asin': 59.97,
-        'listing': models.listingCon(),
+        'listing': models.listingCon('B09YLLXKDT'),
     }
 
     return render(request, 'detail.html', navApi)
@@ -65,8 +65,8 @@ def ydj(request):
     navApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
-    
-        'asin': 'YDJ'
+        'asin': 15.99,
+        'listing': models.listingCon('B09YLKWBMV'),
     }
 
     return render(request, 'detail.html', navApi)
