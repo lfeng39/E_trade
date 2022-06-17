@@ -43,16 +43,40 @@ def test():
     return list(listing_Dict.values())
 # print(test())
 
+dataFile_01 = 'static/csv/' + 'B09YLLXKDT' + '.csv'
+dataFile_02 = 'static/csv/' + 'B09YLKWBMV' + '.csv'
+dataFile_03 = 'static/csv/' + 'B09YLLXKDT' + '.csv'
+dataFile_04 = 'static/csv/' + 'urls' + '.csv'
+# data_listing = pd.read_csv(dataFile_01, encoding = 'GBK', engine='python')
+# data_listing = pd.read_csv(dataFile_02, encoding = 'GBK', engine='python')
+# data_listing = pd.read_csv(dataFile_03, encoding = 'GBK', engine='python')
+
 def conData(asin):
 
     if asin == 'B09YLLXKDT':
-        dataFile = 'static/csv/' + asin + '.csv'
+        data_listing = pd.read_csv(dataFile_01, encoding = 'GBK', engine='python')
     elif asin == 'B09YLKWBMV':
-        dataFile = 'static/csv/' + asin + '.csv'
+        data_listing = pd.read_csv(dataFile_02, encoding = 'GBK', engine='python')
+    elif asin == 'B09YLKWBMV':
+        data_listing = pd.read_csv(dataFile_03, encoding = 'GBK', engine='python')
     # print(dataFile)
-    data_listing = pd.read_csv(dataFile, encoding = 'GBK', engine='python')
-
+    
     return data_listing
+
+def getTitle():
+    product_title = [
+        pd.read_csv(dataFile_01, encoding = 'GBK', engine='python').iloc[1,1],
+        pd.read_csv(dataFile_02, encoding = 'GBK', engine='python').iloc[1,1],
+        pd.read_csv(dataFile_03, encoding = 'GBK', engine='python').iloc[1,1]
+    ]
+    print(product_title)
+    return product_title
+
+def getImgURL():
+    xxx = pd.read_csv(dataFile_04, encoding = 'GBK', engine='python')['img_url'].values
+    yyy = '/static/' + xxx + '/test01.png'
+    return yyy
+print(getImgURL())
 
 def listingCon(asin):
     data_listing = conData(asin)

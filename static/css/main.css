@@ -2,42 +2,42 @@
 @import 'layout.css';
 
 *
-  {
-    margin: 0;
-    /* color: #fff; */
-    text-decoration: none;
-    /* border-radius: 2px; */
-  }
+{
+  margin: 0;
+  /* color: #fff; */
+  text-decoration: none;
+  /* border-radius: 2px; */
+}
 html,body
-  {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
+{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 body
-  {
-    /*为footer提供定位*/
-    position: relative;
-    /* background: #b61b00; */
-  }
+{
+  /*为footer提供定位*/
+  position: relative;
+  /* background: #b61b00; */
+}
 
 /* 
-    top_start
+  top_start
 */
 .top
-  {
-    height: 55px;
-    /* background: #cc1f00; */
-    border-bottom: 1px solid #000;
-  }
+{
+  height: 55px;
+  /* background: #cc1f00; */
+  border-bottom: 1px solid #000;
+}
 .nav_focus
-  {
-    border-bottom: 3px solid #ff6666;
-  }
+{
+  border-bottom: 3px solid #ff6666;
+}
 .clear
-  {
-    clear: both;
-  }
+{
+  clear: both;
+}
 /* 
 top_end
 */
@@ -46,12 +46,12 @@ top_end
 wrap-start
 */
 .wrap
-  {
-    width: 100%;
-    min-height: 600px;
-    /* background: #005028; */
-    /* border: 2px solid #000; 005028*/
-  }
+{
+  width: 100%;
+  min-height: 600px;
+  /* background: #005028; */
+  /* border: 2px solid #000; 005028*/
+}
 
 /* 3
 wrap-end
@@ -61,18 +61,18 @@ wrap-end
 footer-start
 */
 footer
-  {
-    /*相对body定位*/
-    /* position: absolute; */
-    /* bottom: 0px; */
-    /* left: -4px; */
-    width: 100%;
-    min-height: 150px;
-    margin: 10px 0 0 0;
-    padding: 0;
-    /* background: #cc1f00; */
-    border-top: 1px solid #000;
-  }
+{
+  /*相对body定位*/
+  /* position: absolute; */
+  /* bottom: 0px; */
+  /* left: -4px; */
+  width: 100%;
+  min-height: 150px;
+  margin: 10px 0 0 0;
+  padding: 0;
+  /* background: #cc1f00; */
+  border-top: 1px solid #000;
+}
 
 /* 
 footer-end
@@ -80,8 +80,8 @@ footer-end
 
 
 .no-margin
-  {
-    margin: 0;
-  }
+{
+  margin: 0;
+}
 
 

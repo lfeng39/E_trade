@@ -45,6 +45,8 @@ def products(request):
     navApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
+        'product_title': models.getTitle(),
+        'product_img': models.getImgURL(),
     }
 
     return render(request, 'products.html', navApi)
@@ -56,6 +58,8 @@ def zmh(request):
         'appTitle': models.nav('appTitle'),
         'asin': 59.97,
         'listing': models.listingCon('B09YLLXKDT'),
+        'product_img': models.getImgURL(),
+        
     }
 
     return render(request, 'detail.html', navApi)
@@ -67,6 +71,7 @@ def ydj(request):
         'appTitle': models.nav('appTitle'),
         'asin': 15.99,
         'listing': models.listingCon('B09YLKWBMV'),
+        'product_img': models.getImgURL(),
     }
 
     return render(request, 'detail.html', navApi)

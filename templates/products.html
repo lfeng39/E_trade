@@ -32,18 +32,18 @@
     <div class="wrap">
         <div class="container-standard flex_container">
             <div class="card-3">
-                <div><img src="" alt=""></div>
-                <div><h3>title</h3></div>
+                <div><img src="{{ product_img.0 }}" alt=""></div>
+                <div><h3>{{ product_title.0 }}</h3></div>
                 <div>$<span>price</span></div>
             </div>
             <div class="card-3">
-                <div><img src="" alt=""></div>
-                <div><h3>title</h3></div>
+                <div><img src="{%static 'image/test02.png'%}" alt=""></div>
+                <div><h3>{{ product_title.1 }}</h3></div>
                 <div>$<span>price</span></div>
             </div>
             <div class="card-3">
-                <div><img src="" alt=""></div>
-                <div><h3>title</h3></div>
+                <div><img src="{%static 'image/trenovkr/img/newRelease/1800.jpg'%}" alt=""></div>
+                <div><h3>{{ product_title.2 }}</h3></div>
                 <div>$<span>price</span></div>
             </div>
         </div>
