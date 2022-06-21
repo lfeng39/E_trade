@@ -77,7 +77,7 @@ def getImgURL():
     yyy = '/static/' + xxx + '/test01.png'
 
     # 类型1：获取 7 文件夹下的第一张图片作为产品页面的首图展示，返回首图列表
-    # 类型2：获取全部图片，
+    # 类型2：获取 7 、a_plus文件夹下的所有图片，通过ASIN，返回图片列表
 
     return yyy
 print(getImgURL())
