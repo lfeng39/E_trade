@@ -39,26 +39,26 @@
                 </div>
             </div>
             <div class="card-2">
-                <div><h1>{{ listing.0 }}</h1></div>
-                <div>$<span>{{ asin }}</span></div>
+                <div><h1>{{ asin.ProductTitle }}</h1></div>
+                <div>$<span>{{ asin.name.z }}</span></div>
                 <div>
                     <ul>
-                        <li><p>{{ listing.1 }}</p></li>
-                        <li><p>{{ listing.2 }}</p></li>
-                        <li><p>{{ listing.3 }}</p></li>
-                        <li><p>{{ listing.4 }}</p></li>
-                        <li><p>{{ listing.5 }}</p></li>
+                        <li><p>{{ asin.BulletPoint.0 }}</p></li>
+                        <li><p>{{ asin.BulletPoint.1 }}</p></li>
+                        <li><p>{{ asin.BulletPoint.2 }}</p></li>
+                        <li><p>{{ asin.BulletPoint.3 }}</p></li>
+                        <li><p>{{ asin.BulletPoint.4 }}</p></li>
                     </ul>
                 </div>
             </div>
         </div>
 
         <div class="container-standard">
-            <div><h3>Discription</h3></div>
+            <div><h3>Description</h3></div>
             <div>
-                <p>{{ listing.6 }}</p>
+                <p>{{ asin.Description }}</p>
             </div>
-            <div class="card-standard">img</div>
+            <div class="card-standard">{{ asin.a_plus_img.0 }}</div>
         </div>
 
     </div>

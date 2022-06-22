@@ -1,3 +1,4 @@
+from tempfile import tempdir
 from django.db import models
 import pandas as pd
 
@@ -80,18 +81,33 @@ def getImgURL():
     # 类型2：获取 7 、a_plus文件夹下的所有图片，通过ASIN，返回图片列表
 
     return yyy
-print(getImgURL())
+# print(getImgURL())
 
-def listingCon(asin):
+
+def listingData(asin):
+
+    '''
+    通过asin获取产品listing数据，并以Dict类型返回
+    '''
+
     data_listing = conData(asin)
 
-    key = []
-    value = []
+    temp = []
     for i in range(1,9):
         # listing_Dict = {
-        key.append(data_listing.iloc[i,0])
-        value.append(data_listing.iloc[i,1])
+        temp.append(data_listing.iloc[i,1])
         # }
-    listing_Dict = dict(zip(key,value))
-        
-    return list(listing_Dict.values())
+    # print(temp[6])
+    key = ['img', 'ProductTitle', 'BulletPoint', 'Description', 'a_plus_img']
+    value = [
+                'img',
+                temp[0],
+                [temp[1],temp[2],temp[3],temp[4],temp[5]],
+                temp[6],
+                [1,2,3]
+            ]
+
+    listingData = dict(zip(key,value))
+
+    return listingData
+# listingData('B09YLLXKDT')
