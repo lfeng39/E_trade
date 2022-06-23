@@ -1,6 +1,8 @@
 from tempfile import tempdir
+from this import d
 from django.db import models
 import pandas as pd
+import os
 
 # Create your models here.
 def nav(type):
@@ -46,7 +48,7 @@ def test():
 
 dataFile_01 = 'static/csv/' + 'B09YLLXKDT' + '.csv'
 dataFile_02 = 'static/csv/' + 'B09YLKWBMV' + '.csv'
-dataFile_03 = 'static/csv/' + 'B09YLLXKDT' + '.csv'
+dataFile_03 = 'static/csv/' + 'B09KG4R3YR' + '.csv'
 dataFile_04 = 'static/csv/' + 'urls' + '.csv'
 # data_listing = pd.read_csv(dataFile_01, encoding = 'GBK', engine='python')
 # data_listing = pd.read_csv(dataFile_02, encoding = 'GBK', engine='python')
@@ -58,7 +60,7 @@ def conData(asin):
         data_listing = pd.read_csv(dataFile_01, encoding = 'GBK', engine='python')
     elif asin == 'B09YLKWBMV':
         data_listing = pd.read_csv(dataFile_02, encoding = 'GBK', engine='python')
-    elif asin == 'B09YLKWBMV':
+    elif asin == 'B09KG4R3YR':
         data_listing = pd.read_csv(dataFile_03, encoding = 'GBK', engine='python')
     # print(dataFile)
     
@@ -73,16 +75,20 @@ def getTitle():
     print(product_title)
     return product_title
 
-def getImgURL():
-    xxx = pd.read_csv(dataFile_04, encoding = 'GBK', engine='python')['img_url'].values
-    yyy = '/static/' + xxx + '/test01.png'
+# def getImgURL():
+    # xxx = pd.read_csv(dataFile_04, encoding = 'GBK', engine='python')['img_url'].values
+    # yyy = '/static/' + xxx + '/test01.png'
 
     # 类型1：获取 7 文件夹下的第一张图片作为产品页面的首图展示，返回首图列表
     # 类型2：获取 7 、a_plus文件夹下的所有图片，通过ASIN，返回图片列表
 
-    return yyy
+    # return yyy
 # print(getImgURL())
 
+# def getImgName():
+
+def asinInfo(asin):
+    img_url = '/static/image' + asin + '/'
 
 def listingData(asin):
 
