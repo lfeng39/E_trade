@@ -54,6 +54,7 @@ def products(request):
         'appTitle': models.nav('appTitle'),
         'product_title': models.getTitle(),
         'product_img': models.getImgURL(),
+        'productInfo': models.productInfo(),
     }
 
     return render(request, 'products.html', navApi)

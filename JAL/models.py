@@ -87,8 +87,17 @@ def getTitle():
 
 # def getImgName():
 
-def asinInfo(asin):
-    img_url = '/static/image' + asin + '/'
+def productInfo():
+    asin = ['B09YLLXKDT', 'B09YLKWBMV', 'B09KG4R3YR']
+    # asin[0] = []
+    img_url = [
+        os.listdir('static/image/' + asin[0] + '/7')[0],
+        os.listdir('static/image/' + asin[1] + '/7')[0],
+        os.listdir('static/image/' + asin[2] + '/7')[0],
+    ]
+
+    return img_url
+print(productInfo())
 
 def listingData(asin):
 
@@ -106,12 +115,12 @@ def listingData(asin):
     # print(temp[6])
     key = ['img', 'ProductTitle', 'BulletPoint', 'Description', 'a_plus_img']
     value = [
-                'img',
-                temp[0],
-                [temp[1],temp[2],temp[3],temp[4],temp[5]],
-                temp[6],
-                [1,2,3]
-            ]
+        'img',
+        temp[0],
+        [temp[1],temp[2],temp[3],temp[4],temp[5]],
+        temp[6],
+        [1,2,3]
+    ]
 
     listingData = dict(zip(key,value))
 
