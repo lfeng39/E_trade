@@ -1,3 +1,4 @@
+from lib2to3.refactor import get_all_fix_names
 from tempfile import tempdir
 from this import d
 from django.db import models
@@ -48,8 +49,8 @@ def test():
 
 dataFile_01 = 'static/csv/' + 'B09YLLXKDT' + '.csv'
 dataFile_02 = 'static/csv/' + 'B09YLKWBMV' + '.csv'
-dataFile_03 = 'static/csv/' + 'B09KG4R3YR' + '.csv'
-dataFile_04 = 'static/csv/' + 'urls' + '.csv'
+# dataFile_03 = 'static/csv/' + 'B09KG4R3YR' + '.csv'
+# dataFile_04 = 'static/csv/' + 'urls' + '.csv'
 # data_listing = pd.read_csv(dataFile_01, encoding = 'GBK', engine='python')
 # data_listing = pd.read_csv(dataFile_02, encoding = 'GBK', engine='python')
 # data_listing = pd.read_csv(dataFile_03, encoding = 'GBK', engine='python')
@@ -60,8 +61,8 @@ def conData(asin):
         data_listing = pd.read_csv(dataFile_01, encoding = 'GBK', engine='python')
     elif asin == 'B09YLKWBMV':
         data_listing = pd.read_csv(dataFile_02, encoding = 'GBK', engine='python')
-    elif asin == 'B09KG4R3YR':
-        data_listing = pd.read_csv(dataFile_03, encoding = 'GBK', engine='python')
+    # elif asin == 'B09KG4R3YR':
+        # data_listing = pd.read_csv(dataFile_03, encoding = 'GBK', engine='python')
     # print(dataFile)
     
     return data_listing
@@ -70,7 +71,7 @@ def getTitle():
     product_title = [
         pd.read_csv(dataFile_01, encoding = 'GBK', engine='python').iloc[1,1],
         pd.read_csv(dataFile_02, encoding = 'GBK', engine='python').iloc[1,1],
-        pd.read_csv(dataFile_03, encoding = 'GBK', engine='python').iloc[1,1]
+        # pd.read_csv(dataFile_03, encoding = 'GBK', engine='python').iloc[1,1]
     ]
     print(product_title)
     return product_title
@@ -87,17 +88,7 @@ def getTitle():
 
 # def getImgName():
 
-def productInfo():
-    asin = ['B09YLLXKDT', 'B09YLKWBMV', 'B09KG4R3YR']
-    # asin[0] = []
-    img_url = [
-        os.listdir('static/image/' + asin[0] + '/7')[0],
-        os.listdir('static/image/' + asin[1] + '/7')[0],
-        os.listdir('static/image/' + asin[2] + '/7')[0],
-    ]
 
-    return img_url
-print(productInfo())
 
 def listingData(asin):
 
@@ -109,10 +100,8 @@ def listingData(asin):
 
     temp = []
     for i in range(1,9):
-        # listing_Dict = {
         temp.append(data_listing.iloc[i,1])
-        # }
-    # print(temp[6])
+
     key = ['img', 'ProductTitle', 'BulletPoint', 'Description', 'a_plus_img']
     value = [
         'img',
@@ -124,5 +113,27 @@ def listingData(asin):
 
     listingData = dict(zip(key,value))
 
-    return listingData
+    return listingData, temp[0]
 # listingData('B09YLLXKDT')
+
+def productInfo():
+
+    '''
+    获取各文件夹下的图片，将图片分类
+    '''
+    asin = ['B09YLLXKDT', 'B09YLKWBMV']
+
+    img_url = [
+        '/static/image/' + asin[0] + '/7/' + os.listdir('static/image/' + asin[0] + '/7')[0],
+        '/static/image/' + asin[1] + '/7/' + os.listdir('static/image/' + asin[1] + '/7')[0],
+        # os.listdir('static/image/' + asin[2] + '/7')[0],
+    ]
+
+    creatDict = {
+        asin[0]: {'img': img_url[0], 'ProductTitle': listingData(asin[0])[1]},
+        asin[1]: {'img': img_url[1], 'ProductTitle': listingData(asin[1])[1]},
+        # asin[2]: {'img': img_url[2], 'ProductTitle': listingData(asin[2])[1]},
+    }
+
+    return creatDict
+print(productInfo())

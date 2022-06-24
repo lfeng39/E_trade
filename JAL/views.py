@@ -42,18 +42,14 @@ def detail(request):
     
 def products(request):
     '''
-    'asin': models.asinInfo('asin')
-    asinInfo('asin')返回类型：Dict
-    {'firstPic':'url', 'title':'str', 'price':'float'}
-    html引用：{{ asin.firstPic }}
+    'asin': models.productInfo()
+    productInfo()返回类型：Dict、复合型
+    {'img':'url', 'title':'str', 'price':'float'}
+    html引用：{{ productInfo.asin.img }}
     '''
-
-
     navApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
-        'product_title': models.getTitle(),
-        'product_img': models.getImgURL(),
         'productInfo': models.productInfo(),
     }
 
@@ -73,7 +69,7 @@ def zmh(request):
     navApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
-        'asin': models.listingData('B09YLLXKDT'),
+        'asin': models.listingData('B09YLLXKDT')[0],
 
     }
 
@@ -84,7 +80,7 @@ def ydj(request):
     navApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
-        'asin': models.listingData('B09YLKWBMV'),
+        'asin': models.listingData('B09YLKWBMV')[0],
     }
 
     return render(request, 'detail.html', navApi)
