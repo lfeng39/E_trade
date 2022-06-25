@@ -10,5 +10,5 @@ urlpatterns = [
     path('product',views.products, name='product'),
     path('B09YLLXKDT',views.zmh, name='zmh'),
     path('B09YLKWBMV',views.ydj, name='ydj'),
-    path('ddl',views.detail, name='ddl'),
+    path('B09KG4R3YR',views.ddl, name='ddl'),
 ]

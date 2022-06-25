@@ -73,7 +73,8 @@ container-start
   min-height: 150px;
   margin-top: 15px;
 }
-.card-2 > div > img, .card-3 > div > img, .card-4 > div > img, .card-standard > div > img
+
+.card-2 > div > a > img, .card-3 > div > a >  img, .card-4 > div > a >  img, .card-standard > div > a >  img
 {
   min-height: 150px;
   width: 100%;

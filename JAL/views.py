@@ -84,3 +84,13 @@ def ydj(request):
     }
 
     return render(request, 'detail.html', navApi)
+
+def ddl(request):
+
+    navApi = {
+        'url': models.nav('url'),
+        'appTitle': models.nav('appTitle'),
+        'asin': models.listingData('B09KG4R3YR')[0],
+    }
+
+    return render(request, 'detail.html', navApi)
