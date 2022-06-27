@@ -41,10 +41,10 @@ container-start
   border-top: solid 1px #000;
   margin: 0 auto;
 }
-.container-standard > div
+/* .container-standard > div
 {
   border: #000 1px solid;
-}
+} */
 
 /* 
 负责产品展示，营销画面等。有banner、2、3、4列4种模式布局。 
@@ -74,12 +74,12 @@ container-start
   margin-top: 15px;
 }
 
-.card-2 > div > a > img, .card-3 > div > a >  img, .card-4 > div > a >  img, .card-standard > div > a >  img
+.card-2 > div > a > img, .card-3 > div > a > img, .card-4 > div > a > img, .card-standard > div > a > img,
+.card-2 > div > img, .card-standard > div > img
 {
   min-height: 150px;
   width: 100%;
 }
-
 
 .flex_container
 {

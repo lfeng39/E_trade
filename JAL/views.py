@@ -16,6 +16,7 @@ def index(request):
     navApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
+        'imgShow': models.imgShower,
     }
 
     return render(request, 'index.html', navApi)
