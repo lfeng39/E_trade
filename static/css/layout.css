@@ -38,7 +38,7 @@ container-start
 {
   width: 1280px;
   min-height: 150px;
-  border-top: solid 1px #000;
+  /* border-top: solid 1px #000; */
   margin: 0 auto;
 }
 /* .container-standard > div
@@ -94,6 +94,26 @@ container-start
 /* 
 container-end
 */
+
+/* 
+widget
+*/
+.learnMore
+{
+  display: block;
+  width: 130px;
+  height: 35px;
+  line-height: 35px;
+  border-radius: 17.5px;
+  background-color: rgba(126, 197, 149, 0.8);
+  color: #fff;
+  text-align: center;
+  margin: 0 auto;
+}
+.learnMore:hover
+{
+  background-color: rgb(126, 197, 149, 0.9);
+}
 
 /* 
 footer-start

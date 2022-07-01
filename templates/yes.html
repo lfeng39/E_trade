@@ -1,16 +1,16 @@
-<!-- {%load static%} -->
+{%load static%}
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="referrer" content="no-referrer">
 <link type="text/css" rel="stylesheet" media="all" href="{%static 'css/main.css'%}">
 <link type="text/css" rel="stylesheet" media="all" href="{%static 'css/layout.css'%}">
-<!-- <script src="{%static 'www/js/jquery-1.6.2.js'%}"></script> -->
-<title>{{ appTitle.0 }}</title>
+<script src="{%static 'js/jquery-1.6.2.js'%}"></script>
+<title>JAL</title>
 
 </head>
 <body>
-
     <div class="top">
         <div class="nav">
             <div>
@@ -19,6 +19,7 @@
                 </a>
             </div>
             <div class="app flex_container">
+
                 <div><h3><a href="{{ url.1 }}">{{ appTitle.1 }}</a></h3></div>
                 <div><h3><a href="{{ url.2 }}">{{ appTitle.2 }}</a></h3></div>
                 <div><h3><a href="{{ url.3 }}">{{ appTitle.3 }}</a></h3></div>
@@ -30,30 +31,34 @@
     </div>
 
     <div class="wrap">
-        <div class="container-standard flex_container">
-            <div class="card-3">
-                <div><a href="{{ productInfo.url.0 }}"><img src="{{ productInfo.0.img }}" alt=""></a></div>
-                <div><a href=""><h3>{{ productInfo.0.ProductTitle }}</h3></a></div>
-                <div>$<span>price</span></div>
+
+        <div class="container-standard">
+            <div class="card-standard no-margin min-height" style="background-image: url('{{ imgShow.1 }}'); background-size: 100%;">
+                <div>
+                    {{ yes }}
+                    
+                    
+                </div>
             </div>
-            <div class="card-3">
-                <div><a href="{{ productInfo.url.1 }}"><img src="{{ productInfo.1.img }}" alt=""></a></div>
-                <div><a href=""><h3>{{ productInfo.1.ProductTitle }}</h3></a></div>
-                <div>$<span>price</span></div>
-            </div>
-            <div class="card-3">
-                <div><a href="{{ productInfo.url.2 }}"><img src="{{ productInfo.2.img }}" alt=""></a></div>
-                <div><a href=""><h3>{{ productInfo.2.ProductTitle }}</h3></a></div>
-                <div>$<span>price</span></div>
-            </div>
+
+            
+
+            
+
         </div>
+
+
+        
     </div>
+    
+
 
     <footer>
         <div class="container-standard footer">
             <div>
                 <ul>
                     <li><strong>Servies</strong></li>
+                    <li><p><a href="">Me and Mr. Leo</a></p></li>
                     <li><p><a href="">Trenovkr</a></p></li>
                     <li><p><a href="">BOBODOO</a></p></li>
                 </ul>
@@ -67,6 +72,6 @@
         </div>
         
     </footer>
-
+    
 </body>
 </html>

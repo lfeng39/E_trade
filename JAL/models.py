@@ -1,16 +1,13 @@
-from ensurepip import version
-from lib2to3.refactor import get_all_fix_names
-from tempfile import tempdir
-from this import d
 from django.db import models
 import pandas as pd
 import os
+from . import forms
 
 # Create your models here.
 def nav(type):
     
     url = ['index', 'about', 'product', 'B09YLLXKDT', 'B09YLKWBMV', 'B09KG4R3YR',]
-    appTitle = ['JAL', 'About', 'Product', 'ZMH', 'YDJ', 'DDL',]
+    appTitle = ['ME AND MR. LEO', 'About', 'Product', 'ZMH', 'YDJ', 'DDL',]
     
     nav = {
         'About': 'about',
@@ -105,7 +102,6 @@ def productInfo():
     获取各文件夹下的图片，将图片分类
     '''
     
-
     img_url = [
         '/static/image/' + asin[0] + version[0] + '/7/' + imgName_Listing[asin[0]][0],
         '/static/image/' + asin[1] + version[0] + '/7/' + imgName_Listing[asin[1]][0],
@@ -128,14 +124,13 @@ def productInfo():
     return productInfo
 # print(productInfo())
 
-def showInfo():
-    '''
-    处理首页及营销页面的图片、文字
-    '''
-    listingData = {
-        'img': 'img',
-        'ProductTitle': '',
-        'BulletPoint': '',
-        'Description': '',
-        'a_plus_img': '',
-    }
+'''
+SAVE DATA
+'''
+def saveData(request):
+    
+    new_df = [123,forms.DataForm.getData(request)]
+    postData = pd.DataFrame(new_df)
+    postData.to_csv('static/csv/123.csv')
+    print('yes')
+

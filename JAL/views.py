@@ -1,45 +1,40 @@
 from urllib import response
 from django.shortcuts import get_object_or_404, render
 from . import models
-# from . import images
-# from . import ladyBug
-# from django.template.defaulttags import register
-
-# Create your views here.
-# @register.filter('list')
-# def range(value):
-#     return range(value)
-
+from . import forms
+from . import styles
 
 def index(request):
     
-    navApi = {
+    jasonApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
         'imgShow': models.imgShower,
+        'styles': styles.bgContainer(),
+        'aaa': styles.position(),
     }
 
-    return render(request, 'index.html', navApi)
+    return render(request, 'index.html', jasonApi)
 
 def about(request):
     
-    navApi = {
+    jasonApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
     }
 
-    return render(request, 'about.html', navApi)
+    return render(request, 'about.html', jasonApi)
 
 def detail(request):
 
-    navApi = {
+    jasonApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
     
         'asin': {1:'a', 'name':{1:'x', 2:'y', 'z':'jessie'}}
     }
 
-    return render(request, 'detail.html', navApi)
+    return render(request, 'detail.html', jasonApi)
     
 def products(request):
     '''
@@ -48,13 +43,13 @@ def products(request):
     {'img':'url', 'title':'str', 'price':'float'}
     html引用：{{ productInfo.asin.img }}
     '''
-    navApi = {
+    jasonApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
         'productInfo': models.productInfo(),
     }
 
-    return render(request, 'products.html', navApi)
+    return render(request, 'products.html', jasonApi)
 
 def zmh(request):
     '''
@@ -67,31 +62,58 @@ def zmh(request):
     list: asin.a_plus.i
     '''
 
-    navApi = {
+    jasonApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
         'asin': models.listingData('B09YLLXKDT')[0],
 
     }
 
-    return render(request, 'detail.html', navApi)
+    return render(request, 'detail.html', jasonApi)
 
 def ydj(request):
 
-    navApi = {
+    jasonApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
         'asin': models.listingData('B09YLKWBMV')[0],
     }
 
-    return render(request, 'detail.html', navApi)
+    return render(request, 'detail.html', jasonApi)
 
 def ddl(request):
 
-    navApi = {
+    jasonApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
         'asin': models.listingData('B09KG4R3YR')[0],
     }
 
-    return render(request, 'detail.html', navApi)
+    return render(request, 'detail.html', jasonApi)
+
+
+
+
+def test(request):
+    
+    jasonApi = {
+            'url': models.nav('url'),
+            'appTitle': models.nav('appTitle'),
+
+            'test': forms.DataForm.getData(request)
+        }
+
+    return render(request, 'detail.html', jasonApi)
+
+
+def postData(request):
+    models.saveData(request)
+
+    jasonApi = {
+            'url': models.nav('url'),
+            'appTitle': models.nav('appTitle'),
+
+            'yes': 'yes'
+        }
+
+    return render(request, 'yes.html', jasonApi)

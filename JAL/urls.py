@@ -1,6 +1,7 @@
 from django.urls import path
 
 from JAL import views
+from JAL import models
 
 urlpatterns = [
     # ex: /polls/
@@ -11,4 +12,6 @@ urlpatterns = [
     path('B09YLLXKDT',views.zmh, name='zmh'),
     path('B09YLKWBMV',views.ydj, name='ydj'),
     path('B09KG4R3YR',views.ddl, name='ddl'),
+    path('test',views.test, name='test'),
+    path('yes',views.postData, name='test'),
 ]

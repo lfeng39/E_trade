@@ -6,8 +6,9 @@
 <meta name="referrer" content="no-referrer">
 <link type="text/css" rel="stylesheet" media="all" href="{%static 'css/main.css'%}">
 <link type="text/css" rel="stylesheet" media="all" href="{%static 'css/layout.css'%}">
+<link type="text/css" rel="stylesheet" media="all" href="{%static 'css/position.css'%}">
 <script src="{%static 'js/jquery-1.6.2.js'%}"></script>
-<title>JAL</title>
+<title>{{ appTitle.0 }}</title>
 
 </head>
 <body>
@@ -29,37 +30,103 @@
             <div><a href="">BAG</a></div>
         </div>
     </div>
-
-    <div class="wrap">
-
+    
+    <div class="wrap" style = "{{ styles.B09YLLXKDT }}">
+        
         <div class="container-standard">
-            <div class="card-standard no-margin min-height" style="background-image: url('{{ imgShow.1 }}'); background-size: 100%;">
-                <div>
-                    
-                </div>
-            </div>
 
-            
-
-            <div class="card-standard no-margin min-height" style="background-image: url('{{ imgShow.2 }}'); background-size: cover;">
-                <div>
-                    
-                </div>
-            </div>
-
-            <div class="card-standard no-margin min-height" style="background-image: url('{{ imgShow.0 }}');">
-                <div>
-                    
+            <div class="card-standard no-margin min-height">
+                <div class="position">
+                    <div>
+                        <h1>CLOUD KEY HOLDER</h1>
+                    </div>
+                    <div>
+                        <span>Minimalistic Style Wooden Wall Decor</span>
+                    </div>
+                    <div>
+                        <a href="" class="learnMore">Learn more</a>
+                    </div>
                 </div>
             </div>
 
         </div>
+    
+    </div>
+    
+    <div class="wrap" style="{{ styles.B09YLKWBMV }}">
 
+        <div class="container-standard">
 
+            <div class="card-standard no-margin min-height">
+                <div class="position">
+                    <div>
+                        <h1>BRING YOUR IDEAL KITCHEN TO LIFE</h1>
+                    </div>
+                    <div>
+                        <span>Minimalistic Style Wooden Wall Decor</span>
+                    </div>
+                    <div>
+                        <a href="" class="learnMore">Learn more</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <div class="wrap" style="{{ styles.B09KG4R3YR }}');">
+
+        <div class="container-standard">
+
+            <div class="card-standard no-margin min-height">
+                <div class="position">
+                    <div>
+                        <h1>CLOUD KEY HOLDER</h1>
+                    </div>
+                    <div>
+                        <span>Minimalistic Style Wooden Wall Decor</span>
+                    </div>
+                    <div>
+                        <a href="" class="learnMore">Learn more</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
         
     </div>
     
+    <div class="wrap">
 
+        <div class="container-standard">
+
+            <div class="card-standard no-margin min-height" style="{{ styles.B09KG4R3YR }}');">
+                <div class="position">
+                    <div>
+                        <h1>CLOUD KEY HOLDER</h1>
+                    </div>
+                    <div>
+                        <span>Minimalistic Style Wooden Wall Decor</span>
+                    </div>
+                    <div>
+                        <a href="" class="learnMore">Learn more</a>
+                    </div>
+                </div>
+                <div>
+                    <form action="/JAL/yes" method="post">
+                        {%csrf_token%}
+                        <!-- {{ form }} -->
+                        <!-- <label for="test">Your name: </label> -->
+                        <input id="test" type="input" name="test" value="{{ test }}">
+                        <input type="submit" value="OK">
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        
+    </div>
 
     <footer>
         <div class="container-standard footer">
