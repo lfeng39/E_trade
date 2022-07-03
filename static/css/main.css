@@ -48,7 +48,7 @@ wrap-start
 .wrap
 {
   width: 100%;
-  min-height: 600px;
+  /* min-height: 600px; */
   /* background: #005028; */
   /* border: 2px solid #000; 005028*/
 }

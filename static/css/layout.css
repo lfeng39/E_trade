@@ -37,7 +37,7 @@ container-start
 .container-standard
 {
   width: 1280px;
-  min-height: 150px;
+  /* min-height: 150px; */
   /* border-top: solid 1px #000; */
   margin: 0 auto;
 }
@@ -53,31 +53,31 @@ container-start
 .card-standard
 {
   max-width: 100%;
-  min-height: 150px;
+  /* min-height: 150px; */
   /* overflow: hidden; */
 }
 .card-2
 {
   width: 49.845%;
-  min-height: 150px;
+  /* min-height: 150px; */
 }
 .card-3
 {
   /* width: 33.16%; */
   width: 32.66%;
-  min-height: 150px;
+  /* min-height: 150px; */
 }
 .card-4
 {
   width: 24%;
-  min-height: 150px;
+  /* min-height: 150px; */
   margin-top: 15px;
 }
 
 .card-2 > div > a > img, .card-3 > div > a > img, .card-4 > div > a > img, .card-standard > div > a > img,
 .card-2 > div > img, .card-standard > div > img
 {
-  min-height: 150px;
+  /* min-height: 150px; */
   width: 100%;
 }
 
