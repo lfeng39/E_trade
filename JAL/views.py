@@ -16,6 +16,25 @@ def index(request):
 
     return render(request, 'index.html', jasonApi)
 
+def login(request):
+    
+    jasonApi = {
+        'url': models.nav('url'),
+        'appTitle': models.nav('appTitle'),
+
+    }
+
+    return render(request, 'login.html', jasonApi)
+
+def signUp(request):
+    
+    jasonApi = {
+        'url': models.nav('url'),
+        'appTitle': models.nav('appTitle'),
+    }
+
+    return render(request, 'sign-up.html', jasonApi)
+
 def about(request):
     
     jasonApi = {

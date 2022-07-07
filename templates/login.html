@@ -7,7 +7,8 @@
 <link type="text/css" rel="stylesheet" media="all" href="{%static 'css/main.css'%}">
 <link type="text/css" rel="stylesheet" media="all" href="{%static 'css/layout.css'%}">
 <script src="{%static 'js/jquery-1.6.2.js'%}"></script>
-<title>JAL</title>
+<script src="{%static 'js/lfeng.js'%}"></script>
+<title>{{ appTitle.0 }}</title>
 
 </head>
 <body>
@@ -26,24 +27,35 @@
                 <div><h3><a href="{{ url.4 }}">{{ appTitle.4 }}</a></h3></div>
                 <div><h3><a href="{{ url.5 }}">{{ appTitle.5 }}</a></h3></div>
             </div>
-            <div><a href="{{ url.6 }}">Login</a></div>
+            <div>
+                <!-- <a href="{{ url.6 }}">{{ url.6 }}</a> -->
+            </div>
         </div>
     </div>
 
     <div class="wrap">
 
         <div class="container-standard">
-            <div class="card-standard no-margin min-height" style="background-image: url('{{ imgShow.1 }}'); background-size: 100%;">
-                <div>
-                    {{ yes }}
-                    
-                    
-                </div>
-            </div>
 
-            
-
-            
+            <form class="login" action="/JAL/yes" method="post">
+                {%csrf_token%}
+                <!-- {{ form }} -->
+                <ul>
+                    <!-- <label for="test">Your name: </label> -->
+                    <li>
+                        <input id="account" type="input" name="account" value="YOUR EMAIL" onclick="loginControl('account')">
+                    </li>
+                    <li>
+                        <input id="passWord" type="input" name="passWord" value="PASSWORD" onclick="loginControl('passWord')">
+                    </li>
+                    <li>
+                        <input type="submit" value="{{ appTitle.6 }}">
+                    </li>
+                    <li>
+                        <a href="{{ url.7 }}">{{ appTitle.7 }}</a>
+                    </li>
+                </ul>
+            </form>
 
         </div>
 
@@ -58,7 +70,6 @@
             <div>
                 <ul>
                     <li><strong>Servies</strong></li>
-                    <li><p><a href="">Me and Mr. Leo</a></p></li>
                     <li><p><a href="">Trenovkr</a></p></li>
                     <li><p><a href="">BOBODOO</a></p></li>
                 </ul>

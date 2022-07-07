@@ -30,7 +30,7 @@
                 <div><h3><a href="{{ url.4 }}">{{ appTitle.4 }}</a></h3></div>
                 <div><h3><a href="{{ url.5 }}">{{ appTitle.5 }}</a></h3></div>
             </div>
-            <div><a href="">BAG</a></div>
+            <div><a href="{{ url.6 }}">Login</a></div>
         </div>
     </div>
     
@@ -118,13 +118,7 @@
                     </div>
                 </div>
                 <div>
-                    <form action="/JAL/yes" method="post">
-                        {%csrf_token%}
-                        <!-- {{ form }} -->
-                        <!-- <label for="test">Your name: </label> -->
-                        <input id="test" type="input" name="test" value="{{ test }}">
-                        <input type="submit" value="OK">
-                    </form>
+                    
                 </div>
             </div>
 

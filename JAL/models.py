@@ -6,8 +6,8 @@ from . import forms
 # Create your models here.
 def nav(type):
     
-    url = ['index', 'about', 'product', 'B09YLLXKDT', 'B09YLKWBMV', 'B09KG4R3YR',]
-    appTitle = ['ME AND MR. LEO', 'About', 'Product', 'ZMH', 'YDJ', 'DDL',]
+    url = ['index', 'about', 'product', 'B09YLLXKDT', 'B09YLKWBMV', 'B09KG4R3YR', 'login', 'signUp']
+    appTitle = ['ME AND MR. LEO', 'About', 'Product', 'ZMH', 'YDJ', 'DDL', 'Login', 'Sign Up']
     
     nav = {
         'About': 'about',
@@ -129,7 +129,7 @@ SAVE DATA
 '''
 def saveData(request):
     
-    new_df = [123,forms.DataForm.getData(request)]
+    new_df = [forms.DataForm.getData(request)[1],forms.DataForm.getData(request)[0]]
     postData = pd.DataFrame(new_df)
     postData.to_csv('static/csv/123.csv')
     print('yes')

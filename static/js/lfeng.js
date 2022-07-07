@@ -13,6 +13,7 @@ window.addEventListener('load', function()
     }
 )
 
+// index img auto height
 window.onload = function()
 {
     var bodyWid = document.body.clientWidth
@@ -49,3 +50,21 @@ function myfunction()
 }
 
 window.addEventListener("resize", myfunction);
+
+// login input control
+
+function loginControl(x)
+{
+    // alert(document.getElementById('account').value = 'leo')
+    
+    if(x == 'account')
+    {
+        document.getElementById('account').value = ''
+    }
+    else if(x == 'passWord')
+    {
+        document.getElementById('passWord').value = ''
+    }
+
+}
+// window.addEventListener("click", loginControl);
