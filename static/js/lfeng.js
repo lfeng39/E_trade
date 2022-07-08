@@ -51,20 +51,18 @@ function myfunction()
 
 window.addEventListener("resize", myfunction);
 
-// login input control
 
-function loginControl(x)
+// login input control
+function loginControl(type)
 {
-    // alert(document.getElementById('account').value = 'leo')
     
-    if(x == 'account')
+    if(type == 'account')
     {
         document.getElementById('account').value = ''
     }
-    else if(x == 'passWord')
+    else if(type == 'passWord')
     {
         document.getElementById('passWord').value = ''
     }
 
 }
-// window.addEventListener("click", loginControl);

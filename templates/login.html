@@ -16,11 +16,10 @@
         <div class="nav">
             <div>
                 <a class="" href="{{ url.0 }}">
-                    <h1>{{ appTitle.0 }}</h1>
+                    <h2>{{ appTitle.0 }}</h2>
                 </a>
             </div>
             <div class="app flex_container">
-
                 <div><h3><a href="{{ url.1 }}">{{ appTitle.1 }}</a></h3></div>
                 <div><h3><a href="{{ url.2 }}">{{ appTitle.2 }}</a></h3></div>
                 <div><h3><a href="{{ url.3 }}">{{ appTitle.3 }}</a></h3></div>
@@ -36,20 +35,25 @@
     <div class="wrap">
 
         <div class="container-standard">
-
+            
             <form class="login" action="/JAL/yes" method="post">
                 {%csrf_token%}
                 <!-- {{ form }} -->
+                <div>
+                    <h1>{{ appTitle.6 }}</h1>
+                </div>
                 <ul>
                     <!-- <label for="test">Your name: </label> -->
                     <li>
-                        <input id="account" type="input" name="account" value="YOUR EMAIL" onclick="loginControl('account')">
+                        <input id="account" type="text" name="account" value="YOUR EMAIL" onclick="loginControl('account')">
                     </li>
                     <li>
-                        <input id="passWord" type="input" name="passWord" value="PASSWORD" onclick="loginControl('passWord')">
+                        <input id="passWord" type="text" name="passWord" value="PASSWORD" onclick="loginControl('passWord')">
                     </li>
                     <li>
-                        <input type="submit" value="{{ appTitle.6 }}">
+                        <!-- <input type="submit" value="{{ appTitle.6 }}"> -->
+                        <!-- <a href="" role="button" type="submit">{{ appTitle.6 }}</a> -->
+                        <button type="submit">{{ appTitle.6 }}</button>
                     </li>
                     <li>
                         <a href="{{ url.7 }}">{{ appTitle.7 }}</a>

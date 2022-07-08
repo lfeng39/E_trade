@@ -5,16 +5,19 @@ from . import forms
 
 # Create your models here.
 def nav(type):
-    
-    url = ['index', 'about', 'product', 'B09YLLXKDT', 'B09YLKWBMV', 'B09KG4R3YR', 'login', 'signUp']
+
     appTitle = ['ME AND MR. LEO', 'About', 'Product', 'ZMH', 'YDJ', 'DDL', 'Login', 'Sign Up']
-    
+    url = ['index', 'about', 'product', 'B09YLLXKDT', 'B09YLKWBMV', 'B09KG4R3YR', 'login', 'signUp']
+
     nav = {
+        'ME AND MR. LEO': 'index',
         'About': 'about',
         'Product': 'product',
-        'ZMH': 'zmh',
-        'YDJ': 'ydj',
-        'DDL': 'ddl',
+        'ZMH': 'B09YLLXKDT',
+        'YDJ': 'B09YLKWBMV',
+        'DDL': 'B09KG4R3YR',
+        'Login': 'login',
+        'Sign Up': 'signUp',
     }
 
     if type == 'url':
@@ -54,7 +57,7 @@ imgShow = os.listdir('static/image/show')
 imgShower = []
 for i in range(3):
     imgShower.append('/static/image/show/' + imgShow[i])
-print(imgShower)
+# print(imgShower)
 
 '''
 链接数据库-
@@ -129,8 +132,19 @@ SAVE DATA
 '''
 def saveData(request):
     
-    new_df = [forms.DataForm.getData(request)[1],forms.DataForm.getData(request)[0]]
-    postData = pd.DataFrame(new_df)
-    postData.to_csv('static/csv/123.csv')
+    new_df = [forms.DataForm.getAccountInfo(request)[1],forms.DataForm.getAccountInfo(request)[0]]
+    postData = pd.DataFrame(
+        [forms.DataForm.getAccountInfo(request)[1],forms.DataForm.getAccountInfo(request)[0]],
+        [111,222],
+        ['abc','efg']
+    )
+    postData.to_csv('static/csv/account.csv')
     print('yes')
+    print(postData)
 
+'''
+VERIFY DATA
+'''
+def verifyData():
+
+    accountData = pd.read_csv('static/csv/account.csv')

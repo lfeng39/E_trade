@@ -4,7 +4,7 @@ import os
 from django import forms
 
 class DataForm(forms.Form):
-    def getData(request):
+    def getAccountInfo(request):
         
         if request.method == 'POST':
             responseData = request.POST.get('passWord')

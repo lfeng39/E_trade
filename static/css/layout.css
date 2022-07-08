@@ -121,34 +121,61 @@ form-login-signUp
 */
 .login, .signUp
 {
-  width: 80%;
+  width: 100%;
   min-height: 60%;
   margin: 0 auto;
-  border: #333 solid 1px;
+  /* border: #333 solid 1px; */
+}
+.login > ul, .login > div
+{
+  width:60%;
+  /* border: #000 solid 1px; */
+  margin: 10px 20%;
+  padding: 10px 0;
 }
 .login > ul
 {
-  width:30%; border: #000 solid 1px; margin: 30px 35%; padding: 30px 0;
+  /* border-top: #000 solid 1px; */
+  background: rgb(233, 233, 233);
+  margin: 10px 20% 200px 20%;
+  padding: 60px 0;
 }
 .login > ul > li
 {
-  width:60%; height: 35px; margin: 5px 20%; list-style: none; padding-left: 0;
+  width:39%;
+  height: 39px;
+  margin: 10px 30.5%;
+  list-style: none;
+
 }
-.login > ul > li > input[type="input"]
+.login > ul > li > input[type="text"]
 {
-  border: 1px solid #000; width:97%; height: 30px; background-color: #fff; color: #666; text-align: center;
+  width:97%; 
+  height: 35px; 
+  background-color: #fff;
+  border: 1px solid #ccc; 
+  color: #666; 
+  text-align: center;
 }
-.login > ul > li > input[type="input"]:focus
+.login > ul > li > input[type="text"]:focus
 {
-  outline: none; border-bottom: 1px solid #000; border-top: none; border-left: none; border-right: none; width:97%; height: 30px; background-color: #f5f5f5;
+  width:97%; 
+  height: 35px; 
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ccc; 
+  border-top: none; 
+  border-left: none; 
+  border-right: none; 
+  outline: none;
 }
-.login > ul > li > input[type="submit"]
+.login > ul > li > button[type="submit"]
 {
   width: 100%;
   height: 35px;
-  border-bottom: 1px solid #000;
-  background-color: rgba(126, 197, 149, 0.8);
-  box-shadow: none;
+  border: 1px solid rgb(126, 197, 149, 0.8);
+  border-radius: 5px;
+  background-color: rgb(126, 197, 149, 0.8);
+
 }
 
 /* 

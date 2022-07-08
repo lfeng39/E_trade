@@ -9,6 +9,7 @@ def index(request):
     jasonApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
+        'nav': models.nav('nav'),
         'imgShow': models.imgShower,
         'styles': styles.bgContainer(),
         'aaa': styles.position(),
@@ -21,7 +22,7 @@ def login(request):
     jasonApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
-
+        'nav': models.nav('nav'),
     }
 
     return render(request, 'login.html', jasonApi)
@@ -31,6 +32,7 @@ def signUp(request):
     jasonApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
+        'nav': models.nav('nav'),
     }
 
     return render(request, 'sign-up.html', jasonApi)
@@ -40,6 +42,7 @@ def about(request):
     jasonApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
+        'nav': models.nav('nav'),
     }
 
     return render(request, 'about.html', jasonApi)
@@ -49,7 +52,7 @@ def detail(request):
     jasonApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
-    
+        'nav': models.nav('nav'),
         'asin': {1:'a', 'name':{1:'x', 2:'y', 'z':'jessie'}}
     }
 
@@ -65,6 +68,7 @@ def products(request):
     jasonApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
+        'nav': models.nav('nav'),
         'productInfo': models.productInfo(),
     }
 
@@ -84,6 +88,7 @@ def zmh(request):
     jasonApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
+        'nav': models.nav('nav'),
         'asin': models.listingData('B09YLLXKDT')[0],
 
     }
@@ -95,6 +100,7 @@ def ydj(request):
     jasonApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
+        'nav': models.nav('nav'),
         'asin': models.listingData('B09YLKWBMV')[0],
     }
 
@@ -105,6 +111,7 @@ def ddl(request):
     jasonApi = {
         'url': models.nav('url'),
         'appTitle': models.nav('appTitle'),
+        'nav': models.nav('nav'),
         'asin': models.listingData('B09KG4R3YR')[0],
     }
 
@@ -131,7 +138,7 @@ def postData(request):
     jasonApi = {
             'url': models.nav('url'),
             'appTitle': models.nav('appTitle'),
-
+            'nav': models.nav('nav'),
             'yes': 'yes'
         }
 

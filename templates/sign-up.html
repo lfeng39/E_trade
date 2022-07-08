@@ -40,16 +40,19 @@
             <form class="login" action="/JAL/yes" method="post">
                 {%csrf_token%}
                 <!-- {{ form }} -->
+                <div>
+                    <h1>{{ appTitle.7 }}</h1>
+                </div>
                 <ul>
                     <!-- <label for="test">Your name: </label> -->
                     <li>
-                        <input id="account" type="input" name="account" value="Your Email" onclick="loginControl('account')">
+                        <input id="account" type="text" name="account" value="Your Email" onclick="loginControl('account')">
                     </li>
                     <li>
-                        <input id="passWord" type="input" name="passWord" value="123+ABC+!@#" onclick="loginControl('passWord')">
+                        <input id="passWord" type="text" name="passWord" value="123+ABC+!@#" onclick="loginControl('passWord')">
                     </li>
                     <li>
-                        <input type="submit" value="{{ appTitle.7 }}">
+                        <button type="submit">{{ appTitle.7 }}</button>
                     </li>
                     <li>
                         <a href="{{ url.6 }}">{{ appTitle.6 }}</a>
