@@ -1,17 +1,4 @@
-window.addEventListener('load', function()
-    {
-        var p1 = document.getElementById('us')
-        // console.log(p1)
 
-        var btn = document.getElementById('btn')
-        btn.addEventListener('click', function()
-            {
-
-                p1.innerText = 'Kris'
-            }
-        )
-    }
-)
 
 // index img auto height
 window.onload = function()
@@ -31,7 +18,7 @@ window.onload = function()
     }
 }        
 
-function myfunction()
+function resizeFunction()
 {
     console.log(document.body.clientWidth)
     var bodyWid = document.body.clientWidth
@@ -49,20 +36,29 @@ function myfunction()
     }
 }
 
-window.addEventListener("resize", myfunction);
+window.addEventListener("resize", resizeFunction);
 
 
 // login input control
 function loginControl(type)
 {
     
-    if(type == 'account')
+    if(type == 'accountClick')
     {
         document.getElementById('account').value = ''
     }
-    else if(type == 'passWord')
+    else if(type == 'passWordClick')
     {
         document.getElementById('passWord').value = ''
     }
+    else if(type == 'accountOnblur')
+    {
+        document.getElementById('account').value = 'YOUR EMAIL'
+    }
+    else if(type == 'passWordOnblur')
+    {
+        document.getElementById('passWord').value = 'PASSWORD'
+    }
+
 
 }

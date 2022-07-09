@@ -6,7 +6,7 @@ from . import forms
 # Create your models here.
 def nav(type):
 
-    appTitle = ['ME AND MR. LEO', 'About', 'Product', 'ZMH', 'YDJ', 'DDL', 'Login', 'Sign Up']
+    app_title = ['ME AND MR. LEO', 'About', 'Product', 'ZMH', 'YDJ', 'DDL', 'Login', 'Sign Up']
     url = ['index', 'about', 'product', 'B09YLLXKDT', 'B09YLKWBMV', 'B09KG4R3YR', 'login', 'signUp']
 
     nav = {
@@ -22,8 +22,8 @@ def nav(type):
 
     if type == 'url':
         return url
-    elif type == 'appTitle':
-        return appTitle
+    elif type == 'app_title':
+        return app_title
     elif type == 'nav':
         return nav
     else:
@@ -35,28 +35,28 @@ def nav(type):
 asin = ['B09YLLXKDT', 'B09YLKWBMV', 'B09KG4R3YR']
 version = ['/v1.00', '/v1.01', '/v1.02']
 
-dataFile_01 = 'static/csv/' +  asin[0] + '.csv'
-dataFile_02 = 'static/csv/' +  asin[1] + '.csv'
-dataFile_03 = 'static/csv/' +  asin[2] + '.csv'
+data_file_01 = 'static/csv/' +  asin[0] + '.csv'
+data_file_02 = 'static/csv/' +  asin[1] + '.csv'
+data_file_03 = 'static/csv/' +  asin[2] + '.csv'
 
 # listing图片名称数据字典
-imgName_Listing = {
+img_name_listing = {
         asin[0]: os.listdir('static/image/' + asin[0] + version[0] + '/7'),
         asin[1]: os.listdir('static/image/' + asin[1] + version[0] + '/7'),
         asin[2]: os.listdir('static/image/' + asin[2] + version[0] + '/7'),
     }
 # A_plus图片名称数据字典
-imgName_A_plus = {
+img_name_a_plus = {
         asin[0]: os.listdir('static/image/' + asin[0] + version[0] + '/a_plus'),
         asin[1]: os.listdir('static/image/' + asin[1] + version[0] + '/a_plus'),
         asin[2]: os.listdir('static/image/' + asin[2] + version[0] + '/a_plus'),
     }
 # print(imgName_Listing['B09YLLXKDT'])
 # show图片名称数据字典
-imgShow = os.listdir('static/image/show')
-imgShower = []
-for i in range(3):
-    imgShower.append('/static/image/show/' + imgShow[i])
+img_show = os.listdir('static/image/show')
+img_shower = []
+for i in range(len(img_show)):
+    img_shower.append('/static/image/show/' + img_show[i])
 # print(imgShower)
 
 '''
@@ -65,11 +65,11 @@ for i in range(3):
 def conData(asin):
 
     if asin == 'B09YLLXKDT':
-        data_listing = pd.read_csv(dataFile_01, encoding = 'GBK', engine='python')
+        data_listing = pd.read_csv(data_file_01, encoding = 'GBK', engine='python')
     elif asin == 'B09YLKWBMV':
-        data_listing = pd.read_csv(dataFile_02, encoding = 'GBK', engine='python')
+        data_listing = pd.read_csv(data_file_02, encoding = 'GBK', engine='python')
     elif asin == 'B09KG4R3YR':
-        data_listing = pd.read_csv(dataFile_03, encoding = 'GBK', engine='python')
+        data_listing = pd.read_csv(data_file_03, encoding = 'GBK', engine='python')
     # print(dataFile)
     
     return data_listing
@@ -82,14 +82,14 @@ def listingData(asin):
     {{ asin.ProductTitle }}
     '''
 
-    data_listing = conData(asin)
+    listing_data = conData(asin)
 
     temp = []
     for i in range(1,9):
-        temp.append(data_listing.iloc[i,1])
+        temp.append(listing_data.iloc[i,1])
 
-    listingData = {
-        'listingImg': '/static/image/' + asin + version[0] + '/7/' + imgName_Listing[asin][0],
+    listing_data = {
+        'listingImg': '/static/image/' + asin + version[0] + '/7/' + img_name_listing[asin][0],
         'ProductTitle': temp[0],
         'BulletPoint': [temp[1],temp[2],temp[3],temp[4],temp[5]],
         'Description': temp[6],
@@ -106,9 +106,9 @@ def productInfo():
     '''
     
     img_url = [
-        '/static/image/' + asin[0] + version[0] + '/7/' + imgName_Listing[asin[0]][0],
-        '/static/image/' + asin[1] + version[0] + '/7/' + imgName_Listing[asin[1]][0],
-        '/static/image/' + asin[2] + version[0] + '/7/' + imgName_Listing[asin[2]][0],
+        '/static/image/' + asin[0] + version[0] + '/7/' + img_name_listing[asin[0]][0],
+        '/static/image/' + asin[1] + version[0] + '/7/' + img_name_listing[asin[1]][0],
+        '/static/image/' + asin[2] + version[0] + '/7/' + img_name_listing[asin[2]][0],
     ]
 
     a_plus_img_url = [
@@ -132,12 +132,13 @@ SAVE DATA
 '''
 def saveData(request):
     
-    new_df = [forms.DataForm.getAccountInfo(request)[1],forms.DataForm.getAccountInfo(request)[0]]
-    postData = pd.DataFrame(
-        [forms.DataForm.getAccountInfo(request)[1],forms.DataForm.getAccountInfo(request)[0]],
-        [111,222],
-        ['abc','efg']
-    )
+    receive = [forms.DataForm.getAccountInfo(request)[0],forms.DataForm.getAccountInfo(request)[1]]
+
+    new_df = []
+    if len(new_df) != 0:
+        new_df.append(receive)
+        
+    postData = pd.DataFrame(new_df)
     postData.to_csv('static/csv/account.csv')
     print('yes')
     print(postData)

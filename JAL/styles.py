@@ -13,9 +13,9 @@ def position():
 def bgContainer():
 
     bgContainer = {
-        models.asin[0]: 'background: url(' + models.imgShower[1] + ') no-repeat; background-size: 100%; height: 790px;',
-        models.asin[1]: 'background: url(' + models.imgShower[2] + ') no-repeat; background-size: 100%; height: 790px;',
-        models.asin[2]: 'background: url(' + models.imgShower[0] + '); background-size: 100%; height: 790px;',
+        models.asin[0]: 'background: url(' + models.img_shower[3] + ') no-repeat; background-size: 100%; height: 790px;',
+        models.asin[1]: 'background: url(' + models.img_shower[2] + ') no-repeat; background-size: 100%; height: 790px;',
+        models.asin[2]: 'background: url(' + models.img_shower[0] + '); background-size: 100%; height: 790px;',
     }
 
     return bgContainer

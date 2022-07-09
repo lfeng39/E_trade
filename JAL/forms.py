@@ -7,10 +7,10 @@ class DataForm(forms.Form):
     def getAccountInfo(request):
         
         if request.method == 'POST':
-            responseData = request.POST.get('passWord')
-            aaa = request.POST.get('account')
+            getAccount = request.POST.get('account')
+            getPassWord = request.POST.get('passWord')
             
-        return responseData, aaa
+        return getAccount, getPassWord
     
     def accountVerify():
         pass

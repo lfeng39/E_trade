@@ -45,10 +45,10 @@
                 <ul>
                     <!-- <label for="test">Your name: </label> -->
                     <li>
-                        <input id="account" type="text" name="account" value="YOUR EMAIL" onclick="loginControl('account')">
+                        <input id="account" type="text" name="account" value="YOUR EMAIL" onclick="loginControl('accountClick')" onblur="loginControl('accountOnblur')">
                     </li>
                     <li>
-                        <input id="passWord" type="text" name="passWord" value="PASSWORD" onclick="loginControl('passWord')">
+                        <input id="passWord" type="text" name="passWord" value="PASSWORD" onclick="loginControl('passWordClick')" onblur="loginControl('passWordOnblur')">
                     </li>
                     <li>
                         <!-- <input type="submit" value="{{ appTitle.6 }}"> -->
