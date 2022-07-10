@@ -3,6 +3,9 @@ import pandas as pd
 import os
 from . import forms
 
+class Test(models.Model):
+    name = models.CharField(max_length=20)
+
 # Create your models here.
 def nav(type):
 
