@@ -36,8 +36,12 @@
             <div class="card-standard no-margin min-height" style="background-image: url('{{ imgShow.1 }}'); background-size: 100%;">
                 <div>
                     {{ yes }}
+                    <!-- {% for x in test %}
+                        {{ x.email }}
+                    {% endfor %} -->
                     
-                    
+                    {{ test.0.email }}
+
                 </div>
             </div>
 

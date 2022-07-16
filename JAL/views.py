@@ -1,8 +1,11 @@
+import email
 from urllib import response
 from django.shortcuts import get_object_or_404, render
-from . import models
-from . import forms
-from . import styles
+from JAL import models
+from JAL import forms
+from JAL import styles
+
+
 
 def index(request):
     
@@ -92,7 +95,7 @@ def zmh(request):
         'asin': models.listingData('B09YLLXKDT')[0],
 
     }
-
+    
     return render(request, 'detail.html', jasonApi)
 
 def ydj(request):
@@ -133,13 +136,17 @@ def test(request):
 
 
 def postData(request):
-    models.saveData(request)
+    # models.saveData(request)
+    forms.DataForm.getAccountInfo(request)
+    # test = get_object_or_404(models.UserAccount, email = 'jessie@gmail.com')
+    test = models.UserAccount.objects.all().values()
 
     jasonApi = {
             'url': models.nav('url'),
             'appTitle': models.nav('app_title'),
             'nav': models.nav('nav'),
-            'yes': 'yes'
+            'yes': 'yes',
+            'test': test
         }
 
     return render(request, 'yes.html', jasonApi)

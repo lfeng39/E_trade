@@ -1,10 +1,24 @@
 from django.db import models
 import pandas as pd
 import os
-from . import forms
+from JAL import forms
 
-class Test(models.Model):
-    name = models.CharField(max_length=20)
+class UserAccount(models.Model):
+    email = models.CharField(max_length = 20, blank = False)
+    password = models.CharField(max_length = 20, blank = False)
+    country = models.CharField(max_length = 20, blank = True)
+    ctiy = models.CharField(max_length = 20, blank = True)
+    address = models.CharField(max_length = 300, blank = True)
+    code = models.CharField(max_length = 5, blank = True)
+    first_name = models.CharField(max_length = 20, blank = True)
+    last_name = models.CharField(max_length = 20, blank = True)
+
+class Product(models.Model):
+    asin = models.CharField(max_length=10)
+    title = models.CharField(max_length=140)
+    price = models.IntegerField()
+    descri = models.TextField()
+
 
 # Create your models here.
 def nav(type):
@@ -90,7 +104,7 @@ def listingData(asin):
     temp = []
     for i in range(1,9):
         temp.append(listing_data.iloc[i,1])
-
+    # print(temp)
     listing_data = {
         'listingImg': '/static/image/' + asin + version[0] + '/7/' + img_name_listing[asin][0],
         'ProductTitle': temp[0],
@@ -99,8 +113,8 @@ def listingData(asin):
         'a_plus_img': [1,2,3]
     }
 
-    return listingData, temp[0]
-# listingData('B09YLLXKDT')
+    return listing_data, temp[0]
+# print(listingData('B09YLLXKDT')[0])
 
 def productInfo():
 
@@ -135,15 +149,19 @@ SAVE DATA
 '''
 def saveData(request):
     
-    receive = [forms.DataForm.getAccountInfo(request)[0],forms.DataForm.getAccountInfo(request)[1]]
+    getAccountInfo = forms.DataForm.getAccountInfo(request)
+
+    receive = [getAccountInfo[0], getAccountInfo[1]]
 
     new_df = []
-    if len(new_df) != 0:
-        new_df.append(receive)
-        
+    new_df.append(receive)
+
     postData = pd.DataFrame(new_df)
     postData.to_csv('static/csv/account.csv')
-    print('yes')
+
+    
+
+    # print(len(new_df))
     print(postData)
 
 '''
