@@ -247,7 +247,7 @@ user_account_db = UserAccount.objects.all().values('email','password')
 #     print(i['email'])
 
 
-
+# v1_01
 
 def verifyAccount(request):
     
