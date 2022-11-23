@@ -2,71 +2,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link type="text/css" rel="stylesheet" media="all" href="{%static 'css/main.css'%}">
-<link type="text/css" rel="stylesheet" media="all" href="{%static 'css/layout.css'%}">
-<!-- <script src="{%static 'www/js/jquery-1.6.2.js'%}"></script> -->
-<title>{{ appTitle.0 }}</title>
-
+{% include "head.html" %}
+<title>{{ app_title.0 }}</title>
 </head>
-<body>
-
-    <div class="top">
-        <div class="nav">
-            <div>
-                <a class="" href="{{ url.0 }}">
-                    <h1>{{ appTitle.0 }}</h1>
-                </a>
-            </div>
-            <div class="app flex_container">
-                <div><h3><a href="{{ url.1 }}">{{ appTitle.1 }}</a></h3></div>
-                <div><h3><a href="{{ url.2 }}">{{ appTitle.2 }}</a></h3></div>
-                <div><h3><a href="{{ url.3 }}">{{ appTitle.3 }}</a></h3></div>
-                <div><h3><a href="{{ url.4 }}">{{ appTitle.4 }}</a></h3></div>
-                <div><h3><a href="{{ url.5 }}">{{ appTitle.5 }}</a></h3></div>
-            </div>
-            <div><a href="{{ url.6 }}">Login</a></div>
-        </div>
-    </div>
+<body page_id="{{ page_id }}">
+    
+    {% include "nav.html" %}
+    
 
     <div class="wrap">
-        <div class="container-standard flex_container">
-            <div class="card-3">
-                <div><a href="{{ productInfo.url.0 }}"><img src="{{ productInfo.0.img }}" alt=""></a></div>
-                <div><a href=""><h3>{{ productInfo.0.ProductTitle }}</h3></a></div>
-                <div>$<span>price</span></div>
+        <div class="container grid-container products-shelf">
+            
+            {% for product_info in product_info %}
+            <div class="margin-around">
+                <div><a href="products/{{ product_info.asin }}"><img src="{{ product_info.first_img }}" alt=""></a></div>
+                <div><a href="products/{{ product_info.asin }}" title="{{ product_info.title }}" class="display-row-3">{{ product_info.title }}</a></div>
+                <div>$<b>{{ product_info.price }}</b></div>
             </div>
-            <div class="card-3">
-                <div><a href="{{ productInfo.url.1 }}"><img src="{{ productInfo.1.img }}" alt=""></a></div>
-                <div><a href=""><h3>{{ productInfo.1.ProductTitle }}</h3></a></div>
-                <div>$<span>price</span></div>
-            </div>
-            <div class="card-3">
-                <div><a href="{{ productInfo.url.2 }}"><img src="{{ productInfo.2.img }}" alt=""></a></div>
-                <div><a href=""><h3>{{ productInfo.2.ProductTitle }}</h3></a></div>
-                <div>$<span>price</span></div>
-            </div>
+            {% endfor %}
+
         </div>
     </div>
 
-    <footer>
-        <div class="container-standard footer">
-            <div>
-                <ul>
-                    <li><strong>Servies</strong></li>
-                    <li><p><a href="">Trenovkr</a></p></li>
-                    <li><p><a href="">BOBODOO</a></p></li>
-                </ul>
-                <ul>
-                    <li><strong>About US</strong></li>
-                    <li><p><a href="">Brand Story</a></p></li>
-                    <li><p><a href="">Contact</a></p></li>
-                </ul>
-            </div>
-            <div><p>Copyright © 2022 3.9Kr Inc. All rights reserved. </p></div>
-        </div>
-        
-    </footer>
+    {% include "footer.html" %}
 
 </body>
 </html>

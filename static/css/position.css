@@ -1,21 +1,24 @@
 @import 'fonts.css';
 @import 'layout.css';
 
-
-.position
+@media screen and (min-width:981px)
 {
-  position: relative; 
-  top: 30%; 
-  left: 25%; 
-  width: 50%; 
-  min-height: 100px; 
-  padding: 30px;
-  background: rgb(0, 0, 0, 0.2);
-  border-radius: 10px;
-  color: #fff;
-}
-.position > div
-{
-  padding: 5px;
-  text-align: center;
+  .position
+  {
+    position: relative; 
+    top: 30%; 
+    left: 25%; 
+    width: 50%; 
+    min-height: 100px; 
+    padding: 30px;
+    background: rgb(0, 0, 0, 0.2);
+    border-radius: 10px;
+    color: #fff;
+  }
+  .position > div
+  {
+    /* min-height: 60px; */
+    padding: 10px;
+    text-align: center;
+  }
 }

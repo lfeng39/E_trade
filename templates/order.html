@@ -1,0 +1,99 @@
+<!-- {%load static%} -->
+<!DOCTYPE html>
+<html>
+<head>
+{% include "head.html" %}
+<title>{{ app_title.0 }}</title>
+</head>
+<body page_id="{{ page_id }}">
+    
+    {% include "nav.html" %}
+    
+    
+
+
+    <div id="" class="wrap">
+    
+        <div class="container">
+            <!---------------------address--------------------->
+            <div id="" class="grid margin-t radius-style margin-20 padding-10">
+                <div>
+                    <div>
+                        <span>order-code:</span>
+                    </div>
+                    <div>
+                        <h1>JAL323287NJYYT</h1>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <h1>Jessie</h1>
+                    </div>
+                    <div>
+                        <h2><address>2600 Lafayette St, Santa Clara, CA 95050, U.S</address></h2>
+                    </div>
+                </div>
+            </div>
+            <!---------------------address--------------------->
+        </div>
+
+        <div class="container radius-div">
+            <!---------------------01--------------------->
+            <div id="" class="grid-cart margin-20 padding-10">
+                <div>
+                    <img src="{{ product_info.first_img }}" />
+                </div>
+                <div class="margin-t-b">
+                    <div><a href="" class="display-row-3">{{ product_info.title }}</a></div>
+                    <div><a href="">Qty: 1</a></div>
+                    <div><a href="">Delet</a></div>
+                </div>
+                <div class="padding-20" style="text-align: right;">
+                    <div>$<span>{{ product_info.price }}</span></div>
+                    <div>no cupon</div>
+                    <div>
+                        Subtotal: $<span><b>{{ product_info.price }}</b></span>
+                    </div>
+                </div>
+            </div>
+            <!---------------------01--------------------->
+            <!---------------------02--------------------->
+            <div id="" class="grid-cart margin-20 padding-10">
+                <div>
+                    <img src="{{ product_info.first_img }}" />
+                </div>
+                <div class="margin-t-b">
+                    <div><a href="" class="display-row-3">{{ product_info.title }}</a></div>
+                    <div><a href="">Qty: 1</a></div>
+                    <div><a href="">Delet</a></div>
+                </div>
+                <div class="padding-20" style="text-align: right;">
+                    <div>$<span>{{ product_info.price }}</span></div>
+                    <div>no cupon</div>
+                    <div>
+                        Subtotal: $<span><b>{{ product_info.price }}</b></span>
+                    </div>
+                </div>
+            </div>
+            <!---------------------02--------------------->
+        </div>
+
+        <div class="container">
+            <!---------------------CheckOut--------------------->
+            <div class="margin-20" style="height:60px; line-height:60px; text-align: right;">
+                Total: $<span><b>{{ product_info.price }}</b></span>
+            </div>
+            <div class="margin-20">
+                <a href="{{ nav_account.account }}" class="widget-btn float-right">CheckOut</a>
+            </div>
+            <!---------------------CheckOut--------------------->
+        </div>
+
+    </div>
+    
+    
+    
+    {% include "footer.html" %}
+
+</body>
+</html>

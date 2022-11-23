@@ -1,133 +1,109 @@
-{%load static%}
+<!-- {%load static%} -->
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="referrer" content="no-referrer">
-<link type="text/css" rel="stylesheet" media="all" href="{%static 'css/main.css'%}">
-<link type="text/css" rel="stylesheet" media="all" href="{%static 'css/layout.css'%}">
-<link type="text/css" rel="stylesheet" media="all" href="{%static 'css/position.css'%}">
-<script src="{%static 'js/jquery-1.6.2.js'%}"></script>
-<script src="{%static 'js/lfeng.js'%}"></script>
-
-
-<title>{{ appTitle.0 }}</title>
-
+{% include "head.html" %}
+<title>{{ app_title.0 }}</title>
 </head>
-<body>
-    <div class="top">
-        <div class="nav">
-            <div>
-                <a class="" href="{{ url.0 }}">
-                    <h1>{{ appTitle.0 }}</h1>
-                </a>
-            </div>
-            <div class="app flex_container">
-
-                <div><h3><a href="{{ url.1 }}">{{ appTitle.1 }}</a></h3></div>
-                <div><h3><a href="{{ url.2 }}">{{ appTitle.2 }}</a></h3></div>
-                <div><h3><a href="{{ url.3 }}">{{ appTitle.3 }}</a></h3></div>
-                <div><h3><a href="{{ url.4 }}">{{ appTitle.4 }}</a></h3></div>
-                <div><h3><a href="{{ url.5 }}">{{ appTitle.5 }}</a></h3></div>
-            </div>
-            <div><a href="{{ url.6 }}">Login</a></div>
-        </div>
-    </div>
+<body page_id="{{ page_id }}">
     
-    <div id="B09YLLXKDT" class="wrap" style="{{ styles.B09YLLXKDT }}">
-        
+    {% include "nav.html" %}
+    
+
+    <div id="B0BFHQTG6R" class="wrap" img_name="{{ img_name.B0BFHQTG6R }}">
+    
         <div class="position">
             <div>
-                <h1>CLOUD KEY HOLDER</h1>
+                <h1 class="stronger">CLOUD KEY HOLDER</h1>
             </div>
             <div>
                 <span>Minimalistic Style Wooden Wall Decor</span>
             </div>
             <div>
-                <a href="" class="learnMore">Learn more</a>
+                <a href="products/{{ product_asin.3 }}" class="learnMore auto-margin">Learn more</a>
             </div>
         </div>
 
     </div>
-    
-    </div>
-    
-    <div id="B09YLKWBMV" class="wrap" style="{{ styles.B09YLKWBMV }}">
 
-        <div class="position">
-            <div>
-                <h1>BRING YOUR IDEAL KITCHEN TO LIFE</h1>
-            </div>
-            <div>
-                <span>Minimalistic Style Wooden Wall Decor</span>
-            </div>
-            <div>
-                <a href="" class="learnMore">Learn more</a>
-            </div>
-        </div>
-
-    </div>
-    
-    <div id="B09KG4R3YR" class="wrap" style="{{ styles.B09KG4R3YR }}">
-
-        <div class="position">
-            <div>
-                <h1>CLOUD KEY HOLDER</h1>
-            </div>
-            <div>
-                <span>Minimalistic Style Wooden Wall Decor</span>
-            </div>
-            <div>
-                <a href="" class="learnMore">Learn more</a>
-            </div>
-        </div>
-        
-    </div>
-    
     <div class="wrap">
 
-        <div class="container-standard">
-
-            <div class="card-standard no-margin min-height" style="{{ styles.B09KG4R3YR }}">
-                <div class="position">
-                    <div>
-                        <h1>CLOUD KEY HOLDER</h1>
-                    </div>
-                    <div>
-                        <span>Minimalistic Style Wooden Wall Decor</span>
-                    </div>
-                    <div>
-                        <a href="" class="learnMore">Learn more</a>
-                    </div>
-                </div>
-                <div>
-                    
-                </div>
+        <div class="container grid-container products-shelf">
+            <div class="margin-around">
+                <div><a href="products/{{ product_info.0.asin }}"><img src="{{ product_info.0.first_img }}" alt=""></a></div>
+                <div><a href="products/{{ product_info.0.asin }}" title="{{ product_info.0.title }}" class="display-row-3">{{ product_info.0.title }}</a></div>
+                <div>$<b>{{ product_info.0.price }}</b></div>
             </div>
-
+            <div class="margin-around">
+                <div><a href="products/{{ product_info.1.asin }}"><img src="{{ product_info.1.first_img }}" alt=""></a></div>
+                <div><a href="products/{{ product_info.1.asin }}" title="{{ product_info.1.title }}" class="display-row-3">{{ product_info.1.title }}</a></div>
+                <div>$<b>{{ product_info.1.price }}</b></div>
+            </div>
+            <div class="margin-around">
+                <div><a href="products/{{ product_info.2.asin }}"><img src="{{ product_info.2.first_img }}" alt=""></a></div>
+                <div><a href="products/{{ product_info.2.asin }}" title="{{ product_info.2.title }}" class="display-row-3">{{ product_info.2.title }}</a></div>
+                <div>$<b>{{ product_info.2.price }}</b></div>
+            </div>
+            <div class="margin-around">
+                <div><a href="products/{{ product_info.3.asin }}"><img src="{{ product_info.3.first_img }}" alt=""></a></div>
+                <div><a href="products/{{ product_info.3.asin }}" title="{{ product_info.3.title }}" class="display-row-3">{{ product_info.3.title }}</a></div>
+                <div>$<b>{{ product_info.3.price }}</b></div>
+            </div>
         </div>
         
     </div>
 
-    <footer>
-        <div class="container-standard footer">
+    <div id="B09YLKWBMV" class="wrap" img_name="{{ img_name.B09YLKWBMV }}">
+    
+        <div class="position">
             <div>
-                <ul>
-                    <li><strong>Servies</strong></li>
-                    <li><p><a href="">Me and Mr. Leo</a></p></li>
-                    <li><p><a href="">Trenovkr</a></p></li>
-                    <li><p><a href="">BOBODOO</a></p></li>
-                </ul>
-                <ul>
-                    <li><strong>About US</strong></li>
-                    <li><p><a href="">Brand Story</a></p></li>
-                    <li><p><a href="">Contact</a></p></li>
-                </ul>
+                <h1 class="stronger">CLOUD KEY HOLDER</h1>
             </div>
-            <div><p>Copyright © 2022 3.9Kr Inc. All rights reserved. </p></div>
+            <div>
+                <span>Minimalistic Style Wooden Wall Decor</span>
+            </div>
+            <div>
+                <a href="products/{{ product_asin.1 }}" class="learnMore auto-margin">Learn more</a>
+            </div>
+        </div>
+
+    </div>
+    
+    
+    <div id="B09YLLXKDT" class="wrap" img_name="{{ img_name.B09YLLXKDT }}">
+
+        <div class="position">
+            <div>
+                <h1 class="stronger">BRING YOUR IDEAL KITCHEN TO LIFE</h1>
+            </div>
+            <div>
+                <p><span>Minimalistic Style Wooden Wall Decor</span></p>
+            </div>
+            <div>
+                <a href="products/{{ product_asin.2 }}" class="learnMore auto-margin">Learn more</a>
+            </div>
+        </div>
+
+    </div>
+    
+    <div id="B09KG4R3YR" class="wrap" img_name="{{ img_name.B09KG4R3YR }}">
+
+        <div class="position">
+            <div>
+                <h1 class="stronger">CLOUD KEY HOLDER</h1>
+            </div>
+            <div>
+                <p><span>Minimalistic Style Wooden Wall Decor</span></p>
+            </div>
+            <div>
+                <a href="products/{{ product_asin.0 }}" class="learnMore auto-margin">Learn more</a>
+            </div>
         </div>
         
-    </footer>
-    
+    </div>
+
+
+    {% include "footer.html" %}
+
 </body>
 </html>

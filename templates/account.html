@@ -1,0 +1,77 @@
+<!-- {%load static%} -->
+<!DOCTYPE html>
+<html>
+<head>
+{% include "head.html" %}
+<title>{{ app_title.0 }}</title>
+</head>
+<body page_id="{{ page_id }}">
+    
+    {% include "nav.html" %}
+    
+
+    <div class="wrap">
+
+        <div class="container">
+            
+            <form class="login" action="/JAL/yes" method="post">
+                {%csrf_token%}
+                <!-- {{ form }} -->
+                <div>
+                    <h1>{{ page_id }}</h1>
+                </div>
+                <ul>
+                    <!-- <label for="test">Your name: </label> -->
+                    <li>
+                        <input id="email" type="text" name="email" value="Email" onclick="loginControl('email')">
+                    </li>
+                    <li>
+                        <input id="passWord" type="text" name="passWord" value="PassWord" onclick="loginControl('passWord')">
+                    </li>
+                    <li>UserName</li>
+                    <li>
+                        <input id="passWord" type="text" name="FirstName" value="First Name" onclick="loginControl('passWord')">
+                    </li>
+                    <li>
+                        <input id="passWord" type="text" name="LastName" value="Last Name" onclick="loginControl('passWord')">
+                    </li>
+                    <li>Address</li>
+                    <li>
+                        <input id="passWord" type="text" name="Address" value="Address" onclick="loginControl('passWord')">
+                    </li>
+                    <li>
+                        <input id="passWord" type="text" name="Street" value="Street" onclick="loginControl('passWord')">
+                    </li>
+                    <li>
+                        <input id="passWord" type="text" name="City" value="City" onclick="loginControl('passWord')">
+                    </li>
+                    <li>Code</li>
+                    <li>
+                        <input id="passWord" type="text" name="Country" value="Country" onclick="loginControl('passWord')">
+                    </li>
+                    <li>
+                        <input id="passWord" type="text" name="Code" value="Code" onclick="loginControl('passWord')">
+                    </li>
+                    <li>
+                        <button id="login" type="submit">Submit</button>
+                    </li>
+                    <li>
+                        <a href="{{ nav_account.Login.0 }}">{{ nav_account.Login.1 }}</a>
+                        |
+                        <a href="{{ nav_account.account.0 }}">{{ nav_account.account.1 }}</a>
+                    </li>
+                </ul>
+            </form>
+
+        </div>
+
+
+        
+    </div>
+    
+
+
+    {% include "footer.html" %}
+    
+</body>
+</html>
