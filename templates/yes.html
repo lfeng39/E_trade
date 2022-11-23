@@ -1,47 +1,25 @@
-{%load static%}
+<!-- {%load static%} -->
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="referrer" content="no-referrer">
-<link type="text/css" rel="stylesheet" media="all" href="{%static 'css/main.css'%}">
-<link type="text/css" rel="stylesheet" media="all" href="{%static 'css/layout.css'%}">
-<script src="{%static 'js/jquery-1.6.2.js'%}"></script>
-<title>JAL</title>
-
+{% include "head.html" %}
+<title>{{ app_title.0 }}</title>
 </head>
-<body>
-    <div class="top">
-        <div class="nav">
-            <div>
-                <a class="" href="{{ url.0 }}">
-                    <h1>{{ appTitle.0 }}</h1>
-                </a>
-            </div>
-            <div class="app flex_container">
-
-                <div><h3><a href="{{ url.1 }}">{{ appTitle.1 }}</a></h3></div>
-                <div><h3><a href="{{ url.2 }}">{{ appTitle.2 }}</a></h3></div>
-                <div><h3><a href="{{ url.3 }}">{{ appTitle.3 }}</a></h3></div>
-                <div><h3><a href="{{ url.4 }}">{{ appTitle.4 }}</a></h3></div>
-                <div><h3><a href="{{ url.5 }}">{{ appTitle.5 }}</a></h3></div>
-            </div>
-            <div><a href="{{ url.6 }}">Login</a></div>
-        </div>
-    </div>
+<body page_id="{{ page_id }}">
+    
+    {% include "nav.html" %}
+    
 
     <div class="wrap">
 
-        <div class="container-standard">
+        <div class="container">
             <div class="card-standard no-margin min-height" style="background-image: url('{{ imgShow.1 }}'); background-size: 100%;">
-                <div>
-                    {{ yes }}
-                    <!-- {% for x in test %}
+                <div class="position">
+                    <h1>{{ yes }}</h1>
+                    {% for x in test %}
                         {{ x.email }}
-                    {% endfor %} -->
+                    {% endfor %}
                     
-                    {{ test.0.email }}
-
                 </div>
             </div>
 
@@ -57,25 +35,7 @@
     
 
 
-    <footer>
-        <div class="container-standard footer">
-            <div>
-                <ul>
-                    <li><strong>Servies</strong></li>
-                    <li><p><a href="">Me and Mr. Leo</a></p></li>
-                    <li><p><a href="">Trenovkr</a></p></li>
-                    <li><p><a href="">BOBODOO</a></p></li>
-                </ul>
-                <ul>
-                    <li><strong>About US</strong></li>
-                    <li><p><a href="">Brand Story</a></p></li>
-                    <li><p><a href="">Contact</a></p></li>
-                </ul>
-            </div>
-            <div><p>Copyright © 2022 3.9Kr Inc. All rights reserved. </p></div>
-        </div>
-        
-    </footer>
+    {% include "footer.html" %}
     
 </body>
 </html>

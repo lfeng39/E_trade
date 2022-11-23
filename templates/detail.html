@@ -2,63 +2,80 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link type="text/css" rel="stylesheet" media="all" href="{%static 'css/main.css'%}">
-<link type="text/css" rel="stylesheet" media="all" href="{%static 'css/layout.css'%}">
-<!-- <script src="{%static 'www/js/jquery-1.6.2.js'%}"></script> -->
-<title>{{ appTitle.0 }}</title>
-
+{% include "head.html" %}
+<title>{{ app_title.0 }}</title>
 </head>
-<body>
-
-    <div class="top">
-        <div class="nav">
-            <div>
-                <a class="" href="{{ url.0 }}">
-                    <h1>{{ appTitle.0 }}</h1>
-                </a>
-            </div>
-            <div class="app flex_container">
-                <div><h3><a href="{{ url.1 }}">{{ appTitle.1 }}</a></h3></div>
-                <div><h3><a href="{{ url.2 }}">{{ appTitle.2 }}</a></h3></div>
-                <div><h3><a href="{{ url.3 }}">{{ appTitle.3 }}</a></h3></div>
-                <div><h3><a href="{{ url.4 }}">{{ appTitle.4 }}</a></h3></div>
-                <div><h3><a href="{{ url.5 }}">{{ appTitle.5 }}</a></h3></div>
-            </div>
-            <div><a href="{{ url.6 }}">Login</a></div>
-        </div>
-    </div>
+<body page_id="{{ page_id }}">
+    
+    {% include "nav.html" %}
+    
 
 
-    <div class="wrap">
+    <div id="{{ page_id }}" class="wrap">
         <!-- 产品图片及价格信息 -->
-        <div class="container-standard flex_container">
-            <div class="card-2">
+        <div class="container grid-listing margin-t-b">
+            <div>
                 <div>
-                    <img src="{{ asin.listingImg }}" alt="" />
+                    <img src="{{ product_info.first_img }}" alt="" />
                 </div>
             </div>
-            <div class="card-2">
-                <div><h1>{{ asin.ProductTitle }}</h1></div>
-                <div>$<span>{{ asin.name.z }}</span></div>
+            <div class="product-info">
+                <div><h1>{{ product_info.title }}</h1></div>
+                <div>$<span>{{ product_info.price }}</span></div>
                 <div>
-                    <ul>
-                        <li><p>{{ asin.BulletPoint.0 }}</p></li>
-                        <li><p>{{ asin.BulletPoint.1 }}</p></li>
-                        <li><p>{{ asin.BulletPoint.2 }}</p></li>
-                        <li><p>{{ asin.BulletPoint.3 }}</p></li>
-                        <li><p>{{ asin.BulletPoint.4 }}</p></li>
+                    <a href="" target="_blank" class="widget-btn">Add to Cart</a>
+                </div>
+                <div>
+                    <a href="{{ amazon }}" target="_blank" class="widget-btn">Buy on Amazon</a>
+                </div>
+                <div>
+                    <ul class="bullet-point">
+                        <li>{{ product_description.bullet_point_00 }}</li>
+                        <li>{{ product_description.bullet_point_01 }}</li>
+                        <li>{{ product_description.bullet_point_02 }}</li>
+                        <li>{{ product_description.bullet_point_03 }}</li>
+                        <li>{{ product_description.bullet_point_04 }}</li>
+                        <li>{{ product_description.bullet_point_05 }}</li>
+                        <li>{{ product_description.bullet_point_06 }}</li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <div class="container-standard">
-            <div><h3>{{ test }}</h3></div>
+        <div class="container">
+
+            <img src="{{ product_img.img_970_url.0 }}" alt="" />
+
+        </div>
+
+        <div class="container">
+
+            <p>{{ product_description.description }}</p>
+
+        </div>
+
+        <div class="container grid">
             <div>
-                <p>{{ asin.Description }}</p>
+                <img src="{{ product_img.img_300_url.0 }}" alt="" />
             </div>
-            <div class="card-standard">{{ asin.a_plus_img.0 }}</div>
+            <div>
+                <img src="{{ product_img.img_300_url.1 }}" alt="" />
+            </div>
+            <div>
+                <img src="{{ product_img.img_300_url.2 }}" alt="" />
+            </div>
+        </div>
+
+        <div class="container">
+
+            <div>
+                <img src="{{ product_img.img_970_url.1 }}" alt="" />
+            </div>
+
+            <div>
+                <img src="{{ product_img.img_970_url.2 }}" alt="" />
+            </div>
+
         </div>
 
     </div>
@@ -69,24 +86,7 @@
     <!-- 保养及维护 -->
     <div></div>
 
-    <footer>
-        <div class="container-standard footer">
-            <div>
-                <ul>
-                    <li><strong>Servies</strong></li>
-                    <li><p><a href="">Trenovkr</a></p></li>
-                    <li><p><a href="">BOBODOO</a></p></li>
-                </ul>
-                <ul>
-                    <li><strong>About US</strong></li>
-                    <li><p><a href="">Brand Story</a></p></li>
-                    <li><p><a href="">Contact</a></p></li>
-                </ul>
-            </div>
-            <div><p>Copyright © 2022 3.9Kr Inc. All rights reserved. </p></div>
-        </div>
-        
-    </footer>
+    {% include "footer.html" %}
 
 </body>
 </html>

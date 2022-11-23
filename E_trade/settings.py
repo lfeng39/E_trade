@@ -21,12 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-v#b09(5v2b@^6u!2h6&q@#cqwsfs+-ba1^em8-9!0cm2frh#56'
+SECRET_KEY = 'django-insecure-3ecb=$i84um9$57vh=tx7dk@g1ho2emz#=@--!xsrcgrcs2ocl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['10.254.111.247', '10.254.101.127', '10.254.0.1']
 
 
 # Application definition
@@ -65,6 +66,11 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+
+            # 注册range插件，range.py 放在templates文件夹下
+            'libraries':{
+            'range': 'templates.range',
+            }
         },
     },
 ]
@@ -129,8 +135,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS =[
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'static'),
+    # os.path.join(BASE_DIR, 'range')
 ]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

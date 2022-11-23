@@ -1,172 +1,263 @@
 from django.db import models
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
+import datetime, time
 import pandas as pd
 import os
-from JAL import forms
+from JAL import images
+from JAL import data_source
 
+'''
+Create MySQL DB Table
+'''
 class UserAccount(models.Model):
-    email = models.CharField(max_length = 20, blank = False)
-    password = models.CharField(max_length = 20, blank = False)
-    country = models.CharField(max_length = 20, blank = True)
-    ctiy = models.CharField(max_length = 20, blank = True)
-    address = models.CharField(max_length = 300, blank = True)
-    code = models.CharField(max_length = 5, blank = True)
-    first_name = models.CharField(max_length = 20, blank = True)
-    last_name = models.CharField(max_length = 20, blank = True)
+    user_id = models.CharField(max_length = 20, blank=True)
+    email = models.EmailField(max_length = 20, blank=False) # false：必填
+    password = models.CharField(max_length = 20, blank=False)
+    first_name = models.CharField(max_length = 20, blank=True)
+    last_name = models.CharField(max_length = 20, blank=True)
+    address = models.CharField(max_length = 300, blank=True)
+    street = models.CharField(max_length = 300, blank=True)
+    ctiy = models.CharField(max_length = 20, blank=True)
+    country = models.CharField(max_length = 20, blank=True)
+    code = models.CharField(max_length = 5, blank=True)
 
-class Product(models.Model):
-    asin = models.CharField(max_length=10)
-    title = models.CharField(max_length=140)
+class AsinInfo(models.Model):
+    asin = models.CharField(max_length=20, blank=True)
+    sku = models.CharField(max_length=30, blank=True)
+    sku_sn = models.CharField(max_length=50, blank=True)
+
+class ProductInfo(models.Model):
+    asin = models.CharField(max_length=20, blank=True)
+    sku = models.CharField(max_length=30, blank=True)
+    sku_sn = models.CharField(max_length=50, blank=True)
+    title = models.CharField(max_length=300, blank=True)
     price = models.IntegerField()
-    descri = models.TextField()
+    bullet_point = models.CharField(max_length=3000, blank=True)
+    description = models.TextField(max_length=500, blank=True)
+    first_img = models.CharField(max_length=300, blank=True)
 
+class ProductDescription(models.Model):
+    asin = models.CharField(max_length=20, blank=True)
+    bullet_point_00 = models.CharField(max_length=500, blank=True)
+    bullet_point_01 = models.CharField(max_length=500, blank=True)
+    bullet_point_02 = models.CharField(max_length=500, blank=True)
+    bullet_point_03 = models.CharField(max_length=500, blank=True)
+    bullet_point_04 = models.CharField(max_length=500, blank=True)
+    bullet_point_05 = models.CharField(max_length=500, blank=True)
+    bullet_point_06 = models.CharField(max_length=500, blank=True)
+    description = models.TextField(max_length=500, blank=True)
+
+class Image(models.Model):
+    asin = models.CharField(max_length=20, blank=True)
+    listing_7 = models.CharField(max_length=140, blank=True)
+    A_970 = models.CharField(max_length=140, blank=True)
+    A_300 = models.CharField(max_length=140, blank=True)
+
+class SalesStatus(models.Model):
+    asin = models.CharField(max_length=20, blank=True)
+    new = models.IntegerField()
+    onSale = models.IntegerField()
+    unavailabe = models.IntegerField()
+    restock = models.IntegerField()
+
+class Cart(models.Model):
+    user_id = models.CharField(max_length = 20, blank=False)
+    asin = models.CharField(max_length=10, blank=True)
+
+class Order(models.Model):
+    order_id = models.CharField(max_length = 20, blank=False)
+    user_id = models.CharField(max_length = 20, blank=False)
+
+
+'''
+Check Asin
+'''
+class LatestAsin():
+    '''
+    get asin from MySql DB
+    '''
+    def asin_mySql_db():
+        asin_mySql = AsinInfo.objects.all()
+        asin_mySql_db = []
+        for i in asin_mySql:
+            asin_mySql_db.append(i.asin)
+
+        return asin_mySql_db
+
+    def saveAsin(new_asin):
+        AsinInfo.objects.create(
+            asin = new_asin,
+            sku = new_asin + '-tempName',
+            sku_sn = new_asin + '-tempName-',
+        )
+
+    '''
+    check new asin
+    '''
+    def checkNewAsin():
+        # initializa asin_csv
+        asin_csv = data_source.DataSource.getAsinCvs('asin')
+        if len(asin_csv) == len(LatestAsin.asin_mySql_db()):
+            '''
+            the same csv adn mySql, return None
+            '''
+            print('\n\n', '>>>>>> no new asin ===')
+
+            return 'None'
+
+        elif len(asin_csv) > len(LatestAsin.asin_mySql_db()):
+            '''
+            more csv, return new asin from csv
+            '''
+            new_asin_list = []
+            for asin in asin_csv:
+                if asin in LatestAsin.asin_mySql_db():
+                    pass
+                else:
+                    new_asin_list.append(asin)
+            print(' >>>>>> have new asin... saving... ===')
+
+            return new_asin_list
+
+        elif len(asin_csv) < len(LatestAsin.asin_mySql_db()):
+            '''
+            more mySql DB, delete different asin, and return asin list from mySql DB
+            '''
+            try:
+                AsinInfo.objects.filter(id='392').delete()
+            except:
+                print(' >>>>>> oh, somthing error... ===')
+            
+            return LatestAsin.asin_mySql_db()
+
+
+'''
+Save Products Data From CSV to MySQL DB
+'''
+# initializa newAsin
+have_new_asin = LatestAsin.checkNewAsin()
+# have_new_asin = 'None'
+# def saveAsin():
+if have_new_asin == 'None':
+    pass
+else:
+    for new_asin in have_new_asin:
+        AsinInfo.objects.create(
+            asin = new_asin,
+            sku = new_asin + '-tempName',
+            sku_sn = new_asin + '-tempName-',
+        )
+        
+        ProductDescription.objects.create(
+            asin = new_asin,
+            bullet_point_00 = data_source.parseCSV.bulletPoint(new_asin)['Bullet Point'][0],
+            bullet_point_01 = data_source.parseCSV.bulletPoint(new_asin)['Bullet Point'][1],
+            bullet_point_02 = data_source.parseCSV.bulletPoint(new_asin)['Bullet Point'][2],
+            bullet_point_03 = data_source.parseCSV.bulletPoint(new_asin)['Bullet Point'][3],
+            bullet_point_04 = data_source.parseCSV.bulletPoint(new_asin)['Bullet Point'][4],
+            bullet_point_05 = data_source.parseCSV.bulletPoint(new_asin)['Bullet Point'][5],
+            bullet_point_06 = data_source.parseCSV.bulletPoint(new_asin)['Bullet Point'][6],
+            description = data_source.parseCSV.__description__(new_asin)['Description'],
+        )
+
+        ProductInfo.objects.create(
+            asin = new_asin,
+            sku = new_asin + '-tempName',
+            sku_sn = new_asin + '-tempName-',
+            title = data_source.parseCSV.productTitle(new_asin)['Product Title'],
+            price = 39.99,
+            bullet_point = new_asin,
+            description = new_asin,
+            first_img = images.urlAsinImg(LatestAsin.asin_mySql_db())[new_asin]['7'][0],
+        )
+    print('\n', '>>>>>>', 'new asin add', '\n', have_new_asin)
+
+
+print('\n', '>>>>>>', 'from DB:', '\n', LatestAsin.asin_mySql_db(), '\n', images.urlAsinImg(LatestAsin.asin_mySql_db())['B0BM44ST75']['7'][0])
+
+
+
+'''
+Global Variable
+'''
+_asin_ = LatestAsin.asin_mySql_db()
+product = _asin_
+page_id = ['index', 'about', 'products', 'myCart', 'login', 'signUp', 'order', 'account', 'myAccount', product]
+# print('look:>>>>>>',page_id[6])
 
 # Create your models here.
-def nav(type):
+server_url = 'http://140.82.22.68:8000/JAL/'
+local_url = 'http://127.0.0.1:8000/JAL/'
+base_url = local_url
+def nav():
+    nav_dict = {
+        '_index_' : {
+            'index': base_url + '',
+        },
 
-    app_title = ['ME AND MR. LEO', 'About', 'Product', 'ZMH', 'YDJ', 'DDL', 'Login', 'Sign Up']
-    url = ['index', 'about', 'product', 'B09YLLXKDT', 'B09YLKWBMV', 'B09KG4R3YR', 'login', 'signUp']
+        '_nav_' : {
+            'About': base_url + 'about',
+            'Product': base_url + 'products',
+        },
 
-    nav = {
-        'ME AND MR. LEO': 'index',
-        'About': 'about',
-        'Product': 'product',
-        'ZMH': 'B09YLLXKDT',
-        'YDJ': 'B09YLKWBMV',
-        'DDL': 'B09KG4R3YR',
-        'Login': 'login',
-        'Sign Up': 'signUp',
+        '_account_' : {
+            'Cart': [base_url + 'cart', 'cart'],
+            'Login': [base_url + 'login', 'login'],
+            'SignUp': [base_url + 'signUp', 'signUp'],
+            'order': [base_url + 'order', 'order'],
+            'account': [base_url + 'account', 'account'],
+            'myAccount': [base_url + 'myAccount', 'myAccount'],
+        }
     }
 
-    if type == 'url':
-        return url
-    elif type == 'app_title':
-        return app_title
-    elif type == 'nav':
-        return nav
-    else:
-        pass
+    return nav_dict
 
-'''
-全局变量
-'''
-asin = ['B09YLLXKDT', 'B09YLKWBMV', 'B09KG4R3YR']
-version = ['/v1.00', '/v1.01', '/v1.02']
 
-data_file_01 = 'static/csv/' +  asin[0] + '.csv'
-data_file_02 = 'static/csv/' +  asin[1] + '.csv'
-data_file_03 = 'static/csv/' +  asin[2] + '.csv'
 
-# listing图片名称数据字典
-img_name_listing = {
-        asin[0]: os.listdir('static/image/' + asin[0] + version[0] + '/7'),
-        asin[1]: os.listdir('static/image/' + asin[1] + version[0] + '/7'),
-        asin[2]: os.listdir('static/image/' + asin[2] + version[0] + '/7'),
-    }
-# A_plus图片名称数据字典
-img_name_a_plus = {
-        asin[0]: os.listdir('static/image/' + asin[0] + version[0] + '/a_plus'),
-        asin[1]: os.listdir('static/image/' + asin[1] + version[0] + '/a_plus'),
-        asin[2]: os.listdir('static/image/' + asin[2] + version[0] + '/a_plus'),
-    }
-# print(imgName_Listing['B09YLLXKDT'])
-# show图片名称数据字典
-img_show = os.listdir('static/image/show')
-img_shower = []
-for i in range(len(img_show)):
-    img_shower.append('/static/image/show/' + img_show[i])
-# print(imgShower)
+def detailImg(asin):
 
-'''
-链接数据库-
-'''
-def conData(asin):
-
-    if asin == 'B09YLLXKDT':
-        data_listing = pd.read_csv(data_file_01, encoding = 'GBK', engine='python')
-    elif asin == 'B09YLKWBMV':
-        data_listing = pd.read_csv(data_file_02, encoding = 'GBK', engine='python')
-    elif asin == 'B09KG4R3YR':
-        data_listing = pd.read_csv(data_file_03, encoding = 'GBK', engine='python')
-    # print(dataFile)
-    
-    return data_listing
-
-def listingData(asin):
-
-    '''
-    通过asin获取产品listing数据，并以Dict类型返回
-    {{ asin.listingImg }}
-    {{ asin.ProductTitle }}
-    '''
-
-    listing_data = conData(asin)
-
-    temp = []
-    for i in range(1,9):
-        temp.append(listing_data.iloc[i,1])
-    # print(temp)
-    listing_data = {
-        'listingImg': '/static/image/' + asin + version[0] + '/7/' + img_name_listing[asin][0],
-        'ProductTitle': temp[0],
-        'BulletPoint': [temp[1],temp[2],temp[3],temp[4],temp[5]],
-        'Description': temp[6],
-        'a_plus_img': [1,2,3]
+    detail_img = {
+        'img_7_url': images.urlAsinImg(_asin_)[asin]['7'],
+        'img_970_url': images.urlAsinImg(_asin_)[asin]['970'],
+        'img_300_url': images.urlAsinImg(_asin_)[asin]['300'],
     }
 
-    return listing_data, temp[0]
-# print(listingData('B09YLLXKDT')[0])
+    return detail_img
 
-def productInfo():
 
-    '''
-    获取各文件夹下的图片，将图片分类
-    '''
-    
-    img_url = [
-        '/static/image/' + asin[0] + version[0] + '/7/' + img_name_listing[asin[0]][0],
-        '/static/image/' + asin[1] + version[0] + '/7/' + img_name_listing[asin[1]][0],
-        '/static/image/' + asin[2] + version[0] + '/7/' + img_name_listing[asin[2]][0],
-    ]
-
-    a_plus_img_url = [
-        '/static/image/' + asin[0] + version[0] + '/a_plus/' + os.listdir('static/image/' + asin[0] + version[0] + '/a_plus')[0],
-        '/static/image/' + asin[1] + version[0] + '/a_plus/' + os.listdir('static/image/' + asin[1] + version[0] + '/a_plus')[0],
-        '/static/image/' + asin[2] + version[0] + '/a_plus/' + os.listdir('static/image/' + asin[2] + version[0] + '/a_plus')[0],
-    ]
-
-    productInfo = {
-        0: {'img': img_url[0], 'ProductTitle': listingData(asin[0])[1]},
-        1: {'img': img_url[1], 'ProductTitle': listingData(asin[1])[1]},
-        2: {'img': img_url[2], 'ProductTitle': listingData(asin[2])[1]},
-        'url': [asin[0], asin[1], asin[2]]
-    }
-
-    return productInfo
-# print(productInfo())
 
 '''
-SAVE DATA
+index IMG
 '''
-def saveData(request):
-    
-    getAccountInfo = forms.DataForm.getAccountInfo(request)
+img_show_dict = {}
+for i in range(len(_asin_)):
+    img_show_dict[_asin_[i]] = os.listdir('static/image/show/' + _asin_[i])
 
-    receive = [getAccountInfo[0], getAccountInfo[1]]
+    for k in range(len(img_show_dict[_asin_[i]])):
+        img_show_dict[_asin_[i]] = img_show_dict[_asin_[i]][k].replace('.jpg', '')
 
-    new_df = []
-    new_df.append(receive)
 
-    postData = pd.DataFrame(new_df)
-    postData.to_csv('static/csv/account.csv')
-
-    
-
-    # print(len(new_df))
-    print(postData)
 
 '''
 VERIFY DATA
 '''
-def verifyData():
+user_account_db = UserAccount.objects.all().values('email','password')
+# print(user_account_db[0])
+# for i in user_account_db:
+#     print(i['email'])
 
-    accountData = pd.read_csv('static/csv/account.csv')
+
+
+
+def verifyAccount(request):
+    
+    user_login = data_source.DataForm.postAccountInfoLogin(request)
+    # email = user_login['email']
+    # pass_word = user_login['pass_word']
+
+    if user_login in user_account_db:
+        # print(i['email'])
+        # return HttpResponse('True')
+        return True
+    else:
+        return False

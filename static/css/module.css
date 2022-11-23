@@ -1,0 +1,350 @@
+@import 'fonts.css';
+@import 'layout.css';
+
+
+.nav-plus
+{
+  height: 55px;
+  margin: 0 auto;
+  grid-template-columns: 200px 1fr 70px;
+}
+.nav-mini
+{
+  height: 150px;
+  margin: 0 auto;
+}
+.nav-mini > ul
+{
+  display: grid;
+  grid-template-columns: 150px 1fr 150px;
+}
+.nav-mini > ul *
+{
+  text-align: center;
+  margin: auto;
+  line-height: 150px;
+}
+
+.brand-plus
+{
+  width: 200px;
+  height: 35px;
+  margin-top: 10px;
+  display: block;
+  background: url('../image/ico/mamleo-200-35-01.png') no-repeat;
+  border-radius: 3px;
+}
+.brand-mini
+{
+  width: 570px;
+  height: 100px;
+  display: block;
+  background: url('../image/ico/mamleo-200-100.png') no-repeat;
+  border-radius: 10px;
+}
+.brand-logo
+{
+  background: url('../image/ico/mamleo-200-35-01.png') no-repeat;
+}
+
+.app-list
+{
+  width: 50%;
+  margin: auto;
+}
+.app-list *
+{
+  text-align: center;
+  line-height: 50px;
+}
+.app-list > li  > a
+{
+  color: rgb(95, 147, 112);
+}
+.app-list > li > a:hover
+{
+  color: #ff6666;
+}
+
+/* products-shelf & product-info start */
+.product-info div, div > p
+{
+  padding: 2%;
+}
+/* products-shelf & product-info end */
+
+.account *
+{
+  text-align: center;
+  line-height: 55px;
+}
+.account * > a:hover
+{
+  color: rgb(0,0,0);
+}
+
+.-focus-
+{
+  border-bottom: 3px solid #ff6666;
+}
+.display-block
+{
+  display: block;
+}
+
+/* 
+widget
+*/
+.position
+{
+  position: relative; 
+  top: 30%; 
+  left: 25%; 
+  width: 50%; 
+  min-height: 100px; 
+  padding: 30px;
+  background: rgb(0, 0, 0, 0.2);
+  border-radius: 10px;
+  color: #fff;
+}
+.position > div
+{
+  /* min-height: 60px; */
+  padding: 10px;
+  text-align: center;
+}
+.learnMore
+{
+  display: block;
+  /* width: 130px; */
+  width: 30%;
+  height: 35px;
+  line-height: 35px;
+  border-radius: 17.5px;
+  background-color: rgba(126, 197, 149, 0.8);
+  color: #fff;
+  text-align: center;
+  
+}
+.widget-btn
+{
+  display: block;
+  width: 200px;
+  height: 55px;
+  line-height: 50px;
+  border-radius: 8px;
+  background-color: rgba(126, 197, 149, 0.8);
+  color: #fff;
+  text-align: center;
+  /* float: right; */
+}
+/* 小于980 针对移动端*/
+@media screen and (max-width:980px)
+{
+  .position
+  {
+    position: relative; 
+    top: 25%; 
+    left: 13%; 
+    width: 70%; 
+    min-height: 100px; 
+    padding: 30px;
+    background: rgb(0, 0, 0, 0.2);
+    border-radius: 10px;
+    color: #fff;
+  }
+  .position > div
+  {
+    /* min-height: 60px; */
+    padding: 10px;
+    text-align: center;
+  }
+  .widget-btn
+  {
+    display: block;
+    width: 100%;
+    height: 100px;
+    line-height: 100px;
+    border-radius: 16px;
+    background-color: rgba(126, 197, 149, 0.8);
+    color: #fff;
+    text-align: center;
+  }
+  .learnMore
+  {
+    width: 36%;
+    height: 60px;
+    line-height: 50px;
+    border-radius: 30px;
+  }
+  .product-info > div > h1
+  {
+    font-size: 52px;
+    font-weight: bold;
+    line-height: 52px;
+  }
+  /* products start */
+  .products-shelf h3
+  {
+    font-size: 36px;
+    line-height: 36px;
+  }
+  /* products end */
+  .login > ul
+  {
+    width:80%;
+    margin: 10px 10%;
+    padding: 10px 0;
+  }
+  .login > ul > li > input[type="text"]
+  {
+    width:95%; 
+    height: 100px; 
+    background-color: #fff;
+    border: 1px solid #ccc; 
+    color: #aaa; 
+    /* margin: 0 2.5%; */
+  }
+  .login > ul > li > input[type="text"]:focus
+  {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ccc; 
+    border-top: none; 
+    border-left: none; 
+    border-right: none; 
+    outline: none;
+  }
+  button[id="login"]
+  {
+    display: block;
+    width: 100%;
+    height: 100px;
+    border: 1px solid rgb(126, 197, 149, 0.8);
+    border-radius: 5px;
+    background-color: rgb(126, 197, 149, 0.8);
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+.learnMore:hover, .widget-btn:hover
+{
+  background-color: rgb(126, 197, 149, 0.9);
+  color: #fff;
+}
+
+/* txt */
+/* .article
+{
+
+} */
+.display-row-3
+{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 2px 0;
+}
+
+/* 
+my-cart card --start
+*/
+.-select-:hover, .-select-:visited
+{
+  /* max-width: 100%; */
+  /* border-radius: 8px; */
+  border: 1px solid rgb(122, 158, 125);
+  /* background-color: #fcfcfc; */
+}
+/* 
+my-cart card --end
+*/
+
+.radius-style, .radius-div > div
+{
+  border-radius: 8px;
+  border: 1px solid rgb(239, 239, 239);
+  background-color: #fcfcfc;
+}
+
+/* 
+ul li --start
+*/
+ul
+{
+  padding: 0;
+}
+.nowrap-li > li
+{
+  width: auto;
+  white-space: nowrap;
+}
+
+
+/* 
+ul li --end
+*/
+
+/* 
+form-login-signUp
+*/
+.login, .signUp
+{
+  width: 100%;
+  min-height: 60%;
+  margin: 0 auto;
+}
+/* 大于981 */
+@media screen and (min-width:981px)
+{
+  .login > ul
+  {
+    width:80%;
+    margin: 10px 10%;
+    padding: 10px 0;
+    background: rgb(233, 233, 233);
+  }
+  .login > ul > li
+  {
+    margin: 10px 30%;
+  }
+  .login > ul > li > input[type="text"]
+  {
+    width:97%; 
+    height: 35px; 
+    background-color: #fff;
+    border: 1px solid #ccc; 
+    color: #aaa; 
+  }
+  .login > ul > li > input[type="text"]:focus
+  {
+    width:97%; 
+    height: 35px; 
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ccc; 
+    border-top: none; 
+    border-left: none; 
+    border-right: none; 
+    outline: none;
+  }
+  button[id="login"]
+  {
+    display: block;
+    width: 98%;
+    height: 35px;
+    border: 1px solid rgb(126, 197, 149, 0.8);
+    border-radius: 5px;
+    background-color: rgb(126, 197, 149, 0.8);
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+
+button:hover
+{
+  background-color: rgb(126, 197, 149, 0.9);
+}

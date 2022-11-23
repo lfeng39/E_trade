@@ -1,0 +1,45 @@
+<!-- {%load static%}
+{%load range%} -->
+<!-- {%load static%} -->
+<!DOCTYPE html>
+<html>
+<head>
+{% include "head.html" %}
+<title>{{ app_title.0 }}</title>
+</head>
+<body page_id="{{ page_id }}">
+    
+    {% include "nav.html" %}
+    
+
+    <div class="wrap">
+
+        <div class="container">
+            
+            <ul>
+                <!-- <label for="test">Your name: </label> -->
+                <li><b>email</b></li>
+                <li>passWord</li>
+                <li>UserName</li>
+                <li>FirstName</li>
+                <li>LastName</li>
+                <li>Address</li>
+                <li>Street</li>
+                <li>City</li>
+                <li>Country</li>
+                <li>Code</li>
+
+            </ul>
+
+        </div>
+
+
+        
+    </div>
+    
+
+
+    {% include "footer.html" %}
+    
+</body>
+</html>

@@ -1,152 +1,230 @@
-import email
-from urllib import response
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
+from urllib import request
 from JAL import models
-from JAL import forms
-from JAL import styles
+from JAL import data_source
 
 
 
-def index(request):
+def _index_(request):
     
     jasonApi = {
-        'url': models.nav('url'),
-        'appTitle': models.nav('app_title'),
-        'nav': models.nav('nav'),
-        'imgShow': models.img_shower,
-        'styles': styles.bgContainer(),
-        'aaa': styles.position(),
+        'asin_code': models._asin_,
+        # nav-start
+        'nav_index': models.nav()['_index_'],
+        'nav_nav': models.nav()['_nav_'],
+        'nav_account': models.nav()['_account_'],
+        # nav-end
+        'product_info': models.ProductInfo.objects.all().values(),
+        'product_asin': models._asin_,
+        'img_name': models.img_show_dict,
+        'page_id': 'index',
     }
 
     return render(request, 'index.html', jasonApi)
 
-def login(request):
+
+
+def _about_(request):
     
     jasonApi = {
-        'url': models.nav('url'),
-        'appTitle': models.nav('app_title'),
-        'nav': models.nav('nav'),
-    }
-
-    return render(request, 'login.html', jasonApi)
-
-def signUp(request):
-    
-    jasonApi = {
-        'url': models.nav('url'),
-        'appTitle': models.nav('app_title'),
-        'nav': models.nav('nav'),
-    }
-
-    return render(request, 'sign-up.html', jasonApi)
-
-def about(request):
-    
-    jasonApi = {
-        'url': models.nav('url'),
-        'appTitle': models.nav('app_title'),
-        'nav': models.nav('nav'),
+        # nav-start
+        'nav_index': models.nav()['_index_'],
+        'nav_nav': models.nav()['_nav_'],
+        'nav_account': models.nav()['_account_'],
+        # nav-end
+        'page_id': 'about',
     }
 
     return render(request, 'about.html', jasonApi)
-
-def detail(request):
-
-    jasonApi = {
-        'url': models.nav('url'),
-        'appTitle': models.nav('app_title'),
-        'nav': models.nav('nav'),
-        'asin': {1:'a', 'name':{1:'x', 2:'y', 'z':'jessie'}}
-    }
-
-    return render(request, 'detail.html', jasonApi)
     
-def products(request):
-    '''
-    'asin': models.productInfo()
-    productInfo()返回类型：Dict、复合型
-    {'img':'url', 'title':'str', 'price':'float'}
-    html引用：{{ productInfo.asin.img }}
-    '''
+
+
+def _products_(request):
+
     jasonApi = {
-        'url': models.nav('url'),
-        'appTitle': models.nav('app_title'),
-        'nav': models.nav('nav'),
-        'productInfo': models.productInfo(),
+        # nav-start
+        'nav_index': models.nav()['_index_'],
+        'nav_nav': models.nav()['_nav_'],
+        'nav_account': models.nav()['_account_'],
+        # nav-end
+        'product_info': models.ProductInfo.objects.all().values(),
+        'page_id': 'products',
+        'product_image': '',
+        'product_title': '',
+        
     }
 
     return render(request, 'products.html', jasonApi)
 
-def zmh(request):
-    '''
-    'asin': models.listingData('asin')
-    listingData('asin')返回类型：Dict
-    list: asin.img.i
-    str: asin.title
-    list: asin.five_point.i
-    str: asin.pargram
-    list: asin.a_plus.i
-    '''
 
+
+def _detail_(request, asin_transfer):
+
+    asin = asin_transfer
     jasonApi = {
-        'url': models.nav('url'),
-        'appTitle': models.nav('app_title'),
-        'nav': models.nav('nav'),
-        'asin': models.listingData('B09YLLXKDT')[0],
-
-    }
-    
-    return render(request, 'detail.html', jasonApi)
-
-def ydj(request):
-
-    jasonApi = {
-        'url': models.nav('url'),
-        'appTitle': models.nav('app_title'),
-        'nav': models.nav('nav'),
-        'asin': models.listingData('B09YLKWBMV')[0],
-    }
-
-    return render(request, 'detail.html', jasonApi)
-
-def ddl(request):
-
-    jasonApi = {
-        'url': models.nav('url'),
-        'appTitle': models.nav('app_title'),
-        'nav': models.nav('nav'),
-        'asin': models.listingData('B09KG4R3YR')[0],
+        'page_id': asin,
+        'product_img': models.detailImg(asin),
+        # nav-start
+        'nav_index': models.nav()['_index_'],
+        'nav_nav': models.nav()['_nav_'],
+        'nav_account': models.nav()['_account_'],
+        # nav-end
+        'product_info': models.ProductInfo.objects.filter(asin=asin_transfer).values()[0],
+        'product_description': models.ProductDescription.objects.filter(asin=asin_transfer).values()[0],
+        'sales_status': '',
+        'cupon': '',
     }
 
     return render(request, 'detail.html', jasonApi)
 
 
 
-
-def test(request):
+def _login_(request):
     
     jasonApi = {
-            'url': models.nav('url'),
-            'appTitle': models.nav('app_title'),
+        # nav-start
+        'nav_index': models.nav()['_index_'],
+        'nav_nav': models.nav()['_nav_'],
+        'nav_account': models.nav()['_account_'],
+        # nav-end
+        'page_id': 'login',
+    }
 
-            'test': forms.DataForm.getData(request)
-        }
+    # if request.method == "GET":
+    #     # href = request.GET.get('href')
+    #     return render(request, 'login.html', jasonApi)
 
-    return render(request, 'detail.html', jasonApi)
+    # elif request.method == "POST":
+
+    #     email = request.POST.get('email')
+    #     pass_word = request.POST.get('passWord')
+
+    #     if email == "lfeng" and pass_word == "12820839":
+
+    #         return redirect(models.local_url)
+            
+    #     else:
+            
+    #         return render(request, 'login.html', jasonApi)
+    if models.verifyAccount(request):
+
+        return redirect(models.local_url)
+        # return HttpResponse('true')
+
+    else:
+        # return HttpResponse('eroor...')
+        return render(request, 'login.html', jasonApi)
+
+
+
+def signUp(request):
+    
+    jasonApi = {
+        # nav-start
+        'nav_index': models.nav()['_index_'],
+        'nav_nav': models.nav()['_nav_'],
+        'nav_account': models.nav()['_account_'],
+        # nav-end
+        'page_id': 'signUp',
+    }
+
+    return render(request, 'sign-up.html', jasonApi)
+
+
+
+def _account_(request):
+    
+    jasonApi = {
+        'page_id': 'account',
+        'asin_code': models._asin_,
+        # nav-start
+        'nav_index': models.nav()['_index_'],
+        'nav_nav': models.nav()['_nav_'],
+        'nav_account': models.nav()['_account_'],
+        # nav-end
+        'asin': models.detailImg('B09YLLXKDT'),
+    }
+
+    return render(request, 'account.html', jasonApi)
+
+
+
+def myAccount(request):
+    
+    jasonApi = {
+        'page_id': 'myAccount',
+        'asin_code': models._asin_,
+        # nav-start
+        'nav_index': models.nav()['_index_'],
+        'nav_nav': models.nav()['_nav_'],
+        'nav_account': models.nav()['_account_'],
+        # nav-end
+        'nav': models.nav(),
+        'asin': models.detailImg('B09YLLXKDT'),
+    }
+
+    return render(request, 'my-account.html', jasonApi)
+
 
 
 def postData(request):
-    # models.saveData(request)
-    forms.DataForm.getAccountInfo(request)
-    # test = get_object_or_404(models.UserAccount, email = 'jessie@gmail.com')
+
+    data_source.DataForm.postAccountInfoSignUp(request)
+    # data_source.verifyAccount(request)
     test = models.UserAccount.objects.all().values()
 
     jasonApi = {
-            'url': models.nav('url'),
-            'appTitle': models.nav('app_title'),
-            'nav': models.nav('nav'),
-            'yes': 'yes',
-            'test': test
-        }
+        # nav-start
+        'nav_index': models.nav()['_index_'],
+        'nav_nav': models.nav()['_nav_'],
+        'nav_account': models.nav()['_account_'],
+        # nav-end
+        'yes': 'yes',
+        'test': test
+    }
 
     return render(request, 'yes.html', jasonApi)
+
+
+# def test(request):
+#     if data_source.verifyAccount(request):
+#         return redirect(models.local_url)
+#     else:
+#         return HttpResponse('eroor...')
+
+
+def myCart(request):
+    
+    jasonApi = {
+        'page_id': 'myCart',
+        'asin_code': models._asin_,
+        # nav-start
+        'nav_index': models.nav()['_index_'],
+        'nav_nav': models.nav()['_nav_'],
+        'nav_account': models.nav()['_account_'],
+        # nav-end
+        'product_info': models.ProductInfo.objects.filter(asin='B09YLKWBMV').values()[0],
+        'asin': models.detailImg('B09YLLXKDT'),
+        'url_page_id_order': models.page_id[6],
+    }
+
+    return render(request, 'my-cart.html', jasonApi)
+
+
+
+def _order_(request):
+
+    jasonApi = {
+        'page_id': 'order',
+        'asin_code': models._asin_,
+            # nav-start
+        'nav_index': models.nav()['_index_'],
+        'nav_nav': models.nav()['_nav_'],
+        'nav_account': models.nav()['_account_'],
+        # nav-end
+        'product_info': models.ProductInfo.objects.filter(asin='B09YLKWBMV').values()[0],
+        'asin': models.detailImg('B09YLLXKDT'),
+    }
+
+    return render(request, 'order.html', jasonApi)
+
