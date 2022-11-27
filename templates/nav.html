@@ -9,8 +9,12 @@
                 {% for key, value in nav_nav.items %}
                 <li><a href="{{ value }}">{{ key }}</a></li>
                 {% endfor %}
+                {% if user_account == None %}
                 <li><a href="{{ nav_account.SignUp.0 }}">SignUp</a></li>
                 <li><a href="{{ nav_account.Login.0 }}">Login</a></li>
+                {% else %}
+                <li><a href="{{ nav_account.Login.0 }}">{{ user_account }}</a></li>
+                {% endif %}
             </ul>
         </div>
         <div class="account flex-container">

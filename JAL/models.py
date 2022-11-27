@@ -185,32 +185,8 @@ product = _asin_
 page_id = ['index', 'about', 'products', 'myCart', 'login', 'signUp', 'order', 'account', 'myAccount', product]
 # print('look:>>>>>>',page_id[6])
 
-# Create your models here.
-server_url = 'http://140.82.22.68:8000/JAL/'
-local_url = 'http://127.0.0.1:8000/JAL/'
-base_url = local_url
-def nav():
-    nav_dict = {
-        '_index_' : {
-            'index': base_url + '',
-        },
 
-        '_nav_' : {
-            'About': base_url + 'about',
-            'Product': base_url + 'products',
-        },
 
-        '_account_' : {
-            'Cart': [base_url + 'cart', 'cart'],
-            'Login': [base_url + 'login', 'login'],
-            'SignUp': [base_url + 'signUp', 'signUp'],
-            'order': [base_url + 'order', 'order'],
-            'account': [base_url + 'account', 'account'],
-            'myAccount': [base_url + 'myAccount', 'myAccount'],
-        }
-    }
-
-    return nav_dict
 
 
 
@@ -241,23 +217,24 @@ for i in range(len(_asin_)):
 '''
 VERIFY DATA
 '''
-user_account_db = UserAccount.objects.all().values('email','password')
-# print(user_account_db[0])
-# for i in user_account_db:
-#     print(i['email'])
-
-
-# v1_01
-
-def verifyAccount(request):
+# class UserLogin():
+# def verifyAccount(request):
     
-    user_login = data_source.DataForm.postAccountInfoLogin(request)
-    # email = user_login['email']
-    # pass_word = user_login['pass_word']
+#     user_account_db = UserAccount.objects.all().values('email','password')
+#     post_account_info = data_source.DataForm.postAccountInfoLogin(request)
 
-    if user_login in user_account_db:
-        # print(i['email'])
-        # return HttpResponse('True')
-        return True
-    else:
-        return False
+#     if post_account_info in user_account_db:
+#         return post_account_info['email']
+#     else:
+#         return None
+
+
+# user_account_db = UserAccount.objects.all().values('email')
+# print(user_account_db)
+
+# for dict in user_account_db:
+#     print(dict)
+#     if 'lfeng' in dict.values():
+#         print(list(dict.values())[0])
+#     else:
+#         print('False')

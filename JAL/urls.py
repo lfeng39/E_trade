@@ -7,34 +7,91 @@ from JAL import models
 
 
 
-# def login(request):  # login函数
-#     if request.method == "GET":  # 前端如果是get请求
-#         return render(request, 'login.html')  # 返回HTML页面。
-#     elif request.method == "POST":  # 前端如果是post请求
-#         username = request.POST.get("username")  # 获取POST请求中的username值
-#         password = request.POST.get("password")  # 获取密码值
-#         if username == "zy" and password == "12345":
-#             return redirect("/index/")    #重定向到index页面
-#         else:  # 如果用户名或者密码错误，返回登录页面
-#             return render(request, "login.html")
-
-# def index(request):  # index函数
-#     return render(request, "index.html")
-
-# B0BFHQTG6R == _asin_[0]
-# asin = 'B09YLLXKDT'
-# ['B0BFHQTG6R', 'B09KG4R3YR', 'B09YLKWBMV', 'B09YLLXKDT']
-
-
-
-
 app_name = 'jal'
+
+
+
+# def userAccount(request):
+#     user_account = list(models.UserAccount.objects.all().values('email'))
+#     print(user_account)
+
+#     user_account_post = models.verifyAccount(request)
+
+#     for user_account in user_account:
+#     # print(user_account)
+#         if user_account_post in user_account.values():
+#             # print(list(user_account.values())[0])
+#             user_account = list(user_account.values())[0]
+#             return user_account
+#         # else:
+#         #     return None
+
+
+server_url = 'http://140.82.22.68:8000/JAL/'
+local_url = 'http://127.0.0.1:8000/JAL/'
+# local_url = 'http://0.0.0.0:8000/JAL/'
+base_url = local_url
+# base_url = ''
+
+
+def nav(request, user_id):
+
+    # user_account_verify = models.verifyAccount(request)
+    # get_url = '?'+'username='+ user_account_verify
+
+    # print('yes',user_id)
+    if user_id:
+        nav_dict = {
+            '_index_' : {
+                'index': base_url + 'index' + '?user_id=' + user_id,
+            },
+
+            '_nav_' : {
+                'About': 'about' + '?user_id=' + user_id,
+                'Product':  'products' + '?user_id=' + user_id,
+            },
+
+            '_account_' : {
+                'Cart': [base_url + 'cart', 'cart'],
+                'Login': [base_url + 'login', 'login'],
+                'SignUp': [base_url + 'signUp', 'signUp'],
+                'order': [base_url + 'order', 'order'],
+                'account': [base_url + 'account', 'account'],
+                'myAccount': [base_url + 'myAccount', 'myAccount'],
+            }
+        }
+    else:
+        nav_dict = {
+            '_index_' : {
+                'index': base_url + '',
+            },
+
+            '_nav_' : {
+                'About': 'about',
+                'Product':  'products',
+            },
+
+            '_account_' : {
+                'Cart': [base_url + 'cart', 'cart'],
+                'Login': [base_url + 'login', 'login'],
+                'SignUp': [base_url + 'signUp', 'signUp'],
+                'order': [base_url + 'order', 'order'],
+                'account': [base_url + 'account', 'account'],
+                'myAccount': [base_url + 'myAccount', 'myAccount'],
+            }
+        }
+
+    return nav_dict
+
+about = 'about'
+
 
 urlpatterns = [
     # ex: /polls/
     # url 按顺序查找页面
     path('', views._index_, name=''),
-    path('about',views._about_, name=''),
+    path('index', views._index_, name=''),
+    path(about,views._about_, name=''),
     path('products',views._products_, name=''),
     path('products/<asin_transfer>',views._detail_, name=''),
     path('login',views._login_, name=''),
@@ -44,5 +101,5 @@ urlpatterns = [
     path('account',views._account_, name=''),
     path('myAccount',views.myAccount, name=''),
     path('yes',views.postData, name=''),
-    path('test',models.verifyAccount, name=''),
+    path('verify',views.userAccount, name=''),
 ]

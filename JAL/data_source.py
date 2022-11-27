@@ -1,3 +1,8 @@
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
+from django.contrib import auth
+from django.contrib.auth import authenticate,login
+from django.contrib.auth.models import User
+from urllib import request
 import pandas as pd
 import csv
 import os
@@ -137,16 +142,21 @@ class DataForm():
                 # code = request.POST.get('Code'),
             )
 
+            User.objects.create_user(
+                username = email,
+                password = pass_word,
+            )
+
         return request.POST.get('email'), request.POST.get('passWord')
 
-    def postAccountInfoLogin(request):
-        # if request.method == 'POST': 
-        user_login = {
-            'email' : request.POST.get('email'),
-            'password' : request.POST.get('passWord'),
-        }
+    # def postAccountInfoLogin(request):
+    #     # if request.method == 'POST': 
+    #     user_login = {
+    #         'email' : request.POST.get('email'),
+    #         'password' : request.POST.get('passWord'),
+    #     }
         
-        return user_login
+    #     return user_login
     
 # print(verifyAccount('request'))
 
