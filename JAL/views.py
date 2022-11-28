@@ -52,7 +52,7 @@ def _index_(request):
         # nav-start
         'nav_index': urls.nav(request, user)['_index_'],
         'nav_nav': urls.nav(request, user)['_nav_'],
-        'nav_account': urls.nav(request, '')['_account_'],
+        'nav_account': urls.nav(request, user)['_account_'],
         # nav-end
         'product_info': models.ProductInfo.objects.all().values(),
         'product_asin': models._asin_,
@@ -93,6 +93,8 @@ def _products_(request):
         'nav_nav': urls.nav(request, user)['_nav_'],
         'nav_account': urls.nav(request, '')['_account_'],
         # nav-end
+        'includ_user_id_url': urls.nav(request, user)['_index_']['includ_user_id_url'],
+        # 'includ_user_id_url': '',
         'product_info': models.ProductInfo.objects.all().values(),
         'page_id': 'products',
         'product_image': '',
@@ -110,15 +112,15 @@ def _products_(request):
 
 
 def _detail_(request, asin_transfer):
-
+    user = request.GET.get('user_id')
     asin = asin_transfer
     jasonApi = {
         'page_id': asin,
         'product_img': models.detailImg(asin),
         # nav-start
-        'nav_index': urls.nav(request)['_index_'],
-        'nav_nav': urls.nav(request)['_nav_'],
-        'nav_account': urls.nav(request)['_account_'],
+        'nav_index': urls.nav(request, user)['_index_'],
+        'nav_nav': urls.nav(request, user)['_nav_'],
+        'nav_account': urls.nav(request, '')['_account_'],
         # nav-end
         'product_info': models.ProductInfo.objects.filter(asin=asin_transfer).values()[0],
         'product_description': models.ProductDescription.objects.filter(asin=asin_transfer).values()[0],
@@ -191,18 +193,19 @@ def _account_(request):
 
 
 def myAccount(request):
-    
+
+    user = request.GET.get('user_id')
+    my_account = models.UserAccount.objects.filter(email=user).values()[0]
+
     jasonApi = {
         'page_id': 'myAccount',
-        'asin_code': models._asin_,
         # nav-start
-        'nav_index': urls.nav(request)['_index_'],
-        'nav_nav': urls.nav(request)['_nav_'],
-        'nav_account': urls.nav(request)['_account_'],
+        'nav_index': urls.nav(request, user)['_index_'],
+        'nav_nav': urls.nav(request, user)['_nav_'],
+        'nav_account': urls.nav(request, '')['_account_'],
         # nav-end
-        'nav': urls.nav(request),
-        'asin': models.detailImg('B09YLLXKDT'),
-        'user_account': userAccount(request),
+        'user_account': user,
+        'my_account': my_account,
     }
 
     return render(request, 'my-account.html', jasonApi)

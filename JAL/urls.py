@@ -44,11 +44,13 @@ def nav(request, user_id):
         nav_dict = {
             '_index_' : {
                 'index': base_url + 'index' + '?user_id=' + user_id,
+                'includ_user_id_url':  '?user_id=' + user_id,
             },
 
             '_nav_' : {
-                'About': 'about' + '?user_id=' + user_id,
-                'Product':  'products' + '?user_id=' + user_id,
+                'About': base_url + 'about' + '?user_id=' + user_id,
+                'Product': base_url + 'products' + '?user_id=' + user_id,
+                
             },
 
             '_account_' : {
@@ -57,18 +59,20 @@ def nav(request, user_id):
                 'SignUp': [base_url + 'signUp', 'signUp'],
                 'order': [base_url + 'order', 'order'],
                 'account': [base_url + 'account', 'account'],
-                'myAccount': [base_url + 'myAccount', 'myAccount'],
+                'myAccount': [base_url + 'myAccount' + '?user_id=' + user_id, 'myAccount'],
             }
         }
     else:
         nav_dict = {
             '_index_' : {
                 'index': base_url + '',
+                'includ_user_id_url': '',
             },
 
             '_nav_' : {
-                'About': 'about',
-                'Product':  'products',
+                'About': base_url + 'about',
+                'Product': base_url + 'products',
+                
             },
 
             '_account_' : {

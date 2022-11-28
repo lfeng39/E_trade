@@ -175,7 +175,7 @@ else:
 
 print('\n', '>>>>>>', 'from DB:', '\n', LatestAsin.asin_mySql_db(), '\n', images.urlAsinImg(LatestAsin.asin_mySql_db())['B0BM44ST75']['7'][0])
 
-
+print('user>>>>',UserAccount.objects.filter(email='lfeng').values())
 
 '''
 Global Variable
