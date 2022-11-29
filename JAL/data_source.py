@@ -142,6 +142,7 @@ class DataForm():
                 # code = request.POST.get('Code'),
             )
 
+            # auth_user DB
             User.objects.create_user(
                 username = email,
                 password = pass_word,
