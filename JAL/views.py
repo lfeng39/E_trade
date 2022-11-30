@@ -271,11 +271,6 @@ def postData(request):
     return render(request, 'yes.html', jasonApi)
 
 
-# def test(request):
-#     if data_source.verifyAccount(request):
-#         return redirect(models.local_url)
-#     else:
-#         return HttpResponse('eroor...')
 
 
 # 获取cookie 
