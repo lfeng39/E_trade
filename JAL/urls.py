@@ -27,10 +27,10 @@ app_name = 'jal'
 #         #     return None
 
 
-server_url = 'http://140.82.22.68:8000/JAL/'
-# local_url = 'http://127.0.0.1:8000/JAL/'
+server_url = '140.82.22.68:8000/JAL'
+local_url = '127.0.0.1:8000/JAL'
 # local_url = 'http://0.0.0.0:8000/JAL/'
-base_url = server_url
+base_url = local_url
 # base_url = ''
 
 
