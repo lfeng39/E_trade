@@ -10,27 +10,10 @@ from JAL import models
 app_name = 'jal'
 
 
-
-# def userAccount(request):
-#     user_account = list(models.UserAccount.objects.all().values('email'))
-#     print(user_account)
-
-#     user_account_post = models.verifyAccount(request)
-
-#     for user_account in user_account:
-#     # print(user_account)
-#         if user_account_post in user_account.values():
-#             # print(list(user_account.values())[0])
-#             user_account = list(user_account.values())[0]
-#             return user_account
-#         # else:
-#         #     return None
-
-
-server_url = '140.82.22.68:8000/JAL'
-local_url = '127.0.0.1:8000/JAL'
-# local_url = 'http://0.0.0.0:8000/JAL/'
-base_url = server_url
+server_url = '140.82.22.68:8000/JAL/'
+# local_url = '127.0.0.1:8000/JAL/'
+local_url = 'http://0.0.0.0:8000/JAL/'
+base_url = local_url
 # base_url = ''
 
 
@@ -94,7 +77,7 @@ urlpatterns = [
     # ex: /polls/
     # url 按顺序查找页面
     path('', views._index_, name=''),
-    path('index', views._index_, name=''),
+    # path('index', views._index_, name=''),
     path(about,views._about_, name=''),
     path('products',views._products_, name=''),
     path('products/<asin_transfer>',views._detail_, name=''),

@@ -7,14 +7,7 @@ from JAL import models
 from JAL import urls
 from JAL import data_source
 
-# user_account = list(models.UserAccount.objects.all().values('email'))
-# print(user_account)
 
-# for user_account in user_account:
-#     print(user_account)
-#     if 'lfeng' in user_account.values():
-#         print(list(user_account.values())[0])
-# user_account_post = models.verifyAccount(request)
 
 def userAccount(request):
 
@@ -42,8 +35,6 @@ def userAccount(request):
 
 
 
-
-
 def _index_(request):
 
     user = request.GET.get('user_id')
@@ -61,13 +52,11 @@ def _index_(request):
         'user_account': user,
         # 'user_account': '',
     }
-    print('index>>>',user)
+    print('index>>>',type(user),user)
 
     return render(request, 'index.html', jasonApi)
 
     
-
-
 
 def _about_(request):
     user = request.GET.get('user_id')
@@ -104,10 +93,6 @@ def _products_(request):
     }
 
     return render(request, 'products.html', jasonApi)
-    if models.verifyAccount(request) != None:
-        return render(request, 'products.html', jasonApi)
-    else:
-        return render(request, 'login.html', jasonApi)
 
 
 
