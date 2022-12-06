@@ -19,7 +19,7 @@ class Product(models.Model):
     price = models.IntegerField()
     descri = models.TextField()
 
-
+print('>>> main <<<')
 # Create your models here.
 def nav(type):
 
