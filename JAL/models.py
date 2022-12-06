@@ -11,6 +11,7 @@ Create MySQL DB Table
 '''
 class UserAccount(models.Model):
     user_id = models.CharField(max_length = 20, blank=True)
+    user_name = models.CharField(max_length = 20, blank=True)
     email = models.EmailField(max_length = 20, blank=False) # false：必填
     password = models.CharField(max_length = 20, blank=False)
     first_name = models.CharField(max_length = 20, blank=True)
