@@ -102,7 +102,7 @@ class LatestAsin():
             '''
             the same csv adn mySql, return None
             '''
-            print('\n\n', '>>>>>> no new asin ===')
+            print('V1_00','\n\n', '>>>>>> no new asin ===')
 
             return 'None'
 
