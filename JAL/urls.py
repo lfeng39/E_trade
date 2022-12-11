@@ -13,8 +13,8 @@ app_name = 'jal'
 server_url = '140.82.22.68:8000/JAL/'
 # local_url = '127.0.0.1:8000/JAL/'
 local_url = 'http://0.0.0.0:8000/JAL/'
-base_url = server_url
-# base_url = ''
+# base_url = server_url
+base_url = ''
 
 
 def nav(request, user_id):
