@@ -12,12 +12,17 @@ app_name = 'jal'
 
 server_url = '140.82.22.68:8000/JAL/'
 # local_url = '127.0.0.1:8000/JAL/'
-local_url = 'http://0.0.0.0:8000/JAL/'
-# base_url = server_url
-base_url = ''
+local_url = '0.0.0.0:80/JAL/'
+base_url = local_url
+# base_url = ''
+
+# _ip_ = '0.0.0.0'
+# _port_ = ':8000'
+# _app_ = '/JAL/'
+# base_url = _ip_ + _port_ + _app_
 
 
-def nav(request, user_id):
+def nav(user_id):
 
     # user_account_verify = models.verifyAccount(request)
     # get_url = '?'+'username='+ user_account_verify
@@ -48,13 +53,13 @@ def nav(request, user_id):
     else:
         nav_dict = {
             '_index_' : {
-                'index': base_url + '',
+                'index': '',
                 'includ_user_id_url': '',
             },
 
             '_nav_' : {
-                'About': base_url + 'about',
-                'Product': base_url + 'products',
+                'About': 'about',
+                'Product': 'products',
                 
             },
 
@@ -77,7 +82,7 @@ urlpatterns = [
     # ex: /polls/
     # url 按顺序查找页面
     path('', views._index_, name=''),
-    # path('index', views._index_, name=''),
+    path('index', views._index_, name=''),
     path(about,views._about_, name=''),
     path('products',views._products_, name=''),
     path('products/<asin_transfer>',views._detail_, name=''),
