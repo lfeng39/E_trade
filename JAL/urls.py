@@ -9,18 +9,16 @@ from JAL import models
 
 app_name = 'jal'
 
-
-server_url = '140.82.22.68:8000/JAL/'
-# local_url = '127.0.0.1:8000/JAL/'
-local_url = '0.0.0.0:80/JAL/'
-base_url = local_url
-# base_url = ''
-
+http = 'http://'
+# _ip_ = '140.82.22.68'
+_ip_ = '192.168.39.84'
+# _ip_ = '127.0.0.1'
 # _ip_ = '0.0.0.0'
-# _port_ = ':8000'
-# _app_ = '/JAL/'
-# base_url = _ip_ + _port_ + _app_
-
+_port_ = ':8000'
+_app_ = '/JAL/'
+base_url = http + _ip_ + _port_ + _app_
+# base_url = ''
+print('url_now>>>', base_url)
 
 def nav(user_id):
 
@@ -38,7 +36,6 @@ def nav(user_id):
             '_nav_' : {
                 'About': base_url + 'about' + '?user_id=' + user_id,
                 'Product': base_url + 'products' + '?user_id=' + user_id,
-                
             },
 
             '_account_' : {
@@ -53,14 +50,13 @@ def nav(user_id):
     else:
         nav_dict = {
             '_index_' : {
-                'index': '',
+                'index': 'index',
                 'includ_user_id_url': '',
             },
 
             '_nav_' : {
                 'About': 'about',
                 'Product': 'products',
-                
             },
 
             '_account_' : {
@@ -75,7 +71,6 @@ def nav(user_id):
 
     return nav_dict
 
-about = 'about'
 
 
 urlpatterns = [
@@ -83,7 +78,7 @@ urlpatterns = [
     # url 按顺序查找页面
     path('', views._index_, name=''),
     path('index', views._index_, name=''),
-    path(about,views._about_, name=''),
+    path('about',views._about_, name=''),
     path('products',views._products_, name=''),
     path('products/<asin_transfer>',views._detail_, name=''),
     path('login',views._login_, name=''),

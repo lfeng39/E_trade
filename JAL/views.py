@@ -89,7 +89,7 @@ def _products_(request):
         'product_image': '',
         'product_title': '',
         'user_account': user,
-        
+        'abc': '%',
     }
 
     return render(request, 'products.html', jasonApi)
@@ -112,6 +112,7 @@ def _detail_(request, asin_transfer):
         'sales_status': '',
         'cupon': '',
         'user_account': userAccount(request),
+        'amazon': 'https://www.amazom.com/' + asin,
     }
 
     return render(request, 'detail.html', jasonApi)
