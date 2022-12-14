@@ -32,7 +32,7 @@ def nav(user_id):
         nav_dict = {
             '_index_' : {
                 'index': base_url + 'index' + '?user_id=' + user_id,
-                'includ_user_id_url':  '?user_id=' + user_id,
+                'includ_user_id_url': '?user_id=' + user_id,
             },
 
             '_nav_' : {
@@ -64,12 +64,12 @@ def nav(user_id):
             },
 
             '_account_' : {
-                'Cart': [base_url + 'cart', 'cart'],
-                'Login': [base_url + 'login', 'login'],
-                'SignUp': [base_url + 'signUp', 'signUp'],
-                'order': [base_url + 'order', 'order'],
-                'account': [base_url + 'account', 'account'],
-                'myAccount': [base_url + 'myAccount', 'myAccount'],
+                'Cart': ['cart', 'cart'],
+                'Login': ['login', 'login'],
+                'SignUp': ['signUp', 'signUp'],
+                'order': ['order', 'order'],
+                'account': ['account', 'account'],
+                'myAccount': ['myAccount', 'myAccount'],
             }
         }
 
