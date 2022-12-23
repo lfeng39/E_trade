@@ -10,8 +10,8 @@ from JAL import models
 app_name = 'jal'
 
 http = 'http://'
-# _ip_ = '140.82.22.68'
-_ip_ = '192.168.39.84'
+_ip_ = '140.82.22.68'
+# _ip_ = '192.168.39.84'
 # _ip_ = '127.0.0.1'
 # _ip_ = '0.0.0.0'
 _port_ = ':8000'
@@ -50,22 +50,22 @@ def nav(user_id):
     else:
         nav_dict = {
             '_index_' : {
-                'index': 'index',
+                'index': base_url + 'index',
                 'includ_user_id_url': '',
             },
 
             '_nav_' : {
-                'About': 'about',
-                'Product': 'products',
+                'About': base_url + 'about',
+                'Product': base_url + 'products',
             },
 
             '_account_' : {
-                'Cart': ['cart', 'cart'],
-                'Login': ['login', 'login'],
-                'SignUp': ['signUp', 'signUp'],
-                'order': ['order', 'order'],
-                'account': ['account', 'account'],
-                'myAccount': ['myAccount', 'myAccount'],
+                'Cart': [base_url + 'cart', 'cart'],
+                'Login': [base_url + 'login', 'login'],
+                'SignUp': [base_url + 'signUp', 'signUp'],
+                'order': [base_url + 'order', 'order'],
+                'account': [base_url + 'account', 'account'],
+                'myAccount': [base_url + 'myAccount', 'myAccount'],
             }
         }
 
@@ -80,7 +80,7 @@ urlpatterns = [
     path('index', views._index_, name=''),
     path('about',views._about_, name=''),
     path('products',views._products_, name=''),
-    path('products/<asin_transfer>',views._detail_, name=''),
+    path('products/<asin_transfer>',views._detail_, name='asin_code'),
     path('login',views._login_, name=''),
     path('signUp',views.signUp, name=''),
     path('cart',views.myCart, name=''),
