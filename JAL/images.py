@@ -75,7 +75,7 @@ def urlAsinImg(_asin_):
             files_name_list[i].append(files_name)
         
         urls_asin_img_dict[_asin_[i]] = {'7':[],'970':[],'300':[]}
-
+    
     for v in range(len(_asin_)):
         for k in range(len(_folder_)):
             for i in  range(len(files_name_list[v][k])):

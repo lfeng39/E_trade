@@ -139,6 +139,13 @@ Save Products Data From CSV to MySQL DB
 have_new_asin = LatestAsin.checkNewAsin()
 # have_new_asin = 'None'
 # def saveAsin():
+def setFirstImg(asin):
+    tag = images.urlAsinImg(LatestAsin.asin_mySql_db())[asin]['7']
+    for frist_img_url in tag:
+        if '00-' in frist_img_url:
+            return frist_img_url
+        else:
+            pass
 if have_new_asin == 'None':
     pass
 else:
@@ -169,24 +176,16 @@ else:
             price = 39.99,
             bullet_point = new_asin,
             description = new_asin,
-            first_img = images.urlAsinImg(LatestAsin.asin_mySql_db())[new_asin]['7'][-1],
+            first_img = setFirstImg(new_asin),
         )
     print('\n', '>>>>>>', 'new asin add', '\n', have_new_asin)
 
 
-print('\n', '>>>>>>', 'from DB:', '\n', LatestAsin.asin_mySql_db(), '\n', images.urlAsinImg(LatestAsin.asin_mySql_db())['B0BM44ST75']['7'][-1])
+print('\n', '>>>>>>', 'from DB:', '\n', LatestAsin.asin_mySql_db(), '\n', images.urlAsinImg(LatestAsin.asin_mySql_db())['B0BM44ST75']['7'][0])
 
 print('user>>>>',UserAccount.objects.filter(email='lfeng').values())
 
-# def setFirstImg(asin):
-#     _path_ = 'static/image/products/' + asin + '/v1.00/7/'
-#     get_first_img = os.listdir(_path_)
-#     for img in get_first_img:
-#         if '01' in img:
-#             print(img)
-#         else:
-#             print('not in')
-# setFirstImg('B09KG4R3YR')
+print(images.urlAsinImg(LatestAsin.asin_mySql_db())['B0BM44ST75']['7'])
 
 '''
 Global Variable
