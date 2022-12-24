@@ -141,9 +141,9 @@ have_new_asin = LatestAsin.checkNewAsin()
 # def saveAsin():
 def setFirstImg(asin):
     tag = images.urlAsinImg(LatestAsin.asin_mySql_db())[asin]['7']
-    for frist_img_url in tag:
-        if '00-' in frist_img_url:
-            return frist_img_url
+    for first_img_url in tag:
+        if '00-' in first_img_url:
+            return first_img_url
         else:
             pass
 if have_new_asin == 'None':
