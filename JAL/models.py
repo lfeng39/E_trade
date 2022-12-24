@@ -169,12 +169,12 @@ else:
             price = 39.99,
             bullet_point = new_asin,
             description = new_asin,
-            first_img = images.urlAsinImg(LatestAsin.asin_mySql_db())[new_asin]['7'][0],
+            first_img = images.urlAsinImg(LatestAsin.asin_mySql_db())[new_asin]['7'][-1],
         )
     print('\n', '>>>>>>', 'new asin add', '\n', have_new_asin)
 
 
-print('\n', '>>>>>>', 'from DB:', '\n', LatestAsin.asin_mySql_db(), '\n', images.urlAsinImg(LatestAsin.asin_mySql_db())['B0BM44ST75']['7'])
+print('\n', '>>>>>>', 'from DB:', '\n', LatestAsin.asin_mySql_db(), '\n', images.urlAsinImg(LatestAsin.asin_mySql_db())['B0BM44ST75']['7'][-1])
 
 print('user>>>>',UserAccount.objects.filter(email='lfeng').values())
 
