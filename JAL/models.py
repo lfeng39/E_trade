@@ -174,9 +174,19 @@ else:
     print('\n', '>>>>>>', 'new asin add', '\n', have_new_asin)
 
 
-print('\n', '>>>>>>', 'from DB:', '\n', LatestAsin.asin_mySql_db(), '\n', images.urlAsinImg(LatestAsin.asin_mySql_db())['B0BM44ST75']['7'][0])
+print('\n', '>>>>>>', 'from DB:', '\n', LatestAsin.asin_mySql_db(), '\n', images.urlAsinImg(LatestAsin.asin_mySql_db())['B0BM44ST75']['7'])
 
 print('user>>>>',UserAccount.objects.filter(email='lfeng').values())
+
+# def setFirstImg(asin):
+#     _path_ = 'static/image/products/' + asin + '/v1.00/7/'
+#     get_first_img = os.listdir(_path_)
+#     for img in get_first_img:
+#         if '01' in img:
+#             print(img)
+#         else:
+#             print('not in')
+# setFirstImg('B09KG4R3YR')
 
 '''
 Global Variable

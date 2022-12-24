@@ -45,6 +45,7 @@ def _index_(request):
         'nav_nav': urls.nav(user)['_nav_'],
         'nav_account': urls.nav(user)['_account_'],
         # nav-end
+        'includ_user_id_url': urls.nav(user)['_index_']['includ_user_id_url'],
         'product_info': models.ProductInfo.objects.all().values(),
         'product_asin': models._asin_,
         'img_name': models.img_show_dict,

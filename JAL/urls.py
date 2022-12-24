@@ -22,10 +22,6 @@ print('url_now>>>', base_url)
 
 def nav(user_id):
 
-    # user_account_verify = models.verifyAccount(request)
-    # get_url = '?'+'username='+ user_account_verify
-
-    # print('yes',user_id)
     if user_id:
         nav_dict = {
             '_index_' : {
