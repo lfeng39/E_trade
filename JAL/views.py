@@ -36,7 +36,7 @@ def userAccount(request):
 
 
 def _index_(request):
-
+    data_source.test(request)
     user = request.GET.get('user_id')
     jasonApi = {
         'asin_code': models._asin_,

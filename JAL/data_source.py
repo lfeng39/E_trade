@@ -122,7 +122,7 @@ class DataForm():
         
         email = request.POST.get('email')
         pass_word = request.POST.get('passWord')
-
+       
         if email == 'Your Email' or pass_word == '123+ABC+!@#':
             pass
         else:
@@ -150,16 +150,9 @@ class DataForm():
 
         return request.POST.get('email'), request.POST.get('passWord')
 
-    # def postAccountInfoLogin(request):
-    #     # if request.method == 'POST': 
-    #     user_login = {
-    #         'email' : request.POST.get('email'),
-    #         'password' : request.POST.get('passWord'),
-    #     }
-        
-    #     return user_login
-    
-# print(verifyAccount('request'))
+def test(request):
+    cart = request.POST.get('cart')
+    print('>>>cart<<<',cart)
 
         
 

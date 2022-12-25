@@ -23,7 +23,11 @@
                 <div><h1>{{ product_info.title }}</h1></div>
                 <div>$<span>{{ product_info.price }}</span></div>
                 <div>
-                    <a href="" target="_blank" class="widget-btn">Add to Cart</a>
+                    <form action="/JAL/" method="post">
+                        {%csrf_token%}
+                        <!-- <a href="" id="cart" value="{{ page_id }}" target="_blank" class="widget-btn">Add to Cart</a> -->
+                        <button href="" type="submit" name="cart" value="{{ page_id }}" class="widget-btn">Add to Cart</button>
+                    </form>
                 </div>
                 <div>
                     <a href="{{ amazon }}" target="_blank" class="widget-btn">Buy on Amazon</a>
