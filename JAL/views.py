@@ -113,7 +113,7 @@ def _detail_(request, asin_transfer):
         'sales_status': '',
         'cupon': '',
         'user_account': userAccount(request),
-        'amazon': 'https://www.amazom.com/' + asin,
+        'amazon': 'https://www.amazon.com/dp/' + asin,
     }
 
     return render(request, 'detail.html', jasonApi)

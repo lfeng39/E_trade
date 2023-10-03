@@ -42,7 +42,8 @@ wrap-end
   .grid-container
   {
     display: grid;
-    grid-gap: 8% 2%;
+    /* grid-gap: 8% 2%; */
+    grid-gap: 2%;
     grid-template-columns: repeat(auto-fit, minmax(300px, auto));
     grid-template-rows: auto;
     margin-top: 3%;
