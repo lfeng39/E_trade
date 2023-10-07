@@ -63,10 +63,10 @@ class DataSource():
 
 class parseCSV():
 
+    '''
+    返回最新日期，返回最新日期的列值
+    '''
     def dataDate(asin):
-        '''
-        返回最新日期，返回最新日期的列值
-        '''
         csv_pd = DataSource.readCSVData(asin)
         try:
             _date_ = []
@@ -97,12 +97,23 @@ class parseCSV():
 
         return product_title
 
+    '''
+    以字典的形式输出5点
+    '''
     def bulletPoint(asin):
         csv_pd = DataSource.readCSVData(asin)
+        '''
+        提取5点，放入temp列表中储存
+        '''
         temp = []
-        for i in range(7):
-            temp.append(csv_pd.iloc[i+2,1])
-
+        # for i in range(7):
+        #     temp.append(csv_pd.iloc[i+2,1])
+        for i in range(2,len(csv_pd)):
+            bullet_point = csv_pd.iloc[i,0]
+            if 'Bullet Point' in bullet_point:
+                # print(type(bullet_point))
+                temp.append(csv_pd.iloc[i,1])
+        
         bullet_point = {
             'Bullet Point' : temp
         }
@@ -111,8 +122,12 @@ class parseCSV():
 
     def __description__(asin):
         csv_pd = DataSource.readCSVData(asin)
-        __description__ = {}
-        __description__[csv_pd.iloc[9,0]] = csv_pd.iloc[9,1]
+        for i in range(2,len(csv_pd)):
+            Description = csv_pd.iloc[i,0]
+            if 'Description' in Description:
+                __description__ = {
+                    csv_pd.iloc[i,0] : csv_pd.iloc[i,1]
+                }
 
         return __description__
 
@@ -132,9 +147,11 @@ class DataForm():
             pass
         else:
 
-            # 获取前端数据内容
-            # if request.method == 'POST':            
-            # 保存至UserAccount
+            '''
+            获取前端数据内容
+            if request.method == 'POST':            
+            保存至UserAccount
+            '''
             models.UserAccount.objects.create(
                 email = email,
                 password = pass_word,
@@ -147,7 +164,9 @@ class DataForm():
                 # code = request.POST.get('Code'),
             )
 
-            # auth_user DB
+            '''
+            auth_user DB
+            '''
             User.objects.create_user(
                 username = email,
                 password = pass_word,

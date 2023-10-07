@@ -99,7 +99,7 @@ def _detail_(request, asin_transfer):
 
     return render(request, 'detail.html', jasonApi)
 
-
+print(models.ProductDescription.objects.filter(asin='B09KG4R3YR').values()[0])
 
 def _login_(request):
     
@@ -276,7 +276,7 @@ class LatestAsin():
             '''
             the same csv adn mySql, return None
             '''
-            print('V1_01','\n\n', '>>>>>> no new asin ===')
+            print('>>> no new asin <<< this is views.py')
 
             return 'None'
 
@@ -290,7 +290,7 @@ class LatestAsin():
                     pass
                 else:
                     new_asin_list.append(asin)
-            print(' >>>>>> have new asin... saving... ===')
+            print(' >>> have new asin... saving...  <<< this is views.py')
 
             return new_asin_list
 
@@ -301,7 +301,7 @@ class LatestAsin():
             try:
                 models.AsinInfo.objects.filter(id='392').delete()
             except:
-                print(' >>>>>> oh, somthing error... ===')
+                print(' >>> oh, somthing error...  <<< this is views.py')
             
             return LatestAsin.asin_mySql_db()
 
@@ -364,28 +364,13 @@ else:
             description = data_source.parseCSV.__description__(new_asin)['Description'],
         )
 
-    print('\n', '>>>>>>', 'new asin add', '\n', have_new_asin)
+    print('\n', '>>> new asin add <<< this is views.py', '\n', have_new_asin)
 
 
-print('\n', '>>>>>>', 'from DB:', '\n', LatestAsin.asin_mySql_db(), '\n', images.urlAsinImg(LatestAsin.asin_mySql_db())['B0BM44ST75']['7'][0])
-bp = data_source.parseCSV.bulletPoint('B0BTXB89PG')['Bullet Point']
-# print('\n', '******', bp, '******')
-for i in bp:
-    print('*',i)
+print('\n >>> from DB: <<< this is views.py \n', LatestAsin.asin_mySql_db(), '\n ****************************** \n')
 
 
-def listing():
-    new_asin = 'B0BRHWQ27R'
-    models.Listing.objects.create(
-                asin = new_asin,
-                sku = new_asin,
-                sku_sn = new_asin,
-                title = data_source.parseCSV.productTitle(new_asin)['Product Title'],
-                price = 39.99,
-                bullet_point = data_source.parseCSV.bulletPoint(new_asin)['Bullet Point'][0],
-                description = data_source.parseCSV.__description__(new_asin)['Description'],
-            )
-listing()
+
 '''
 Global Variable
 '''
