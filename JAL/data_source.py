@@ -13,6 +13,11 @@ from JAL import images
 from JAL import models
 
 
+
+# aaa = models.AsinInfo.objects.all()
+# print('testtestestestesetatatast',aaa.values)
+
+
 '''
 Get the DATA from CSV or POST or other
 '''
@@ -153,7 +158,4 @@ class DataForm():
 def test(request):
     cart = request.POST.get('cart')
     print('>>>cart<<<',cart)
-
-        
-
 
