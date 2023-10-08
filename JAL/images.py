@@ -4,6 +4,7 @@ import os
 from JAL import data_source
 from JAL import models
 
+print('>>> this is images.py <<<')
 
 # data列表
 # _asin_ = ['B09KG4R3YR', 'B09YLKWBMV', 'B09YLLXKDT', 'B0BFHQTG6R']

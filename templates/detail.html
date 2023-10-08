@@ -34,14 +34,17 @@
                 </div>
                 <div>
                     <ul class="bullet-point">
-                        <li>{{ product_description.0 }}</li>
-                        <li>{{ product_description.bullet_point_00 }}</li>
+                        {% for bullet_point in product_bullet_point %}
+                        <li>{{ bullet_point }}</li>
+                        {% endfor %}
+                        
+                        <!-- <li>{{ product_description.bullet_point_00 }}</li>
                         <li>{{ product_description.bullet_point_01 }}</li>
                         <li>{{ product_description.bullet_point_02 }}</li>
                         <li>{{ product_description.bullet_point_03 }}</li>
                         <li>{{ product_description.bullet_point_04 }}</li>
                         <li>{{ product_description.bullet_point_05 }}</li>
-                        <li>{{ product_description.bullet_point_06 }}</li>
+                        <li>{{ product_description.bullet_point_06 }}</li> -->
                     </ul>
                 </div>
             </div>

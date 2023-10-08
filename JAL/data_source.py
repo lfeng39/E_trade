@@ -14,8 +14,7 @@ from JAL import models
 
 
 
-# aaa = models.AsinInfo.objects.all()
-# print('testtestestestesetatatast',aaa.values)
+print('>>> this is data_source.py <<<')
 
 
 '''

@@ -1,5 +1,8 @@
 from django.apps import AppConfig
 
+print('===========================================')
+print('>>> Django code running from here... \n')
+print('>>> this is apps.py <<<')
 
 class JalConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'

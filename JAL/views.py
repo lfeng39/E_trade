@@ -9,23 +9,22 @@ from JAL import urls
 from JAL import data_source
 from JAL import images
 
-
-# asin = models.AsinInfo.objects.get(id=19)
-# print('>>>>>>>>>>>>>get',asin.asin)
-# asin.delete()
-
-
+print('\n>>> this is views.py <<< ')
 
 def _index_(request):
     data_source.test(request)
     user = request.GET.get('user_id')
     jasonApi = {
         'asin_code': _asin_,
-        # nav-start
+        '''
+        nav-start
+        '''
         'nav_index': urls.nav(user)['_index_'],
         'nav_nav': urls.nav(user)['_nav_'],
         'nav_account': urls.nav(user)['_account_'],
-        # nav-end
+        '''
+        nav-end
+        '''
         'includ_user_id_url': urls.nav(user)['_index_']['includ_user_id_url'],
         'product_info': models.ProductInfo.objects.all().values(),
         'product_asin': _asin_,
@@ -43,11 +42,15 @@ def _index_(request):
 def _about_(request):
     user = request.GET.get('user_id')
     jasonApi = {
-        # nav-start
+        '''
+        nav-start
+        '''
         'nav_index': urls.nav(user)['_index_'],
         'nav_nav': urls.nav(user)['_nav_'],
         'nav_account': urls.nav('')['_account_'],
-        # nav-end
+        '''
+        nav-end
+        '''
         'page_id': 'about',
         'user_account': user,
     }
@@ -59,11 +62,15 @@ def _about_(request):
 def _products_(request):
     user = request.GET.get('user_id')
     jasonApi = {
-        # nav-start
+        '''
+        nav-start
+        '''
         'nav_index': urls.nav(user)['_index_'],
         'nav_nav': urls.nav(user)['_nav_'],
         'nav_account': urls.nav('')['_account_'],
-        # nav-end
+        '''
+        nav-end
+        '''
         'includ_user_id_url': urls.nav(user)['_index_']['includ_user_id_url'],
         # 'includ_user_id_url': '',
         'product_info': models.ProductInfo.objects.all().values(),
@@ -84,12 +91,21 @@ def _detail_(request, asin_transfer):
     jasonApi = {
         'page_id': asin,
         'product_img': detailImg(asin),
-        # nav-start
+        '''
+        nav-start
+        '''
         'nav_index': urls.nav(user)['_index_'],
         'nav_nav': urls.nav(user)['_nav_'],
         'nav_account': urls.nav('')['_account_'],
-        # nav-end
+        '''
+        nav-end
+        '''
         'product_info': models.ProductInfo.objects.filter(asin=asin_transfer).values()[0],
+        '''
+        the data tpye is 'str' that got from DB
+        method eval() can changed 'str' to 'list' or 'dict'
+        '''
+        'product_bullet_point': eval(models.Listing.objects.filter(asin=asin_transfer).values()[0]['bullet_point']),
         'product_description': models.ProductDescription.objects.filter(asin=asin_transfer).values()[0],
         'sales_status': '',
         'cupon': '',
@@ -99,16 +115,20 @@ def _detail_(request, asin_transfer):
 
     return render(request, 'detail.html', jasonApi)
 
-print(models.ProductDescription.objects.filter(asin='B09KG4R3YR').values()[0])
+
 
 def _login_(request):
     
     jasonApi = {
-        # nav-start
+        '''
+        nav-start
+        '''
         'nav_index': urls.nav('')['_index_'],
         'nav_nav': urls.nav('')['_nav_'],
         'nav_account': urls.nav('')['_account_'],
-        # nav-end
+        '''
+        nav-end
+        '''
         'page_id': 'login',
         # 'user_account': user,
     }
@@ -129,11 +149,15 @@ def _login_(request):
 def signUp(request):
     
     jasonApi = {
-        # nav-start
+        '''
+        nav-start
+        '''
         'nav_index': urls.nav('')['_index_'],
         'nav_nav': urls.nav('')['_nav_'],
         'nav_account': urls.nav('')['_account_'],
-        # nav-end
+        '''
+        nav-end
+        '''
         'page_id': 'signUp',
         'user_account': userAccount(request),
     }
@@ -147,11 +171,15 @@ def _account_(request):
     jasonApi = {
         'page_id': 'account',
         'asin_code': models._asin_,
-        # nav-start
+        '''
+        nav-start
+        '''
         'nav_index': urls.nav('')['_index_'],
         'nav_nav': urls.nav('')['_nav_'],
         'nav_account': urls.nav('')['_account_'],
-        # nav-end
+        '''
+        nav-end
+        '''
         'asin': models.detailImg('B09YLLXKDT'),
         'user_account': userAccount(request),
     }
@@ -167,11 +195,15 @@ def myAccount(request):
 
     jasonApi = {
         'page_id': 'myAccount',
-        # nav-start
+        '''
+        nav-start
+        '''
         'nav_index': urls.nav(user)['_index_'],
         'nav_nav': urls.nav(user)['_nav_'],
         'nav_account': urls.nav('')['_account_'],
-        # nav-end
+        '''
+        nav-end
+        '''
         'user_account': user,
         'my_account': my_account,
     }
@@ -185,11 +217,15 @@ def myCart(request):
     jasonApi = {
         'page_id': 'myCart',
         'asin_code': models._asin_,
-        # nav-start
+        '''
+        nav-start
+        '''
         'nav_index': urls.nav('')['_index_'],
         'nav_nav': urls.nav('')['_nav_'],
         'nav_account': urls.nav('')['_account_'],
-        # nav-end
+        '''
+        nav-end
+        '''
         'product_info': models.ProductInfo.objects.filter(asin='B09YLKWBMV').values()[0],
         'asin': models.detailImg('B09YLLXKDT'),
         'url_page_id_order': models.page_id[6],
@@ -205,13 +241,17 @@ def _order_(request):
     jasonApi = {
         'page_id': 'order',
         'asin_code': models._asin_,
-            # nav-start
+        '''
+        nav-start
+        '''
         'nav_index': urls.nav(request)['_index_'],
         'nav_nav': urls.nav(request)['_nav_'],
         'nav_account': urls.nav(request)['_account_'],
-        # nav-end
+        '''
+        nav-end
+        '''
         'product_info': models.ProductInfo.objects.filter(asin='B09YLKWBMV').values()[0],
-        'asin': models.detailImg('B09YLLXKDT'),
+        'asin': detailImg('B09YLLXKDT'),
         'user_account': userAccount(request),
     }
 
@@ -226,11 +266,15 @@ def postData(request):
     test = models.UserAccount.objects.all().values()
 
     jasonApi = {
-        # nav-start
+        '''
+        nav-start
+        '''
         'nav_index': urls.nav(request)['_index_'],
         'nav_nav': urls.nav(request)['_nav_'],
         'nav_account': urls.nav(request)['_account_'],
-        # nav-end
+        '''
+        nav-end
+        '''
         'yes': 'yes',
         'test': test,
         'user_account': userAccount(request),
@@ -276,7 +320,7 @@ class LatestAsin():
             '''
             the same csv adn mySql, return None
             '''
-            print('>>> no new asin <<< this is views.py')
+            print('>>>>>> no new asin', '\n')
 
             return 'None'
 
@@ -290,7 +334,7 @@ class LatestAsin():
                     pass
                 else:
                     new_asin_list.append(asin)
-            print(' >>> have new asin... saving...  <<< this is views.py')
+            print('>>>>>> have new asin... saving...', '\n')
 
             return new_asin_list
 
@@ -299,9 +343,10 @@ class LatestAsin():
             more mySql DB, delete different asin, and return asin list from mySql DB
             '''
             try:
-                models.AsinInfo.objects.filter(id='392').delete()
+                # models.AsinInfo.objects.filter(id='392').delete()
+                pass
             except:
-                print(' >>> oh, somthing error...  <<< this is views.py')
+                print('>>>>>> oh, somthing error...', '\n')
             
             return LatestAsin.asin_mySql_db()
 
@@ -364,10 +409,10 @@ else:
             description = data_source.parseCSV.__description__(new_asin)['Description'],
         )
 
-    print('\n', '>>> new asin add <<< this is views.py', '\n', have_new_asin)
+    print('>>>>>> new asin add', '\n', have_new_asin)
 
 
-print('\n >>> from DB: <<< this is views.py \n', LatestAsin.asin_mySql_db(), '\n ****************************** \n')
+print('>>>>>> from DB, Total:', len(LatestAsin.asin_mySql_db()), '\n', LatestAsin.asin_mySql_db(), '\n')
 
 
 
@@ -457,3 +502,13 @@ def userAccount(request):
                 pass
     except:
         return None
+
+'''
+get all products info, but asin type is '0'
+'''
+db_product = models.ProductInfo.objects.all().values()
+for sku in db_product:
+    if 'KDT' in sku['sku']:
+        pass
+    else:
+        print(sku['sku'])

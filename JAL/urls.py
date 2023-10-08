@@ -5,7 +5,7 @@ from JAL import views
 from JAL import data_source
 from JAL import models
 
-
+print('\n>>> this is urls.py <<<')
 
 app_name = 'jal'
 
@@ -18,7 +18,9 @@ _port_ = ':8000'
 _app_ = '/JAL/'
 base_url = http + _ip_ + _port_ + _app_
 # base_url = ''
-print('url_now>>>', base_url)
+print('>>>>>> url_now:','\n', base_url)
+print('===========================================')
+print('===========================================')
 
 def nav(user_id):
 

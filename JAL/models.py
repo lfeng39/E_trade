@@ -79,5 +79,5 @@ class Order(models.Model):
 
 
 
-
+print('>>> this is models.py <<<')
 
