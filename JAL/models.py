@@ -34,6 +34,7 @@ class Listing(models.Model):
     price = models.IntegerField()
     bullet_point = models.CharField(max_length=3000, blank=True)
     description = models.TextField(max_length=500, blank=True)
+    status = models.CharField(max_length=2, blank=True)
 
 class ProductInfo(models.Model):
     asin = models.CharField(max_length=20, blank=True)
@@ -44,6 +45,7 @@ class ProductInfo(models.Model):
     bullet_point = models.CharField(max_length=3000, blank=True)
     description = models.TextField(max_length=500, blank=True)
     first_img = models.CharField(max_length=300, blank=True)
+    status = models.CharField(max_length=2, blank=True)
 
 class ProductDescription(models.Model):
     asin = models.CharField(max_length=20, blank=True)

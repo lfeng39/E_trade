@@ -49,8 +49,10 @@
 
 .app-list
 {
-  width: 50%;
-  margin: auto;
+  /* width: 50%; */
+  /* margin: auto; */
+  width: 20%;
+  margin-left: 10%;
 }
 .app-list *
 {
@@ -63,7 +65,8 @@
 }
 .app-list > li > a:hover
 {
-  color: #ff6666;
+  /* color: #ff6666; */
+  color: rgb(51, 95, 66);
 }
 .product-info
 {
@@ -89,7 +92,9 @@
 
 .-focus-
 {
-  border-bottom: 3px solid #ff6666;
+  /* border-bottom: 3px solid #ff6666; */
+  /* font-weight: bold; */
+  font-size: large;
 }
 .display-block
 {

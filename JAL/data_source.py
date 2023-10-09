@@ -109,9 +109,12 @@ class parseCSV():
         #     temp.append(csv_pd.iloc[i+2,1])
         for i in range(2,len(csv_pd)):
             bullet_point = csv_pd.iloc[i,0]
-            if 'Bullet Point' in bullet_point:
-                # print(type(bullet_point))
-                temp.append(csv_pd.iloc[i,1])
+            # print(type(str(bullet_point)))
+            if 'Bullet Point' in str(bullet_point):
+                if type(csv_pd.iloc[i,1]) is float:
+                    temp.append('somthing go...')
+                else:
+                    temp.append(csv_pd.iloc[i,1])
         
         bullet_point = {
             'Bullet Point' : temp
@@ -123,13 +126,12 @@ class parseCSV():
         csv_pd = DataSource.readCSVData(asin)
         for i in range(2,len(csv_pd)):
             Description = csv_pd.iloc[i,0]
-            if 'Description' in Description:
+            if 'Description' in str(Description):
                 __description__ = {
                     csv_pd.iloc[i,0] : csv_pd.iloc[i,1]
                 }
 
         return __description__
-
 
 
 '''

@@ -9,29 +9,29 @@
                 {% for key, value in nav_nav.items %}
                 <li><a href="{{ value }}">{{ key }}</a></li>
                 {% endfor %}
-                {% if user_account == None %}
+                <!-- {% if user_account == None %}
                 <li><a href="{{ nav_account.SignUp.0 }}">SignUp</a></li>
                 <li><a href="{{ nav_account.Login.0 }}">Login</a></li>
                 {% else %}
                 <li><a href="{{ nav_account.Login.0 }}">{{ user_account }}</a></li>
-                {% endif %}
+                {% endif %} -->
             </ul>
         </div>
-        <div class="account flex-container">
+        <!-- <div class="account flex-container">
             <div><a href="{{ nav_account.Cart.0 }}" class="material-symbols-outlined size-30">shopping_cart</a></div>
             {% if user_account == None %}
             <div><a href="{{ nav_account.account.0 }}" class="material-symbols-outlined size-30">account_circle</a></div>
             {% else %}
             <div><a href="{{ nav_account.myAccount.0 }}" class="material-symbols-outlined size-30">account_circle</a></div>
             {% endif %}
-        </div>
+        </div> -->
     </div>
 
     <div class="nav-mini container">
         <ul class="no-padding no-margin no-list-style">
             <li><a href="{{ nav_nav.Product }}" class="material-symbols-outlined size-48">menu</a></li>
             <li><a class="brand-mini" href="{{ nav_index.index }}" id="width-mini"></a></li>
-            <li><a href="{{ nav_account.Cart.0 }}" class="material-symbols-outlined size-48">shopping_cart</a></li>
+            <!-- <li><a href="{{ nav_account.Cart.0 }}" class="material-symbols-outlined size-48">shopping_cart</a></li> -->
         </ul>
     </div>
 </nav>
