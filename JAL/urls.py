@@ -11,8 +11,8 @@ app_name = 'jal'
 
 http = 'http://'
 # _ip_ = '140.82.22.68'
-# _ip_ = '192.168.39.84'
-_ip_ = '127.0.0.1'
+_ip_ = '192.168.39.84'
+# _ip_ = '127.0.0.1'
 # _ip_ = '0.0.0.0'
 _port_ = ':8000'
 _app_ = '/JAL/'
@@ -48,13 +48,14 @@ def nav(user_id):
     else:
         nav_dict = {
             '_index_' : {
-                'index': base_url + 'index',
+                'index': base_url + '',
                 'includ_user_id_url': '',
             },
 
             '_nav_' : {
                 'About': base_url + 'about',
                 'Product': base_url + 'products',
+                # 'admin': base_url + 'admin',
             },
 
             '_account_' : {
@@ -75,7 +76,7 @@ urlpatterns = [
     # ex: /polls/
     # url 按顺序查找页面
     path('', views._index_, name=''),
-    path('index', views._index_, name=''),
+    # path('index', views._index_, name=''),
     path('about',views._about_, name=''),
     path('products',views._products_, name=''),
     path('products/<asin_transfer>',views._detail_, name='asin_code'),
@@ -87,4 +88,5 @@ urlpatterns = [
     path('myAccount',views.myAccount, name=''),
     path('yes',views.postData, name=''),
     path('verify',views.userAccount, name=''),
+    path('admin',views._admin_, name=''),
 ]

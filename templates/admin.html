@@ -1,0 +1,32 @@
+<!-- {%load static%} -->
+<!DOCTYPE html>
+<html>
+<head>
+{% include "head.html" %}
+<title>{{ app_title.0 }}</title>
+</head>
+<body page_id="{{ page_id }}">
+    
+    {% include "nav.html" %}
+
+    <div class="wrap">
+
+        <!-- {% for title in listing %}
+        <div class="container grid">
+            <div>left</div>
+            <div><a href="">{{title.asin}}: {{title.title}}</a></div>
+        </div>
+        {% endfor %} -->
+
+        <ul class="container">
+        {% for listing in listing %}
+        <li><a href=""><b>{{listing.asin}}</b> >>> {{listing.title}}</a></li>
+        {% endfor %}
+        </ul>
+        
+    </div>
+
+    {% include "footer.html" %}
+
+</body>
+</html>

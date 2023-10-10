@@ -5,6 +5,7 @@ import pandas as pd
 import os
 from JAL import data_source
 
+
 '''
 Create MySQL DB Table
 '''
@@ -25,6 +26,8 @@ class AsinInfo(models.Model):
     asin = models.CharField(max_length=20, blank=True)
     sku = models.CharField(max_length=30, blank=True)
     sku_sn = models.CharField(max_length=50, blank=True)
+    def __str__(self):
+        return self.asin
 
 class Listing(models.Model):
     asin = models.CharField(max_length=20, blank=True)
@@ -32,9 +35,11 @@ class Listing(models.Model):
     sku_sn = models.CharField(max_length=50, blank=True)
     title = models.CharField(max_length=300, blank=True)
     price = models.IntegerField()
-    bullet_point = models.CharField(max_length=3000, blank=True)
+    bullet_point = models.TextField(max_length=3000, blank=True)
     description = models.TextField(max_length=500, blank=True)
     status = models.CharField(max_length=2, blank=True)
+    def __str__(self):
+        return self.asin + ' *** ' + self.title
 
 class ProductInfo(models.Model):
     asin = models.CharField(max_length=20, blank=True)
@@ -46,6 +51,8 @@ class ProductInfo(models.Model):
     description = models.TextField(max_length=500, blank=True)
     first_img = models.CharField(max_length=300, blank=True)
     status = models.CharField(max_length=2, blank=True)
+    def __str__(self):
+        return self.asin + ' *** ' + self.title
 
 class ProductDescription(models.Model):
     asin = models.CharField(max_length=20, blank=True)

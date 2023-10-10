@@ -1,0 +1,38 @@
+<!-- {%load static%} -->
+<!DOCTYPE html>
+<html>
+<head>
+{% include "head.html" %}
+<title>{{ app_title.0 }}</title>
+</head>
+<body page_id="{{ page_id }}">
+    
+    {% include "nav.html" %}
+
+    <div class="wrap">
+
+        <!-- <div class="container products-shelf">
+            <textarea name="" id="" cols="130" rows="1">{{ all.asin }}</textarea>
+        </div>
+        <div class="container products-shelf">
+            <textarea name="" id="" cols="130" rows="3">{{ all.title }}</textarea>
+        </div>
+        <div class="container products-shelf">
+            {% for bp in bullet_point %}
+            <textarea name="" id="" cols="130" rows="3">{{ bp }}</textarea>
+            {% endfor %}
+        </div>
+        <div class="container products-shelf">
+            <textarea name="" id="" cols="130" rows="20">{{ all.description }}</textarea>
+        </div> -->
+        <div class="container products-shelf">
+            {% for title in listing %}
+            <div><a>{{title.asin}}: {{title.title}}</a></div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% include "footer.html" %}
+
+</body>
+</html>

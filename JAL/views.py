@@ -77,6 +77,7 @@ def _products_(request):
 
 def _detail_(request, asin_transfer):
     user = request.GET.get('user_id')
+    aaa = request.GET.get('asin')
     asin = asin_transfer
     jasonApi = {
         'page_id': asin,
@@ -95,6 +96,13 @@ def _detail_(request, asin_transfer):
         'cupon': '',
         'user_account': userAccount(request),
         'amazon': 'https://www.amazon.com/dp/' + asin,
+
+        # 'includ_user_id_url': urls.nav(user)['_index_']['includ_user_id_url'],
+        # 'product_info': models.ProductInfo.objects.all().values(),
+        # 'product_asin': _asin_,
+        # 'img_name': img_show_dict,
+        # 'page_id': 'index',
+        # 'user_account': user,
     }
 
     return render(request, 'detail.html', jasonApi)
@@ -152,7 +160,7 @@ def _account_(request):
         'nav_nav': urls.nav('')['_nav_'],
         'nav_account': urls.nav('')['_account_'],
 
-        'asin': models.detailImg('B09YLLXKDT'),
+        'asin': detailImg('B09YLLXKDT'),
         'user_account': userAccount(request),
     }
 
@@ -191,8 +199,8 @@ def myCart(request):
         'nav_account': urls.nav('')['_account_'],
 
         'product_info': models.ProductInfo.objects.filter(asin='B09YLKWBMV').values()[0],
-        'asin': models.detailImg('B09YLLXKDT'),
-        'url_page_id_order': models.page_id[6],
+        'asin': detailImg('B09YLLXKDT'),
+        'url_page_id_order': page_id[6],
         'user_account': userAccount(request),
     }
 
@@ -257,6 +265,24 @@ def upData(request):
     return render(request, 'order.html', jasonApi)
 
 
+
+def _admin_(request):
+    user = request.GET.get('user_id')
+    # asin = asin_transfer
+    jasonApi = {
+
+        'nav_index': urls.nav(user)['_index_'],
+        'nav_nav': urls.nav(user)['_nav_'],
+        'nav_account': urls.nav(user)['_account_'],
+
+        'listing': models.Listing.objects.all().values(),
+        'index': 'index',
+        # 'test': 'display',
+    }
+
+    return render(request, 'admin.html', jasonApi)
+
+print(models.Listing.objects.all().values())
 '''
 Check Asin
 '''
