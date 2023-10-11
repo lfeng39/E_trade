@@ -6,33 +6,57 @@
 <title>{{ app_title.0 }}</title>
 </head>
 <body page_id="{{ page_id }}">
-    
+    <!-- 
+        NAV
+     -->
     {% include "nav.html" %}
+    <!-- 
+        NAV
+     -->
 
-    <div class="wrap">
+    <!-- 
+        Form Data Start
+     -->
+    <form class="login" action="/JAL/yes={{ asin }}" method="post">
+        {%csrf_token%}
+        <div class="wrap">
+            <br>
+            <div class="container products-shelf">
+                <h3><label name="asin"><b>{{ asin }}</b></label></h3>
+                <input style="font-size: 18px;" type="text" name="price" id="" value="{{ listing.price }}" />
+                <button id="" type="submit"><h3>commit</h3></button>
+            </div>
+            <br>
+            <div class="container products-shelf">
+                <h3><b>Title</b></h3>
+                <textarea style="font-size: 18px;" name="listingtitle" id="" cols="130" rows="3">{{ listing.title }}</textarea>
+            </div>
+            <br>
+            <div class="container products-shelf">
+                <h3><b>BulletPoint</b></h3>
+                {% for bp in bullet_point %}
+                <textarea style="font-size: 18px;" name="bullet_point_{{ forloop.counter }}" id="" cols="130" rows="3">{{ bp }}</textarea>
+                {% endfor %}
+            </div>
+            <br>
+            <div class="container products-shelf">
+                <h3><b>Description</b></h3>
+                <textarea style="font-size: 18px;" name="" id="" cols="130" rows="15">{{ listing.description }}</textarea>
+            </div>
+            <br>
+        </div>
+    </form>
+    <!-- 
+        Form Data End
+     -->
 
-        <!-- <div class="container products-shelf">
-            <textarea name="" id="" cols="130" rows="1">{{ all.asin }}</textarea>
-        </div>
-        <div class="container products-shelf">
-            <textarea name="" id="" cols="130" rows="3">{{ all.title }}</textarea>
-        </div>
-        <div class="container products-shelf">
-            {% for bp in bullet_point %}
-            <textarea name="" id="" cols="130" rows="3">{{ bp }}</textarea>
-            {% endfor %}
-        </div>
-        <div class="container products-shelf">
-            <textarea name="" id="" cols="130" rows="20">{{ all.description }}</textarea>
-        </div> -->
-        <div class="container products-shelf">
-            {% for title in listing %}
-            <div><a>{{title.asin}}: {{title.title}}</a></div>
-            {% endfor %}
-        </div>
-    </div>
-
+    <!-- 
+        Footer
+     -->
     {% include "footer.html" %}
+    <!-- 
+        Footer
+     -->
 
 </body>
 </html>

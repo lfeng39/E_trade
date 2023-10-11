@@ -175,7 +175,18 @@ class DataForm():
 
         return request.POST.get('email'), request.POST.get('passWord')
 
-def test(request):
-    cart = request.POST.get('cart')
-    print('>>>cart<<<',cart)
+
+
+def test(request, asin):
+    # cart = request.POST.get('cart')
+    # title = request.POST.get('listingtitle')
+    # print('>>>cart<<<',cart)
+    # asin = request.POST.get('asin')
+    count = len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']))
+    bullet_point_list = []
+    for i in range(count):
+        bullet_point = request.POST.get('bullet_point_'+str(i+1))
+        bullet_point_list.append(bullet_point)
+    print(count, bullet_point_list)
+    return bullet_point_list
 

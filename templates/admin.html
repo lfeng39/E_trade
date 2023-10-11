@@ -20,7 +20,7 @@
 
         <ul class="container">
         {% for listing in listing %}
-        <li><a href=""><b>{{listing.asin}}</b> >>> {{listing.title}}</a></li>
+        <li><a href="admin&edit={{ listing.asin }}"><b>{{listing.asin}}</b> >>> {{listing.title}}</a></li>
         {% endfor %}
         </ul>
         

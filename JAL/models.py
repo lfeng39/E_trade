@@ -36,7 +36,7 @@ class Listing(models.Model):
     title = models.CharField(max_length=300, blank=True)
     price = models.IntegerField()
     bullet_point = models.TextField(max_length=3000, blank=True)
-    description = models.TextField(max_length=500, blank=True)
+    description = models.TextField(max_length=3000, blank=True)
     status = models.CharField(max_length=2, blank=True)
     def __str__(self):
         return self.asin + ' *** ' + self.title
@@ -63,7 +63,7 @@ class ProductDescription(models.Model):
     bullet_point_04 = models.CharField(max_length=500, blank=True)
     bullet_point_05 = models.CharField(max_length=500, blank=True)
     bullet_point_06 = models.CharField(max_length=500, blank=True)
-    description = models.TextField(max_length=500, blank=True)
+    description = models.TextField(max_length=3000, blank=True)
 
 class Image(models.Model):
     asin = models.CharField(max_length=20, blank=True)

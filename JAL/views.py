@@ -75,10 +75,9 @@ def _products_(request):
 
 
 
-def _detail_(request, asin_transfer):
+def _detail_(request, asin):
     user = request.GET.get('user_id')
-    aaa = request.GET.get('asin')
-    asin = asin_transfer
+    # asin = asin_transfer
     jasonApi = {
         'page_id': asin,
         'product_img': detailImg(asin),
@@ -87,11 +86,11 @@ def _detail_(request, asin_transfer):
         'nav_nav': urls.nav(user)['_nav_'],
         'nav_account': urls.nav('')['_account_'],
 
-        'product_info': models.ProductInfo.objects.filter(asin=asin_transfer).values()[0],
+        'product_info': models.ProductInfo.objects.filter(asin=asin).values()[0],
         ### the data tpye is 'str' that got from DB
         ### method eval() can changed 'str' to 'list' or 'dict'
-        'product_bullet_point': eval(models.Listing.objects.filter(asin=asin_transfer).values()[0]['bullet_point']),
-        'product_description': models.ProductDescription.objects.filter(asin=asin_transfer).values()[0],
+        'product_bullet_point': eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']),
+        'product_description': models.ProductDescription.objects.filter(asin=asin).values()[0],
         'sales_status': '',
         'cupon': '',
         'user_account': userAccount(request),
@@ -170,17 +169,17 @@ def _account_(request):
 
 def myAccount(request):
 
-    user = request.GET.get('user_id')
-    my_account = models.UserAccount.objects.filter(email=user).values()[0]
+    user_id = request.GET.get('user_id')
+    my_account = models.UserAccount.objects.filter(email=user_id).values()[0]
 
     jasonApi = {
         'page_id': 'myAccount',
 
-        'nav_index': urls.nav(user)['_index_'],
-        'nav_nav': urls.nav(user)['_nav_'],
+        'nav_index': urls.nav(user_id)['_index_'],
+        'nav_nav': urls.nav(user_id)['_nav_'],
         'nav_account': urls.nav('')['_account_'],
 
-        'user_account': user,
+        'user_account': user_id,
         'my_account': my_account,
     }
 
@@ -227,21 +226,22 @@ def _order_(request):
 
 
 
-def postData(request):
+def postData(request, asin):
 
-    data_source.DataForm.postAccountInfoSignUp(request)
+    # data_source.DataForm.postAccountInfoSignUp(request)
     # data_source.verifyAccount(request)
-    test = models.UserAccount.objects.all().values()
+    # test = models.UserAccount.objects.all().values()
+
 
     jasonApi = {
 
-        'nav_index': urls.nav(request)['_index_'],
-        'nav_nav': urls.nav(request)['_nav_'],
-        'nav_account': urls.nav(request)['_account_'],
+        # 'nav_index': urls.nav(request)['_index_'],
+        # 'nav_nav': urls.nav(request)['_nav_'],
+        # 'nav_account': urls.nav(request)['_account_'],
 
-        'yes': 'yes',
-        'test': test,
-        'user_account': userAccount(request),
+        'yes': data_source.test(request, asin),
+        # 'test': test,
+        # 'user_account': userAccount(request),
     }
 
     return render(request, 'yes.html', jasonApi)
@@ -267,22 +267,48 @@ def upData(request):
 
 
 def _admin_(request):
-    user = request.GET.get('user_id')
+    user_id = request.GET.get('user_id')
     # asin = asin_transfer
     jasonApi = {
 
-        'nav_index': urls.nav(user)['_index_'],
-        'nav_nav': urls.nav(user)['_nav_'],
-        'nav_account': urls.nav(user)['_account_'],
+        'nav_index': urls.nav(user_id)['_index_'],
+        'nav_nav': urls.nav(user_id)['_nav_'],
+        'nav_account': urls.nav(user_id)['_account_'],
 
         'listing': models.Listing.objects.all().values(),
-        'index': 'index',
-        # 'test': 'display',
+
     }
 
     return render(request, 'admin.html', jasonApi)
 
-print(models.Listing.objects.all().values())
+che = auth.authenticate(request, username='lfeng')
+print('have what???',che)
+
+def _edit_(request, asin):
+    user_id = request.GET.get('user_id')
+    # get_range(7)
+    # asin = asin_transfer
+    jasonApi = {
+
+        'nav_index': urls.nav(user_id)['_index_'],
+        'nav_nav': urls.nav(user_id)['_nav_'],
+        'nav_account': urls.nav(user_id)['_account_'],
+
+        'asin': asin,
+        'listing': models.Listing.objects.filter(asin=asin).values()[0],
+        'bullet_point': eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']),
+        'len_bullet_point': len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point'])),
+
+    }
+
+    return render(request, 'edit.html', jasonApi)
+
+
+
+
+
+
+
 '''
 Check Asin
 '''
@@ -499,7 +525,6 @@ def userAccount(request):
                 pass
     except:
         return None
-
 
 
 
