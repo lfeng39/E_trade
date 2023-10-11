@@ -175,6 +175,31 @@ class DataForm():
 
         return request.POST.get('email'), request.POST.get('passWord')
 
+    def editListing(request, asin):
+        '''
+        get title
+        '''
+        title = request.POST.get('title')
+
+        '''
+        get price
+        '''
+        price = request.POST.get('price')
+
+        '''
+        get bullepoint
+        '''
+        count = len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']))
+        bullet_point = []
+        for i in range(count):
+            bullet_point.append(request.POST.get('bullet_point_'+str(i+1)))
+        
+        '''
+        get description
+        '''
+        description = request.POST.get('description')
+
+        return title, price, bullet_point, description
 
 
 def test(request, asin):

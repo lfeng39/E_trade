@@ -22,14 +22,14 @@
         <div class="wrap">
             <br>
             <div class="container products-shelf">
-                <h3><label name="asin"><b>{{ asin }}</b></label></h3>
+                <h3><label><b>{{ asin }}</b></label></h3>
                 <input style="font-size: 18px;" type="text" name="price" id="" value="{{ listing.price }}" />
                 <button id="" type="submit"><h3>commit</h3></button>
             </div>
             <br>
             <div class="container products-shelf">
                 <h3><b>Title</b></h3>
-                <textarea style="font-size: 18px;" name="listingtitle" id="" cols="130" rows="3">{{ listing.title }}</textarea>
+                <textarea style="font-size: 18px;" name="title" id="" cols="130" rows="3">{{ listing.title }}</textarea>
             </div>
             <br>
             <div class="container products-shelf">
@@ -41,7 +41,7 @@
             <br>
             <div class="container products-shelf">
                 <h3><b>Description</b></h3>
-                <textarea style="font-size: 18px;" name="" id="" cols="130" rows="15">{{ listing.description }}</textarea>
+                <textarea style="font-size: 18px;" name="description" id="" cols="130" rows="15">{{ listing.description }}</textarea>
             </div>
             <br>
         </div>

@@ -239,7 +239,7 @@ def postData(request, asin):
         # 'nav_nav': urls.nav(request)['_nav_'],
         # 'nav_account': urls.nav(request)['_account_'],
 
-        'yes': data_source.test(request, asin),
+        'yes': data_source.DataForm.editListing(request, asin),
         # 'test': test,
         # 'user_account': userAccount(request),
     }
@@ -281,8 +281,7 @@ def _admin_(request):
 
     return render(request, 'admin.html', jasonApi)
 
-che = auth.authenticate(request, username='lfeng')
-print('have what???',che)
+
 
 def _edit_(request, asin):
     user_id = request.GET.get('user_id')
