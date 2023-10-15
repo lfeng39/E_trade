@@ -12,7 +12,7 @@
 
     <div class="wrap">
 
-        <div class="container">
+        <!-- <div class="container">
             <div class="card-standard no-margin min-height" style="background-image: url('{{ imgShow.1 }}'); background-size: 100%;">
                 <div class="position">
                     <h1>{{ yes }}</h1>
@@ -22,14 +22,21 @@
                     
                 </div>
             </div>
+        </div> -->
 
+        <!-- 
+            commit listing data done
+         -->
+        <div class="container">
+            <div style="margin: 20px 0 20px 0;"><h1>{{ status }}</h1></div>
             
-
-            
-
+            <div style="margin: 20px 0 20px 0;">
+                <a style="font-size: 20px;" href="{{ view }}" target="_blank">View</a> | 
+                <a style="font-size: 20px;" href="{{ again }}">Again</a> | 
+                <a style="font-size: 20px;" href="{{ editlist }}">Back to editList</a>
+            </div>
+            <div><img src="{{ img }}" alt=""></div>
         </div>
-
-
         
     </div>
     

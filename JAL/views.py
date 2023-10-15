@@ -87,10 +87,12 @@ def _detail_(request, asin):
         'nav_account': urls.nav('')['_account_'],
 
         'product_info': models.ProductInfo.objects.filter(asin=asin).values()[0],
+        'product_price': models.Listing.objects.filter(asin=asin).values()[0],
+        # 'product_img': '/static/image/products/' + asin + '/v1.00/7/00-Listing-01.jpg'
         ### the data tpye is 'str' that got from DB
         ### method eval() can changed 'str' to 'list' or 'dict'
         'product_bullet_point': eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']),
-        'product_description': models.ProductDescription.objects.filter(asin=asin).values()[0],
+        'product_description': models.Listing.objects.filter(asin=asin).values()[0],
         'sales_status': '',
         'cupon': '',
         'user_account': userAccount(request),
@@ -285,27 +287,40 @@ def _admin_(request):
 
 def _edit_(request, asin):
     user_id = request.GET.get('user_id')
-    # get_range(7)
-    # asin = asin_transfer
+
     jasonApi = {
 
         'nav_index': urls.nav(user_id)['_index_'],
         'nav_nav': urls.nav(user_id)['_nav_'],
         'nav_account': urls.nav(user_id)['_account_'],
 
+        # 'url': 'admin&edit=',
         'asin': asin,
         'listing': models.Listing.objects.filter(asin=asin).values()[0],
         'bullet_point': eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']),
         'len_bullet_point': len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point'])),
-
+        
     }
 
     return render(request, 'edit.html', jasonApi)
 
 
+def editDone(request, asin):
 
+    jasonApi = {
 
+        # 'nav_index': urls.nav(request)['_index_'],
+        # 'nav_nav': urls.nav(request)['_nav_'],
+        # 'nav_account': urls.nav(request)['_account_'],
 
+        'status': data_source.DataForm.editListing(request, asin),
+        'view': 'products&asin=' + asin,
+        'again': 'admin&edit=' + asin,
+        'editlist': 'admin',
+        'img': '/static/image/status/yeah.jpg'
+    }
+
+    return render(request, 'yes.html', jasonApi)
 
 
 '''
@@ -339,7 +354,7 @@ class LatestAsin():
         asin_csv = data_source.DataSource.getAsinCvs('asin')
         if len(asin_csv) == len(LatestAsin.asin_mySql_db()):
             '''
-            the same csv adn mySql, return None
+            the same csv and mySql, return None
             '''
             print('>>>>>> no new asin', '\n')
 
@@ -363,13 +378,14 @@ class LatestAsin():
             '''
             more mySql DB, delete different asin, and return asin list from mySql DB
             '''
-            try:
-                # models.AsinInfo.objects.filter(id='392').delete()
-                pass
-            except:
-                print('>>>>>> oh, somthing error...', '\n')
+            for i in LatestAsin.asin_mySql_db():
+                if i not in asin_csv:
+                    print(i)
+                else:
+                    print('>>>>>> oh, somthing error...', '\n')
             
             return LatestAsin.asin_mySql_db()
+
 
 
 '''
@@ -395,18 +411,6 @@ else:
             asin = new_asin,
             sku = new_asin + '-tempName',
             sku_sn = new_asin + '-tempName-',
-        )
-        
-        models.ProductDescription.objects.create(
-            asin = new_asin,
-            bullet_point_00 = data_source.parseCSV.bulletPoint(new_asin)['Bullet Point'][0],
-            bullet_point_01 = data_source.parseCSV.bulletPoint(new_asin)['Bullet Point'][1],
-            bullet_point_02 = data_source.parseCSV.bulletPoint(new_asin)['Bullet Point'][2],
-            bullet_point_03 = data_source.parseCSV.bulletPoint(new_asin)['Bullet Point'][3],
-            bullet_point_04 = data_source.parseCSV.bulletPoint(new_asin)['Bullet Point'][4],
-            bullet_point_05 = data_source.parseCSV.bulletPoint(new_asin)['Bullet Point'][5],
-            bullet_point_06 = data_source.parseCSV.bulletPoint(new_asin)['Bullet Point'][6],
-            description = data_source.parseCSV.__description__(new_asin)['Description'],
         )
 
         models.ProductInfo.objects.create(

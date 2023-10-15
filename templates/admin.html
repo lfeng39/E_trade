@@ -10,19 +10,22 @@
     {% include "nav.html" %}
 
     <div class="wrap">
-
+        
         <!-- {% for title in listing %}
         <div class="container grid">
             <div>left</div>
             <div><a href="">{{title.asin}}: {{title.title}}</a></div>
         </div>
         {% endfor %} -->
-
-        <ul class="container">
+        {% for listing in listing %}
+        <br>
+        <div class="container"><a href="admin&edit={{ listing.asin }}"><b>{{listing.asin}}</b> -- {{listing.title}}</a></div>
+        {% endfor %}
+        <!-- <ul class="container">
         {% for listing in listing %}
         <li><a href="admin&edit={{ listing.asin }}"><b>{{listing.asin}}</b> >>> {{listing.title}}</a></li>
         {% endfor %}
-        </ul>
+        </ul> -->
         
     </div>
 

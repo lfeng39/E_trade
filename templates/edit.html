@@ -17,7 +17,8 @@
     <!-- 
         Form Data Start
      -->
-    <form class="login" action="/JAL/yes={{ asin }}" method="post">
+
+    <form class="login" action="/JAL/admin&editstatus=done={{ asin }}" method="post">
         {%csrf_token%}
         <div class="wrap">
             <br>
@@ -25,6 +26,7 @@
                 <h3><label><b>{{ asin }}</b></label></h3>
                 <input style="font-size: 18px;" type="text" name="price" id="" value="{{ listing.price }}" />
                 <button id="" type="submit"><h3>commit</h3></button>
+                <!-- <label>{{ status }}</label> -->
             </div>
             <br>
             <div class="container products-shelf">
@@ -44,6 +46,10 @@
                 <textarea style="font-size: 18px;" name="description" id="" cols="130" rows="15">{{ listing.description }}</textarea>
             </div>
             <br>
+            <div class="container products-shelf">
+                <h3><b>status</b></h3>
+                <textarea style="font-size: 18px;" name="status" id="" cols="130" rows="1">{{ listing.status }}</textarea>
+            </div>
         </div>
     </form>
     <!-- 

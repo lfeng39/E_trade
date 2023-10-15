@@ -1,10 +1,9 @@
 from django.db import models
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 import datetime, time
-import pandas as pd
 import os
 from JAL import data_source
-
+# import djmoney
 
 '''
 Create MySQL DB Table
@@ -26,44 +25,45 @@ class AsinInfo(models.Model):
     asin = models.CharField(max_length=20, blank=True)
     sku = models.CharField(max_length=30, blank=True)
     sku_sn = models.CharField(max_length=50, blank=True)
-    def __str__(self):
-        return self.asin
+    # def __str__(self):
+    #     return self.asin
 
 class Listing(models.Model):
     asin = models.CharField(max_length=20, blank=True)
     sku = models.CharField(max_length=30, blank=True)
     sku_sn = models.CharField(max_length=50, blank=True)
     title = models.CharField(max_length=300, blank=True)
-    price = models.IntegerField()
+    # price = models.MoneyField(max_digits=14, decimal_places=2, default_currency='USD')
+    price = models.FloatField()
     bullet_point = models.TextField(max_length=3000, blank=True)
     description = models.TextField(max_length=3000, blank=True)
     status = models.CharField(max_length=2, blank=True)
-    def __str__(self):
-        return self.asin + ' *** ' + self.title
+    # def __str__(self):
+    #     return self.asin + ' *** ' + self.title
 
 class ProductInfo(models.Model):
     asin = models.CharField(max_length=20, blank=True)
     sku = models.CharField(max_length=30, blank=True)
     sku_sn = models.CharField(max_length=50, blank=True)
     title = models.CharField(max_length=300, blank=True)
-    price = models.IntegerField()
+    price = models.FloatField()
     bullet_point = models.CharField(max_length=3000, blank=True)
     description = models.TextField(max_length=500, blank=True)
     first_img = models.CharField(max_length=300, blank=True)
     status = models.CharField(max_length=2, blank=True)
-    def __str__(self):
-        return self.asin + ' *** ' + self.title
+    # def __str__(self):
+    #     return self.asin + ' *** ' + self.title
 
-class ProductDescription(models.Model):
-    asin = models.CharField(max_length=20, blank=True)
-    bullet_point_00 = models.CharField(max_length=500, blank=True)
-    bullet_point_01 = models.CharField(max_length=500, blank=True)
-    bullet_point_02 = models.CharField(max_length=500, blank=True)
-    bullet_point_03 = models.CharField(max_length=500, blank=True)
-    bullet_point_04 = models.CharField(max_length=500, blank=True)
-    bullet_point_05 = models.CharField(max_length=500, blank=True)
-    bullet_point_06 = models.CharField(max_length=500, blank=True)
-    description = models.TextField(max_length=3000, blank=True)
+# class ProductDescription(models.Model):
+#     asin = models.CharField(max_length=20, blank=True)
+#     bullet_point_00 = models.CharField(max_length=500, blank=True)
+#     bullet_point_01 = models.CharField(max_length=500, blank=True)
+#     bullet_point_02 = models.CharField(max_length=500, blank=True)
+#     bullet_point_03 = models.CharField(max_length=500, blank=True)
+#     bullet_point_04 = models.CharField(max_length=500, blank=True)
+#     bullet_point_05 = models.CharField(max_length=500, blank=True)
+#     bullet_point_06 = models.CharField(max_length=500, blank=True)
+#     description = models.TextField(max_length=3000, blank=True)
 
 class Image(models.Model):
     asin = models.CharField(max_length=20, blank=True)

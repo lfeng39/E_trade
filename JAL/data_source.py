@@ -11,6 +11,8 @@ from django import forms
 from django.http import HttpResponse
 from JAL import images
 from JAL import models
+# from JAL.views import LatestAsin
+
 
 
 
@@ -134,6 +136,7 @@ class parseCSV():
         return __description__
 
 
+
 '''
 Get the DATA from POST
 '''
@@ -176,42 +179,82 @@ class DataForm():
         return request.POST.get('email'), request.POST.get('passWord')
 
     def editListing(request, asin):
-        '''
-        get title
-        '''
-        title = request.POST.get('title')
+        try:
+            '''
+            get title from edit.html
+            '''
+            title = request.POST.get('title')
 
-        '''
-        get price
-        '''
-        price = request.POST.get('price')
+            '''
+            get price from edit.html
+            '''
+            price = request.POST.get('price')
 
-        '''
-        get bullepoint
-        '''
-        count = len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']))
-        bullet_point = []
-        for i in range(count):
-            bullet_point.append(request.POST.get('bullet_point_'+str(i+1)))
-        
-        '''
-        get description
-        '''
-        description = request.POST.get('description')
+            '''
+            get bullepoint from edit.html
+            '''
+            count = len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']))
+            bullet_point = []
+            for i in range(count):
+                bullet_point.append(request.POST.get('bullet_point_'+str(i+1)))
+            
+            '''
+            get description from edit.html
+            '''
+            description = request.POST.get('description')
 
-        return title, price, bullet_point, description
+            '''
+            status
+            '''
+            status = request.POST.get('status')
+
+            '''
+            save the data that has been changed from edit.html to DB
+            '''
+            asin_mySql = models.AsinInfo.objects.all()
+            # if asin in LatestAsin.asin_mySql_db():
+            db_table_listing = models.Listing.objects.get(asin=asin)
+            db_table_listing.title = title
+            db_table_listing.price = price
+            db_table_listing.bullet_point = bullet_point
+            db_table_listing.description = description
+            db_table_listing.save()
+
+            db_table_productinfo = models.ProductInfo.objects.get(asin=asin)
+            db_table_productinfo.title = title
+            db_table_productinfo.price = price
+            db_table_productinfo.bullet_point = bullet_point
+            db_table_productinfo.description = description
+            db_table_productinfo.save()
+
+            db_table_Listing_status = models.Listing.objects.get(asin=asin)
+            db_table_Listing_status.status = status
+            db_table_Listing_status.save()
+
+            db_table_status = models.ProductInfo.objects.get(asin=asin)
+            db_table_status.status = status
+            db_table_status.save()
+
+            # else:
+            #     pass
+
+            return 'Yeah!!! Congratulations on success!!!'
+        except:
+            error = asin + ' is not in productlist, please try again...'
+            return error
+
 
 
 def test(request, asin):
-    # cart = request.POST.get('cart')
+    cart = request.POST.get('cart')
     # title = request.POST.get('listingtitle')
-    # print('>>>cart<<<',cart)
+    print('>>>cart<<<',cart)
     # asin = request.POST.get('asin')
-    count = len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']))
-    bullet_point_list = []
-    for i in range(count):
-        bullet_point = request.POST.get('bullet_point_'+str(i+1))
-        bullet_point_list.append(bullet_point)
-    print(count, bullet_point_list)
-    return bullet_point_list
+    # count = len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']))
+    # bullet_point_list = []
+    # for i in range(count):
+    #     bullet_point = request.POST.get('bullet_point_'+str(i+1))
+    #     bullet_point_list.append(bullet_point)
+    # print(count, bullet_point_list)
+    # return bullet_point_list
 
