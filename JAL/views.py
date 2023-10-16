@@ -12,7 +12,7 @@ from JAL import images
 print('\n>>> this is views.py <<< ')
 
 def _index_(request):
-    data_source.test(request)
+    # data_source.test(request)
     user = request.GET.get('user_id')
     jasonApi = {
         'asin_code': _asin_,
@@ -281,7 +281,7 @@ def _admin_(request):
 
     }
 
-    return render(request, 'admin.html', jasonApi)
+    return render(request, 'product-list.html', jasonApi)
 
 
 
@@ -299,7 +299,7 @@ def _edit_(request, asin):
         'listing': models.Listing.objects.filter(asin=asin).values()[0],
         'bullet_point': eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']),
         'len_bullet_point': len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point'])),
-        
+        'editlist': 'admin&=jessie',
     }
 
     return render(request, 'edit.html', jasonApi)
@@ -316,7 +316,7 @@ def editDone(request, asin):
         'status': data_source.DataForm.editListing(request, asin),
         'view': 'products&asin=' + asin,
         'again': 'admin&edit=' + asin,
-        'editlist': 'admin',
+        'editlist': 'admin&=jessie',
         'img': '/static/image/status/yeah.jpg'
     }
 

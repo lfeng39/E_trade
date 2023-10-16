@@ -88,7 +88,7 @@ urlpatterns = [
     path('myAccount',views.myAccount, name=''),
     path('yes=<asin>',views.postData, name=''),
     path('verify',views.userAccount, name=''),
-    path('admin',views._admin_, name=''),
+    path('admin&=jessie',views._admin_, name=''),
     path('admin&edit=<asin>',views._edit_, name=''),
     path('admin&editstatus=done=<asin>',views.editDone, name=''),
 ]
