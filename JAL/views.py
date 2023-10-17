@@ -361,16 +361,16 @@ def editIndex(request):
 
     jasonApi = {
 
-    'nav_index': urls.nav(user_id)['_index_'],
-    'nav_nav': urls.nav(user_id)['_nav_'],
-    'nav_account': urls.nav(user_id)['_account_'],
+        'nav_index': urls.nav(user_id)['_index_'],
+        'nav_nav': urls.nav(user_id)['_nav_'],
+        'nav_account': urls.nav(user_id)['_account_'],
 
-    'admin': 'admin&=jessie',
-    'asin': product_description,
-    'bullet_point': product_description,
-    'id': product_description,
+        'admin': 'admin&=jessie',
+        'asin': product_description,
+        'bullet_point': product_description,
+        'id': product_description,
 
-        }
+    }
 
 
     return render(request, 'edit-index.html', jasonApi)
@@ -387,7 +387,7 @@ def editIndexDone(request):
             'tag': 'edit index is   ',
             'status': data_source.DataForm.editIndex(request),
             'again': 'admin&=jessie&editIndex',
-            'admin': 'admin&=jessie',
+            'manager': 'admin&=jessie&editIndex',
             'img': '/static/image/yeah/yeah.jpg'
         }
 
