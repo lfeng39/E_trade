@@ -12,8 +12,8 @@ from JAL import images
 print('\n>>> this is views.py <<< ')
 
 def _index_(request):
-    # data_source.test(request)
     user = request.GET.get('user_id')
+    product_description = models.ProductDescription.objects.all().values()
     jasonApi = {
         'asin_code': _asin_,
 
@@ -27,7 +27,7 @@ def _index_(request):
         'img_name': img_show_dict,
         'page_id': 'index',
         'user_account': user,
-        # 'user_account': '',
+        'product_description': product_description,
     }
     print('index>>>',type(user),user)
 
@@ -108,10 +108,10 @@ def _detail_(request, asin):
 
     return render(request, 'detail.html', jasonApi)
 
-
-
+'''
+START---Moulde: Login | SignUp | Verify
+'''
 def _login_(request):
-    
     jasonApi = {
 
         'nav_index': urls.nav('')['_index_'],
@@ -133,10 +133,7 @@ def _login_(request):
             return render(request, 'login.html', jasonApi)
 
 
-
-
 def signUp(request):
-    
     jasonApi = {
 
         'nav_index': urls.nav('')['_index_'],
@@ -150,9 +147,33 @@ def signUp(request):
     return render(request, 'sign-up.html', jasonApi)
 
 
+# class UserLogin():
+# def verifyAccount(request):
+    
+#     user_account_db = UserAccount.objects.all().values('email','password')
+#     post_account_info = data_source.DataForm.postAccountInfoLogin(request)
+
+#     if post_account_info in user_account_db:
+#         return post_account_info['email']
+#     else:
+#         return None
+
+
+# user_account_db = UserAccount.objects.all().values('email')
+# print(user_account_db)
+
+# for dict in user_account_db:
+#     print(dict)
+#     if 'lfeng' in dict.values():
+#         print(list(dict.values())[0])
+#     else:
+#         print('False')
+'''
+END---Moulde: Login SignUp Verify
+'''
+
 
 def _account_(request):
-    
     jasonApi = {
         'page_id': 'account',
         'asin_code': _asin_,
@@ -170,7 +191,6 @@ def _account_(request):
 
 
 def myAccount(request):
-
     user_id = request.GET.get('user_id')
     my_account = models.UserAccount.objects.filter(email=user_id).values()[0]
 
@@ -190,7 +210,6 @@ def myAccount(request):
 
 
 def myCart(request):
-    
     jasonApi = {
         'page_id': 'myCart',
         'asin_code': _asin_,
@@ -210,7 +229,6 @@ def myCart(request):
 
 
 def _order_(request):
-
     jasonApi = {
         'page_id': 'order',
         'asin_code': _asin_,
@@ -229,12 +247,9 @@ def _order_(request):
 
 
 def postData(request, asin):
-
     # data_source.DataForm.postAccountInfoSignUp(request)
     # data_source.verifyAccount(request)
     # test = models.UserAccount.objects.all().values()
-
-
     jasonApi = {
 
         # 'nav_index': urls.nav(request)['_index_'],
@@ -251,7 +266,6 @@ def postData(request, asin):
 
 
 def upData(request):
-
     jasonApi = {
         'page_id': 'upData',
 
@@ -267,7 +281,9 @@ def upData(request):
     return render(request, 'order.html', jasonApi)
 
 
-
+'''
+START---Moulde: Admin | Manager Product List | Edit Listing | Edit Index
+'''
 def _admin_(request):
     user_id = request.GET.get('user_id')
     # asin = asin_transfer
@@ -278,16 +294,32 @@ def _admin_(request):
         'nav_account': urls.nav(user_id)['_account_'],
 
         'listing': models.Listing.objects.all().values(),
+        'manager': 'admin&=jessie&manager',
+        'edit_index': 'admin&=jessie&editIndex',
+    }
+
+    return render(request, 'admin.html', jasonApi)
+
+
+def managerProductList(request):
+    user_id = request.GET.get('user_id')
+    # asin = asin_transfer
+    jasonApi = {
+
+        'nav_index': urls.nav(user_id)['_index_'],
+        'nav_nav': urls.nav(user_id)['_nav_'],
+        'nav_account': urls.nav(user_id)['_account_'],
+
+        'listing': models.Listing.objects.all().values(),
+        'admin': 'admin&=jessie',
 
     }
 
-    return render(request, 'product-list.html', jasonApi)
+    return render(request, 'manager-product-list.html', jasonApi)
 
 
-
-def _edit_(request, asin):
+def editListing(request, asin):
     user_id = request.GET.get('user_id')
-
     jasonApi = {
 
         'nav_index': urls.nav(user_id)['_index_'],
@@ -299,28 +331,71 @@ def _edit_(request, asin):
         'listing': models.Listing.objects.filter(asin=asin).values()[0],
         'bullet_point': eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']),
         'len_bullet_point': len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point'])),
-        'editlist': 'admin&=jessie',
+        'manager': 'admin&=jessie&manager',
     }
 
-    return render(request, 'edit.html', jasonApi)
+    return render(request, 'edit-listing.html', jasonApi)
 
 
-def editDone(request, asin):
-
+def editListingDone(request, asin):
     jasonApi = {
 
         # 'nav_index': urls.nav(request)['_index_'],
         # 'nav_nav': urls.nav(request)['_nav_'],
         # 'nav_account': urls.nav(request)['_account_'],
 
+        'tag': 'edit listing is   ',
         'status': data_source.DataForm.editListing(request, asin),
         'view': 'products&asin=' + asin,
         'again': 'admin&edit=' + asin,
-        'editlist': 'admin&=jessie',
-        'img': '/static/image/status/yeah.jpg'
+        'manager': 'admin&=jessie&manager',
+        'img': '/static/image/yeah/ok.jpg',
     }
 
     return render(request, 'yes.html', jasonApi)
+
+
+def editIndex(request):
+    user_id = request.GET.get('user_id')
+    product_description = models.ProductDescription.objects.all().values()
+
+    jasonApi = {
+
+    'nav_index': urls.nav(user_id)['_index_'],
+    'nav_nav': urls.nav(user_id)['_nav_'],
+    'nav_account': urls.nav(user_id)['_account_'],
+
+    'admin': 'admin&=jessie',
+    'asin': product_description,
+    'bullet_point': product_description,
+    'id': product_description,
+
+        }
+
+
+    return render(request, 'edit-index.html', jasonApi)
+
+
+def editIndexDone(request):
+
+    jasonApi = {
+
+            # 'nav_index': urls.nav(request)['_index_'],
+            # 'nav_nav': urls.nav(request)['_nav_'],
+            # 'nav_account': urls.nav(request)['_account_'],
+
+            'tag': 'edit index is   ',
+            'status': data_source.DataForm.editIndex(request),
+            'again': 'admin&=jessie&editIndex',
+            'admin': 'admin&=jessie',
+            'img': '/static/image/yeah/yeah.jpg'
+        }
+
+    return render(request, 'yes.html', jasonApi)
+'''
+END---Moulde: Admin | Manager Product List | Edit Listing | Edit Index
+'''
+
 
 
 '''
@@ -452,9 +527,6 @@ page_id = ['index', 'about', 'products', 'myCart', 'login', 'signUp', 'order', '
 
 
 
-
-
-
 def detailImg(asin):
 
     detail_img = {
@@ -476,33 +548,6 @@ for i in range(len(_asin_)):
 
     for k in range(len(img_show_dict[_asin_[i]])):
         img_show_dict[_asin_[i]] = img_show_dict[_asin_[i]][k].replace('.jpg', '')
-
-
-
-'''
-VERIFY DATA
-'''
-# class UserLogin():
-# def verifyAccount(request):
-    
-#     user_account_db = UserAccount.objects.all().values('email','password')
-#     post_account_info = data_source.DataForm.postAccountInfoLogin(request)
-
-#     if post_account_info in user_account_db:
-#         return post_account_info['email']
-#     else:
-#         return None
-
-
-# user_account_db = UserAccount.objects.all().values('email')
-# print(user_account_db)
-
-# for dict in user_account_db:
-#     print(dict)
-#     if 'lfeng' in dict.values():
-#         print(list(dict.values())[0])
-#     else:
-#         print('False')
 
 
 def userAccount(request):

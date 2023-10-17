@@ -1,0 +1,63 @@
+<!-- {%load static%} -->
+<!DOCTYPE html>
+<html>
+<head>
+{% include "head.html" %}
+<title>{{ app_title.0 }}</title>
+</head>
+<body page_id="{{ page_id }}">
+    
+    {% include "nav.html" %}
+    
+    <div class="wrap">
+        <!-- <br>
+        <div class="container">
+            <input type="text" value="{{ title_01.bullet_point_01 }}">
+        </div> -->
+        
+        <form class="login" action="/JAL/admin&edit-index-done" method="post">
+            {%csrf_token%}
+            <br> 
+            <div class="container products-shelf">
+                <h3><a style="font-size: 20px;" href="{{ admin }}">< Back to Manager</a></h3><br>
+                <button id="" type="submit"><h3>commit</h3></button>
+            </div>
+            <br>
+            <div class="container">
+                <a style="font-size: 18px;">{{ asin.0.asin }}</a> | 
+                <a style="font-size: 18px;">{{ asin.1.asin }}</a>
+            </div>
+            <br>
+            <div class="container products-shelf">
+                <h3><input style="font-size: 18px;" type="text" name="id" id="" value="{{ id.0.id }}" /></h3>
+                <h3><input style="font-size: 18px;" type="text" name="asin" id="" value="{{ asin.0.asin }}" /></h3>
+                <h3><b>Title-01</b></h3>
+                <textarea style="font-size: 18px;" name="bullet_point_01" id="" cols="130" rows="2">{{ bullet_point.0.bullet_point_01 }}</textarea>
+                <h3><b>Title-02</b></h3>
+                <textarea style="font-size: 18px;" name="bullet_point_02" id="" cols="130" rows="2">{{ bullet_point.0.bullet_point_02 }}</textarea>
+            </div>
+            <!-- <br>
+            <div class="container products-shelf">
+                <h3><input style="font-size: 18px;" type="text" name="id" id="" value="{{ id.1.id }}" /></h3>
+                <h3><input style="font-size: 18px;" type="text" name="asin" id="" value="{{ asin.1.asin }}" /></h3>
+                <h3><b>Title-01</b></h3>
+                <textarea style="font-size: 18px;" name="bullet_point_01" id="" cols="130" rows="2">{{ bullet_point.1.bullet_point_01 }}</textarea>
+                <h3><b>Title-02</b></h3>
+                <textarea style="font-size: 18px;" name="bullet_point_02" id="" cols="130" rows="2">{{ bullet_point.1.bullet_point_02 }}</textarea>
+            </div> -->
+            <!-- <br>
+            <div class="container products-shelf">
+                <h3><input style="font-size: 18px;" type="text" name="asin" id="" value="{{ asin }}" /></h3>
+                <h3><b>Title-01</b></h3>
+                <textarea style="font-size: 18px;" name="bullet_point_01" id="" cols="130" rows="2">{{ bullet_point_01 }}</textarea>
+                <h3><b>Title-02</b></h3>
+                <textarea style="font-size: 18px;" name="bullet_point_02" id="" cols="130" rows="2">{{ bullet_point_02 }}</textarea>
+            </div> -->
+        </form>
+
+    </div>
+
+    {% include "footer.html" %}
+
+</body>
+</html>

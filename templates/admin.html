@@ -28,13 +28,11 @@
             commit listing data done
          -->
         <div class="container">
-            <div style="margin: 20px 0 20px 0;"><h1>{{ tag }}{{ status }}</h1></div>
+            <ul>
+                <li><a style="font-size: 20px;" href="{{ manager }}">Manager ProductList</a></li>
+                <li><a style="font-size: 20px;" href="{{ edit_index }}">Edit Index</a></li>
+            </ul>
             
-            <div style="margin: 20px 0 20px 0;">
-                <a style="font-size: 20px;" href="{{ view }}" target="_blank">View</a> | 
-                <a style="font-size: 20px;" href="{{ again }}">Again</a>
-            </div>
-            <div><img src="{{ img }}" alt=""></div>
         </div>
         
     </div>

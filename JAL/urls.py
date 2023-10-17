@@ -89,6 +89,9 @@ urlpatterns = [
     path('yes=<asin>',views.postData, name=''),
     path('verify',views.userAccount, name=''),
     path('admin&=jessie',views._admin_, name=''),
-    path('admin&edit=<asin>',views._edit_, name=''),
-    path('admin&editstatus=done=<asin>',views.editDone, name=''),
+    path('admin&edit=<asin>',views.editListing, name=''),
+    path('admin&=jessie&manager',views.managerProductList, name=''),
+    path('admin&editstatus=done=<asin>',views.editListingDone, name=''),
+    path('admin&=jessie&editIndex',views.editIndex, name=''),
+    path('admin&edit-index-done',views.editIndexDone, name=''),
 ]

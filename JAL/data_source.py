@@ -244,17 +244,19 @@ class DataForm():
             return error
 
 
+    def editIndex(request):
+        id = request.POST.get('id')
+        asin = request.POST.get('asin')
+        bullet_point_01 = request.POST.get('bullet_point_01')
+        bullet_point_02 = request.POST.get('bullet_point_02')
 
-def test(request, asin):
-    cart = request.POST.get('cart')
-    # title = request.POST.get('listingtitle')
-    print('>>>cart<<<',cart)
-    # asin = request.POST.get('asin')
-    # count = len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']))
-    # bullet_point_list = []
-    # for i in range(count):
-    #     bullet_point = request.POST.get('bullet_point_'+str(i+1))
-    #     bullet_point_list.append(bullet_point)
-    # print(count, bullet_point_list)
-    # return bullet_point_list
+
+        db_table_index = models.ProductDescription.objects.get(id=id)
+        db_table_index.asin = asin
+        db_table_index.bullet_point_01 = bullet_point_01
+        db_table_index.bullet_point_02 = bullet_point_02
+        db_table_index.save()
+        # print('00000000',db_table_index)
+        return 'Yeah!!! Save success!!!'
+
 
