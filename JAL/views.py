@@ -67,6 +67,7 @@ def _products_(request):
         'includ_user_id_url': urls.nav(user)['_index_']['includ_user_id_url'],
         # 'includ_user_id_url': '',
         # 'product_info': models.Listing.objects.all().values(),
+        'lenth': len(models.ProductInfo.objects.filter(status='01')),
         ### get all products info, but status is '00'
         'product_info': models.ProductInfo.objects.filter(status='01'),
         'page_id': 'products',
@@ -333,6 +334,7 @@ def editListing(request, asin):
 
         # 'url': 'admin&edit=',
         'asin': asin,
+
         'listing': models.Listing.objects.filter(asin=asin).values()[0],
         'bullet_point': eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']),
         'len_bullet_point': len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point'])),

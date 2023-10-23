@@ -22,7 +22,7 @@
         {% endfor %} -->
         {% for listing in listing %}
         <br>
-        <div class="container"><a href="admin&edit={{ listing.asin }}"><b>{{listing.asin}}</b> -- {{listing.title}}</a></div>
+        <div class="container"><a href="admin&edit={{ listing.asin }}"><b>{{listing.asin}} | {{ listing.status }}</b> -- {{listing.title}}</a></div>
         {% endfor %}
         <!-- <ul class="container">
         {% for listing in listing %}
