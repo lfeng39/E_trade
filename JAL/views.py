@@ -9,6 +9,11 @@ from JAL import urls
 from JAL import data_source
 from JAL import images
 
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import requires_csrf_token
+from django.http import HttpResponse
+
 print('\n>>> this is views.py <<< ')
 
 def _index_(request):
@@ -336,7 +341,9 @@ def editListing(request, asin):
 
     return render(request, 'edit-listing.html', jasonApi)
 
-
+@csrf_protect
+@csrf_exempt
+@requires_csrf_token
 def editListingDone(request, asin):
     jasonApi = {
 
@@ -375,7 +382,9 @@ def editIndex(request):
 
     return render(request, 'edit-index.html', jasonApi)
 
-
+@csrf_protect
+@csrf_exempt
+@requires_csrf_token
 def editIndexDone(request):
 
     jasonApi = {
