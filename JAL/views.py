@@ -474,6 +474,8 @@ class LatestAsin():
 
 
 
+
+
 '''
 Save Products Data From CSV to MySQL DB
 '''
@@ -518,7 +520,7 @@ else:
             price = 39.99,
             bullet_point = data_source.parseCSV.bulletPoint(new_asin)['Bullet Point'],
             description = data_source.parseCSV.__description__(new_asin)['Description'],
-            status = '1',
+            status = '01',
         )
 
     print('>>>>>> new asin add', '\n', have_new_asin)
