@@ -11,121 +11,106 @@ from django import forms
 from django.http import HttpResponse
 from JAL import images
 from JAL import models
-# from JAL.views import LatestAsin
-
-
-
 
 print('>>> this is data_source.py <<<')
 
 
+
 '''
-Get the DATA from CSV or POST or other
+Get the DATA from DB
 '''
-class DataSource():
-    
-    def connectCsv():
-        '''
-        获取产品数据CSV文件名及后缀
-        '''
-        csv_file_list = os.listdir('static/csv/')
+class AsinDB:
+    '''
+    get asin from MySql DB
+    type data from DB is <class 'django.db.models.query.QuerySet'>
+    return Dict
+    '''
+    # asin_db = models.AsinInfo.objects.all()
 
-        return csv_file_list
+    '''
+    from DB table AsinInfo
+    return data type <class 'list'>
+    '''
+    def asinList():
+        asin_db_list = []
+        for asin_dict in models.AsinInfo.objects.all().values('asin'):
+            # print('ooooooo',asin_dict['asin'])
+            asin_db_list.append(asin_dict['asin'])
 
-    def getAsinCvs(type):
-        '''
-        获取产品数据CSV文件名,文件名均为asin
-        '''
-        _asin_ = []
-        for i in DataSource.connectCsv():
-            file_name, file_type = os.path.splitext(i)
-            _asin_.append(file_name)
-
-        if type == 'asin':
-            return _asin_
-        if type == 'file':
-            return DataSource.connectCsv()
-    
-
-    def readCSVData(asin):
-        '''
-        链接CSV
-        '''
-        data_file = []
-        for i in DataSource.getAsinCvs('file'):
-            data_file.append('static/csv/' + i)
-
-        data_txt = pd.read_csv(data_file[DataSource.getAsinCvs('asin').index(asin)], encoding = 'gbk', engine='python')
-        # data_txt = pd.read_csv('static/csv/'+ asin + '.csv', encoding = 'gbk', engine='python')
+        return asin_db_list
+    '''
+    check asin between DB table and table, if different, syn them
+    coming soon...
+    '''
+ 
         
-        return data_txt
 
 
-
-class parseCSV():
+'''
+Get the DATA from CSV
+'''
+class DataCSV:
+    '''
+    from CSV
+    return data type <class 'list'>
+    '''
+    def asinList():
+        csv_file_list = os.listdir('static/csv/')
+        asin_csv_list = []
+        for csv_file in csv_file_list:
+            file_name, file_type = os.path.splitext(csv_file)
+            asin_csv_list.append(file_name)
+        
+        return asin_csv_list
 
     '''
-    返回最新日期，返回最新日期的列值
+    return data type is <class 'pandas.core.frame.DataFrame'>
     '''
-    def dataDate(asin):
-        csv_pd = DataSource.readCSVData(asin)
-        try:
-            _date_ = []
-            date_index = {}
-            columns = list(csv_pd.columns)
+    def readCSVData(asin):
+        csv_pd = pd.read_csv('static/csv/'+ asin + '.csv', encoding = 'gbk', engine='python')
+        
+        return csv_pd
 
-            for i in range(len(columns)):
-                date_index[columns[i]] = columns.index(columns[i])
-
-            for date in columns:
-                if 'listing' in date.lower():
-                    _date_.append(date)
-            
-            maxmin_index = {
-                min(_date_) : columns.index(min(_date_)),
-                max(_date_) : columns.index(max(_date_))
-            }
-
-            return date_index, maxmin_index
-
-        except:
-            return 'no data'
     
-    def productTitle(asin):
-        csv_pd = DataSource.readCSVData(asin)
-        product_title = {}
-        product_title[csv_pd.iloc[1,0]] = csv_pd.iloc[1,1]
+    '''
+    return data type is <class 'dict'>
+    '''
+    def listingTitle(asin):
+        csv_pd = DataCSV.readCSVData(asin)
+        product_title = {
+            csv_pd.iloc[1,0] : csv_pd.iloc[1,1]
+        }
 
         return product_title
 
     '''
-    以字典的形式输出5点
+    return data type is <class 'dict'>
     '''
     def bulletPoint(asin):
-        csv_pd = DataSource.readCSVData(asin)
+        csv_pd = DataCSV.readCSVData(asin)
         '''
         提取5点，放入temp列表中储存
         '''
-        temp = []
-        # for i in range(7):
-        #     temp.append(csv_pd.iloc[i+2,1])
+        bullet_point_list = []
         for i in range(2,len(csv_pd)):
             bullet_point = csv_pd.iloc[i,0]
-            # print(type(str(bullet_point)))
             if 'Bullet Point' in str(bullet_point):
                 if type(csv_pd.iloc[i,1]) is float:
-                    temp.append('somthing go...')
+                    bullet_point_list.append('bullet_point go...')
                 else:
-                    temp.append(csv_pd.iloc[i,1])
+                    bullet_point_list.append(csv_pd.iloc[i,1])
         
         bullet_point = {
-            'Bullet Point' : temp
+            'Bullet Point' : bullet_point_list
         }
 
         return bullet_point
 
+    '''
+    return data type is <class 'dict'>
+    '''
     def __description__(asin):
-        csv_pd = DataSource.readCSVData(asin)
+        csv_pd = DataCSV.readCSVData(asin)
         for i in range(2,len(csv_pd)):
             Description = csv_pd.iloc[i,0]
             if 'Description' in str(Description):
@@ -141,43 +126,10 @@ class parseCSV():
 Get the DATA from POST
 '''
 # class DataForm(forms.Form):
-class DataForm():
-    def postAccountInfoSignUp(request):
-        
-        email = request.POST.get('email')
-        pass_word = request.POST.get('passWord')
-       
-        if email == 'Your Email' or pass_word == '123+ABC+!@#':
-            pass
-        else:
-
-            '''
-            获取前端数据内容
-            if request.method == 'POST':            
-            保存至UserAccount
-            '''
-            models.UserAccount.objects.create(
-                email = email,
-                password = pass_word,
-                # first_name = request.POST.get('FirstName'),
-                # last_name = request.POST.get('LastName'),
-                # address = request.POST.get('Address'),
-                # street = request.POST.get('Street'),
-                # ctiy = request.POST.get('City'),
-                # country = request.POST.get('Country'),
-                # code = request.POST.get('Code'),
-            )
-
-            '''
-            auth_user DB
-            '''
-            User.objects.create_user(
-                username = email,
-                password = pass_word,
-            )
-
-        return request.POST.get('email'), request.POST.get('passWord')
-
+class DataForm:
+    '''
+    edit listing
+    '''
     def editListing(request, asin):
         try:
             '''
@@ -243,7 +195,9 @@ class DataForm():
             error = asin + ' is not in productlist, please try again...'
             return error
 
-
+    '''
+    edit index
+    '''
     def editIndex(request):
         id = request.POST.get('id')
         asin = request.POST.get('asin')
@@ -259,4 +213,42 @@ class DataForm():
         # print('00000000',db_table_index)
         return 'Yeah!!! Save success!!!'
 
+    '''
+    sign up
+    '''
+    def postAccountInfoSignUp(request):
+        email = request.POST.get('email')
+        pass_word = request.POST.get('passWord')
+       
+        if email == 'Your Email' or pass_word == '123+ABC+!@#':
+            pass
+        else:
+            '''
+            save userinfo
+            '''
+            models.UserAccount.objects.create(
+                email = email,
+                password = pass_word,
+                # first_name = request.POST.get('FirstName'),
+                # last_name = request.POST.get('LastName'),
+                # address = request.POST.get('Address'),
+                # street = request.POST.get('Street'),
+                # ctiy = request.POST.get('City'),
+                # country = request.POST.get('Country'),
+                # code = request.POST.get('Code'),
+            )
+
+            '''
+            auth_user DB
+            '''
+            User.objects.create_user(
+                username = email,
+                password = pass_word,
+            )
+
+        return request.POST.get('email'), request.POST.get('passWord')
+    
+        '''
+        login
+        '''
 

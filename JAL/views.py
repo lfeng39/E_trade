@@ -407,133 +407,135 @@ def editIndexDone(request):
 END---Moulde: Admin | Manager Product List | Edit Listing | Edit Index
 '''
 
+'''
+START---verify: signUp | login
+'''
+def userAccount(request):
+    user_login = {
+        'email' : request.POST.get('email'),
+        'password' : request.POST.get('passWord'),
+    }
+    user_account_db = models.UserAccount.objects.all().values('email','password')
+    print('user_login:',user_login)
+    try:
+        for user_account in user_account_db:
+            print('user_account_db:',user_account)
+            if user_login == user_account:
+                print('>>>',user_account, user_account['email'])
+                # user_account = list(user_account.values())[0]
+                # return HttpResponse(user_account['email'])
+                return user_account['email']
+            else:
+                pass
+    except:
+        return None
+    jasonApi = {
+
+        }
+    return render(request, 'yes.html', jasonApi)
+'''
+END---verify: signUp | login
+'''
+
 
 
 '''
-Check Asin
+CreateProduct addAsin addListing addFirstImg addSevenImg addAPlusImg
 '''
-class LatestAsin():
+class CreateProduct:
     '''
-    get asin from MySql DB
+    from CSV
     '''
-    def asin_mySql_db():
-        asin_mySql = models.AsinInfo.objects.all()
-        asin_mySql_db = []
-        for i in asin_mySql:
-            # print('aaaaaaa',i)
-            asin_mySql_db.append(i.asin)
-
-        return asin_mySql_db
-
-    def saveAsin(new_asin):
+    '''
+    from From
+    '''
+    '''
+    from Syn
+    '''
+    def addAsin(asin):
         models.AsinInfo.objects.create(
-            asin = new_asin,
-            sku = new_asin + '-tempName',
-            sku_sn = new_asin + '-tempName-',
+            asin = asin,
+            sku = asin + '-tempName',
+            sku_sn = asin + '-tempName-',
+        )
+    def addListing(asin):
+        models.Listing.objects.create(
+            asin = asin,
+            sku = asin,
+            sku_sn = asin,
+            title = data_source.DataCSV.listingTitle(asin)['Product Title'],
+            price = 39.99,
+            bullet_point = data_source.DataCSV.bulletPoint(asin)['Bullet Point'],
+            description = data_source.DataCSV.__description__(asin)['Description'],
+            status = '01',
         )
 
+
+
+'''
+check asin between DB and CSV, if new, update table AsinInfo
+'''
+asin_csv_list = data_source.DataCSV.asinList()
+asin_db_list = data_source.AsinDB.asinList()
+if len(asin_csv_list) == len(asin_db_list):
     '''
-    check new asin
+    the same csv and mySql_db, return None
     '''
-    def checkNewAsin():
-        # initializa asin_csv
-        asin_csv = data_source.DataSource.getAsinCvs('asin')
-        if len(asin_csv) == len(LatestAsin.asin_mySql_db()):
-            '''
-            the same csv and mySql, return None
-            '''
-            print('>>>>>> no new asin', '\n')
+    print('>>>>>> no new asin', '\n')
 
-            return 'None'
+elif len(asin_csv_list) > len(asin_db_list):
+    '''
+    more csv, return new asin from csv
+    '''
+    # new_asin_list = []
+    for asin in asin_csv_list:
+        if asin in asin_db_list:
+            pass
+        else:
+            # new_asin_list.append(asin)
+            CreateProduct.addAsin(asin)
+            CreateProduct.addListing(asin)
+    print('>>>>>> have new asin... ', asin, 'saving...', '\n')
+    # return new_asin_list
 
-        elif len(asin_csv) > len(LatestAsin.asin_mySql_db()):
-            '''
-            more csv, return new asin from csv
-            '''
-            new_asin_list = []
-            for asin in asin_csv:
-                if asin in LatestAsin.asin_mySql_db():
-                    pass
-                else:
-                    new_asin_list.append(asin)
-            print('>>>>>> have new asin... saving...', '\n')
-
-            return new_asin_list
-
-        elif len(asin_csv) < len(LatestAsin.asin_mySql_db()):
-            '''
-            more mySql DB, delete different asin, and return asin list from mySql DB
-            '''
-            for i in LatestAsin.asin_mySql_db():
-                if i not in asin_csv:
-                    print(i)
-                else:
-                    print('>>>>>> oh, somthing error...', '\n')
-            
-            return LatestAsin.asin_mySql_db()
+elif len(asin_csv_list) < len(asin_db_list):
+    '''
+    more mySql_db, delete different asin, and return asin list from mySql DB
+    '''
+    print('>>>>>> asin_csv_list less than asin_db_list, Check it!')
+else:
+    print('>>>>>> error..., Check Please!')
 
 
 
 '''
-Save Products Data From CSV to MySQL DB
+CreateUserAccount addAccount addUserInfo addCart addOder
 '''
-# initializa newAsin
-have_new_asin = LatestAsin.checkNewAsin()
-# have_new_asin = 'None'
-# def saveAsin():
+class CreateUserAccount:
+    pass
+
+
+
+
+
+
 def setFirstImg(asin):
-    tag = images.urlAsinImg(LatestAsin.asin_mySql_db())[asin]['7']
+    tag = images.urlAsinImg(data_source.AsinDB.asinList())[asin]['7']
     for first_img_url in tag:
         if '00-' in first_img_url:
             return first_img_url
         else:
             pass
 
-if have_new_asin == 'None':
-    pass
-else:
-    for new_asin in have_new_asin:
-        models.AsinInfo.objects.create(
-            asin = new_asin,
-            sku = new_asin + '-tempName',
-            sku_sn = new_asin + '-tempName-',
-        )
+print('>>>>>> from DB, Total:', len(asin_db_list), '\n', asin_db_list, '\n')
 
-        models.ProductInfo.objects.create(
-            asin = new_asin,
-            sku = new_asin + '-tempName',
-            sku_sn = new_asin + '-tempName-',
-            title = data_source.parseCSV.productTitle(new_asin)['Product Title'],
-            price = 39.99,
-            bullet_point = new_asin,
-            description = new_asin,
-            first_img = setFirstImg(new_asin),
-        )
-
-        models.Listing.objects.create(
-            asin = new_asin,
-            sku = new_asin,
-            sku_sn = new_asin,
-            title = data_source.parseCSV.productTitle(new_asin)['Product Title'],
-            price = 39.99,
-            bullet_point = data_source.parseCSV.bulletPoint(new_asin)['Bullet Point'],
-            description = data_source.parseCSV.__description__(new_asin)['Description'],
-            status = '1',
-        )
-
-    print('>>>>>> new asin add', '\n', have_new_asin)
-
-
-print('>>>>>> from DB, Total:', len(LatestAsin.asin_mySql_db()), '\n', LatestAsin.asin_mySql_db(), '\n')
 
 
 
 '''
 Global Variable
 '''
-_asin_ = LatestAsin.asin_mySql_db()
-product = _asin_
-page_id = ['index', 'about', 'products', 'myCart', 'login', 'signUp', 'order', 'account', 'myAccount', product]
+page_id = ['index', 'about', 'products', 'myCart', 'login', 'signUp', 'order', 'account', 'myAccount', asin_db_list]
 # print('look:>>>>>>',page_id[6])
 
 
@@ -541,9 +543,9 @@ page_id = ['index', 'about', 'products', 'myCart', 'login', 'signUp', 'order', '
 def detailImg(asin):
 
     detail_img = {
-        'img_7_url': images.urlAsinImg(_asin_)[asin]['7'],
-        'img_970_url': images.urlAsinImg(_asin_)[asin]['970'],
-        'img_300_url': images.urlAsinImg(_asin_)[asin]['300'],
+        'img_7_url': images.urlAsinImg(asin_db_list)[asin]['7'],
+        'img_970_url': images.urlAsinImg(asin_db_list)[asin]['970'],
+        'img_300_url': images.urlAsinImg(asin_db_list)[asin]['300'],
     }
 
     return detail_img
@@ -554,36 +556,14 @@ def detailImg(asin):
 index IMG
 '''
 img_show_dict = {}
-for i in range(len(_asin_)):
-    img_show_dict[_asin_[i]] = os.listdir('static/image/show/' + _asin_[i])
+for i in range(len(asin_db_list)):
+    img_show_dict[asin_db_list[i]] = os.listdir('static/image/show/' + asin_db_list[i])
 
-    for k in range(len(img_show_dict[_asin_[i]])):
-        img_show_dict[_asin_[i]] = img_show_dict[_asin_[i]][k].replace('.jpg', '')
+    for k in range(len(img_show_dict[asin_db_list[i]])):
+        img_show_dict[asin_db_list[i]] = img_show_dict[asin_db_list[i]][k].replace('.jpg', '')
 
 
-def userAccount(request):
 
-    user_login = {
-        'email' : request.POST.get('email'),
-        'password' : request.POST.get('passWord'),
-    }
-
-    # user = authenticate(request, username = user_login['email'], password = user_login['password'])
-    user_account_db = models.UserAccount.objects.all().values('email','password')
-
-    print('user_login:',user_login)
-
-    try:
-        for user_account in user_account_db:
-            print('user_account_db:',user_account)
-            if user_login == user_account:
-                print('>>>',user_account, user_account['email'])
-                # user_account = list(user_account.values())[0]
-                return user_account['email']
-            else:
-                pass
-    except:
-        return None
 
 
 
