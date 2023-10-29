@@ -4,6 +4,7 @@ import os
 from JAL import data_source
 from JAL import models
 
+
 print('>>> this is images.py <<<')
 
 # data列表
@@ -47,7 +48,6 @@ def pathAsinImg(_asin_):
 
 # url: '/static/image/B09YLLXKDT/v1.00/7/Listing-1.jpg'
 def urlAsinImg(_asin_):
-
     '''
     urls_asin_img_dict = {
         'asins':{ 'folder': ['/asin/version/folder/files_name',], },
@@ -84,5 +84,64 @@ def urlAsinImg(_asin_):
                 urls_asin_img_dict[_asin_[v]][_folder_[k]].append('/' + pathAsinImg(_asin_)[_asin_[v]][k] + files_name_list[v][k][i])
 
     return urls_asin_img_dict
+
+# asin_db_list = data_source.AsinDB.asinList
+# print(urlAsinImg(asin_db_list))
+
+
+
+'''
+creat img url from folder, the data don't save to DB
+get url object by asin and type
+the type is: 7 | 970 | 300
+'''
+class Img:
+    '''
+    Create img path
+    '''
+    def imgPath(asin, type):
+        img_path = 'static/image/products/' + asin + '/v1.00/' + type + '/'
+    
+        return img_path
+    
+    '''
+    ImgPath is key, imgFile is values
+    '''
+    def imgDict(asin, type):
+        img_file_list = os.listdir(Img.imgPath(asin, type))
+        if '.DS_Store' in img_file_list:
+            img_file_list.pop(img_file_list.index('.DS_Store'))
+
+        product_img_dict = {
+            'img_path' : Img.imgPath(asin, type),
+            'img_file_list' : img_file_list
+        }
+
+        return product_img_dict
+    
+    '''
+    Create img url
+    '''
+    def imgUrl(asin, type):
+        img_url = []
+        for url in Img.imgDict(asin, type)['img_file_list']:
+            url = Img.imgPath(asin, type) + url
+            img_url.append(url)
+
+        return img_url
+    
+    '''
+    Get first img from img_file_list by os.lisdir()
+    '''
+    def firstImg(asin, type):
+        for img_file in os.listdir(Img.imgPath(asin, type)):
+            if img_file.startswith('00-'):
+                first_img = '/' + Img.imgPath(asin, type) + img_file
+                return first_img
+
+print(Img.firstImg('B0BGHBW13S', '7'))
+
+for file in os.listdir(Img.imgPath('B0BGHBW13S', '7')):
+    print(file)
 
 

@@ -1,5 +1,19 @@
 @import 'fonts.css';
 @import 'layout.css';
+@import 'module.css';
+
+/* 
+main.css
+html > body > div > h1 > p > ul > li > a > img
+
+module.css
+button | input | text | widget-btn
+
+layout.css
+wrap > container > grid
+*/
+
+
 
 *
 {
@@ -18,12 +32,46 @@ body
   min-height: 100vh;
   flex-direction: column;
 }
-
+/*************************************************LINE*************************************************/
+/*************************************************
+ NAV
+ *************************************************/
 nav
 {
   background: #f5f5f5;
 }
-
+nav > .nav-plus
+{
+  height: 55px;
+  margin: 0 auto;
+  grid-template-columns: 200px 1fr 70px;
+}
+nav > .nav-mini
+{
+  height: 150px;
+  margin: 0 auto;
+}
+nav > .nav-mini > ul
+{
+  display: grid;
+  grid-template-columns: 150px 1fr 150px;
+}
+nav > .nav-mini > ul *
+{
+  text-align: center;
+  margin: auto;
+  line-height: 150px;
+}
+/*************************************************LINE*************************************************/
+ul
+{
+  padding: 0;
+}
+.nowrap-li > li
+{
+  width: auto;
+  white-space: nowrap;
+}
 li, p
 {
   margin: 3% 0;
@@ -34,7 +82,34 @@ li
 {
   list-style: none;
 }
-
+a
+{
+  text-decoration: none;
+  /* color: rgb(95, 147, 112); */
+  color: #333;
+}
+a:hover
+{
+  /* color: #ff6666; */
+  color: #666;
+}
+/* Google OPSZ ICON*/
+a.size-30
+{
+    font-size: 30px;
+    /* font-variation-settings: 'OPSZ' 48; */
+    display: block;
+}
+a.size-48
+{
+    font-size: 88px;
+    /* font-variation-settings: 'OPSZ' 48; */
+    display: block;
+}
+/*************************************************LINE*************************************************/
+/*************************************************
+ FOOTER 
+ *************************************************/
 footer
 {
   width: 100%;
@@ -47,12 +122,10 @@ footer *
 {
   line-height: 36px;
 }
-
-
-
-/* 
-margin padding start
-*/
+/*************************************************LINE*************************************************/
+/*************************************************
+ Margin Padding  
+ *************************************************/
 .margin-t-b > div, .margin-t-b > li
 {
   margin: 2% 0;
@@ -101,12 +174,12 @@ margin padding start
 {
   padding: 2%;
 }
+/*************************************************LINE*************************************************/
+
 .float-right
 {
   float: right;
 }
-/* 
-margin padding end
-*/
+
 
 

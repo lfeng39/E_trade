@@ -1,5 +1,8 @@
-@import 'main.css';
+@import 'fonts.css';
 @import 'layout.css';
+@import 'module.css';
+
+
 
 @font-face
 {
@@ -52,35 +55,7 @@ html,body *
               'Open Sans',
               sans-serif ;
 }
-a
-{
-  text-decoration: none;
-  /* color: rgb(95, 147, 112); */
-  color: #333;
-}
-a:hover
-{
-  /* color: #ff6666; */
-  color: #666;
-}
 
-/* span
-{
-  font-size: 22px;
-} */
-/* Google OPSZ ICON*/
-a.size-30
-{
-    font-size: 30px;
-    /* font-variation-settings: 'OPSZ' 48; */
-    display: block;
-}
-a.size-48
-{
-    font-size: 88px;
-    /* font-variation-settings: 'OPSZ' 48; */
-    display: block;
-}
 
 
 h2

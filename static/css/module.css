@@ -1,29 +1,19 @@
 @import 'fonts.css';
 @import 'layout.css';
+@import 'module.css';
+
+/* 
+main.css
+html > body > div > h1 > p > ul > li > a > img
+
+module.css
+button | input | text | widget-btn
+
+layout.css
+wrap > container > grid
+*/
 
 
-.nav-plus
-{
-  height: 55px;
-  margin: 0 auto;
-  grid-template-columns: 200px 1fr 70px;
-}
-.nav-mini
-{
-  height: 150px;
-  margin: 0 auto;
-}
-.nav-mini > ul
-{
-  display: grid;
-  grid-template-columns: 150px 1fr 150px;
-}
-.nav-mini > ul *
-{
-  text-align: center;
-  margin: auto;
-  line-height: 150px;
-}
 
 .brand-plus
 {
@@ -67,6 +57,7 @@
 {
   /* color: #ff6666; */
   color: rgb(51, 95, 66);
+  font-size: large;
 }
 .product-info
 {
@@ -94,6 +85,7 @@
 {
   /* border-bottom: 3px solid #ff6666; */
   /* font-weight: bold; */
+  color: rgb(51, 95, 66);
   font-size: large;
 }
 .display-block
@@ -135,6 +127,10 @@ widget
   text-align: center;
   
 }
+/*************************************************LINE*************************************************/
+/*************************************************
+Widget: btn | input | checkbox | text | alert | form
+ *************************************************/
 .widget-btn
 {
   display: block;
@@ -145,9 +141,69 @@ widget
   background-color: rgba(126, 197, 149, 0.8);
   color: #fff;
   text-align: center;
+  
   /* float: right; */
 }
-/* 小于980 针对移动端*/
+a.widget-btn
+{
+  font-size: 22px;
+}
+.learnMore:hover, .widget-btn:hover
+{
+  background-color: rgb(126, 197, 149, 0.9);
+  color: #fff;
+}
+
+/* 
+form-login-signUp
+*/
+.login, .signUp
+{
+  width: 100%;
+  min-height: 60%;
+  margin: 0 auto;
+}
+/* txt */
+/* .article
+{
+
+} */
+.display-row-3
+{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 2px 0;
+}
+
+/* 
+my-cart card --start
+*/
+.-select-:hover, .-select-:visited
+{
+  /* max-width: 100%; */
+  /* border-radius: 8px; */
+  border: 1px solid rgb(122, 158, 125);
+  /* background-color: #fcfcfc; */
+}
+/* 
+my-cart card --end
+*/
+
+.radius-style, .radius-div > div
+{
+  border-radius: 8px;
+  border: 1px solid rgb(239, 239, 239);
+  background-color: #fcfcfc;
+}
+
+/*************************************************LINE*************************************************/
+/*************************************************
+Screen: for mobile, width under 980px
+ *************************************************/
 @media screen and (max-width:980px)
 {
   .position
@@ -179,6 +235,7 @@ widget
     color: #fff;
     text-align: center;
   }
+  /* index.html */
   .learnMore
   {
     width: 36%;
@@ -237,77 +294,13 @@ widget
   }
 }
 
-.learnMore:hover, .widget-btn:hover
-{
-  background-color: rgb(126, 197, 149, 0.9);
-  color: #fff;
-}
-
-/* txt */
-/* .article
-{
-
-} */
-.display-row-3
-{
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  line-clamp: 3;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 2px 0;
-}
-
-/* 
-my-cart card --start
-*/
-.-select-:hover, .-select-:visited
-{
-  /* max-width: 100%; */
-  /* border-radius: 8px; */
-  border: 1px solid rgb(122, 158, 125);
-  /* background-color: #fcfcfc; */
-}
-/* 
-my-cart card --end
-*/
-
-.radius-style, .radius-div > div
-{
-  border-radius: 8px;
-  border: 1px solid rgb(239, 239, 239);
-  background-color: #fcfcfc;
-}
-
-/* 
-ul li --start
-*/
-ul
-{
-  padding: 0;
-}
-.nowrap-li > li
-{
-  width: auto;
-  white-space: nowrap;
-}
 
 
-/* 
-ul li --end
-*/
 
-/* 
-form-login-signUp
-*/
-.login, .signUp
-{
-  width: 100%;
-  min-height: 60%;
-  margin: 0 auto;
-}
-/* 大于981 */
+
+/*************************************************
+Screen: for mobile, width above 980px
+ *************************************************/
 @media screen and (min-width:981px)
 {
   .login > ul
@@ -352,9 +345,12 @@ form-login-signUp
     cursor: pointer;
   }
 }
+/*************************************************LINE*************************************************/
+
 
 
 button:hover
 {
   background-color: rgb(126, 197, 149, 0.9);
 }
+

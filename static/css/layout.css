@@ -1,16 +1,60 @@
 @import 'fonts.css';
 @import 'layout.css';
+@import 'module.css';
+
 
 /* 
-wrap-start
+main.css
+html > body > div > h1 > p > ul > li > a > img
+
+module.css
+button | input | text | widget-btn
+
+layout.css
+wrap > container > grid
 */
+
+
 .wrap
 {
   width: 100%;
 }
-/* 
-wrap-end
-*/
+.grid
+{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+}
+
+/* flex布局，自动排列及换行，且2边对齐 */
+.flex-container
+{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.container img 
+{
+  width: 100%;
+}
+
+.products-shelf > div{
+  margin-left: 10px;
+  margin-right: 10px;
+  border: 1px solid #000;
+}
+.products-shelf > div:first-child{
+  height: 300px;
+}
+.products-shelf > div > h1{
+  height: 60px;
+  
+}
+.products-shelf > div > h2{
+  height: 30px;
+}
+
+
 
 /* 
 针对container容器，设置宽度
@@ -137,23 +181,6 @@ wrap-end
   }
 }
 
-.grid
-{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-}
 
-/* flex布局，自动排列及换行，且2边对齐 */
-.flex-container
-{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.container img 
-{
-  width: 100%;
-}
 
 

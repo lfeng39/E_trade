@@ -3,7 +3,7 @@
 <html>
 <head>
 {% include "head.html" %}
-<title>{{ app_title.0 }}</title>
+<title>{{ product_info.title }}</title>
 </head>
 <body page_id="{{ page_id }}">
     
@@ -21,7 +21,7 @@
             </div>
             <div class="product-info">
                 <div><h1>{{ product_info.title }}</h1></div>
-                <div>$<span>{{ product_price.price }}</span></div>
+                <div class="product-price"><h2>$ {{ product_price.price }}</h2></div>
                 <!-- <div> -->
                     <!-- <form action="/JAL/" method="post"> -->
                         <!-- {%csrf_token%} -->
@@ -35,7 +35,7 @@
                 <div>
                     <ul class="bullet-point">
                         {% for bullet_point in product_bullet_point %}
-                        <li>{{ bullet_point }}</li>
+                        <li><h3>{{ bullet_point }}</h3></li>
                         {% endfor %}
                         
                         <!-- <li>{{ product_description.bullet_point_00 }}</li>

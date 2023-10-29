@@ -3,7 +3,7 @@
 <html>
 <head>
 {% include "head.html" %}
-<title>{{ app_title.0 }}</title>
+<title>ME AND ME. LEO</title>
 </head>
 <body page_id="{{ page_id }}">
     
@@ -13,20 +13,18 @@
     <div class="wrap">
         <br>
         <div class="container" >&#20;&#20;result over {{ lenth }}</div>
-        <div class="container grid-container products-shelf">
+        <div class="container grid-container">
             
-            <!-- {% for product_info in product_info %}
-            <div class="margin-around">
-                <div><a href="products/{{ product_info.asin }}{{ includ_user_id_url }}"><img src="{{ product_info.first_img }}" alt=""></a></div>
-                <div><a href="products/{{ product_info.asin }}{{ includ_user_id_url }}" title="{{ product_info.title }}" class="display-row-3">{{ product_info.title }}</a></div>
-                <div>$<b>{{ product_info.price }}</b></div>
-            </div>
-            {% endfor %} -->
+            <!-- <div class="products-shelf">
+                <div>img</div>
+                <div><h1>title</h1></div>
+                <div><h2>price</h2></div>
+            </div> -->
 
             {% for product_info in product_info %}
             <div class="margin-around">
                 <div><a href="products&asin={{ product_info.asin }}{{ includ_user_id_url }}"><img src="{{ product_info.first_img }}" alt=""></a></div>
-                <div><a href="products&asin={{ product_info.asin }}{{ includ_user_id_url }}" title="{{ product_info.title }}" class="display-row-3">{{ product_info.title }}</a></div>
+                <div><h3><a href="products&asin={{ product_info.asin }}{{ includ_user_id_url }}" title="{{ product_info.title }}" class="display-row-3">{{ product_info.title }}</a></h3></div>
                 <div><b>$ {{ product_info.price }}</b></div>
                 <div><b>$ {{ product_info.price }} | {{ product_info.asin }} | {{ product_info.status }}</b></div>
             </div>

@@ -16,19 +16,23 @@ from django.http import HttpResponse
 
 print('\n>>> this is views.py <<< ')
 
+# def _nav_():
+
+data_source.nav('')['_nav_']
+
 def _index_(request):
     user = request.GET.get('user_id')
     product_description = models.ProductDescription.objects.all().values()
     jasonApi = {
-        'asin_code': _asin_,
+        'asin_code': asin_db_list,
 
-        'nav_index': urls.nav(user)['_index_'],
-        'nav_nav': urls.nav(user)['_nav_'],
-        'nav_account': urls.nav(user)['_account_'],
+        'nav_index': data_source.nav(user)['_index_'],
+        'nav_nav': data_source.nav(user)['_nav_'],
+        'nav_account': data_source.nav(user)['_account_'],
 
-        'includ_user_id_url': urls.nav(user)['_index_']['includ_user_id_url'],
+        'includ_user_id_url': data_source.nav(user)['_index_']['includ_user_id_url'],
         'product_info': models.ProductInfo.objects.all().values(),
-        'product_asin': _asin_,
+        'product_asin': asin_db_list,
         'img_name': img_show_dict,
         'page_id': 'index',
         'user_account': user,
@@ -44,9 +48,9 @@ def _about_(request):
     user = request.GET.get('user_id')
     jasonApi = {
 
-        'nav_index': urls.nav(user)['_index_'],
-        'nav_nav': urls.nav(user)['_nav_'],
-        'nav_account': urls.nav('')['_account_'],
+        'nav_index': data_source.nav(user)['_index_'],
+        'nav_nav': data_source.nav(user)['_nav_'],
+        'nav_account': data_source.nav('')['_account_'],
 
         'page_id': 'about',
         'user_account': user,
@@ -60,16 +64,15 @@ def _products_(request):
     user = request.GET.get('user_id')
     jasonApi = {
 
-        'nav_index': urls.nav(user)['_index_'],
-        'nav_nav': urls.nav(user)['_nav_'],
-        'nav_account': urls.nav('')['_account_'],
+        'nav_index': data_source.nav(user)['_index_'],
+        'nav_nav': data_source.nav(user)['_nav_'],
+        'nav_account': data_source.nav('')['_account_'],
 
-        'includ_user_id_url': urls.nav(user)['_index_']['includ_user_id_url'],
+        'includ_user_id_url': data_source.nav(user)['_index_']['includ_user_id_url'],
         # 'includ_user_id_url': '',
-        # 'product_info': models.Listing.objects.all().values(),
-        'lenth': len(models.ProductInfo.objects.filter(status='01')),
+        'lenth': len(models.Listing.objects.filter(status='01')),
         ### get all products info, but status is '00'
-        'product_info': models.ProductInfo.objects.filter(status='01'),
+        'product_info': models.Listing.objects.filter(status='01'),
         'page_id': 'products',
         'product_image': '',
         'product_title': '',
@@ -80,7 +83,6 @@ def _products_(request):
     return render(request, 'products.html', jasonApi)
 
 
-
 def _detail_(request, asin):
     user = request.GET.get('user_id')
     # asin = asin_transfer
@@ -88,11 +90,11 @@ def _detail_(request, asin):
         'page_id': asin,
         'product_img': detailImg(asin),
 
-        'nav_index': urls.nav(user)['_index_'],
-        'nav_nav': urls.nav(user)['_nav_'],
-        'nav_account': urls.nav('')['_account_'],
+        'nav_index': data_source.nav(user)['_index_'],
+        'nav_nav': data_source.nav(user)['_nav_'],
+        'nav_account': data_source.nav('')['_account_'],
 
-        'product_info': models.ProductInfo.objects.filter(asin=asin).values()[0],
+        'product_info': models.Listing.objects.filter(asin=asin).values()[0],
         'product_price': models.Listing.objects.filter(asin=asin).values()[0],
         # 'product_img': '/static/image/products/' + asin + '/v1.00/7/00-Listing-01.jpg'
         ### the data tpye is 'str' that got from DB
@@ -120,9 +122,9 @@ START---Moulde: Login | SignUp | Verify
 def _login_(request):
     jasonApi = {
 
-        'nav_index': urls.nav('')['_index_'],
-        'nav_nav': urls.nav('')['_nav_'],
-        'nav_account': urls.nav('')['_account_'],
+        'nav_index': data_source.nav('')['_index_'],
+        'nav_nav': data_source.nav('')['_nav_'],
+        'nav_account': data_source.nav('')['_account_'],
 
         'page_id': 'login',
         # 'user_account': user,
@@ -133,7 +135,7 @@ def _login_(request):
     elif request.method == 'POST':
         user = userAccount(request)
         if user:
-            urls_index = urls.nav(user)['_index_']['index']
+            urls_index = data_source.nav(user)['_index_']['index']
             return redirect(urls_index)
         else:
             return render(request, 'login.html', jasonApi)
@@ -142,9 +144,9 @@ def _login_(request):
 def signUp(request):
     jasonApi = {
 
-        'nav_index': urls.nav('')['_index_'],
-        'nav_nav': urls.nav('')['_nav_'],
-        'nav_account': urls.nav('')['_account_'],
+        'nav_index': data_source.nav('')['_index_'],
+        'nav_nav': data_source.nav('')['_nav_'],
+        'nav_account': data_source.nav('')['_account_'],
 
         'page_id': 'signUp',
         'user_account': userAccount(request),
@@ -182,11 +184,11 @@ END---Moulde: Login SignUp Verify
 def _account_(request):
     jasonApi = {
         'page_id': 'account',
-        'asin_code': _asin_,
+        'asin_code': asin_db_list,
 
-        'nav_index': urls.nav('')['_index_'],
-        'nav_nav': urls.nav('')['_nav_'],
-        'nav_account': urls.nav('')['_account_'],
+        'nav_index': data_source.nav('')['_index_'],
+        'nav_nav': data_source.nav('')['_nav_'],
+        'nav_account': data_source.nav('')['_account_'],
 
         'asin': detailImg('B09YLLXKDT'),
         'user_account': userAccount(request),
@@ -203,9 +205,9 @@ def myAccount(request):
     jasonApi = {
         'page_id': 'myAccount',
 
-        'nav_index': urls.nav(user_id)['_index_'],
-        'nav_nav': urls.nav(user_id)['_nav_'],
-        'nav_account': urls.nav('')['_account_'],
+        'nav_index': data_source.nav(user_id)['_index_'],
+        'nav_nav': data_source.nav(user_id)['_nav_'],
+        'nav_account': data_source.nav('')['_account_'],
 
         'user_account': user_id,
         'my_account': my_account,
@@ -218,11 +220,11 @@ def myAccount(request):
 def myCart(request):
     jasonApi = {
         'page_id': 'myCart',
-        'asin_code': _asin_,
+        'asin_code': asin_db_list,
 
-        'nav_index': urls.nav('')['_index_'],
-        'nav_nav': urls.nav('')['_nav_'],
-        'nav_account': urls.nav('')['_account_'],
+        'nav_index': data_source.nav('')['_index_'],
+        'nav_nav': data_source.nav('')['_nav_'],
+        'nav_account': data_source.nav('')['_account_'],
 
         'product_info': models.ProductInfo.objects.filter(asin='B09YLKWBMV').values()[0],
         'asin': detailImg('B09YLLXKDT'),
@@ -237,11 +239,11 @@ def myCart(request):
 def _order_(request):
     jasonApi = {
         'page_id': 'order',
-        'asin_code': _asin_,
+        'asin_code': asin_db_list,
 
-        'nav_index': urls.nav(request)['_index_'],
-        'nav_nav': urls.nav(request)['_nav_'],
-        'nav_account': urls.nav(request)['_account_'],
+        'nav_index': data_source.nav(request)['_index_'],
+        'nav_nav': data_source.nav(request)['_nav_'],
+        'nav_account': data_source.nav(request)['_account_'],
 
         'product_info': models.ProductInfo.objects.filter(asin='B09YLKWBMV').values()[0],
         'asin': detailImg('B09YLLXKDT'),
@@ -258,9 +260,9 @@ def postData(request, asin):
     # test = models.UserAccount.objects.all().values()
     jasonApi = {
 
-        # 'nav_index': urls.nav(request)['_index_'],
-        # 'nav_nav': urls.nav(request)['_nav_'],
-        # 'nav_account': urls.nav(request)['_account_'],
+        # 'nav_index': data_source.nav(request)['_index_'],
+        # 'nav_nav': data_source.nav(request)['_nav_'],
+        # 'nav_account': data_source.nav(request)['_account_'],
 
         'yes': data_source.DataForm.editListing(request, asin),
         # 'test': test,
@@ -275,9 +277,9 @@ def upData(request):
     jasonApi = {
         'page_id': 'upData',
 
-        'nav_index': urls.nav(request)['_index_'],
-        'nav_nav': urls.nav(request)['_nav_'],
-        'nav_account': urls.nav(request)['_account_'],
+        'nav_index': data_source.nav(request)['_index_'],
+        'nav_nav': data_source.nav(request)['_nav_'],
+        'nav_account': data_source.nav(request)['_account_'],
 
         'product_info': models.ProductInfo.objects.filter(asin='B09YLKWBMV').values()[0],
         'asin': detailImg('B09YLLXKDT'),
@@ -295,9 +297,9 @@ def _admin_(request):
     # asin = asin_transfer
     jasonApi = {
 
-        'nav_index': urls.nav(user_id)['_index_'],
-        'nav_nav': urls.nav(user_id)['_nav_'],
-        'nav_account': urls.nav(user_id)['_account_'],
+        'nav_index': data_source.nav(user_id)['_index_'],
+        'nav_nav': data_source.nav(user_id)['_nav_'],
+        'nav_account': data_source.nav(user_id)['_account_'],
 
         'listing': models.Listing.objects.all().values(),
         'manager': 'admin&=jessie&manager',
@@ -312,9 +314,9 @@ def managerProductList(request):
     # asin = asin_transfer
     jasonApi = {
 
-        'nav_index': urls.nav(user_id)['_index_'],
-        'nav_nav': urls.nav(user_id)['_nav_'],
-        'nav_account': urls.nav(user_id)['_account_'],
+        'nav_index': data_source.nav(user_id)['_index_'],
+        'nav_nav': data_source.nav(user_id)['_nav_'],
+        'nav_account': data_source.nav(user_id)['_account_'],
 
         'listing': models.Listing.objects.all().values(),
         'admin': 'admin&=jessie',
@@ -328,9 +330,9 @@ def editListing(request, asin):
     user_id = request.GET.get('user_id')
     jasonApi = {
 
-        'nav_index': urls.nav(user_id)['_index_'],
-        'nav_nav': urls.nav(user_id)['_nav_'],
-        'nav_account': urls.nav(user_id)['_account_'],
+        'nav_index': data_source.nav(user_id)['_index_'],
+        'nav_nav': data_source.nav(user_id)['_nav_'],
+        'nav_account': data_source.nav(user_id)['_account_'],
 
         # 'url': 'admin&edit=',
         'asin': asin,
@@ -349,9 +351,9 @@ def editListing(request, asin):
 def editListingDone(request, asin):
     jasonApi = {
 
-        # 'nav_index': urls.nav(request)['_index_'],
-        # 'nav_nav': urls.nav(request)['_nav_'],
-        # 'nav_account': urls.nav(request)['_account_'],
+        # 'nav_index': data_source.nav(request)['_index_'],
+        # 'nav_nav': data_source.nav(request)['_nav_'],
+        # 'nav_account': data_source.nav(request)['_account_'],
 
         'tag': 'edit listing is   ',
         'status': data_source.DataForm.editListing(request, asin),
@@ -370,9 +372,9 @@ def editIndex(request):
 
     jasonApi = {
 
-        'nav_index': urls.nav(user_id)['_index_'],
-        'nav_nav': urls.nav(user_id)['_nav_'],
-        'nav_account': urls.nav(user_id)['_account_'],
+        'nav_index': data_source.nav(user_id)['_index_'],
+        'nav_nav': data_source.nav(user_id)['_nav_'],
+        'nav_account': data_source.nav(user_id)['_account_'],
 
         'admin': 'admin&=jessie',
         'asin': product_description,
@@ -391,9 +393,9 @@ def editIndexDone(request):
 
     jasonApi = {
 
-            # 'nav_index': urls.nav(request)['_index_'],
-            # 'nav_nav': urls.nav(request)['_nav_'],
-            # 'nav_account': urls.nav(request)['_account_'],
+            # 'nav_index': data_source.nav(request)['_index_'],
+            # 'nav_nav': data_source.nav(request)['_nav_'],
+            # 'nav_account': data_source.nav(request)['_account_'],
 
             'tag': 'edit index is   ',
             'status': data_source.DataForm.editIndex(request),
@@ -467,8 +469,15 @@ class CreateProduct:
             price = 39.99,
             bullet_point = data_source.DataCSV.bulletPoint(asin)['Bullet Point'],
             description = data_source.DataCSV.__description__(asin)['Description'],
+            first_img = images.Img.firstImg(asin, '7'),
             status = '01',
         )
+    def addImgUrl(asin):
+        pass
+
+'''
+Product
+'''
 
 
 
@@ -507,6 +516,16 @@ else:
     print('>>>>>> error..., Check Please!')
 
 
+'''
+check table listing from DB, if False, create it
+'''
+if models.Listing.objects.all():
+    print(True)
+else:
+    print(False)
+    for asin in asin_db_list:
+        CreateProduct.addListing(asin)
+
 
 '''
 CreateUserAccount addAccount addUserInfo addCart addOder
@@ -516,16 +535,16 @@ class CreateUserAccount:
 
 
 
+# print(images.urlAsinImg(asin_db_list))
 
 
-
-def setFirstImg(asin):
-    tag = images.urlAsinImg(data_source.AsinDB.asinList())[asin]['7']
-    for first_img_url in tag:
-        if '00-' in first_img_url:
-            return first_img_url
-        else:
-            pass
+# def setFirstImg(asin):
+#     tag = images.urlAsinImg(data_source.AsinDB.asinList())[asin]['7']
+#     for first_img_url in tag:
+#         if '00-' in first_img_url:
+#             return first_img_url
+#         else:
+#             pass
 
 print('>>>>>> from DB, Total:', len(asin_db_list), '\n', asin_db_list, '\n')
 
@@ -561,7 +580,6 @@ for i in range(len(asin_db_list)):
 
     for k in range(len(img_show_dict[asin_db_list[i]])):
         img_show_dict[asin_db_list[i]] = img_show_dict[asin_db_list[i]][k].replace('.jpg', '')
-
 
 
 

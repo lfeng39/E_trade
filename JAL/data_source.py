@@ -89,7 +89,7 @@ class DataCSV:
     def bulletPoint(asin):
         csv_pd = DataCSV.readCSVData(asin)
         '''
-        提取5点，放入temp列表中储存
+        put in bullet_point_list what get bullet_point_txt from csv by csv_pd.iloc[],
         '''
         bullet_point_list = []
         for i in range(2,len(csv_pd)):
@@ -163,7 +163,7 @@ class DataForm:
             '''
             save the data that has been changed from edit.html to DB
             '''
-            asin_mySql = models.AsinInfo.objects.all()
+            # asin_mySql = models.AsinInfo.objects.all()
             # if asin in LatestAsin.asin_mySql_db():
             db_table_listing = models.Listing.objects.get(asin=asin)
             db_table_listing.title = title
@@ -252,3 +252,67 @@ class DataForm:
         login
         '''
 
+
+'''
+Start-Mould: Nav
+'''
+http = 'http://'
+# _ip_ = '140.82.22.68'
+# _ip_ = '192.168.39.84'
+# _ip_ = '127.0.0.1'
+_ip_ = '0.0.0.0'
+_port_ = ':8000'
+_app_ = '/JAL/'
+base_url = http + _ip_ + _port_ + _app_
+# base_url = ''
+print('>>>>>> url_now:','\n', base_url)
+def nav(user_id):
+    if user_id:
+        nav_dict = {
+            '_index_' : {
+                'index': base_url + 'index' + '?user_id=' + user_id,
+                'includ_user_id_url': '?user_id=' + user_id,
+            },
+
+            '_nav_' : {
+                'Brand': base_url + 'brand' + '?user_id=' + user_id,
+                'Products': base_url + 'products' + '?user_id=' + user_id,
+            },
+
+            '_account_' : {
+                'Cart': [base_url + 'cart', 'cart'],
+                'Login': [base_url + 'login', 'login'],
+                'SignUp': [base_url + 'signUp', 'signUp'],
+                'order': [base_url + 'order', 'order'],
+                'account': [base_url + 'account', 'account'],
+                'myAccount': [base_url + 'myAccount' + '?user_id=' + user_id, 'myAccount'],
+            }
+        }
+    else:
+        nav_dict = {
+            '_index_' : {
+                'index': base_url + '',
+                'includ_user_id_url': '',
+            },
+
+            '_nav_' : {
+                'Brand': base_url + 'brand',
+                'Products': base_url + 'products',
+                # 'admin': base_url + 'admin',
+            },
+
+            '_account_' : {
+                'Cart': [base_url + 'cart', 'cart'],
+                'Login': [base_url + 'login', 'login'],
+                'SignUp': [base_url + 'signUp', 'signUp'],
+                'order': [base_url + 'order', 'order'],
+                'account': [base_url + 'account', 'account'],
+                'myAccount': [base_url + 'myAccount', 'myAccount'],
+            }
+        }
+
+    return nav_dict
+
+'''
+End-Mould: Nav
+'''
