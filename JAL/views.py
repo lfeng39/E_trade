@@ -23,6 +23,16 @@ data_source.nav('')['_nav_']
 def _index_(request):
     user = request.GET.get('user_id')
     product_description = models.ProductDescription.objects.all().values()
+
+    '''
+    index IMG
+    '''
+    img_show_dict = {}
+    for i in range(len(asin_db_list)):
+        img_show_dict[asin_db_list[i]] = os.listdir('static/image/show/' + asin_db_list[i])
+        for k in range(len(img_show_dict[asin_db_list[i]])):
+            img_show_dict[asin_db_list[i]] = img_show_dict[asin_db_list[i]][k].replace('.jpg', '')
+
     jasonApi = {
         'asin_code': asin_db_list,
 
@@ -31,9 +41,12 @@ def _index_(request):
         'nav_account': data_source.nav(user)['_account_'],
 
         'includ_user_id_url': data_source.nav(user)['_index_']['includ_user_id_url'],
-        'product_info': models.ProductInfo.objects.all().values(),
+        'product_info': models.Listing.objects.all().values(),
         'product_asin': asin_db_list,
         'img_name': img_show_dict,
+        'first_img': models.Listing.objects.filter(status='01',asin='B0BRHWQ27R').values('first_img'),
+        'product_title': models.Listing.objects.filter(asin='B0BRHWQ27R').values()[0],
+        'product_bullet_point': eval(models.Listing.objects.filter(asin='B0BRHWQ27R').values()[0]['bullet_point']),
         'page_id': 'index',
         'user_account': user,
         'product_description': product_description,
@@ -42,7 +55,7 @@ def _index_(request):
 
     return render(request, 'index.html', jasonApi)
 
-    
+print(models.Listing.objects.filter(status='01',asin='B0BRHWQ27R').values('first_img'))
 
 def _about_(request):
     user = request.GET.get('user_id')
@@ -85,7 +98,7 @@ def _products_(request):
 
 def _detail_(request, asin):
     user = request.GET.get('user_id')
-    # asin = asin_transfer
+    print('oooooooooo',asin)
     jasonApi = {
         'page_id': asin,
         'product_img': detailImg(asin),
@@ -319,7 +332,7 @@ def managerProductList(request):
         'nav_account': data_source.nav(user_id)['_account_'],
 
         'listing': models.Listing.objects.all().values(),
-        'admin': 'admin&=jessie',
+        'admin': 'adminjessie',
 
     }
 
@@ -571,15 +584,6 @@ def detailImg(asin):
 
 
 
-'''
-index IMG
-'''
-img_show_dict = {}
-for i in range(len(asin_db_list)):
-    img_show_dict[asin_db_list[i]] = os.listdir('static/image/show/' + asin_db_list[i])
-
-    for k in range(len(img_show_dict[asin_db_list[i]])):
-        img_show_dict[asin_db_list[i]] = img_show_dict[asin_db_list[i]][k].replace('.jpg', '')
 
 
 

@@ -23,8 +23,8 @@
 
             {% for product_info in product_info %}
             <div class="margin-around">
-                <div><a href="products&asin={{ product_info.asin }}{{ includ_user_id_url }}"><img src="{{ product_info.first_img }}" alt=""></a></div>
-                <div><h3><a href="products&asin={{ product_info.asin }}{{ includ_user_id_url }}" title="{{ product_info.title }}" class="display-row-3">{{ product_info.title }}</a></h3></div>
+                <div><a href="products/{{ product_info.asin }}{{ includ_user_id_url }}"><img src="{{ product_info.first_img }}" alt=""></a></div>
+                <div><h3><a href="products/{{ product_info.asin }}{{ includ_user_id_url }}" title="{{ product_info.title }}" class="display-row-3">{{ product_info.title }}</a></h3></div>
                 <div><b>$ {{ product_info.price }}</b></div>
                 <div><b>$ {{ product_info.price }} | {{ product_info.asin }} | {{ product_info.status }}</b></div>
             </div>

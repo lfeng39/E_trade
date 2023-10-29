@@ -12,20 +12,35 @@
 
     <div id="B0BTXB89PG" class="wrap" img_name="{{ img_name.B0BTXB89PG }}">
     
-        <div class="position">
-            <div>
-                <h1 class="stronger">{{ product_description.0.bullet_point_01 }}</h1>
-            </div>
-            <div>
-                <span>{{ product_description.0.bullet_point_02 }}</span>
-            </div>
-            <div>
-                <a href="products&asin={{ product_description.0.asin }}{{ includ_user_id_url }}" class="learnMore auto-margin">Learn more</a>
+        <div style="box-shadow: inset 0px -1px 30px 1px rgb(0, 0, 0, 0.3); height: 100%;">
+            <div class="position">
+                <div>
+                    <h1 class="stronger">{{ product_description.0.bullet_point_01 }}</h1>
+                </div>
+                <div>
+                    <span>{{ product_description.0.bullet_point_02 }}</span>
+                </div>
+                <div>
+                    <a href="products&asin={{ product_description.0.asin }}{{ includ_user_id_url }}" class="learnMore auto-margin">Learn more</a>
+                </div>
             </div>
         </div>
 
     </div>
 
+    <!-- module img left text right -->
+    <div class="wrap">
+        <div class="container grid" style="padding: 10% 0;">
+            <div style="height: 500px; text-align: center;"><img src="{{ first_img.0.first_img }}" style="width: auto; height: 100%;" alt=""></div>
+            <div style="height: 100%; padding: 10%;">
+                <div style="margin-bottom: 3%;"><h1>Ceramic Hamsa Hand Incense Holder</h1></div>
+                <div style="margin-bottom: 3%;"><h4>{{ product_title.title }}</h4></div>
+                <div style="margin-bottom: 3%;"><a href="">Buy on Amazon >>></a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- module four product-->
     <div class="wrap">
 
         <div class="container grid-container products-shelf">

@@ -38,11 +38,11 @@ wrap > container > grid
   width: 100%;
 }
 
-.products-shelf > div{
+/* .products-shelf > div{
   margin-left: 10px;
   margin-right: 10px;
   border: 1px solid #000;
-}
+} */
 .products-shelf > div:first-child{
   height: 300px;
 }

@@ -131,7 +131,7 @@ class Img:
         return img_url
     
     '''
-    Get first img from img_file_list by os.lisdir()
+    Get first img from img_file_list by method os.lisdir(), and create url with first img
     '''
     def firstImg(asin, type):
         for img_file in os.listdir(Img.imgPath(asin, type)):
@@ -139,6 +139,9 @@ class Img:
                 first_img = '/' + Img.imgPath(asin, type) + img_file
                 return first_img
 
+'''
+test print 
+'''
 print(Img.firstImg('B0BGHBW13S', '7'))
 
 for file in os.listdir(Img.imgPath('B0BGHBW13S', '7')):
