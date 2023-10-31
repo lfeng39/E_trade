@@ -198,30 +198,47 @@ class DataForm:
     '''
     edit index
     '''
-    def editIndex(request):
-        id = request.POST.get('id')
-        asin = request.POST.get('asin')
-        bullet_point_01 = request.POST.get('bullet_point_01')
-        bullet_point_02 = request.POST.get('bullet_point_02')
+    def getIndexData(request):
+        get_content_dict = {
+            'id' : request.POST.get('id'),
+            'asin' : request.POST.get('asin'),
+            'bullet_point_01' : request.POST.get('bullet_point_01'),
+            'bullet_point_02' : request.POST.get('bullet_point_02'),
+            'bullet_point_03' : '',
+            'url' : [],
+        }
 
-        '''
-        check DB, if not data, create it
-        '''
-        try:
-            db_table_index = models.ProductDescription.objects.get(id=id)
-            db_table_index.asin = asin
-            db_table_index.bullet_point_01 = bullet_point_01
-            db_table_index.bullet_point_02 = bullet_point_02
-            db_table_index.save()
-            # print('00000000',db_table_index)
-            return 'Yeah!!! Save success!!!'
-        except:
-            models.ProductDescription.objects.create(
-                asin = asin,
-                bullet_point_01 = bullet_point_01,
-                bullet_point_02 = bullet_point_02,
-            )
-            return 'Create it done!'
+        return get_content_dict
+
+        # id = request.POST.get('id')
+        # asin = request.POST.get('asin')
+        # bullet_point_01 = request.POST.get('bullet_point_01')
+        # bullet_point_02 = request.POST.get('bullet_point_02')
+        # bullet_point_03 = ''
+        # url = []
+
+        # '''
+        # check DB, if not data, create it
+        # '''
+        # try:
+        #     db_table_index = models.ProductDescription.objects.get(id=id)
+        #     db_table_index.asin = asin
+        #     db_table_index.bullet_point_01 = bullet_point_01
+        #     db_table_index.bullet_point_02 = bullet_point_02
+        #     db_table_index.bullet_point_03 = bullet_point_03
+        #     db_table_index.url = url
+        #     db_table_index.save()
+        #     print('00000000',db_table_index)
+        #     return 'Yeah!!! Save success!!!'
+        # except:
+        #     models.ProductDescription.objects.create(
+        #         asin = asin,
+        #         bullet_point_01 = bullet_point_01,
+        #         bullet_point_02 = bullet_point_02,
+        #         bullet_point_03 = bullet_point_03,
+        #         url = url,
+        #     )
+        #     return 'Create it done!'
             
 
     '''
@@ -270,8 +287,8 @@ Start-Mould: Nav
 http = 'http://'
 # _ip_ = '140.82.22.68'
 # _ip_ = '192.168.39.84'
-# _ip_ = '127.0.0.1'
-_ip_ = '0.0.0.0'
+_ip_ = '127.0.0.1'
+# _ip_ = '0.0.0.0'
 _port_ = ':8000'
 _app_ = '/JAL/'
 base_url = http + _ip_ + _port_ + _app_

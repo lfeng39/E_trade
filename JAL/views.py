@@ -55,7 +55,7 @@ def _index_(request):
 
     return render(request, 'index.html', jasonApi)
 
-print(models.Listing.objects.filter(status='01',asin='B0BRHWQ27R').values('first_img'))
+
 
 def _about_(request):
     user = request.GET.get('user_id')
@@ -382,14 +382,7 @@ def editListingDone(request, asin):
 def editIndex(request):
     user_id = request.GET.get('user_id')
     product_description = models.ProductDescription.objects.all().values()
-    if product_description:
-        print(True)
-        product_description = product_description
-        tips = ''
-    else:
-        tips = 'No data in DB, Create it...'
-        product_description = [{'id': 'No ID'}, {'asin': 'No Asin'}]
-        print(False)
+    
     jasonApi = {
 
         'nav_index': data_source.nav(user_id)['_index_'],
@@ -400,7 +393,7 @@ def editIndex(request):
         'asin': product_description,
         'bullet_point': product_description,
         'id': product_description,
-        'tips': tips,
+        'tips': 'tips',
 
     }
 
@@ -411,6 +404,7 @@ def editIndex(request):
 @csrf_exempt
 @requires_csrf_token
 def editIndexDone(request):
+    # print(saveIndexData())
     jasonApi = {
 
             # 'nav_index': data_source.nav(request)['_index_'],
@@ -418,7 +412,8 @@ def editIndexDone(request):
             # 'nav_account': data_source.nav(request)['_account_'],
 
             'tag': 'edit index is   ',
-            'status': data_source.DataForm.editIndex(request),
+            # 'status': data_source.DataForm.getIndexData(request),
+            'status': saveIndexData(request),
             'again': 'admin&=jessie&editIndex',
             'manager': 'admin&=jessie&editIndex',
             'img': '/static/image/yeah/yeah.jpg'
@@ -496,13 +491,16 @@ class CreateProduct:
         pass
 
 '''
-Product
+CreateUserAccount addAccount addUserInfo addCart addOder
 '''
+class CreateUserAccount:
+    pass
+
 
 
 
 '''
-check asin between DB and CSV, if new, update table AsinInfo
+check Asin between AsinInfo DB and CSV, if new, update table AsinInfo
 '''
 asin_csv_list = data_source.DataCSV.asinList()
 asin_db_list = data_source.AsinDB.asinList()
@@ -537,21 +535,73 @@ else:
 
 
 '''
-check table listing from DB, if False, create it
+check Listing from DB, if False, create it
 '''
 if models.Listing.objects.all():
-    print(True)
+    print('Table Listing is',True)
 else:
-    print(False)
+    print('Table Listing is',False)
     for asin in asin_db_list:
         CreateProduct.addListing(asin)
 
 
 '''
-CreateUserAccount addAccount addUserInfo addCart addOder
+check ProductDescription from DB, if False, create it
 '''
-class CreateUserAccount:
-    pass
+
+def saveIndexData(request):
+    get_index_data = data_source.DataForm.getIndexData(request)
+    try:
+        '''
+        save
+        '''
+        db_table_index = models.ProductDescription.objects.get(id=get_index_data['id'])
+        db_table_index.asin = get_index_data['asin']
+        db_table_index.bullet_point_01 = get_index_data['bullet_point_01']
+        db_table_index.bullet_point_02 = get_index_data['bullet_point_02']
+        db_table_index.bullet_point_03 = get_index_data['bullet_point_03']
+        db_table_index.url = get_index_data['url']
+        db_table_index.save()
+        # print('00000000',db_table_index)
+        return 'Yeah, Save success!'
+    except:
+        '''
+        if False, create it
+        '''
+        models.ProductDescription.objects.create(
+            id = get_index_data['id'],
+            asin = get_index_data['asin'],
+            bullet_point_01 = get_index_data['bullet_point_01'],
+            bullet_point_02 = get_index_data['bullet_point_02'],
+            bullet_point_03 = get_index_data['bullet_point_03'],
+            url = get_index_data['url']
+        )
+        return 'Create it done!'
+    # if models.ProductDescription.objects.all():
+    #     print('Table ProductDescription is',True)
+    #     db_table_index = models.ProductDescription.objects.get(id=data_source.DataForm.getIndexData(request)['id'])
+    #     db_table_index.asin = data_source.DataForm.getIndexData(request)['asin']
+    #     db_table_index.bullet_point_01 = data_source.DataForm.getIndexData(request)['bullet_point_01']
+    #     db_table_index.bullet_point_02 = data_source.DataForm.getIndexData(request)['bullet_point_02']
+    #     db_table_index.bullet_point_03 = data_source.DataForm.getIndexData(request)['bullet_point_03']
+    #     db_table_index.url = data_source.DataForm.getIndexData(request)['url']
+    #     db_table_index.save()
+
+    #     return 'Yeah, Save success!'
+    # else:
+    #     print('Table ProductDescription is',False)
+    #     models.ProductDescription.objects.create(
+    #         # id = models.ProductDescription.objects.get(id=data_source.DataForm.getIndexData(request)['id']),
+    #         asin = data_source.DataForm.getIndexData(request)['asin'],
+    #         bullet_point_01 = data_source.DataForm.getIndexData(request)['bullet_point_01'],
+    #         bullet_point_02 = data_source.DataForm.getIndexData(request)['bullet_point_02'],
+    #         bullet_point_03 = data_source.DataForm.getIndexData(request)['bullet_point_03'],
+    #         url = data_source.DataForm.getIndexData(request)['url']
+    #     )
+
+    #     return 'Create it done!'
+
+
 
 
 
@@ -588,8 +638,6 @@ def detailImg(asin):
     }
 
     return detail_img
-
-
 
 
 
