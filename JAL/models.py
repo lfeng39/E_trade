@@ -61,7 +61,7 @@ class ProductDescription(models.Model):
     bullet_point_01 = models.CharField(max_length=500, blank=True)
     bullet_point_02 = models.CharField(max_length=500, blank=True)
     bullet_point_03 = models.CharField(max_length=500, blank=True)
-
+    url = models.CharField(max_length=300, blank=True)
 
 class Image(models.Model):
     asin = models.CharField(max_length=20, blank=True)

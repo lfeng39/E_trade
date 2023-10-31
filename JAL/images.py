@@ -142,9 +142,9 @@ class Img:
 '''
 test print 
 '''
-print(Img.firstImg('B0BGHBW13S', '7'))
+# print(Img.firstImg('B0BGHBW13S', '7'))
 
-for file in os.listdir(Img.imgPath('B0BGHBW13S', '7')):
-    print(file)
+# for file in os.listdir(Img.imgPath('B0BGHBW13S', '7')):
+#     print(file)
 
 

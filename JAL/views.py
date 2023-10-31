@@ -382,7 +382,14 @@ def editListingDone(request, asin):
 def editIndex(request):
     user_id = request.GET.get('user_id')
     product_description = models.ProductDescription.objects.all().values()
-
+    if product_description:
+        print(True)
+        product_description = product_description
+        tips = ''
+    else:
+        tips = 'No data in DB, Create it...'
+        product_description = [{'id': 'No ID'}, {'asin': 'No Asin'}]
+        print(False)
     jasonApi = {
 
         'nav_index': data_source.nav(user_id)['_index_'],
@@ -393,6 +400,7 @@ def editIndex(request):
         'asin': product_description,
         'bullet_point': product_description,
         'id': product_description,
+        'tips': tips,
 
     }
 
@@ -403,7 +411,6 @@ def editIndex(request):
 @csrf_exempt
 @requires_csrf_token
 def editIndexDone(request):
-
     jasonApi = {
 
             # 'nav_index': data_source.nav(request)['_index_'],

@@ -204,14 +204,25 @@ class DataForm:
         bullet_point_01 = request.POST.get('bullet_point_01')
         bullet_point_02 = request.POST.get('bullet_point_02')
 
-
-        db_table_index = models.ProductDescription.objects.get(id=id)
-        db_table_index.asin = asin
-        db_table_index.bullet_point_01 = bullet_point_01
-        db_table_index.bullet_point_02 = bullet_point_02
-        db_table_index.save()
-        # print('00000000',db_table_index)
-        return 'Yeah!!! Save success!!!'
+        '''
+        check DB, if not data, create it
+        '''
+        try:
+            db_table_index = models.ProductDescription.objects.get(id=id)
+            db_table_index.asin = asin
+            db_table_index.bullet_point_01 = bullet_point_01
+            db_table_index.bullet_point_02 = bullet_point_02
+            db_table_index.save()
+            # print('00000000',db_table_index)
+            return 'Yeah!!! Save success!!!'
+        except:
+            models.ProductDescription.objects.create(
+                asin = asin,
+                bullet_point_01 = bullet_point_01,
+                bullet_point_02 = bullet_point_02,
+            )
+            return 'Create it done!'
+            
 
     '''
     sign up
