@@ -14,7 +14,7 @@
 
         <div class="container">
 
-            <form class="login" action="/JAL/yes" method="post">
+            <form class="login" action="/JAL/done" method="post">
                 {%csrf_token%}
                 <!-- {{ form }} -->
                 <div>
@@ -34,7 +34,7 @@
                         <button id="login" type="submit"><h3>Submit</h3></button>
                     </li>
                     <li>
-                        <a href="{{ nav_account.Login.0 }}">{{ nav_account.Login.1 }}</a>
+                        <a href="{{ nav_account.login.0 }}">{{ nav_account.login.1 }}</a>
                         |
                         <a href="{{ nav_account.account.0 }}">Create Account</a>
                     </li>

@@ -142,35 +142,6 @@ class DataForm:
 
         return get_content_dict
 
-        # id = request.POST.get('id')
-        # asin = request.POST.get('asin')
-        # bullet_point_01 = request.POST.get('bullet_point_01')
-        # bullet_point_02 = request.POST.get('bullet_point_02')
-        # bullet_point_03 = ''
-        # url = []
-
-        # '''
-        # check DB, if not data, create it
-        # '''
-        # try:
-        #     db_table_index = models.ProductDescription.objects.get(id=id)
-        #     db_table_index.asin = asin
-        #     db_table_index.bullet_point_01 = bullet_point_01
-        #     db_table_index.bullet_point_02 = bullet_point_02
-        #     db_table_index.bullet_point_03 = bullet_point_03
-        #     db_table_index.url = url
-        #     db_table_index.save()
-        #     print('00000000',db_table_index)
-        #     return 'Yeah!!! Save success!!!'
-        # except:
-        #     models.ProductDescription.objects.create(
-        #         asin = asin,
-        #         bullet_point_01 = bullet_point_01,
-        #         bullet_point_02 = bullet_point_02,
-        #         bullet_point_03 = bullet_point_03,
-        #         url = url,
-        #     )
-        #     return 'Create it done!'
 
     '''
     edit listing
@@ -214,111 +185,51 @@ class DataForm:
         }
 
         return get_listing_data
-        # try:
-        #     '''
-        #     get title from edit.html
-        #     '''
-        #     title = request.POST.get('title')
-
-        #     '''
-        #     get price from edit.html
-        #     '''
-        #     price = request.POST.get('price')
-
-        #     '''
-        #     get bullepoint from edit.html
-        #     '''
-        #     count = len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']))
-        #     bullet_point = []
-        #     for i in range(count):
-        #         bullet_point.append(request.POST.get('bullet_point_'+str(i+1)))
-            
-        #     '''
-        #     get description from edit.html
-        #     '''
-        #     description = request.POST.get('description')
-
-        #     '''
-        #     status
-        #     '''
-        #     status = request.POST.get('status')
-
-        #     '''
-        #     save the data that has been changed from edit.html to DB
-        #     '''
-        #     # asin_mySql = models.AsinInfo.objects.all()
-        #     # if asin in LatestAsin.asin_mySql_db():
-        #     db_table_listing = models.Listing.objects.get(asin=asin)
-        #     db_table_listing.title = title
-        #     db_table_listing.price = price
-        #     db_table_listing.bullet_point = bullet_point
-        #     db_table_listing.description = description
-        #     db_table_listing.save()
-
-        #     db_table_productinfo = models.ProductInfo.objects.get(asin=asin)
-        #     db_table_productinfo.title = title
-        #     db_table_productinfo.price = price
-        #     db_table_productinfo.bullet_point = bullet_point
-        #     db_table_productinfo.description = description
-        #     db_table_productinfo.save()
-
-        #     db_table_Listing_status = models.Listing.objects.get(asin=asin)
-        #     db_table_Listing_status.status = status
-        #     db_table_Listing_status.save()
-
-        #     db_table_status = models.ProductInfo.objects.get(asin=asin)
-        #     db_table_status.status = status
-        #     db_table_status.save()
-
-        #     # else:
-        #     #     pass
-
-        #     return 'Yeah!!! Congratulations on success!!!'
-        # except:
-        #     error = asin + ' is not in productlist, please try again...'
-        #     return error
 
     
             
 
-    '''
-    sign up
-    '''
-    def postAccountInfoSignUp(request):
-        email = request.POST.get('email')
-        pass_word = request.POST.get('passWord')
-       
-        if email == 'Your Email' or pass_word == '123+ABC+!@#':
-            pass
-        else:
-            '''
-            save userinfo
-            '''
-            models.UserAccount.objects.create(
-                email = email,
-                password = pass_word,
-                # first_name = request.POST.get('FirstName'),
-                # last_name = request.POST.get('LastName'),
-                # address = request.POST.get('Address'),
-                # street = request.POST.get('Street'),
-                # ctiy = request.POST.get('City'),
-                # country = request.POST.get('Country'),
-                # code = request.POST.get('Code'),
-            )
-
-            '''
-            auth_user DB
-            '''
-            User.objects.create_user(
-                username = email,
-                password = pass_word,
-            )
-
-        return request.POST.get('email'), request.POST.get('passWord')
+'''
+sign up
+'''
+def getUserInfo(request):
+    email = request.POST.get('email')
+    pass_word = request.POST.get('passWord')
     
+    if email == 'Your Email' or pass_word == '123+ABC+!@#':
+        pass
+    else:
         '''
-        login
+        save userinfo
         '''
+        models.UserAccount.objects.create(
+            email = email,
+            password = pass_word,
+            # first_name = request.POST.get('FirstName'),
+            # last_name = request.POST.get('LastName'),
+            # address = request.POST.get('Address'),
+            # street = request.POST.get('Street'),
+            # ctiy = request.POST.get('City'),
+            # country = request.POST.get('Country'),
+            # code = request.POST.get('Code'),
+        )
+
+        '''
+        auth_user DB
+        '''
+        User.objects.create_user(
+            username = email,
+            password = pass_word,
+        )
+
+    return request.POST.get('email'), request.POST.get('passWord')
+
+    '''
+    login
+    '''
+
+
+
 
 
 '''
@@ -349,18 +260,18 @@ def nav(user_id):
             },
             '_account_': 
             {
-                'Cart': [base_url + 'cart', 'cart'],
-                'Login': [base_url + 'login', 'login'],
-                'SignUp': [base_url + 'signUp', 'signUp'],
-                'order': [base_url + 'order', 'order'],
-                'account': [base_url + 'account', 'account'],
+                'cart': [base_url + 'cart', 'Cart'],
+                'login': [base_url + 'login', 'Login'],
+                'signUp': [base_url + 'signUp', 'signUp'],
+                'order': [base_url + 'order', 'Order'],
+                'account': [base_url + 'account', 'Account'],
                 'myAccount': [base_url + 'myAccount' + '?user_id=' + user_id, 'myAccount'],
             },
             '_admin_':
             {
-                'dashboard': base_url + 'admin' + '?user_id=' + user_id,
-                'edit_index': base_url + 'admin' + '?user_id=' + user_id + '&edit_index',
-                'edit_listing': base_url + 'admin' + '?user_id=' + user_id + '&edti_listing',
+                'Dashboard': base_url + 'admin' + '?user_id=' + user_id,
+                'EditIndex': base_url + 'admin' + '?user_id=' + user_id + '&edit_index',
+                'EditListing': base_url + 'admin' + '?user_id=' + user_id + '&edti_listing',
             },
         }
     else:
@@ -380,12 +291,12 @@ def nav(user_id):
 
             '_account_' : 
             {
-                'Cart': [base_url + 'cart', 'cart'],
-                'Login': [base_url + 'login', 'login'],
-                'SignUp': [base_url + 'signUp', 'signUp'],
-                'order': [base_url + 'order', 'order'],
-                'account': [base_url + 'account', 'account'],
-                'myAccount': [base_url + 'myAccount', 'myAccount'],
+                'cart': [base_url + 'cart', 'Cart'],
+                'login': [base_url + 'login', 'Login'],
+                'signUp': [base_url + 'signUp', 'signUp'],
+                'order': [base_url + 'order', 'Order'],
+                'account': [base_url + 'account', 'Account'],
+                'myAccount': [base_url + 'myAccount', 'MyAccount'],
             },
             '_admin_':
             {

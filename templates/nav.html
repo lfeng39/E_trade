@@ -12,17 +12,17 @@
                 {% for key, value in nav_nav.items %}
                 <li><a href="{{ value }}">{{ key }}</a></li>
                 {% endfor %}
-                <!-- {% if user_account == None %}
-                <li><a href="{{ nav_account.SignUp.0 }}">SignUp</a></li>
-                <li><a href="{{ nav_account.Login.0 }}">Login</a></li>
+                {% if user_account %}
+                <li><a href="{{ nav_account.signUp.0 }}">{{ nav_account.signUp.1 }}</a></li>
+                <li><a href="{{ nav_account.login.0 }}">{{ nav_account.login.1 }}</a></li>
                 {% else %}
-                <li><a href="{{ nav_account.Login.0 }}">{{ user_account }}</a></li>
-                {% endif %} -->
+                <li><a href="{{ nav_account.login.0 }}">{{ user_account }}</a></li>
+                {% endif %}
             </ul>
         </div>
         <div class="account flex-container">
             {% if user_account %}
-            <div><a href="{{ nav_account.account.0 }}" class="material-symbols-outlined size-30">account_circle</a></div>
+            <div><a href="{{ nav_account.signUp.0 }}" class="material-symbols-outlined size-30">account_circle</a></div>
             {% else %}
             <div><a href="{{ nav_account.myAccount.0 }}" class="material-symbols-outlined size-30">account_circle</a></div>
             {% endif %}
