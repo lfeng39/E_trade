@@ -655,16 +655,6 @@ def saveListing(request, asin):
 
 
 
-# print(images.urlAsinImg(asin_db_list))
-
-
-# def setFirstImg(asin):
-#     tag = images.urlAsinImg(data_source.AsinDB.asinList())[asin]['7']
-#     for first_img_url in tag:
-#         if '00-' in first_img_url:
-#             return first_img_url
-#         else:
-#             pass
 
 
 
