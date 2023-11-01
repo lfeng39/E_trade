@@ -44,6 +44,7 @@ nav > .nav-plus
 {
   height: 55px;
   margin: 0 auto;
+  /* logo:200px nav:1fr account:70px */
   grid-template-columns: 200px 1fr 70px;
 }
 nav > .nav-mini
@@ -61,6 +62,30 @@ nav > .nav-mini > ul *
   text-align: center;
   margin: auto;
   line-height: 150px;
+}
+ul.app-list
+{
+  /* width: 50%; */
+  /* margin: auto; */
+  width: 20%;
+  /* width: max-content; */
+  margin-left: 10%;
+}
+ul.app-list *
+{
+  text-align: center;
+  line-height: 50px;
+  margin: 0;
+}
+ul.app-list > li  > a
+{
+  color: rgb(95, 147, 112);
+}
+ul.app-list > li > a:hover
+{
+  /* color: #ff6666; */
+  color: rgb(51, 95, 66);
+  font-size: large;
 }
 /*************************************************LINE*************************************************/
 ul

@@ -16,10 +16,29 @@ from django.http import HttpResponse
 
 print('\n>>> this is views.py <<< ')
 
-# def _nav_():
+'''
+    Part: user interface
 
-data_source.nav('')['_nav_']
+    Part: login module
+    login | signUp | verify
 
+    Part: user account module
+
+    Part: order module
+
+    Part: manager module
+    edit index | edit listing | edit coupon
+
+    Part: check asin
+    csv & db
+
+    Part: save data
+    
+'''
+
+'''
+Part: user interface
+'''
 def _index_(request):
     user = request.GET.get('user_id')
     product_description = models.ProductDescription.objects.all().values()
@@ -80,6 +99,7 @@ def _products_(request):
         'nav_index': data_source.nav(user)['_index_'],
         'nav_nav': data_source.nav(user)['_nav_'],
         'nav_account': data_source.nav('')['_account_'],
+        'user_account': user,
 
         'includ_user_id_url': data_source.nav(user)['_index_']['includ_user_id_url'],
         # 'includ_user_id_url': '',
@@ -89,7 +109,7 @@ def _products_(request):
         'page_id': 'products',
         'product_image': '',
         'product_title': '',
-        'user_account': user,
+        
         'abc': '%',
     }
 
@@ -129,8 +149,13 @@ def _detail_(request, asin):
 
     return render(request, 'detail.html', jasonApi)
 
+
+
+
+
 '''
-START---Moulde: Login | SignUp | Verify
+Part: login module
+Login | SignUp | Verify
 '''
 def _login_(request):
     jasonApi = {
@@ -168,6 +193,31 @@ def signUp(request):
     return render(request, 'sign-up.html', jasonApi)
 
 
+def userAccount(request):
+    user_login = {
+        'email' : request.POST.get('email'),
+        'password' : request.POST.get('passWord'),
+    }
+    user_account_db = models.UserAccount.objects.all().values('email','password')
+    print('user_login:',user_login)
+    try:
+        for user_account in user_account_db:
+            print('user_account_db:',user_account)
+            if user_login == user_account:
+                print('>>>',user_account, user_account['email'])
+                # user_account = list(user_account.values())[0]
+                # return HttpResponse(user_account['email'])
+                return user_account['email']
+            else:
+                pass
+    except:
+        return None
+    jasonApi = {
+
+        }
+    return render(request, 'yes.html', jasonApi)
+
+
 # class UserLogin():
 # def verifyAccount(request):
     
@@ -190,10 +240,16 @@ def signUp(request):
 #     else:
 #         print('False')
 '''
-END---Moulde: Login SignUp Verify
+END: Login SignUp Verify
 '''
 
 
+
+
+
+'''
+Part: user account module
+'''
 def _account_(request):
     jasonApi = {
         'page_id': 'account',
@@ -249,6 +305,11 @@ def myCart(request):
 
 
 
+
+
+'''
+Part: order module
+'''
 def _order_(request):
     jasonApi = {
         'page_id': 'order',
@@ -264,25 +325,6 @@ def _order_(request):
     }
 
     return render(request, 'order.html', jasonApi)
-
-
-
-def postData(request, asin):
-    # data_source.DataForm.postAccountInfoSignUp(request)
-    # data_source.verifyAccount(request)
-    # test = models.UserAccount.objects.all().values()
-    jasonApi = {
-
-        # 'nav_index': data_source.nav(request)['_index_'],
-        # 'nav_nav': data_source.nav(request)['_nav_'],
-        # 'nav_account': data_source.nav(request)['_account_'],
-
-        'yes': data_source.DataForm.editListing(request, asin),
-        # 'test': test,
-        # 'user_account': userAccount(request),
-    }
-
-    return render(request, 'yes.html', jasonApi)
 
 
 
@@ -302,21 +344,27 @@ def upData(request):
     return render(request, 'order.html', jasonApi)
 
 
+
+
+
 '''
-START---Moulde: Admin | Manager Product List | Edit Listing | Edit Index
+Part: manager module
+edit index | edit listing | edit coupon
 '''
 def _admin_(request):
     user_id = request.GET.get('user_id')
-    # asin = asin_transfer
     jasonApi = {
 
         'nav_index': data_source.nav(user_id)['_index_'],
         'nav_nav': data_source.nav(user_id)['_nav_'],
         'nav_account': data_source.nav(user_id)['_account_'],
+        'nav_admin': data_source.nav('')['_admin_'],
+        'user_account': 'user_id',
 
         'listing': models.Listing.objects.all().values(),
-        'manager': 'admin&=jessie&manager',
-        'edit_index': 'admin&=jessie&editIndex',
+        'edit_listing': 'admin&user_id=jessie&editlisting',
+        'edit_index': 'admin&user_id=jessie&editIndex',
+
     }
 
     return render(request, 'admin.html', jasonApi)
@@ -330,6 +378,8 @@ def managerProductList(request):
         'nav_index': data_source.nav(user_id)['_index_'],
         'nav_nav': data_source.nav(user_id)['_nav_'],
         'nav_account': data_source.nav(user_id)['_account_'],
+        'nav_admin': data_source.nav('')['_admin_'],
+        'user_account': 'user_id',
 
         'listing': models.Listing.objects.all().values(),
         'admin': 'adminjessie',
@@ -339,6 +389,50 @@ def managerProductList(request):
     return render(request, 'manager-product-list.html', jasonApi)
 
 
+def editIndex(request):
+    user_id = request.GET.get('user_id')
+    product_description = models.ProductDescription.objects.all().values()
+    
+    jasonApi = {
+
+        'nav_index': data_source.nav(user_id)['_index_'],
+        'nav_nav': data_source.nav(user_id)['_nav_'],
+        'nav_account': data_source.nav(user_id)['_account_'],
+        'nav_admin': data_source.nav('')['_admin_'],
+        'user_account': 'user_id',
+
+        'admin': 'adminjessie',
+        'asin': product_description,
+        'bullet_point': product_description,
+        'id': product_description,
+        'tips': 'tips',
+
+    }
+
+    return render(request, 'edit-index.html', jasonApi)
+
+@csrf_protect
+@csrf_exempt
+@requires_csrf_token
+def editIndexDone(request):
+    # print(saveIndexData())
+    jasonApi = {
+
+            # 'nav_index': data_source.nav(request)['_index_'],
+            # 'nav_nav': data_source.nav(request)['_nav_'],
+            # 'nav_account': data_source.nav(request)['_account_'],
+            
+
+            'tag': 'edit index is   ',
+            # 'status': data_source.DataForm.getIndexData(request),
+            'status': saveIndexData(request),
+            'again': 'admin&=jessie&editIndex',
+            'admin': 'admin&=jessie&editIndex',
+            'img': '/static/image/yeah/yeah.jpg'
+        }
+
+    return render(request, 'yes.html', jasonApi)
+
 def editListing(request, asin):
     user_id = request.GET.get('user_id')
     jasonApi = {
@@ -346,14 +440,14 @@ def editListing(request, asin):
         'nav_index': data_source.nav(user_id)['_index_'],
         'nav_nav': data_source.nav(user_id)['_nav_'],
         'nav_account': data_source.nav(user_id)['_account_'],
+        'nav_admin': data_source.nav('')['_admin_'],
+        'user_account': 'user_id',
 
-        # 'url': 'admin&edit=',
         'asin': asin,
-
         'listing': models.Listing.objects.filter(asin=asin).values()[0],
         'bullet_point': eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']),
         'len_bullet_point': len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point'])),
-        'manager': 'admin&=jessie&manager',
+        'edit_listing': 'admin&user_id=jessie&editlisting',
     }
 
     return render(request, 'edit-listing.html', jasonApi)
@@ -369,90 +463,17 @@ def editListingDone(request, asin):
         # 'nav_account': data_source.nav(request)['_account_'],
 
         'tag': 'edit listing is   ',
-        'status': data_source.DataForm.editListing(request, asin),
+        # 'status': data_source.DataForm.editListing(request, asin),
+        'status': saveListing(request, asin),
         'view': 'products&asin=' + asin,
         'again': 'admin&edit=' + asin,
-        'manager': 'admin&=jessie&manager',
+        'admin': 'admin&user_id=jessie&editlisting',
         'img': '/static/image/yeah/ok.jpg',
     }
 
     return render(request, 'yes.html', jasonApi)
 
 
-def editIndex(request):
-    user_id = request.GET.get('user_id')
-    product_description = models.ProductDescription.objects.all().values()
-    
-    jasonApi = {
-
-        'nav_index': data_source.nav(user_id)['_index_'],
-        'nav_nav': data_source.nav(user_id)['_nav_'],
-        'nav_account': data_source.nav(user_id)['_account_'],
-
-        'admin': 'admin&=jessie',
-        'asin': product_description,
-        'bullet_point': product_description,
-        'id': product_description,
-        'tips': 'tips',
-
-    }
-
-
-    return render(request, 'edit-index.html', jasonApi)
-
-@csrf_protect
-@csrf_exempt
-@requires_csrf_token
-def editIndexDone(request):
-    # print(saveIndexData())
-    jasonApi = {
-
-            # 'nav_index': data_source.nav(request)['_index_'],
-            # 'nav_nav': data_source.nav(request)['_nav_'],
-            # 'nav_account': data_source.nav(request)['_account_'],
-
-            'tag': 'edit index is   ',
-            # 'status': data_source.DataForm.getIndexData(request),
-            'status': saveIndexData(request),
-            'again': 'admin&=jessie&editIndex',
-            'manager': 'admin&=jessie&editIndex',
-            'img': '/static/image/yeah/yeah.jpg'
-        }
-
-    return render(request, 'yes.html', jasonApi)
-'''
-END---Moulde: Admin | Manager Product List | Edit Listing | Edit Index
-'''
-
-'''
-START---verify: signUp | login
-'''
-def userAccount(request):
-    user_login = {
-        'email' : request.POST.get('email'),
-        'password' : request.POST.get('passWord'),
-    }
-    user_account_db = models.UserAccount.objects.all().values('email','password')
-    print('user_login:',user_login)
-    try:
-        for user_account in user_account_db:
-            print('user_account_db:',user_account)
-            if user_login == user_account:
-                print('>>>',user_account, user_account['email'])
-                # user_account = list(user_account.values())[0]
-                # return HttpResponse(user_account['email'])
-                return user_account['email']
-            else:
-                pass
-    except:
-        return None
-    jasonApi = {
-
-        }
-    return render(request, 'yes.html', jasonApi)
-'''
-END---verify: signUp | login
-'''
 
 
 
@@ -490,8 +511,12 @@ class CreateProduct:
     def addImgUrl(asin):
         pass
 
+
+
+
+
 '''
-CreateUserAccount addAccount addUserInfo addCart addOder
+Create UserAccount addAccount addUserInfo addCart addOder
 '''
 class CreateUserAccount:
     pass
@@ -499,11 +524,14 @@ class CreateUserAccount:
 
 
 
+
 '''
+Part: save data
 check Asin between AsinInfo DB and CSV, if new, update table AsinInfo
 '''
 asin_csv_list = data_source.DataCSV.asinList()
 asin_db_list = data_source.AsinDB.asinList()
+print('>>>>>> from DB, Total:', len(asin_db_list), '\n', asin_db_list, '\n')
 if len(asin_csv_list) == len(asin_db_list):
     '''
     the same csv and mySql_db, return None
@@ -534,6 +562,7 @@ else:
     print('>>>>>> error..., Check Please!')
 
 
+
 '''
 check Listing from DB, if False, create it
 '''
@@ -545,10 +574,11 @@ else:
         CreateProduct.addListing(asin)
 
 
+
 '''
+save data from edit index
 check ProductDescription from DB, if False, create it
 '''
-
 def saveIndexData(request):
     get_index_data = data_source.DataForm.getIndexData(request)
     try:
@@ -577,31 +607,38 @@ def saveIndexData(request):
             url = get_index_data['url']
         )
         return 'Create it done!'
-    # if models.ProductDescription.objects.all():
-    #     print('Table ProductDescription is',True)
-    #     db_table_index = models.ProductDescription.objects.get(id=data_source.DataForm.getIndexData(request)['id'])
-    #     db_table_index.asin = data_source.DataForm.getIndexData(request)['asin']
-    #     db_table_index.bullet_point_01 = data_source.DataForm.getIndexData(request)['bullet_point_01']
-    #     db_table_index.bullet_point_02 = data_source.DataForm.getIndexData(request)['bullet_point_02']
-    #     db_table_index.bullet_point_03 = data_source.DataForm.getIndexData(request)['bullet_point_03']
-    #     db_table_index.url = data_source.DataForm.getIndexData(request)['url']
-    #     db_table_index.save()
-
-    #     return 'Yeah, Save success!'
-    # else:
-    #     print('Table ProductDescription is',False)
-    #     models.ProductDescription.objects.create(
-    #         # id = models.ProductDescription.objects.get(id=data_source.DataForm.getIndexData(request)['id']),
-    #         asin = data_source.DataForm.getIndexData(request)['asin'],
-    #         bullet_point_01 = data_source.DataForm.getIndexData(request)['bullet_point_01'],
-    #         bullet_point_02 = data_source.DataForm.getIndexData(request)['bullet_point_02'],
-    #         bullet_point_03 = data_source.DataForm.getIndexData(request)['bullet_point_03'],
-    #         url = data_source.DataForm.getIndexData(request)['url']
-    #     )
-
-    #     return 'Create it done!'
 
 
+
+'''
+save data from edit listing
+'''
+def saveListing(request, asin):
+    get_listing_data = data_source.DataForm.getListingData(request, asin)
+    try:
+        '''
+        save the data that has been changed from edit.html to DB
+        '''
+        db_table_listing = models.Listing.objects.get(asin=asin)
+        db_table_listing.title = get_listing_data['title']
+        db_table_listing.price = get_listing_data['price']
+        db_table_listing.bullet_point = get_listing_data['bullet_point']
+        db_table_listing.description = get_listing_data['description']
+        db_table_listing.status = get_listing_data['status']
+        db_table_listing.save()
+
+        db_table_productinfo = models.ProductInfo.objects.get(asin=asin)
+        db_table_productinfo.title = get_listing_data['title']
+        db_table_productinfo.price = get_listing_data['price']
+        db_table_productinfo.bullet_point = get_listing_data['bullet_point']
+        db_table_productinfo.description = get_listing_data['description']
+        db_table_productinfo.status = get_listing_data['status']
+        db_table_productinfo.save()
+
+        return 'Congratulations!'
+    except:
+        error = asin + ' is not in productlist, please try again...'
+        return error
 
 
 
@@ -616,7 +653,7 @@ def saveIndexData(request):
 #         else:
 #             pass
 
-print('>>>>>> from DB, Total:', len(asin_db_list), '\n', asin_db_list, '\n')
+
 
 
 

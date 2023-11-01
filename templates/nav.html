@@ -1,6 +1,7 @@
 <div style="background-color: rgb(125, 181, 131); height: 20px;">
 
 </div>
+<!-- user nav -->
 <nav>
     <div class="nav-plus container">
         <div>
@@ -19,14 +20,14 @@
                 {% endif %} -->
             </ul>
         </div>
-        <!-- <div class="account flex-container">
-            <div><a href="{{ nav_account.Cart.0 }}" class="material-symbols-outlined size-30">shopping_cart</a></div>
-            {% if user_account == None %}
+        <div class="account flex-container">
+            {% if user_account %}
             <div><a href="{{ nav_account.account.0 }}" class="material-symbols-outlined size-30">account_circle</a></div>
             {% else %}
             <div><a href="{{ nav_account.myAccount.0 }}" class="material-symbols-outlined size-30">account_circle</a></div>
             {% endif %}
-        </div> -->
+            <div><a href="{{ nav_account.Cart.0 }}" class="material-symbols-outlined size-30">shopping_cart</a></div>
+        </div>
     </div>
 
     <div class="nav-mini container">
@@ -37,3 +38,14 @@
         </ul>
     </div>
 </nav>
+<!-- admin nav -->
+{% if user_account %}
+<nav style="background-color: #eee;">
+    <ul class="container grid">
+        {% for key, value in nav_admin.items %}
+        <li><a href="{{ value }}">{{ key }}</a></li>
+        {% endfor %}
+    </ul>
+</nav>
+{% endif %}
+

@@ -128,74 +128,6 @@ Get the DATA from POST
 # class DataForm(forms.Form):
 class DataForm:
     '''
-    edit listing
-    '''
-    def editListing(request, asin):
-        try:
-            '''
-            get title from edit.html
-            '''
-            title = request.POST.get('title')
-
-            '''
-            get price from edit.html
-            '''
-            price = request.POST.get('price')
-
-            '''
-            get bullepoint from edit.html
-            '''
-            count = len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']))
-            bullet_point = []
-            for i in range(count):
-                bullet_point.append(request.POST.get('bullet_point_'+str(i+1)))
-            
-            '''
-            get description from edit.html
-            '''
-            description = request.POST.get('description')
-
-            '''
-            status
-            '''
-            status = request.POST.get('status')
-
-            '''
-            save the data that has been changed from edit.html to DB
-            '''
-            # asin_mySql = models.AsinInfo.objects.all()
-            # if asin in LatestAsin.asin_mySql_db():
-            db_table_listing = models.Listing.objects.get(asin=asin)
-            db_table_listing.title = title
-            db_table_listing.price = price
-            db_table_listing.bullet_point = bullet_point
-            db_table_listing.description = description
-            db_table_listing.save()
-
-            db_table_productinfo = models.ProductInfo.objects.get(asin=asin)
-            db_table_productinfo.title = title
-            db_table_productinfo.price = price
-            db_table_productinfo.bullet_point = bullet_point
-            db_table_productinfo.description = description
-            db_table_productinfo.save()
-
-            db_table_Listing_status = models.Listing.objects.get(asin=asin)
-            db_table_Listing_status.status = status
-            db_table_Listing_status.save()
-
-            db_table_status = models.ProductInfo.objects.get(asin=asin)
-            db_table_status.status = status
-            db_table_status.save()
-
-            # else:
-            #     pass
-
-            return 'Yeah!!! Congratulations on success!!!'
-        except:
-            error = asin + ' is not in productlist, please try again...'
-            return error
-
-    '''
     edit index
     '''
     def getIndexData(request):
@@ -239,6 +171,114 @@ class DataForm:
         #         url = url,
         #     )
         #     return 'Create it done!'
+
+    '''
+    edit listing
+    '''
+    def getListingData(request, asin):
+    # def editListing(request, asin):
+        '''
+        get title from edit.html
+        '''
+        title = request.POST.get('title')
+
+        '''
+        get price from edit.html
+        '''
+        price = request.POST.get('price')
+
+        '''
+        get bullepoint from edit.html
+        '''
+        count = len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']))
+        bullet_point = []
+        for i in range(count):
+            bullet_point.append(request.POST.get('bullet_point_'+str(i+1)))
+        
+        '''
+        get description from edit.html
+        '''
+        description = request.POST.get('description')
+
+        '''
+        status
+        '''
+        status = request.POST.get('status')
+
+        get_listing_data = {
+            'title': title,
+            'price': price,
+            'bullet_point': bullet_point,
+            'description': description,
+            'status': status
+        }
+
+        return get_listing_data
+        # try:
+        #     '''
+        #     get title from edit.html
+        #     '''
+        #     title = request.POST.get('title')
+
+        #     '''
+        #     get price from edit.html
+        #     '''
+        #     price = request.POST.get('price')
+
+        #     '''
+        #     get bullepoint from edit.html
+        #     '''
+        #     count = len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']))
+        #     bullet_point = []
+        #     for i in range(count):
+        #         bullet_point.append(request.POST.get('bullet_point_'+str(i+1)))
+            
+        #     '''
+        #     get description from edit.html
+        #     '''
+        #     description = request.POST.get('description')
+
+        #     '''
+        #     status
+        #     '''
+        #     status = request.POST.get('status')
+
+        #     '''
+        #     save the data that has been changed from edit.html to DB
+        #     '''
+        #     # asin_mySql = models.AsinInfo.objects.all()
+        #     # if asin in LatestAsin.asin_mySql_db():
+        #     db_table_listing = models.Listing.objects.get(asin=asin)
+        #     db_table_listing.title = title
+        #     db_table_listing.price = price
+        #     db_table_listing.bullet_point = bullet_point
+        #     db_table_listing.description = description
+        #     db_table_listing.save()
+
+        #     db_table_productinfo = models.ProductInfo.objects.get(asin=asin)
+        #     db_table_productinfo.title = title
+        #     db_table_productinfo.price = price
+        #     db_table_productinfo.bullet_point = bullet_point
+        #     db_table_productinfo.description = description
+        #     db_table_productinfo.save()
+
+        #     db_table_Listing_status = models.Listing.objects.get(asin=asin)
+        #     db_table_Listing_status.status = status
+        #     db_table_Listing_status.save()
+
+        #     db_table_status = models.ProductInfo.objects.get(asin=asin)
+        #     db_table_status.status = status
+        #     db_table_status.save()
+
+        #     # else:
+        #     #     pass
+
+        #     return 'Yeah!!! Congratulations on success!!!'
+        # except:
+        #     error = asin + ' is not in productlist, please try again...'
+        #     return error
+
+    
             
 
     '''
@@ -287,8 +327,8 @@ Start-Mould: Nav
 http = 'http://'
 # _ip_ = '140.82.22.68'
 # _ip_ = '192.168.39.84'
-_ip_ = '127.0.0.1'
-# _ip_ = '0.0.0.0'
+# _ip_ = '127.0.0.1'
+_ip_ = '0.0.0.0'
 _port_ = ':8000'
 _app_ = '/JAL/'
 base_url = http + _ip_ + _port_ + _app_
@@ -297,47 +337,64 @@ print('>>>>>> url_now:','\n', base_url)
 def nav(user_id):
     if user_id:
         nav_dict = {
-            '_index_' : {
+            '_index_': 
+            {
                 'index': base_url + 'index' + '?user_id=' + user_id,
                 'includ_user_id_url': '?user_id=' + user_id,
             },
-
-            '_nav_' : {
+            '_nav_': 
+            {
                 'Brand': base_url + 'brand' + '?user_id=' + user_id,
                 'Products': base_url + 'products' + '?user_id=' + user_id,
             },
-
-            '_account_' : {
+            '_account_': 
+            {
                 'Cart': [base_url + 'cart', 'cart'],
                 'Login': [base_url + 'login', 'login'],
                 'SignUp': [base_url + 'signUp', 'signUp'],
                 'order': [base_url + 'order', 'order'],
                 'account': [base_url + 'account', 'account'],
                 'myAccount': [base_url + 'myAccount' + '?user_id=' + user_id, 'myAccount'],
-            }
+            },
+            '_admin_':
+            {
+                'dashboard': base_url + 'admin' + '?user_id=' + user_id,
+                'edit_index': base_url + 'admin' + '?user_id=' + user_id + '&edit_index',
+                'edit_listing': base_url + 'admin' + '?user_id=' + user_id + '&edti_listing',
+            },
         }
     else:
         nav_dict = {
-            '_index_' : {
+            '_index_' : 
+            {
                 'index': base_url + '',
                 'includ_user_id_url': '',
             },
 
-            '_nav_' : {
+            '_nav_' : 
+            {
                 'Brand': base_url + 'brand',
                 'Products': base_url + 'products',
                 # 'admin': base_url + 'admin',
             },
 
-            '_account_' : {
+            '_account_' : 
+            {
                 'Cart': [base_url + 'cart', 'cart'],
                 'Login': [base_url + 'login', 'login'],
                 'SignUp': [base_url + 'signUp', 'signUp'],
                 'order': [base_url + 'order', 'order'],
                 'account': [base_url + 'account', 'account'],
                 'myAccount': [base_url + 'myAccount', 'myAccount'],
-            }
+            },
+            '_admin_':
+            {
+                'Dashboard': base_url + 'admin' + 'jessie',
+                'EditIndex': base_url + 'admin' + '?user_id=' + '&edit_index',
+                'EditListing': base_url + 'admin' + '?user_id=' + '&edti_listing',
+            },
         }
+        
 
     return nav_dict
 
