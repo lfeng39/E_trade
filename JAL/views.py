@@ -40,7 +40,7 @@ print('\n>>> this is views.py <<< ')
 Part: user interface
 '''
 def _index_(request):
-    user = request.GET.get('user_id')
+    user_id = request.GET.get('user_id')
     product_description = models.ProductDescription.objects.all().values()
 
     '''
@@ -55,11 +55,12 @@ def _index_(request):
     jasonApi = {
         'asin_code': asin_db_list,
 
-        'nav_index': data_source.nav(user)['_index_'],
-        'nav_nav': data_source.nav(user)['_nav_'],
-        'nav_account': data_source.nav(user)['_account_'],
+        'nav_index': data_source.nav(user_id)['_index_'],
+        'nav_nav': data_source.nav(user_id)['_nav_'],
+        'nav_account': data_source.nav(user_id)['_account_'],
+        'user_account': True,
 
-        'includ_user_id_url': data_source.nav(user)['_index_']['includ_user_id_url'],
+        'includ_user_id_url': data_source.nav(user_id)['_index_']['includ_user_id_url'],
         'product_info': models.Listing.objects.all().values(),
         'product_asin': asin_db_list,
         'img_name': img_show_dict,
@@ -67,25 +68,25 @@ def _index_(request):
         'product_title': models.Listing.objects.filter(asin='B0BRHWQ27R').values()[0],
         'product_bullet_point': eval(models.Listing.objects.filter(asin='B0BRHWQ27R').values()[0]['bullet_point']),
         'page_id': 'index',
-        'user_account': user,
         'product_description': product_description,
     }
-    print('index>>>',type(user),user)
+    print('index>>>',type(user_id),user_id)
 
     return render(request, 'index.html', jasonApi)
 
 
 
 def _about_(request):
-    user = request.GET.get('user_id')
+    user_id = request.GET.get('user_id')
     jasonApi = {
 
-        'nav_index': data_source.nav(user)['_index_'],
-        'nav_nav': data_source.nav(user)['_nav_'],
+        'nav_index': data_source.nav(user_id)['_index_'],
+        'nav_nav': data_source.nav(user_id)['_nav_'],
         'nav_account': data_source.nav('')['_account_'],
+        'user_account': True,
 
         'page_id': 'about',
-        'user_account': user,
+        'user_account': True,
     }
 
     return render(request, 'about.html', jasonApi)
@@ -93,15 +94,15 @@ def _about_(request):
 
 
 def _products_(request):
-    user = request.GET.get('user_id')
+    user_id = request.GET.get('user_id')
     jasonApi = {
 
-        'nav_index': data_source.nav(user)['_index_'],
-        'nav_nav': data_source.nav(user)['_nav_'],
+        'nav_index': data_source.nav(user_id)['_index_'],
+        'nav_nav': data_source.nav(user_id)['_nav_'],
         'nav_account': data_source.nav('')['_account_'],
-        'user_account': user,
+        'user_account': True,
 
-        'includ_user_id_url': data_source.nav(user)['_index_']['includ_user_id_url'],
+        'includ_user_id_url': data_source.nav(user_id)['_index_']['includ_user_id_url'],
         # 'includ_user_id_url': '',
         'lenth': len(models.Listing.objects.filter(status='01')),
         ### get all products info, but status is '00'
@@ -117,15 +118,17 @@ def _products_(request):
 
 
 def _detail_(request, asin):
-    user = request.GET.get('user_id')
+    user_id = request.GET.get('user_id')
     print('oooooooooo',asin)
     jasonApi = {
         'page_id': asin,
         'product_img': detailImg(asin),
 
-        'nav_index': data_source.nav(user)['_index_'],
-        'nav_nav': data_source.nav(user)['_nav_'],
+        'nav_index': data_source.nav(user_id)['_index_'],
+        'nav_nav': data_source.nav(user_id)['_nav_'],
         'nav_account': data_source.nav('')['_account_'],
+        # 'user_account': userAccount(request),
+        'user_account': True,
 
         'product_info': models.Listing.objects.filter(asin=asin).values()[0],
         'product_price': models.Listing.objects.filter(asin=asin).values()[0],
@@ -136,7 +139,6 @@ def _detail_(request, asin):
         'product_description': models.Listing.objects.filter(asin=asin).values()[0],
         'sales_status': '',
         'cupon': '',
-        'user_account': userAccount(request),
         'amazon': 'https://www.amazon.com/dp/' + asin,
 
         # 'includ_user_id_url': urls.nav(user)['_index_']['includ_user_id_url'],
@@ -163,6 +165,7 @@ def _login_(request):
         'nav_index': data_source.nav('')['_index_'],
         'nav_nav': data_source.nav('')['_nav_'],
         'nav_account': data_source.nav('')['_account_'],
+        'user_account': True,
 
         'page_id': 'login',
         # 'user_account': user,
@@ -185,6 +188,7 @@ def signUp(request):
         'nav_index': data_source.nav('')['_index_'],
         'nav_nav': data_source.nav('')['_nav_'],
         'nav_account': data_source.nav('')['_account_'],
+        'user_account': False,
 
         'page_id': 'signUp',
         'user_account': userAccount(request),
@@ -215,7 +219,7 @@ def userAccount(request):
     jasonApi = {
 
         }
-    return render(request, 'yes.html', jasonApi)
+    return render(request, 'done.html', jasonApi)
 
 
 # class UserLogin():
@@ -258,9 +262,10 @@ def _account_(request):
         'nav_index': data_source.nav('')['_index_'],
         'nav_nav': data_source.nav('')['_nav_'],
         'nav_account': data_source.nav('')['_account_'],
+        'user_account': userAccount(request),
 
         'asin': detailImg('B09YLLXKDT'),
-        'user_account': userAccount(request),
+
     }
 
     return render(request, 'account.html', jasonApi)
@@ -269,7 +274,7 @@ def _account_(request):
 
 def myAccount(request):
     user_id = request.GET.get('user_id')
-    my_account = models.UserAccount.objects.filter(email=user_id).values()[0]
+    # my_account = models.UserAccount.objects.filter(email=user_id).values()[0]
 
     jasonApi = {
         'page_id': 'myAccount',
@@ -277,9 +282,9 @@ def myAccount(request):
         'nav_index': data_source.nav(user_id)['_index_'],
         'nav_nav': data_source.nav(user_id)['_nav_'],
         'nav_account': data_source.nav('')['_account_'],
+        'user_account': True,
 
-        'user_account': user_id,
-        'my_account': my_account,
+        'my_account': 'my_account',
     }
 
     return render(request, 'my-account.html', jasonApi)
@@ -294,11 +299,12 @@ def myCart(request):
         'nav_index': data_source.nav('')['_index_'],
         'nav_nav': data_source.nav('')['_nav_'],
         'nav_account': data_source.nav('')['_account_'],
-
-        'product_info': models.ProductInfo.objects.filter(asin='B09YLKWBMV').values()[0],
-        'asin': detailImg('B09YLLXKDT'),
-        'url_page_id_order': page_id[6],
         'user_account': userAccount(request),
+
+        'product_info': models.Listing.objects.filter(asin='B0BTXB89PG').values()[0],
+        'asin': detailImg('B0BTXB89PG'),
+        'url_page_id_order': page_id[6],
+
     }
 
     return render(request, 'my-cart.html', jasonApi)
@@ -310,18 +316,23 @@ def myCart(request):
 '''
 Part: order module
 '''
+@csrf_protect
+@csrf_exempt
+@requires_csrf_token
 def _order_(request):
+    user_id = request.GET.get('user_id')
     jasonApi = {
         'page_id': 'order',
         'asin_code': asin_db_list,
 
-        'nav_index': data_source.nav(request)['_index_'],
-        'nav_nav': data_source.nav(request)['_nav_'],
-        'nav_account': data_source.nav(request)['_account_'],
+        'nav_index': data_source.nav(user_id)['_index_'],
+        'nav_nav': data_source.nav(user_id)['_nav_'],
+        'nav_account': data_source.nav(user_id)['_account_'],
+        'user_account': True,
 
-        'product_info': models.ProductInfo.objects.filter(asin='B09YLKWBMV').values()[0],
-        'asin': detailImg('B09YLLXKDT'),
-        'user_account': userAccount(request),
+        'product_info': models.Listing.objects.filter(asin='B0BTXB89PG').values()[0],
+        'asin': detailImg('B0BTXB89PG'),
+        
     }
 
     return render(request, 'order.html', jasonApi)
@@ -335,10 +346,12 @@ def upData(request):
         'nav_index': data_source.nav(request)['_index_'],
         'nav_nav': data_source.nav(request)['_nav_'],
         'nav_account': data_source.nav(request)['_account_'],
-
-        'product_info': models.ProductInfo.objects.filter(asin='B09YLKWBMV').values()[0],
-        'asin': detailImg('B09YLLXKDT'),
         'user_account': userAccount(request),
+
+
+        'product_info': models.Listing.objects.filter(asin='B09YLKWBMV').values()[0],
+        'asin': detailImg('B09YLLXKDT'),
+
     }
 
     return render(request, 'order.html', jasonApi)
@@ -359,7 +372,7 @@ def _admin_(request):
         'nav_nav': data_source.nav(user_id)['_nav_'],
         'nav_account': data_source.nav(user_id)['_account_'],
         'nav_admin': data_source.nav('')['_admin_'],
-        'user_account': 'user_id',
+        'user_account': True,
 
         'listing': models.Listing.objects.all().values(),
         'edit_listing': 'admin&user_id=jessie&editlisting',
@@ -379,7 +392,7 @@ def managerProductList(request):
         'nav_nav': data_source.nav(user_id)['_nav_'],
         'nav_account': data_source.nav(user_id)['_account_'],
         'nav_admin': data_source.nav('')['_admin_'],
-        'user_account': 'user_id',
+        'user_account': True,
 
         'listing': models.Listing.objects.all().values(),
         'admin': 'adminjessie',
@@ -399,7 +412,7 @@ def editIndex(request):
         'nav_nav': data_source.nav(user_id)['_nav_'],
         'nav_account': data_source.nav(user_id)['_account_'],
         'nav_admin': data_source.nav('')['_admin_'],
-        'user_account': 'user_id',
+        'user_account': True,
 
         'admin': 'adminjessie',
         'asin': product_description,
@@ -431,7 +444,7 @@ def editIndexDone(request):
             'img': '/static/image/yeah/yeah.jpg'
         }
 
-    return render(request, 'yes.html', jasonApi)
+    return render(request, 'done.html', jasonApi)
 
 def editListing(request, asin):
     user_id = request.GET.get('user_id')
@@ -441,7 +454,7 @@ def editListing(request, asin):
         'nav_nav': data_source.nav(user_id)['_nav_'],
         'nav_account': data_source.nav(user_id)['_account_'],
         'nav_admin': data_source.nav('')['_admin_'],
-        'user_account': 'user_id',
+        'user_account': True,
 
         'asin': asin,
         'listing': models.Listing.objects.filter(asin=asin).values()[0],
@@ -471,7 +484,7 @@ def editListingDone(request, asin):
         'img': '/static/image/yeah/ok.jpg',
     }
 
-    return render(request, 'yes.html', jasonApi)
+    return render(request, 'done.html', jasonApi)
 
 
 
