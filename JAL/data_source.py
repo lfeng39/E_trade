@@ -238,13 +238,13 @@ Start-Mould: Nav
 http = 'http://'
 # _ip_ = '140.82.22.68'
 # _ip_ = '192.168.39.84'
-_ip_ = '127.0.0.1'
-# _ip_ = '0.0.0.0'
+# _ip_ = '127.0.0.1'
+_ip_ = '0.0.0.0'
 _port_ = ':8000'
 _app_ = '/JAL/'
 base_url = http + _ip_ + _port_ + _app_
 # base_url = ''
-print('>>>>>> url_now:','\n', base_url)
+print('oooooo url_now:', base_url)
 def nav(user_id):
     if user_id:
         nav_dict = {
@@ -262,7 +262,7 @@ def nav(user_id):
             {
                 'cart': [base_url + 'cart', 'Cart'],
                 'login': [base_url + 'login', 'Login'],
-                'signUp': [base_url + 'signUp', 'signUp'],
+                'signUp': [base_url + 'signUp', 'SignUp'],
                 'order': [base_url + 'order', 'Order'],
                 'account': [base_url + 'account', 'Account'],
                 'myAccount': [base_url + 'myAccount' + '?user_id=' + user_id, 'myAccount'],
@@ -293,7 +293,7 @@ def nav(user_id):
             {
                 'cart': [base_url + 'cart', 'Cart'],
                 'login': [base_url + 'login', 'Login'],
-                'signUp': [base_url + 'signUp', 'signUp'],
+                'signUp': [base_url + 'signUp', 'SignUp'],
                 'order': [base_url + 'order', 'Order'],
                 'account': [base_url + 'account', 'Account'],
                 'myAccount': [base_url + 'myAccount', 'MyAccount'],
@@ -312,3 +312,17 @@ def nav(user_id):
 '''
 End-Mould: Nav
 '''
+
+
+'''
+Create random 8 digits
+by secrets module
+'''
+import secrets
+
+def generate_random_8_digit():
+    # 10**8 is mean 10*10*10*10*10*10*10*10
+    random_number = secrets.randbelow(10**8)
+    # format to str
+    random_string = f'{random_number:08}'
+    return random_string

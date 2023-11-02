@@ -39,6 +39,7 @@ class Listing(models.Model):
     description = models.TextField(max_length=3000, blank=True)
     first_img = models.CharField(max_length=300, blank=True)
     status = models.CharField(max_length=2, blank=True)
+    # date = models.DateTimeField()
     # def __str__(self):
     #     return self.asin + ' *** ' + self.title
 

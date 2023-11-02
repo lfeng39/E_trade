@@ -14,7 +14,7 @@
 
         <div class="container">
 
-            <form class="login" action="/JAL/done" method="post">
+            <form class="login" action="/JAL/verifyUserAccount" method="post">
                 {%csrf_token%}
                 <!-- {{ form }} -->
                 <div>
@@ -24,6 +24,7 @@
                     <!-- <label for="test">Your name: </label> -->
                     <li>
                         <input id="email" type="text" name="email" value="Your Email" onclick="loginControl('accountClick')" onblur="loginControl('accountOnblur')">
+                        <span>{{ exist }}</span>
                         <span style="display:none">email error</span>
                     </li>
                     <li>
@@ -36,7 +37,7 @@
                     <li>
                         <a href="{{ nav_account.login.0 }}">{{ nav_account.login.1 }}</a>
                         |
-                        <a href="{{ nav_account.account.0 }}">Create Account</a>
+                        <a href="{{ nav_account.account.0 }}">Create an Account</a>
                     </li>
                 </ul>
             </form>

@@ -8,6 +8,7 @@ from JAL import models
 from JAL import urls
 from JAL import data_source
 from JAL import images
+from JAL import forms
 
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.csrf import csrf_exempt
@@ -174,7 +175,7 @@ def _login_(request):
     if request.method == 'GET':
         return render(request, 'login.html', jasonApi)
     elif request.method == 'POST':
-        user = userAccount(request)
+        user = verifyUserAccount(request)
         if user:
             urls_index = data_source.nav(user)['_index_']['index']
             return redirect(urls_index)
@@ -191,35 +192,48 @@ def signUp(request):
         'user_account': False,
 
         'page_id': 'signUp',
-        'user_account': userAccount(request),
+        # 'user_account': verifyUserAccount(request),
     }
 
     return render(request, 'sign-up.html', jasonApi)
 
 
-def userAccount(request):
-    user_login = {
-        'email' : request.POST.get('email'),
-        'password' : request.POST.get('passWord'),
-    }
-    user_account_db = models.UserAccount.objects.all().values('email','password')
-    print('user_login:',user_login)
-    try:
-        for user_account in user_account_db:
-            print('user_account_db:',user_account)
-            if user_login == user_account:
-                print('>>>',user_account, user_account['email'])
-                # user_account = list(user_account.values())[0]
-                # return HttpResponse(user_account['email'])
-                return user_account['email']
-            else:
-                pass
-    except:
-        return None
-    jasonApi = {
 
-        }
-    return render(request, 'done.html', jasonApi)
+def verifyUserAccount(request):
+    account_info = forms.AccountDataForm.getAccountInfo(request)
+    user_account_form = {
+        'email' : account_info['email'],
+        # 'password' : account_info['password'],
+    }
+    user_account_db = models.UserAccount.objects.all().values('email')
+    for user_account in user_account_db:
+        if user_account_form == user_account:
+            return True, user_account_form['email'] + ' is already exist'
+
+    return False, 'Account ' + user_account_form['email'] + ' is created'
+
+
+
+@csrf_protect
+@csrf_exempt
+@requires_csrf_token
+def signUpDone(request):
+    jasonApi = {
+        'nav_index': data_source.nav('')['_index_'],
+        'nav_nav': data_source.nav('')['_nav_'],
+        'nav_account': data_source.nav('')['_account_'],
+        'user_account': True,
+
+        'exist': verifyUserAccount(request)[1],
+        'products': 'products',
+    }
+    if verifyUserAccount(request)[0]:
+        return render(request, 'sign-Up.html', jasonApi)
+    else:
+        forms.CreateUserAccount.addUserAccount(request)
+        return render(request, 'done.html', jasonApi)
+    
+    
 
 
 # class UserLogin():
@@ -544,12 +558,12 @@ check Asin between AsinInfo DB and CSV, if new, update table AsinInfo
 '''
 asin_csv_list = data_source.DataCSV.asinList()
 asin_db_list = data_source.AsinDB.asinList()
-print('>>>>>> from DB, Total:', len(asin_db_list), '\n', asin_db_list, '\n')
+print('oooooo from DB, Total:', len(asin_db_list), '\n', asin_db_list, '\n')
 if len(asin_csv_list) == len(asin_db_list):
     '''
     the same csv and mySql_db, return None
     '''
-    print('>>>>>> no new asin', '\n')
+    print('oooooo no new asin', '\n')
 
 elif len(asin_csv_list) > len(asin_db_list):
     '''
@@ -563,16 +577,16 @@ elif len(asin_csv_list) > len(asin_db_list):
             # new_asin_list.append(asin)
             CreateProduct.addAsin(asin)
             CreateProduct.addListing(asin)
-    print('>>>>>> have new asin... ', asin, 'saving...', '\n')
+    print('oooooo have new asin... ', asin, 'saving...', '\n')
     # return new_asin_list
 
 elif len(asin_csv_list) < len(asin_db_list):
     '''
     more mySql_db, delete different asin, and return asin list from mySql DB
     '''
-    print('>>>>>> asin_csv_list less than asin_db_list, Check it!')
+    print('oooooo asin_csv_list less than asin_db_list, Check it!')
 else:
-    print('>>>>>> error..., Check Please!')
+    print('oooooo error..., Check Please!')
 
 
 

@@ -31,7 +31,7 @@ urlpatterns = [
     path('account',views._account_, name=''),
     path('myAccount',views.myAccount, name=''),
     # path('yes=<asin>',views.postData, name=''),
-    path('verify',views.userAccount, name=''),
+    path('verifyUserAccount',views.signUpDone, name=''),
     path('adminjessie',views._admin_, name=''),
     path('admin&edit=<asin>',views.editListing, name=''),
     path('admin&user_id=jessie&editlisting',views.managerProductList, name=''),
