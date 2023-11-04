@@ -19,7 +19,7 @@ class AccountDataForm:
             'userid': request.POST.get('email'),
             'usesrname': request.POST.get('email'),
             'email': request.POST.get('email'),
-            'password': request.POST.get('passWord'),
+            'password': request.POST.get('password'),
             'firstname': request.POST.get('email'),
             'lastname': request.POST.get('email'),
             'address': request.POST.get('email'),
@@ -37,22 +37,7 @@ class AccountDataForm:
         pass
 
 
-class CreateUserAccount:
-    def addUserAccount(request):
-        get_account_info = AccountDataForm.getAccountInfo(request)
-        models.UserAccount.objects.create(
-            user_id = get_account_info['email'],
-            user_name = get_account_info['email'],
-            email = get_account_info['email'],
-            password = get_account_info['password'],
-            first_name = get_account_info['firstname'],
-            last_name = get_account_info['lastname'],
-            address = get_account_info['address'],
-            street = get_account_info['street'],
-            ctiy = get_account_info['city'],
-            country = get_account_info['country'],
-            code = get_account_info['code'],
-        )
+
 
 
 

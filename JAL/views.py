@@ -206,11 +206,25 @@ def verifyUserAccount(request):
         # 'password' : account_info['password'],
     }
     user_account_db = models.UserAccount.objects.all().values('email')
+    '''
+    get POST info is error, return tips
+    '''
+    if account_info['email'] == 'Email' or account_info['email'] == '':
+        return False, 'Input email, please!'
+    elif account_info['password'] == 'Password' or account_info['password'] == '':
+        return False, 'Input password, please!'
+    elif '@' not in account_info['email']:
+        return False, 'do somthing'
+    '''
+    check user_account from db, if in, return tips
+    '''
     for user_account in user_account_db:
         if user_account_form == user_account:
-            return True, user_account_form['email'] + ' is already exist'
-
-    return False, 'Account ' + user_account_form['email'] + ' is created'
+            return False, user_account_form['email'] + ' is already exist'
+    '''
+    user not in db, return created
+    '''
+    return True, 'Account ' + user_account_form['email'] + ' is created'
 
 
 
@@ -218,20 +232,30 @@ def verifyUserAccount(request):
 @csrf_exempt
 @requires_csrf_token
 def signUpDone(request):
-    jasonApi = {
-        'nav_index': data_source.nav('')['_index_'],
-        'nav_nav': data_source.nav('')['_nav_'],
-        'nav_account': data_source.nav('')['_account_'],
-        'user_account': True,
-
-        'exist': verifyUserAccount(request)[1],
-        'products': 'products',
-    }
     if verifyUserAccount(request)[0]:
-        return render(request, 'sign-Up.html', jasonApi)
-    else:
-        forms.CreateUserAccount.addUserAccount(request)
+        CreateUserAccount.addUserAccount(request)
+        jasonApi = {
+            'nav_index': data_source.nav('')['_index_'],
+            'nav_nav': data_source.nav('')['_nav_'],
+            'nav_account': data_source.nav('')['_account_'],
+            'user_account': True,
+
+            'tips': verifyUserAccount(request)[1],
+            'products': 'products',
+        }
         return render(request, 'done.html', jasonApi)
+    else:
+        
+        jasonApi = {
+            'nav_index': data_source.nav('')['_index_'],
+            'nav_nav': data_source.nav('')['_nav_'],
+            'nav_account': data_source.nav('')['_account_'],
+            'user_account': True,
+
+            'tips': verifyUserAccount(request)[1],
+            'products': 'products',
+        }
+        return render(request, 'sign-Up.html', jasonApi)
     
     
 
@@ -546,8 +570,21 @@ class CreateProduct:
 Create UserAccount addAccount addUserInfo addCart addOder
 '''
 class CreateUserAccount:
-    pass
-
+    def addUserAccount(request):
+        get_account_info = forms.AccountDataForm.getAccountInfo(request)
+        models.UserAccount.objects.create(
+            user_id = get_account_info['email'],
+            user_name = get_account_info['email'],
+            email = get_account_info['email'],
+            password = get_account_info['password'],
+            first_name = get_account_info['firstname'],
+            last_name = get_account_info['lastname'],
+            address = get_account_info['address'],
+            street = get_account_info['street'],
+            ctiy = get_account_info['city'],
+            country = get_account_info['country'],
+            code = get_account_info['code'],
+        )
 
 
 
@@ -603,7 +640,7 @@ else:
 
 
 '''
-save data from edit index
+save data after edit index
 check ProductDescription from DB, if False, create it
 '''
 def saveIndexData(request):
@@ -638,7 +675,7 @@ def saveIndexData(request):
 
 
 '''
-save data from edit listing
+save data after edit listing
 '''
 def saveListing(request, asin):
     get_listing_data = data_source.DataForm.getListingData(request, asin)
