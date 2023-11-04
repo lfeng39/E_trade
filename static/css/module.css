@@ -37,7 +37,6 @@ wrap > container > grid
   background: url('../image/ico/mamleo-200-35-01.png') no-repeat;
 }
 
-
 .product-info
 {
   background-color: #f5f5f5;
@@ -117,7 +116,7 @@ Widget: btn | input | checkbox | text | alert | form
   height: 55px;
   line-height: 50px;
   border-radius: 8px;
-  background-color: rgba(126, 197, 149, 0.8);
+  background-color: rgba(126, 197, 149, 0.6);
   color: #fff;
   text-align: center;
   
@@ -127,16 +126,26 @@ a.widget-btn
 {
   font-size: 22px;
 }
-.learnMore:hover, .widget-btn:hover
+.learnMore:hover, .widget-btn:hover, .btn:hover
 {
   background-color: rgb(126, 197, 149, 0.9);
   color: #fff;
 }
-
+a.btn
+{
+  display: block;
+  width: 99%;
+  height: 39px;
+  line-height: 39px;
+  border-radius: 6px;
+  background-color: rgba(126, 197, 149, 0.6);
+  color: #fff;
+  text-align: center;
+}
 /* 
 form-login-signUp
 */
-.login, .signUp
+.account_login, .account_signup
 {
   width: 100%;
   min-height: 60%;
@@ -206,11 +215,22 @@ Screen: for mobile, width under 980px
   .widget-btn
   {
     display: block;
-    width: 100%;
+    width: 98%;
     height: 100px;
     line-height: 100px;
     border-radius: 16px;
     background-color: rgba(126, 197, 149, 0.8);
+    color: #fff;
+    text-align: center;
+  }
+  a.btn
+  {
+    display: block;
+    width: 99%;
+    height: 100px;
+    line-height: 100px;
+    border-radius: 6px;
+    background-color: rgba(126, 197, 149, 0.6);
     color: #fff;
     text-align: center;
   }
@@ -236,22 +256,23 @@ Screen: for mobile, width under 980px
     line-height: 36px;
   }
   /* products end */
-  .login > ul
+  .account_login > ul, .account_signup > ul
   {
     width:80%;
     margin: 10px 10%;
     padding: 10px 0;
   }
-  .login > ul > li > input[type="text"]
+  .account_login > ul > li > input[type="text"], .account_signup > ul > li > input[type="text"]
   {
-    width:95%; 
-    height: 100px; 
+    width:96%; 
+    height: 100px;
     background-color: #fff;
     border: 1px solid #ccc; 
     color: #aaa; 
+    padding-left: 3%;
     /* margin: 0 2.5%; */
   }
-  .login > ul > li > input[type="text"]:focus
+  .account_login > ul > li > input[type="text"]:focus, .account_signup > ul > li > input[type="text"]:focus
   {
     background-color: #f5f5f5;
     border-bottom: 1px solid #ccc; 
@@ -259,15 +280,18 @@ Screen: for mobile, width under 980px
     border-left: none; 
     border-right: none; 
     outline: none;
+    color: #333;
+    padding-left: 3%;
   }
   button[id="login"]
   {
     display: block;
-    width: 100%;
+    width: 99%;
     height: 100px;
-    border: 1px solid rgb(126, 197, 149, 0.8);
-    border-radius: 5px;
-    background-color: rgb(126, 197, 149, 0.8);
+    line-height: 100px;
+    border: 1px solid rgb(126, 197, 149, 0.6);
+    border-radius: 6px;
+    background-color: rgb(126, 197, 149, 0.6);
     color: #fff;
     cursor: pointer;
   }
@@ -275,35 +299,36 @@ Screen: for mobile, width under 980px
 
 
 
-
-
 /*************************************************
-Screen: for mobile, width above 980px
+Screen: for PC, width above 980px
  *************************************************/
 @media screen and (min-width:981px)
 {
-  .login > ul
+  .account_login > ul,.account_signup > ul
   {
     width:80%;
     margin: 10px 10%;
-    padding: 10px 0;
-    background: rgb(233, 233, 233);
+    padding: 60px 0;
+    background: rgb(252, 252, 252);
+    border-radius: 6px;
   }
-  .login > ul > li
+  .account_login > ul > li, .account_signup > ul > li
   {
     margin: 10px 30%;
   }
-  .login > ul > li > input[type="text"]
+  .account_login > ul > li > input[type="text"], .account_signup > ul > li > input[type="text"]
   {
-    width:97%; 
+    width:95%; 
     height: 35px; 
     background-color: #fff;
     border: 1px solid #ccc; 
     color: #aaa; 
+    /* font-size: 18px; */
+    padding-left: 3%;
   }
-  .login > ul > li > input[type="text"]:focus
+  .account_login > ul > li > input[type="text"]:focus, .account_signup > ul > li > input[type="text"]:focus
   {
-    width:97%; 
+    width:95%; 
     height: 35px; 
     background-color: #f5f5f5;
     border-bottom: 1px solid #ccc; 
@@ -311,15 +336,19 @@ Screen: for mobile, width above 980px
     border-left: none; 
     border-right: none; 
     outline: none;
+    color: #333;
+    /* font-size: 18px; */
+    padding-left: 3%;
   }
-  button[id="login"]
+  button[id="login"],  button[id="createAccount"]
   {
     display: block;
-    width: 98%;
-    height: 35px;
-    border: 1px solid rgb(126, 197, 149, 0.8);
-    border-radius: 5px;
-    background-color: rgb(126, 197, 149, 0.8);
+    width: 99%;
+    height: 39px;
+    /* line-height: 38px; */
+    border: 1px solid rgb(126, 197, 149, 0.6);
+    border-radius: 6px;
+    background-color: rgb(126, 197, 149, 0.6);
     color: #fff;
     cursor: pointer;
   }

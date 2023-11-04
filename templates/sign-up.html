@@ -14,11 +14,11 @@
 
         <div class="container">
 
-            <form class="login" action="/JAL/verifyUserAccount" method="post">
+            <form class="account_signup" action="/JAL/verifyUserAccount" method="post">
                 {%csrf_token%}
                 <!-- {{ form }} -->
-                <div>
-                    <h1>{{ page_id }}</h1>
+                <div style="text-align: center; height: 60px; padding-top: 30px;">
+                    <h1>{{ nav_account.createAccount.1 }}</h1>
                 </div>
                 <ul>
                     <!-- <label for="test">Your name: </label> -->
@@ -33,12 +33,13 @@
                         <!-- <span id="password_tip" class="password_tip" style="display:none">email error</span> -->
                     </li>
                     <li>
-                        <button id="login" type="submit"><h3>Submit</h3></button>
+                        <button id="createAccount" type="submit">{{ nav_account.createAccount.1 }}</button>
                     </li>
-                    <li>
-                        <a href="{{ nav_account.login.0 }}">{{ nav_account.login.1 }}</a>
-                        |
-                        <a href="{{ nav_account.account.0 }}">Create Account</a>
+                    <li style="text-align: center;">
+                        --or--
+                    </li>
+                    <li style="text-align: center;">
+                        <a href="{{ nav_account.login.0 }}" class="btn">{{ nav_account.login.1 }}</a>
                     </li>
                 </ul>
             </form>

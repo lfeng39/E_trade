@@ -183,15 +183,15 @@ def _login_(request):
             return render(request, 'login.html', jasonApi)
 
 
-def signUp(request):
+def createAccount(request):
     jasonApi = {
 
         'nav_index': data_source.nav('')['_index_'],
         'nav_nav': data_source.nav('')['_nav_'],
         'nav_account': data_source.nav('')['_account_'],
-        'user_account': False,
+        'user_account': True,
 
-        'page_id': 'signUp',
+        'page_id': 'createAccount',
         # 'user_account': verifyUserAccount(request),
     }
 

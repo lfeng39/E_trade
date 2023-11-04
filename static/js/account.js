@@ -23,68 +23,62 @@ if(page_id == 'login' || 'signUp')
     // verifyAccountInfo
     function verifyAccountInfo(type)
     {
+        console.log('get_input_email.value:',get_input_email.value)
         // email input get foucse
         if(type == 'accountClick')
         {
-            if(get_input_email.value == 'Email' || 'Your Email')
+            if(get_input_email.value == 'Email')
             {
                 get_input_email.value = ''
                 // get_email_tips.style = 'display:none'
                 get_email_format.style = 'display:none'
-            }
-            if(get_input_email.value !== '')
-            {
-                get_input_email.value = get_input_email.value
             }
             if(get_input_email.value == get_input_email.value)
             {
                 get_input_email.value = get_input_email.value
             }
         }
+        
         // email input lose foucse
-        else if(type == 'accountOnblur')
+        if(type == 'accountOnblur')
         {
             if(get_input_email.value == '')
             {
-                console.log('get_input_email.value:',get_input_email.value)
                 get_input_email.value = 'Email'
-                console.log('get_input_email.value:',get_input_email.value)
             }
             else if(get_input_email.value !== '')
             {
-                console.log('get_input_email.value:',get_input_email.value)
-                get_input_email.value = 'get_input_email.value'
-                console.log('get_input_email.value:',get_input_email.value)
-            }
-            else
-            {
                 if(get_input_email.value.includes('@'))
                 {
-                    get_email_format.style = 'display:none'
                     get_input_email.value = get_input_email.value
+                    get_email_format.style = 'display:none'
                 }    
                 else
                 {
                     get_email_format.style = ''
                 }
-                
             }
 
         }
         // paassword input get foucse
-        else if(type == 'passWordClick')
+        if(type == 'passWordClick')
         {
-            if(get_input_password.value == 'Password' || '123+ABC+!@#')
+            if(get_input_password.value == 'Password')
             {
                 get_input_password.value = ''
                 get_password_tips.style = 'display:none'
-
-                if (isEmail(get_input_email.value))
+                // activation verify email format
+                if(isEmail(get_input_email.value))
                 {
                     console.log('Valid email');
                 }
+                // if(get_input_email.value == 'Email')
+                // {
+                //     get_email_format.style = 'display:none'
+                // }
                 else
                 {
+                    get_email_format.style = ''
                     console.log('Invalid email');
                 }
             }
@@ -94,7 +88,7 @@ if(page_id == 'login' || 'signUp')
             }
         }
         // paassword input lose foucse
-        else if(type == 'passWordOnblur')
+        if(type == 'passWordOnblur')
         {
             if(get_input_password.value == '')
             {
@@ -105,6 +99,7 @@ if(page_id == 'login' || 'signUp')
                 get_input_password.value = get_input_password.value
             }
         }
+
     }
 
 

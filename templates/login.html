@@ -14,28 +14,31 @@
 
         <div class="container">
             
-            <form class="login" action="/JAL/login" method="post">
+            <form class="account_login" action="/JAL/login" method="post">
                 {%csrf_token%}
                 <!-- {{ form }} -->
-                <div>
-                    <h1>{{ page_id }}</h1>
+                <div style="text-align: center; height: 60px; padding-top: 30px;">
+                    <h1>{{ nav_account.login.1 }}</h1>
                 </div>
                 <ul>
                     <!-- <label for="test">Your name: </label> -->
                     <li>
-                        <input id="email" type="text" name="email" value="EMAIL" onclick="loginControl('accountClick')" onblur="loginControl('accountOnblur')" oninput="account_email()">
-                        <span style="display:none">email error</span>
+                        <input id="email" type="text" name="email" value="Email" onclick="verifyAccountInfo('accountClick')" onblur="verifyAccountInfo('accountOnblur')" oninput="account_email()">
+                        <span id="email_format" style="display:none">email format error</span>
                     </li>
                     <li>
-                        <input id="passWord" type="text" name="passWord" value="PASSWORD" onclick="loginControl('passWordClick')" onblur="loginControl('passWordOnblur')" oninput="account_email()">
-                        <span style="display:none">email error</span>
+                        <input id="password" type="text" name="password" value="Password" onclick="verifyAccountInfo('passWordClick')" onblur="verifyAccountInfo('passWordOnblur')" oninput="account_email()">
+                        <span id="password_tips">{{ tips }}</span>
                     </li>
                     <li>
                         <!-- <button id="login" type="submit"><h3>{{ nav_account.Login.1 }}</h3></button> -->
-                        <button id="login" type="submit"><h3>Login</h3></button>
+                        <button id="login" type="submit">{{ nav_account.login.1 }}</button>
                     </li>
-                    <li>
-                        <a href="{{ nav_account.SignUp.0 }}">{{ nav_account.SignUp.1 }}</a>
+                    <li style="text-align: center;">
+                        --or--
+                    </li>
+                    <li style="text-align: center;">
+                        <a href="{{ nav_account.createAccount.0 }}" class="btn">{{ nav_account.createAccount.1 }}</a>
                     </li>
                 </ul>
             </form>
