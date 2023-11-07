@@ -199,66 +199,58 @@ def createAccount(request):
 
 
 
-def verifyUserAccount(request, type):
-    account_info = forms.AccountDataForm.getAccountInfo(request)
-    user_account_form = {
-        'email' : account_info['email'],
-        'password' : account_info['password'],
-    }
-    user_account_db = models.UserAccount.objects.all().values('email', 'password')
-    '''
-    get POST info is error, return tips
-    '''
-    if account_info['email'] == 'Email' or account_info['email'] == '':
-        return True, 'Input email, please!'
-    elif account_info['password'] == 'Password' or account_info['password'] == '':
-        return True, 'Input password, please!'
-    elif '@' not in account_info['email']:
-        return True, 'email error'
-    '''
-    check user_account from db, if in, return tips
-    '''
-    for user_account in user_account_db:
-        '''
-        createAccount
-        if account in db, tip exist
-        if account not in db, tip create
-        '''
-        if type == 'createAccount' and user_account_form['email'] == user_account['email']:
-            return True, user_account_form['email'] + ' is already exist'
-        '''
-        login
-        if account not in db, go on loop
-        if account in db, tip success
-        if account not in db, tip is not exist
-        '''
-        if type == 'login' and list(user_account_form.values()) != list(user_account.values()):
-            print('999', str(list(user_account.values())))
-            pass
-        else:
-            print('000',str(list(user_account_form.values())))
-            return True, 'Success'+ str(list(user_account_form.values())) + str(list(user_account.values()))
+class VerifyAccount:
+    user_account_db = models.UserAccount.objects.all().values('email','password')
 
+    def getUserAccountInfo(request):
+        account_info = forms.AccountDataForm.getAccountInfo(request)
+        user_account_form = {
+            'email' : account_info['email'],
+            'password' : account_info['password'],
+        }
+        return account_info
 
-    '''
-    user not in db, return created
-    '''
-    return False, user_account_form['email']
+    def verifyUserAccount(request, type):
+        
+        '''
+        get POST info is error, return tips
+        '''
+        if VerifyAccount.getUserAccountInfo(request).account_info['email'] == 'Email' or VerifyAccount.account_info['email'] == '':
+            return False, 'Input email, please!'
+        elif VerifyAccount.account_info['password'] == 'Password' or VerifyAccount.account_info['password'] == '':
+            return False, 'Input password, please!'
+        elif '@' not in VerifyAccount.account_info['email']:
+            return False, 'email error'
+        '''
+        check user_account from db, if in, return tips
+        '''
+        for index in range(len(VerifyAccount.user_account_db)):
+            if VerifyAccount.user_account_form['email'] == VerifyAccount.user_account_db[index]['email']:
+                print('here000000', index, VerifyAccount.user_account_db[index])
+                return True, VerifyAccount.user_account_db[index]['email']
+
+        '''
+        user not in db, return created
+        '''
+        return False, VerifyAccount.user_account_form['email']
+
+    def verifyPassWord():
+        if VerifyAccount.verifyUserAccount()[0]:
+            for index in range(len(VerifyAccount.user_account_db)):
+                if VerifyAccount.user_account_form['email'] == VerifyAccount.user_account_db[index]['email']:
+                    print('here000000', index, VerifyAccount.user_account_db[index])
+                    return True, VerifyAccount.user_account_db[index]['email']
+
 
 # user_account_db = models.UserAccount.objects.all().values('email','password')
-# # print(list(user_account_db))
-
-
+# print(len(user_account_db),user_account_db[1])
 # user_account_form = {
 #     'email' : '@@@',
 #     'password' : '123',
 # }
-# print(list(user_account_form.values()))
-# for aa in user_account_db:
-#     print(list(aa.values()))
-#     if list(user_account_form.values()) ==list(aa.values()):
-#         print(True, list(aa.values()))
-#         break
+# # print(list(user_account_form.values()))
+# for aa in range(len(user_account_db)):
+#     print(user_account_db[24])
 
 
 
@@ -268,7 +260,19 @@ def verifyUserAccount(request, type):
 def verifyAccountDone(request, type):
     verify_user_account = verifyUserAccount(request, type)
     if type == 'createAccount' and verify_user_account[0] == True:
-        CreateUserAccount.addUserAccount(request)
+        # CreateUserAccount.addUserAccount(request)
+        jasonApi = {
+            'nav_index': data_source.nav('')['_index_'],
+            'nav_nav': data_source.nav('')['_nav_'],
+            'nav_account': data_source.nav('')['_account_'],
+            'user_account': True,
+
+            'tips': verify_user_account[1] + ' is exist',
+            'products': 'products',
+        }
+        return render(request, 'sign-Up.html', jasonApi)
+    if type == 'createAccount' and verify_user_account[0] == False:
+        # CreateUserAccount.addUserAccount(request)
         jasonApi = {
             'nav_index': data_source.nav('')['_index_'],
             'nav_nav': data_source.nav('')['_nav_'],
@@ -279,18 +283,6 @@ def verifyAccountDone(request, type):
             'products': 'products',
         }
         return render(request, 'done.html', jasonApi)
-    if type == 'createAccount' and verify_user_account[0] == False:
-        CreateUserAccount.addUserAccount(request)
-        jasonApi = {
-            'nav_index': data_source.nav('')['_index_'],
-            'nav_nav': data_source.nav('')['_nav_'],
-            'nav_account': data_source.nav('')['_account_'],
-            'user_account': True,
-
-            'tips': verify_user_account[1] + ' is created',
-            'products': 'products',
-        }
-        return render(request, 'sign-Up.html', jasonApi)
     if type == 'login' and verify_user_account[0] == True:
         # CreateUserAccount.addUserAccount(request)
         jasonApi = {
@@ -299,7 +291,7 @@ def verifyAccountDone(request, type):
             'nav_account': data_source.nav('')['_account_'],
             'user_account': True,
 
-            'tips': verify_user_account[1],
+            'tips': verify_user_account[1] + ' is success',
             'products': 'products',
         }
         return render(request, 'done.html', jasonApi)
