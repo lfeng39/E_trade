@@ -201,56 +201,43 @@ def createAccount(request):
 
 class VerifyAccount:
     user_account_db = models.UserAccount.objects.all().values('email','password')
+    # account_info = forms.AccountDataForm.getAccountInfo(request)
+    def account_info(request):
+        # account_info = forms.AccountDataForm.getAccountInfo(request)
+        return forms.AccountDataForm.getAccountInfo(request)
 
-    def getUserAccountInfo(request):
-        account_info = forms.AccountDataForm.getAccountInfo(request)
-        user_account_form = {
-            'email' : account_info['email'],
-            'password' : account_info['password'],
-        }
-        return account_info
-
-    def verifyUserAccount(request, type):
-        
+    def verifyEmail(request):
         '''
         get POST info is error, return tips
         '''
-        if VerifyAccount.getUserAccountInfo(request).account_info['email'] == 'Email' or VerifyAccount.account_info['email'] == '':
+        if VerifyAccount.account_info(request)['email'] == 'Email' or VerifyAccount.account_info(request)['email'] == '':
             return False, 'Input email, please!'
-        elif VerifyAccount.account_info['password'] == 'Password' or VerifyAccount.account_info['password'] == '':
+        elif VerifyAccount.account_info(request)['password'] == 'Password' or VerifyAccount.account_info(request)['password'] == '':
             return False, 'Input password, please!'
-        elif '@' not in VerifyAccount.account_info['email']:
+        elif '@' not in VerifyAccount.account_info(request)['email']:
             return False, 'email error'
         '''
         check user_account from db, if in, return tips
         '''
         for index in range(len(VerifyAccount.user_account_db)):
-            if VerifyAccount.user_account_form['email'] == VerifyAccount.user_account_db[index]['email']:
+            if VerifyAccount.account_info(request)['email'] == VerifyAccount.user_account_db[index]['email']:
                 print('here000000', index, VerifyAccount.user_account_db[index])
-                return True, VerifyAccount.user_account_db[index]['email']
+                return True, VerifyAccount.user_account_db[index]['email'] + str(index), index
 
         '''
         user not in db, return created
         '''
-        return False, VerifyAccount.user_account_form['email']
-
-    def verifyPassWord():
-        if VerifyAccount.verifyUserAccount()[0]:
-            for index in range(len(VerifyAccount.user_account_db)):
-                if VerifyAccount.user_account_form['email'] == VerifyAccount.user_account_db[index]['email']:
-                    print('here000000', index, VerifyAccount.user_account_db[index])
-                    return True, VerifyAccount.user_account_db[index]['email']
-
-
-# user_account_db = models.UserAccount.objects.all().values('email','password')
-# print(len(user_account_db),user_account_db[1])
-# user_account_form = {
-#     'email' : '@@@',
-#     'password' : '123',
-# }
-# # print(list(user_account_form.values()))
-# for aa in range(len(user_account_db)):
-#     print(user_account_db[24])
+        return False, VerifyAccount.account_info(request)['email']
+    '''
+    check password by index
+    '''
+    def verifyPassWord(request):
+        if VerifyAccount.verifyEmail(request)[0]:
+            if VerifyAccount.account_info(request)['password'] == VerifyAccount.user_account_db[VerifyAccount.verifyEmail(request)[2]]['password']:
+                print('herepassword', VerifyAccount.verifyEmail(request)[2], VerifyAccount.user_account_db[VerifyAccount.verifyEmail(request)[2]])
+                return True
+            else:
+                return False
 
 
 
@@ -258,7 +245,8 @@ class VerifyAccount:
 @csrf_exempt
 @requires_csrf_token
 def verifyAccountDone(request, type):
-    verify_user_account = verifyUserAccount(request, type)
+    verify_user_account = VerifyAccount.verifyEmail(request)
+    verify_user_password = VerifyAccount.verifyPassWord(request)
     if type == 'createAccount' and verify_user_account[0] == True:
         # CreateUserAccount.addUserAccount(request)
         jasonApi = {
@@ -272,7 +260,7 @@ def verifyAccountDone(request, type):
         }
         return render(request, 'sign-Up.html', jasonApi)
     if type == 'createAccount' and verify_user_account[0] == False:
-        # CreateUserAccount.addUserAccount(request)
+        CreateUserAccount.addUserAccount(request)
         jasonApi = {
             'nav_index': data_source.nav('')['_index_'],
             'nav_nav': data_source.nav('')['_nav_'],
@@ -283,7 +271,7 @@ def verifyAccountDone(request, type):
             'products': 'products',
         }
         return render(request, 'done.html', jasonApi)
-    if type == 'login' and verify_user_account[0] == True:
+    if type == 'login' and verify_user_password == True:
         # CreateUserAccount.addUserAccount(request)
         jasonApi = {
             'nav_index': data_source.nav('')['_index_'],
@@ -303,47 +291,23 @@ def verifyAccountDone(request, type):
             'nav_account': data_source.nav('')['_account_'],
             'user_account': True,
 
-            'tips': verify_user_account[1] + 'is not exist',
+            'tips': verify_user_account[1] + ' is not exist',
             'products': 'products',
         }
         return render(request, 'login.html', jasonApi)
-    # else:
-        
-    #     jasonApi = {
-    #         'nav_index': data_source.nav('')['_index_'],
-    #         'nav_nav': data_source.nav('')['_nav_'],
-    #         'nav_account': data_source.nav('')['_account_'],
-    #         'user_account': True,
+    if type == 'login' and verify_user_password == False:
+        # CreateUserAccount.addUserAccount(request)
+        jasonApi = {
+            'nav_index': data_source.nav('')['_index_'],
+            'nav_nav': data_source.nav('')['_nav_'],
+            'nav_account': data_source.nav('')['_account_'],
+            'user_account': True,
 
-    #         'tips': verifyUserAccount(request, type)[1],
-    #         'products': 'products',
-    #     }
-    #     return render(request, 'sign-Up.html', jasonApi)
-    
-    
+            'tips': 'Password error',
+            'products': 'products',
+        }
+        return render(request, 'login.html', jasonApi)
 
-
-# class UserLogin():
-# def verifyAccount(request):
-    
-#     user_account_db = UserAccount.objects.all().values('email','password')
-#     post_account_info = data_source.DataForm.postAccountInfoLogin(request)
-
-#     if post_account_info in user_account_db:
-#         return post_account_info['email']
-#     else:
-#         return None
-
-
-# user_account_db = UserAccount.objects.all().values('email')
-# print(user_account_db)
-
-# for dict in user_account_db:
-#     print(dict)
-#     if 'lfeng' in dict.values():
-#         print(list(dict.values())[0])
-#     else:
-#         print('False')
 '''
 END: Login SignUp Verify
 '''
