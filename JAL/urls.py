@@ -20,12 +20,11 @@ urlpatterns = [
     # ex: /polls/
     # url 按顺序查找页面
     path('', views._index_, name=''),
-    # path('index', views._index_, name=''),
+    path('index', views._index_, name=''),
     path('brand',views._about_, name=''),
     path('products',views._products_, name=''),
     path('products/<asin>',views._detail_, name=''),
     path('login',views._login_, name=''),
-    # path('logindone',views.createAccountDone, name=''),
     path('createAccount',views.createAccount, name=''),
     path('account=<type>',views.verifyAccountDone, name=''),
     path('cart',views.myCart, name=''),

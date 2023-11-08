@@ -45,7 +45,8 @@ nav > .nav-plus
   height: 55px;
   margin: 0 auto;
   /* logo:200px nav:1fr account:70px */
-  grid-template-columns: 200px 1fr 70px;
+  /* grid-template-columns: 200px 1fr 70px; */
+  grid-template-columns: 200px 1fr 200px;
 }
 nav > .nav-mini
 {

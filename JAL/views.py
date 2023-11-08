@@ -172,15 +172,7 @@ def _login_(request):
         # 'user_account': user,
     }
 
-    if request.method == 'GET':
-        return render(request, 'login.html', jasonApi)
-    elif request.method == 'POST':
-        user = verifyUserAccount(request)
-        if user:
-            urls_index = data_source.nav(user)['_index_']['index']
-            return redirect(urls_index)
-        else:
-            return render(request, 'login.html', jasonApi)
+    return render(request, 'login.html', jasonApi)
 
 
 def createAccount(request):
@@ -195,15 +187,13 @@ def createAccount(request):
         # 'user_account': verifyUserAccount(request),
     }
 
-    return render(request, 'sign-up.html', jasonApi)
+    return render(request, 'create-account.html', jasonApi)
 
 
 
 class VerifyAccount:
     user_account_db = models.UserAccount.objects.all().values('email','password')
-    # account_info = forms.AccountDataForm.getAccountInfo(request)
     def account_info(request):
-        # account_info = forms.AccountDataForm.getAccountInfo(request)
         return forms.AccountDataForm.getAccountInfo(request)
 
     def verifyEmail(request):
@@ -258,7 +248,7 @@ def verifyAccountDone(request, type):
             'tips': verify_user_account[1] + ' is exist',
             'products': 'products',
         }
-        return render(request, 'sign-Up.html', jasonApi)
+        return render(request, 'create-account.html', jasonApi)
     if type == 'createAccount' and verify_user_account[0] == False:
         CreateUserAccount.addUserAccount(request)
         jasonApi = {
@@ -273,16 +263,18 @@ def verifyAccountDone(request, type):
         return render(request, 'done.html', jasonApi)
     if type == 'login' and verify_user_password == True:
         # CreateUserAccount.addUserAccount(request)
-        jasonApi = {
-            'nav_index': data_source.nav('')['_index_'],
-            'nav_nav': data_source.nav('')['_nav_'],
-            'nav_account': data_source.nav('')['_account_'],
-            'user_account': True,
+        # jasonApi = {
+        #     'nav_index': data_source.nav('')['_index_'],
+        #     'nav_nav': data_source.nav('')['_nav_'],
+        #     'nav_account': data_source.nav('')['_account_'],
+        #     'user_account': True,
 
-            'tips': verify_user_account[1] + ' is success',
-            'products': 'products',
-        }
-        return render(request, 'done.html', jasonApi)
+        #     'tips': verify_user_account[1] + ' is success',
+        #     'products': 'products',
+        # }
+        # return render(request, 'done.html', jasonApi)
+        urls_index = data_source.nav(verify_user_account[1])['_index_']['index']
+        return redirect(urls_index)
     if type == 'login' and verify_user_account[0] == False:
         # CreateUserAccount.addUserAccount(request)
         jasonApi = {
@@ -347,13 +339,12 @@ def myAccount(request):
         'nav_index': data_source.nav(user_id)['_index_'],
         'nav_nav': data_source.nav(user_id)['_nav_'],
         'nav_account': data_source.nav('')['_account_'],
-        'user_account': True,
+        'user_account': user_id,
 
-        'my_account': 'my_account',
+        'my_account': models.UserAccount.objects.filter(email=user_id).values()[0],
     }
 
     return render(request, 'my-account.html', jasonApi)
-
 
 
 def myCart(request):
