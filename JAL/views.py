@@ -41,8 +41,10 @@ print('\n>>> this is views.py <<< ')
 Part: user interface
 '''
 def _index_(request):
-    user_id = request.GET.get('user_id')
+    user_id = ''
     product_description = models.ProductDescription.objects.all().values()
+    # verify_user_account = VerifyAccount.verifyEmail(request)
+    test = request.COOKIES.get('csrftoken')
 
     '''
     index IMG
@@ -70,6 +72,7 @@ def _index_(request):
         'product_bullet_point': eval(models.Listing.objects.filter(asin='B0BRHWQ27R').values()[0]['bullet_point']),
         'page_id': 'index',
         'product_description': product_description,
+        'test': test,
     }
     print('index>>>',type(user_id),user_id)
 
@@ -273,8 +276,13 @@ def verifyAccountDone(request, type):
         #     'products': 'products',
         # }
         # return render(request, 'done.html', jasonApi)
+        
         urls_index = data_source.nav(verify_user_account[1])['_index_']['index']
-        return redirect(urls_index)
+        rep = redirect(urls_index)
+        rep.set_cookie("is_login", True)
+        # rep.delete_cookie("is_login")
+        # return redirect(urls_index)
+        return rep
     if type == 'login' and verify_user_account[0] == False:
         # CreateUserAccount.addUserAccount(request)
         jasonApi = {
@@ -330,21 +338,30 @@ def _account_(request):
 
 
 def myAccount(request):
+    # user_id = ''
+    status = request.COOKIES.get('is_login')
     user_id = request.GET.get('user_id')
     # my_account = models.UserAccount.objects.filter(email=user_id).values()[0]
 
-    jasonApi = {
-        'page_id': 'myAccount',
+    if not status:
+        urls_index = data_source.nav(user_id)['_account_']['login']
+        rep = redirect(urls_index)
+        # rep.set_cookie("is_login", True)
+        return rep
+    else:
+        jasonApi = {
+            'page_id': 'myAccount',
 
-        'nav_index': data_source.nav(user_id)['_index_'],
-        'nav_nav': data_source.nav(user_id)['_nav_'],
-        'nav_account': data_source.nav('')['_account_'],
-        'user_account': user_id,
+            'nav_index': data_source.nav(user_id)['_index_'],
+            'nav_nav': data_source.nav(user_id)['_nav_'],
+            'nav_account': data_source.nav(user_id)['_account_'],
+            'user_account': user_id,
 
-        'my_account': models.UserAccount.objects.filter(email=user_id).values()[0],
-    }
+            'my_account': models.UserAccount.objects.filter(email='lfeng@').values()[0],
+            'test': status,
+        }
 
-    return render(request, 'my-account.html', jasonApi)
+        return render(request, 'my-account.html', jasonApi)
 
 
 def myCart(request):

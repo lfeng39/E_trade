@@ -238,8 +238,9 @@ Start-Mould: Nav
 http = 'http://'
 # _ip_ = '140.82.22.68'
 # _ip_ = '192.168.39.84'
-# _ip_ = '127.0.0.1'
-_ip_ = '0.0.0.0'
+_ip_ = '127.0.0.1'
+# _ip_ = '0.0.0.0'
+# _ip_ = '822u770q09.zicp.fun:44088'
 _port_ = ':8000'
 _app_ = '/JAL/'
 base_url = http + _ip_ + _port_ + _app_
