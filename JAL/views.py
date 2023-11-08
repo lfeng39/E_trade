@@ -61,7 +61,7 @@ def _index_(request):
         'nav_index': data_source.nav(user_id)['_index_'],
         'nav_nav': data_source.nav(user_id)['_nav_'],
         'nav_account': data_source.nav(user_id)['_account_'],
-        'user_account': True,
+        'user_account': user_id,
 
         'includ_user_id_url': data_source.nav(user_id)['_index_']['includ_user_id_url'],
         'product_info': models.Listing.objects.all().values(),
