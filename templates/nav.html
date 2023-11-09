@@ -23,10 +23,12 @@
         <div class="account flex-container">
             {% if user_account %}
             <div><a href="{{ nav_account.myAccount.0 }}">{{ user_account }}</a></div>
-            <div><a href="{{ nav_account.myAccount.0 }}">{{ nav_account.cart.1 }}</a></div>
+            <!-- <div><a href="{{ nav_account.cart.0 }}">{{ nav_account.cart.1 }}</a></div> -->
+            <div><a href="{{ nav_account.cart.0 }}" class="material-symbols-outlined size-30">shopping_cart</a></div>
             {% else %}
             <div><a href="{{ nav_account.login.0 }}">{{ nav_account.login.1 }}</a></div>
-            <div><a href="{{ nav_account.cart.0 }}">{{ nav_account.cart.1 }}</a></div>
+            <!-- <div><a href="{{ nav_account.cart.0 }}">{{ nav_account.cart.1 }}</a></div> -->
+            <div><a href="{{ nav_account.cart.0 }}" class="material-symbols-outlined size-30">shopping_cart</a></div>
             {% endif %}
             <!-- {% if user_account %}
             <div><a href="{{ nav_account.login.0 }}" title="login" class="material-symbols-outlined size-30">account_circle</a></div>
