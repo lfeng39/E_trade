@@ -238,9 +238,9 @@ Start-Mould: Nav
 http = 'http://'
 # _ip_ = '140.82.22.68'
 # _ip_ = '192.168.39.84'
-# _ip_ = '127.0.0.1'
+_ip_ = '127.0.0.1'
 # csrftoken: Eoa1iSdBOEbaTTdopOt49k05uczyAPvv
-_ip_ = '0.0.0.0'
+# _ip_ = '0.0.0.0'
 # csrftoken: T83BR0wnzOOGoGNuSw3mw9kOyQWif8Ns
 # _ip_ = '822u770q09.zicp.fun:44088'
 _port_ = ':8000'
@@ -248,37 +248,71 @@ _app_ = '/JAL/'
 base_url = http + _ip_ + _port_ + _app_
 # base_url = ''
 print('oooooo url_now:', base_url)
-def nav(user_id):
-    if user_id:
-        nav_dict = {
-            '_index_': 
-            {
-                'index': base_url + 'index' + '?user_id=' + user_id,
-                'includ_user_id_url': '?user_id=' + user_id,
-            },
-            '_nav_': 
-            {
-                'Brand': base_url + 'brand' + '?user_id=' + user_id,
-                'Products': base_url + 'products' + '?user_id=' + user_id,
-            },
-            '_account_': 
-            {
-                'cart': [base_url + 'cart', 'Cart'],
-                'login': [base_url + 'login', 'Login'],
-                'createAccount': [base_url + 'createAccount', 'Create Account'],
-                'order': [base_url + 'order', 'Order'],
-                'account': [base_url + 'account', 'Account'],
-                'myAccount': [base_url + 'myAccount' + '?user_id=' + user_id, 'myAccount'],
-            },
-            '_admin_':
-            {
-                'Dashboard': base_url + 'admin' + '?user_id=' + user_id,
-                'EditIndex': base_url + 'admin' + '?user_id=' + user_id + '&edit_index',
-                'EditListing': base_url + 'admin' + '?user_id=' + user_id + '&edti_listing',
-            },
-        }
-    else:
-        nav_dict = {
+# def nav(user_id):
+#     if user_id:
+#         nav_dict = {
+#             '_index_': 
+#             {
+#                 'index': base_url + 'index' + '?user_id=' + user_id,
+#                 'includ_user_id_url': '?user_id=' + user_id,
+#             },
+#             '_nav_': 
+#             {
+#                 'Brand': base_url + 'brand' + '?user_id=' + user_id,
+#                 'Products': base_url + 'products' + '?user_id=' + user_id,
+#             },
+#             '_account_': 
+#             {
+#                 'cart': [base_url + 'cart', 'Cart'],
+#                 'login': [base_url + 'login', 'Login'],
+#                 'createAccount': [base_url + 'createAccount', 'Create Account'],
+#                 'order': [base_url + 'order', 'Order'],
+#                 'account': [base_url + 'account', 'Account'],
+#                 # 'myAccount': [base_url + 'myAccount' + '?user_id=' + user_id, 'MyAccount'],
+#                 'myAccount': [base_url + 'myAccount', 'MyAccount'],
+#             },
+#             '_admin_':
+#             {
+#                 'Dashboard': base_url + 'admin' + '?user_id=' + user_id,
+#                 'EditIndex': base_url + 'admin' + '?user_id=' + user_id + '&edit_index',
+#                 'EditListing': base_url + 'admin' + '?user_id=' + user_id + '&edti_listing',
+#             },
+#         }
+#     else:
+#         nav_dict = {
+#             '_index_' : 
+#             {
+#                 'index': base_url + '',
+#                 'includ_user_id_url': '',
+#             },
+
+#             '_nav_' : 
+#             {
+#                 'Brand': base_url + 'brand',
+#                 'Products': base_url + 'products',
+#                 # 'admin': base_url + 'admin',
+#             },
+
+#             '_account_' : 
+#             {
+#                 'cart': [base_url + 'cart', 'Cart'],
+#                 'login': [base_url + 'login', 'Login'],
+#                 'createAccount': [base_url + 'createAccount', 'Create Account'],
+#                 'order': [base_url + 'order', 'Order'],
+#                 'account': [base_url + 'account', 'Account'],
+#                 'myAccount': [base_url + 'myAccount', 'MyAccount'],
+#             },
+#             '_admin_':
+#             {
+#                 'Dashboard': base_url + 'admin' + 'jessie',
+#                 'EditIndex': base_url + 'admin' + '?user_id=' + '&edit_index',
+#                 'EditListing': base_url + 'admin' + '?user_id=' + '&edti_listing',
+#             },
+#         }
+#     return nav_dict
+
+def nav():
+    nav_dict = {
             '_index_' : 
             {
                 'index': base_url + '',
@@ -308,8 +342,6 @@ def nav(user_id):
                 'EditListing': base_url + 'admin' + '?user_id=' + '&edti_listing',
             },
         }
-        
-
     return nav_dict
 
 '''

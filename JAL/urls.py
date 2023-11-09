@@ -1,6 +1,7 @@
 from urllib import request
 from django.urls import path, re_path
 from django.shortcuts import render, HttpResponse, redirect
+# from session import views as session_views
 from JAL import views
 from JAL import data_source
 from JAL import models
@@ -25,6 +26,7 @@ urlpatterns = [
     path('products',views._products_, name=''),
     path('products/<asin>',views._detail_, name=''),
     path('login',views._login_, name=''),
+    path('logout',views._logout_, name=''),
     path('createAccount',views.createAccount, name=''),
     path('account=<type>',views.verifyAccountDone, name=''),
     path('cart',views.myCart, name=''),

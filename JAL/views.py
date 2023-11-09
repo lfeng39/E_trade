@@ -1,7 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib import auth
 from django.contrib.auth import authenticate,login, logout
-from django.contrib.auth.models import User
 from urllib import request
 import os
 from JAL import models
@@ -9,6 +8,7 @@ from JAL import urls
 from JAL import data_source
 from JAL import images
 from JAL import forms
+from JAL import verify
 
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.csrf import csrf_exempt
@@ -25,7 +25,7 @@ print('\n>>> this is views.py <<< ')
 
     Part: user account module
 
-    Part: order module
+    Part: order cart module
 
     Part: manager module
     edit index | edit listing | edit coupon
@@ -41,10 +41,18 @@ print('\n>>> this is views.py <<< ')
 Part: user interface
 '''
 def _index_(request):
-    user_id = ''
-    product_description = models.ProductDescription.objects.all().values()
-    # verify_user_account = VerifyAccount.verifyEmail(request)
-    test = request.COOKIES.get('csrftoken')
+    # '''
+    # get cookies
+    # '''
+    # user_id = request.COOKIES.get('is_login')
+    # user_status = request.COOKIES.get('is_login')
+    # csrftoken = request.COOKIES.get('csrftoken')
+    
+    '''
+    get session
+    '''
+    user_status = request.session.get('user_status')
+    user_email = request.session.get('user_email')
 
     '''
     index IMG
@@ -55,88 +63,96 @@ def _index_(request):
         for k in range(len(img_show_dict[asin_db_list[i]])):
             img_show_dict[asin_db_list[i]] = img_show_dict[asin_db_list[i]][k].replace('.jpg', '')
 
-    jasonApi = {
+    product_description = models.ProductDescription.objects.all().values()
+    
+    htmlApi = {
+        'page_id': 'index',
+        'nav_index': data_source.nav()['_index_'],
+        'nav_nav': data_source.nav()['_nav_'],
+        'nav_account': data_source.nav()['_account_'],
+        'user_status': user_status,
+        'user_account': user_email,
+
         'asin_code': asin_db_list,
-
-        'nav_index': data_source.nav(user_id)['_index_'],
-        'nav_nav': data_source.nav(user_id)['_nav_'],
-        'nav_account': data_source.nav(user_id)['_account_'],
-        'user_account': user_id,
-
-        'includ_user_id_url': data_source.nav(user_id)['_index_']['includ_user_id_url'],
+        'includ_user_id_url': data_source.nav()['_index_']['includ_user_id_url'],
         'product_info': models.Listing.objects.all().values(),
         'product_asin': asin_db_list,
         'img_name': img_show_dict,
         'first_img': models.Listing.objects.filter(status='01',asin='B0BRHWQ27R').values('first_img'),
         'product_title': models.Listing.objects.filter(asin='B0BRHWQ27R').values()[0],
         'product_bullet_point': eval(models.Listing.objects.filter(asin='B0BRHWQ27R').values()[0]['bullet_point']),
-        'page_id': 'index',
         'product_description': product_description,
-        'test': test,
-    }
-    print('index>>>',type(user_id),user_id)
+        # 'csrftoken': csrftoken,
 
-    return render(request, 'index.html', jasonApi)
+    }
+    print('index>>>', type(user_email), user_email)
+    return render(request, 'index.html', htmlApi)
 
 
 
 def _about_(request):
-    user_id = request.GET.get('user_id')
-    jasonApi = {
+    '''
+    get session
+    '''
+    user_status = request.session.get('user_status')
+    user_email = request.session.get('user_email')
 
-        'nav_index': data_source.nav(user_id)['_index_'],
-        'nav_nav': data_source.nav(user_id)['_nav_'],
-        'nav_account': data_source.nav('')['_account_'],
-        'user_account': True,
-
+    htmlApi = {
         'page_id': 'about',
-        'user_account': True,
+        'nav_index': data_source.nav()['_index_'],
+        'nav_nav': data_source.nav()['_nav_'],
+        'nav_account': data_source.nav()['_account_'],
+        'user_status': user_status,
+        'user_account': user_email,
     }
-
-    return render(request, 'about.html', jasonApi)
+    return render(request, 'about.html', htmlApi)
     
 
 
 def _products_(request):
-    user_id = request.GET.get('user_id')
-    jasonApi = {
+    '''
+    get session
+    '''
+    user_status = request.session.get('user_status')
+    user_email = request.session.get('user_email')
 
-        'nav_index': data_source.nav(user_id)['_index_'],
-        'nav_nav': data_source.nav(user_id)['_nav_'],
-        'nav_account': data_source.nav('')['_account_'],
-        'user_account': True,
-
-        'includ_user_id_url': data_source.nav(user_id)['_index_']['includ_user_id_url'],
-        # 'includ_user_id_url': '',
-        'lenth': len(models.Listing.objects.filter(status='01')),
-        ### get all products info, but status is '00'
-        'product_info': models.Listing.objects.filter(status='01'),
+    htmlApi = {
         'page_id': 'products',
+        'nav_index': data_source.nav()['_index_'],
+        'nav_nav': data_source.nav()['_nav_'],
+        'nav_account': data_source.nav()['_account_'],
+        'user_status': user_status,
+        'user_account': user_email,
+
+        # 'includ_user_id_url': data_source.nav()['_index_']['includ_user_id_url'],
+        ### get all products info, but status is '00'
+        'lenth': len(models.Listing.objects.filter(status='01')),
+        'product_info': models.Listing.objects.filter(status='01'),
         'product_image': '',
         'product_title': '',
-        
-        'abc': '%',
     }
-
-    return render(request, 'products.html', jasonApi)
+    return render(request, 'products.html', htmlApi)
 
 
 def _detail_(request, asin):
-    user_id = request.GET.get('user_id')
+    '''
+    get session
+    '''
+    user_status = request.session.get('user_status')
+    user_email = request.session.get('user_email')
+
     print('oooooooooo',asin)
-    jasonApi = {
+    htmlApi = {
         'page_id': asin,
+        'nav_index': data_source.nav()['_index_'],
+        'nav_nav': data_source.nav()['_nav_'],
+        'nav_account': data_source.nav()['_account_'],
+        'user_status': user_status,
+        'user_account': user_email,
+
         'product_img': detailImg(asin),
-
-        'nav_index': data_source.nav(user_id)['_index_'],
-        'nav_nav': data_source.nav(user_id)['_nav_'],
-        'nav_account': data_source.nav('')['_account_'],
-        # 'user_account': userAccount(request),
-        'user_account': True,
-
         'product_info': models.Listing.objects.filter(asin=asin).values()[0],
         'product_price': models.Listing.objects.filter(asin=asin).values()[0],
-        # 'product_img': '/static/image/products/' + asin + '/v1.00/7/00-Listing-01.jpg'
         ### the data tpye is 'str' that got from DB
         ### method eval() can changed 'str' to 'list' or 'dict'
         'product_bullet_point': eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']),
@@ -144,16 +160,8 @@ def _detail_(request, asin):
         'sales_status': '',
         'cupon': '',
         'amazon': 'https://www.amazon.com/dp/' + asin,
-
-        # 'includ_user_id_url': urls.nav(user)['_index_']['includ_user_id_url'],
-        # 'product_info': models.ProductInfo.objects.all().values(),
-        # 'product_asin': _asin_,
-        # 'img_name': img_show_dict,
-        # 'page_id': 'index',
-        # 'user_account': user,
     }
-
-    return render(request, 'detail.html', jasonApi)
+    return render(request, 'detail.html', htmlApi)
 
 
 
@@ -164,33 +172,57 @@ Part: login module
 Login | SignUp | Verify
 '''
 def _login_(request):
-    jasonApi = {
+    '''
+    get session
+    '''
+    user_status = request.session.get('user_status')
+    user_email = request.session.get('user_email')
 
-        'nav_index': data_source.nav('')['_index_'],
-        'nav_nav': data_source.nav('')['_nav_'],
-        'nav_account': data_source.nav('')['_account_'],
-        'user_account': True,
-
+    htmlApi = {
         'page_id': 'login',
-        # 'user_account': user,
+        'nav_index': data_source.nav()['_index_'],
+        'nav_nav': data_source.nav()['_nav_'],
+        'nav_account': data_source.nav()['_account_'],
+        'user_status': user_status,
+        'user_account': user_email,
     }
+    return render(request, 'login.html', htmlApi)
 
-    return render(request, 'login.html', jasonApi)
+
+def _logout_(request):
+    # '''
+    # del cookies
+    # '''
+    # rep = redirect('/JAL/login')
+    # rep.delete_cookie("is_login")
+    # return rep
+    '''
+    del session
+    '''
+    # del request.session["key"]
+    request.session.flush()
+    return redirect('/JAL/login')
 
 
 def createAccount(request):
-    jasonApi = {
+    '''
+    get session
+    '''
+    user_status = request.session.get('user_status')
+    user_email = request.session.get('user_email')
 
-        'nav_index': data_source.nav('')['_index_'],
-        'nav_nav': data_source.nav('')['_nav_'],
-        'nav_account': data_source.nav('')['_account_'],
-        'user_account': True,
+    htmlApi = {
+
+        'nav_index': data_source.nav()['_index_'],
+        'nav_nav': data_source.nav()['_nav_'],
+        'nav_account': data_source.nav()['_account_'],
+        'user_status': user_status,
+        'user_account': user_email,
 
         'page_id': 'createAccount',
         # 'user_account': verifyUserAccount(request),
     }
-
-    return render(request, 'create-account.html', jasonApi)
+    return render(request, 'create-account.html', htmlApi)
 
 
 
@@ -215,8 +247,7 @@ class VerifyAccount:
         for index in range(len(VerifyAccount.user_account_db)):
             if VerifyAccount.account_info(request)['email'] == VerifyAccount.user_account_db[index]['email']:
                 print('here000000', index, VerifyAccount.user_account_db[index])
-                return True, VerifyAccount.user_account_db[index]['email'] + str(index), index
-
+                return True, VerifyAccount.user_account_db[index]['email'], index
         '''
         user not in db, return created
         '''
@@ -232,81 +263,98 @@ class VerifyAccount:
             else:
                 return False
 
-
+# print(data_source.nav('test')['_account_']['myAccount'][0])
 
 @csrf_protect
 @csrf_exempt
 @requires_csrf_token
 def verifyAccountDone(request, type):
+    '''
+    get session
+    '''
+    user_status = request.session.get('user_status')
+    user_email = request.session.get('user_email')
+
     verify_user_account = VerifyAccount.verifyEmail(request)
     verify_user_password = VerifyAccount.verifyPassWord(request)
     if type == 'createAccount' and verify_user_account[0] == True:
         # CreateUserAccount.addUserAccount(request)
-        jasonApi = {
-            'nav_index': data_source.nav('')['_index_'],
-            'nav_nav': data_source.nav('')['_nav_'],
-            'nav_account': data_source.nav('')['_account_'],
-            'user_account': True,
+        htmlApi = {
+            'nav_index': data_source.nav()['_index_'],
+            'nav_nav': data_source.nav()['_nav_'],
+            'nav_account': data_source.nav()['_account_'],
+            'user_status': user_status,
+            'user_account': user_email,
 
             'tips': verify_user_account[1] + ' is exist',
             'products': 'products',
         }
-        return render(request, 'create-account.html', jasonApi)
+        return render(request, 'create-account.html', htmlApi)
+    
     if type == 'createAccount' and verify_user_account[0] == False:
         CreateUserAccount.addUserAccount(request)
-        jasonApi = {
-            'nav_index': data_source.nav('')['_index_'],
-            'nav_nav': data_source.nav('')['_nav_'],
-            'nav_account': data_source.nav('')['_account_'],
-            'user_account': True,
+        htmlApi = {
+            'nav_index': data_source.nav()['_index_'],
+            'nav_nav': data_source.nav()['_nav_'],
+            'nav_account': data_source.nav()['_account_'],
+            'user_status': user_status,
+            'user_account': user_email,
 
             'tips': verify_user_account[1] + ' is created',
             'products': 'products',
         }
-        return render(request, 'done.html', jasonApi)
+        return render(request, 'done.html', htmlApi)
+    
     if type == 'login' and verify_user_password == True:
-        # CreateUserAccount.addUserAccount(request)
-        # jasonApi = {
-        #     'nav_index': data_source.nav('')['_index_'],
-        #     'nav_nav': data_source.nav('')['_nav_'],
-        #     'nav_account': data_source.nav('')['_account_'],
-        #     'user_account': True,
+        # '''
+        # # set_cookie
+        #     # key : cookie的名称
+        #     # value : 保存的cookie的值
+        #     # max_age: 保存的时间，以秒为单位
+        #     # expires: 过期时间，为datetime对象或时间字符串
+        # '''
+        # _urls_ = data_source.nav(verify_user_account[1])['_account_']['myAccount'][0]
+        # rep = redirect(_urls_)
+        # key = 'is_login'
+        # value = verify_user_account[1]
+        # rep.set_cookie(key, value)
+        # return rep
 
-        #     'tips': verify_user_account[1] + ' is success',
-        #     'products': 'products',
-        # }
-        # return render(request, 'done.html', jasonApi)
-        
-        urls_index = data_source.nav(verify_user_account[1])['_index_']['index']
-        rep = redirect(urls_index)
-        rep.set_cookie("is_login", True)
-        # rep.delete_cookie("is_login")
-        # return redirect(urls_index)
-        return rep
+        '''
+        set_session
+        '''
+        request.session['user_status'] = True
+        request.session['user_email'] = verify_user_account[1]
+        _urls_ = data_source.nav()['_account_']['myAccount'][0]
+        return redirect(_urls_)
+    
     if type == 'login' and verify_user_account[0] == False:
         # CreateUserAccount.addUserAccount(request)
-        jasonApi = {
-            'nav_index': data_source.nav('')['_index_'],
-            'nav_nav': data_source.nav('')['_nav_'],
-            'nav_account': data_source.nav('')['_account_'],
-            'user_account': True,
+        htmlApi = {
+            'nav_index': data_source.nav()['_index_'],
+            'nav_nav': data_source.nav()['_nav_'],
+            'nav_account': data_source.nav()['_account_'],
+            'user_status': user_status,
+            'user_account': user_email,
 
             'tips': verify_user_account[1] + ' is not exist',
             'products': 'products',
         }
-        return render(request, 'login.html', jasonApi)
+        return render(request, 'login.html', htmlApi)
+    
     if type == 'login' and verify_user_password == False:
         # CreateUserAccount.addUserAccount(request)
-        jasonApi = {
-            'nav_index': data_source.nav('')['_index_'],
-            'nav_nav': data_source.nav('')['_nav_'],
-            'nav_account': data_source.nav('')['_account_'],
-            'user_account': True,
+        htmlApi = {
+            'nav_index': data_source.nav()['_index_'],
+            'nav_nav': data_source.nav()['_nav_'],
+            'nav_account': data_source.nav()['_account_'],
+            'user_status': user_status,
+            'user_account': user_email,
 
             'tips': 'Password error',
             'products': 'products',
         }
-        return render(request, 'login.html', jasonApi)
+        return render(request, 'login.html', htmlApi)
 
 '''
 END: Login SignUp Verify
@@ -320,67 +368,100 @@ END: Login SignUp Verify
 Part: user account module
 '''
 def _account_(request):
-    jasonApi = {
-        'page_id': 'account',
-        'asin_code': asin_db_list,
+    '''
+    get session
+    '''
+    user_status = request.session.get('user_status')
+    user_email = request.session.get('user_email')
 
-        'nav_index': data_source.nav('')['_index_'],
-        'nav_nav': data_source.nav('')['_nav_'],
-        'nav_account': data_source.nav('')['_account_'],
-        'user_account': userAccount(request),
-
-        'asin': detailImg('B09YLLXKDT'),
-
-    }
-
-    return render(request, 'account.html', jasonApi)
-
-
-
-def myAccount(request):
-    # user_id = ''
-    status = request.COOKIES.get('is_login')
-    user_id = request.GET.get('user_id')
-    # my_account = models.UserAccount.objects.filter(email=user_id).values()[0]
-
-    if not status:
-        urls_index = data_source.nav(user_id)['_account_']['login']
+    if not user_status:
+        urls_index = data_source.nav()['_account_']['login'][0]
         rep = redirect(urls_index)
         # rep.set_cookie("is_login", True)
         return rep
     else:
-        jasonApi = {
-            'page_id': 'myAccount',
+        htmlApi = {
+            'page_id': 'account',
+            'asin_code': asin_db_list,
 
-            'nav_index': data_source.nav(user_id)['_index_'],
-            'nav_nav': data_source.nav(user_id)['_nav_'],
-            'nav_account': data_source.nav(user_id)['_account_'],
-            'user_account': user_id,
+            'nav_index': data_source.nav()['_index_'],
+            'nav_nav': data_source.nav()['_nav_'],
+            'nav_account': data_source.nav()['_account_'],
+            'user_status': user_status,
+            'user_account': user_email,
 
-            'my_account': models.UserAccount.objects.filter(email='lfeng@').values()[0],
-            'test': status,
+            'asin': detailImg('B09YLLXKDT'),
+
         }
 
-        return render(request, 'my-account.html', jasonApi)
+        return render(request, 'account.html', htmlApi)
+
+
+
+def myAccount(request):
+    # user_id = '@@'
+    # status = request.COOKIES.get('is_login')
+    # user_id = request.COOKIES.get('is_login')
+    '''
+    get session
+    '''
+    user_status = request.session.get('user_status')
+    user_email = request.session.get('user_email')
+
+    # my_account = models.UserAccount.objects.filter(email=user_id).values()[0]
+
+    if not user_status:
+        urls_index = data_source.nav()['_account_']['login'][0]
+        rep = redirect(urls_index)
+        # rep.set_cookie("is_login", True)
+        return rep
+    else:
+        htmlApi = {
+            'page_id': 'myAccount',
+
+            'nav_index': data_source.nav()['_index_'],
+            'nav_nav': data_source.nav()['_nav_'],
+            'nav_account': data_source.nav()['_account_'],
+            'user_status': user_status,
+            'user_account': user_email,
+
+            'my_account': models.UserAccount.objects.filter(email=user_email).values()[0],
+            
+        }
+
+        return render(request, 'my-account.html', htmlApi)
 
 
 def myCart(request):
-    jasonApi = {
-        'page_id': 'myCart',
-        'asin_code': asin_db_list,
+    '''
+    get session
+    '''
+    user_status = request.session.get('user_status')
+    user_email = request.session.get('user_email')
 
-        'nav_index': data_source.nav('')['_index_'],
-        'nav_nav': data_source.nav('')['_nav_'],
-        'nav_account': data_source.nav('')['_account_'],
-        'user_account': userAccount(request),
+    if not user_status:
+        urls_index = data_source.nav()['_account_']['login'][0]
+        rep = redirect(urls_index)
+        # rep.set_cookie("is_login", True)
+        return rep
+    else:
+        htmlApi = {
+            'page_id': 'myCart',
+            'asin_code': asin_db_list,
 
-        'product_info': models.Listing.objects.filter(asin='B0BTXB89PG').values()[0],
-        'asin': detailImg('B0BTXB89PG'),
-        'url_page_id_order': page_id[6],
+            'nav_index': data_source.nav()['_index_'],
+            'nav_nav': data_source.nav()['_nav_'],
+            'nav_account': data_source.nav()['_account_'],
+            'user_status': user_status,
+            'user_account': user_email,
 
-    }
+            'product_info': models.Listing.objects.filter(asin='B0BTXB89PG').values()[0],
+            'asin': detailImg('B0BTXB89PG'),
+            'url_page_id_order': page_id[6],
 
-    return render(request, 'my-cart.html', jasonApi)
+        }
+
+        return render(request, 'my-cart.html', htmlApi)
 
 
 
@@ -393,43 +474,34 @@ Part: order module
 @csrf_exempt
 @requires_csrf_token
 def _order_(request):
-    user_id = request.GET.get('user_id')
-    jasonApi = {
-        'page_id': 'order',
-        'asin_code': asin_db_list,
+    '''
+    get session
+    '''
+    user_status = request.session.get('user_status')
+    user_email = request.session.get('user_email')
 
-        'nav_index': data_source.nav(user_id)['_index_'],
-        'nav_nav': data_source.nav(user_id)['_nav_'],
-        'nav_account': data_source.nav(user_id)['_account_'],
-        'user_account': True,
+    if not user_status:
+        urls_index = data_source.nav()['_account_']['login'][0]
+        rep = redirect(urls_index)
+        # rep.set_cookie("is_login", True)
+        return rep
+    else:
+        htmlApi = {
+            'page_id': 'order',
+            'asin_code': asin_db_list,
 
-        'product_info': models.Listing.objects.filter(asin='B0BTXB89PG').values()[0],
-        'asin': detailImg('B0BTXB89PG'),
-        
-    }
+            'nav_index': data_source.nav()['_index_'],
+            'nav_nav': data_source.nav()['_nav_'],
+            'nav_account': data_source.nav()['_account_'],
+            'user_status': user_status,
+            'user_account': user_email,
 
-    return render(request, 'order.html', jasonApi)
+            'product_info': models.Listing.objects.filter(asin='B0BTXB89PG').values()[0],
+            'asin': detailImg('B0BTXB89PG'),
+            
+        }
 
-
-
-def upData(request):
-    jasonApi = {
-        'page_id': 'upData',
-
-        'nav_index': data_source.nav(request)['_index_'],
-        'nav_nav': data_source.nav(request)['_nav_'],
-        'nav_account': data_source.nav(request)['_account_'],
-        'user_account': userAccount(request),
-
-
-        'product_info': models.Listing.objects.filter(asin='B09YLKWBMV').values()[0],
-        'asin': detailImg('B09YLLXKDT'),
-
-    }
-
-    return render(request, 'order.html', jasonApi)
-
-
+        return render(request, 'order.html', htmlApi)
 
 
 
@@ -438,14 +510,20 @@ Part: manager module
 edit index | edit listing | edit coupon
 '''
 def _admin_(request):
-    user_id = request.GET.get('user_id')
-    jasonApi = {
+    '''
+    get session
+    '''
+    user_status = request.session.get('user_status')
+    user_email = request.session.get('user_email')
+    
+    htmlApi = {
 
-        'nav_index': data_source.nav(user_id)['_index_'],
-        'nav_nav': data_source.nav(user_id)['_nav_'],
-        'nav_account': data_source.nav(user_id)['_account_'],
-        'nav_admin': data_source.nav('')['_admin_'],
-        'user_account': True,
+        'nav_index': data_source.nav()['_index_'],
+        'nav_nav': data_source.nav()['_nav_'],
+        'nav_account': data_source.nav()['_account_'],
+        'nav_admin': data_source.nav()['_admin_'],
+        'user_status': user_status,
+        'user_account': user_email,
 
         'listing': models.Listing.objects.all().values(),
         'edit_listing': 'admin&user_id=jessie&editlisting',
@@ -453,39 +531,41 @@ def _admin_(request):
 
     }
 
-    return render(request, 'admin.html', jasonApi)
+    return render(request, 'admin.html', htmlApi)
 
 
 def managerProductList(request):
-    user_id = request.GET.get('user_id')
+    user_email = request.GET.get('user_id')
     # asin = asin_transfer
-    jasonApi = {
+    htmlApi = {
 
-        'nav_index': data_source.nav(user_id)['_index_'],
-        'nav_nav': data_source.nav(user_id)['_nav_'],
-        'nav_account': data_source.nav(user_id)['_account_'],
-        'nav_admin': data_source.nav('')['_admin_'],
-        'user_account': True,
+        'nav_index': data_source.nav()['_index_'],
+        'nav_nav': data_source.nav()['_nav_'],
+        'nav_account': data_source.nav()['_account_'],
+        'nav_admin': data_source.nav()['_admin_'],
+        # 'user_status': user_status,
+        'user_account': user_email,
 
         'listing': models.Listing.objects.all().values(),
         'admin': 'adminjessie',
 
     }
 
-    return render(request, 'manager-product-list.html', jasonApi)
+    return render(request, 'manager-product-list.html', htmlApi)
 
 
 def editIndex(request):
-    user_id = request.GET.get('user_id')
+    user_email = request.GET.get('user_id')
     product_description = models.ProductDescription.objects.all().values()
     
-    jasonApi = {
+    htmlApi = {
 
-        'nav_index': data_source.nav(user_id)['_index_'],
-        'nav_nav': data_source.nav(user_id)['_nav_'],
-        'nav_account': data_source.nav(user_id)['_account_'],
-        'nav_admin': data_source.nav('')['_admin_'],
-        'user_account': True,
+        'nav_index': data_source.nav()['_index_'],
+        'nav_nav': data_source.nav()['_nav_'],
+        'nav_account': data_source.nav()['_account_'],
+        'nav_admin': data_source.nav()['_admin_'],
+        # 'user_status': user_status,
+        'user_account': user_email,
 
         'admin': 'adminjessie',
         'asin': product_description,
@@ -495,19 +575,18 @@ def editIndex(request):
 
     }
 
-    return render(request, 'edit-index.html', jasonApi)
+    return render(request, 'edit-index.html', htmlApi)
 
 @csrf_protect
 @csrf_exempt
 @requires_csrf_token
 def editIndexDone(request):
     # print(saveIndexData())
-    jasonApi = {
+    htmlApi = {
 
             # 'nav_index': data_source.nav(request)['_index_'],
             # 'nav_nav': data_source.nav(request)['_nav_'],
             # 'nav_account': data_source.nav(request)['_account_'],
-            
 
             'tag': 'edit index is   ',
             # 'status': data_source.DataForm.getIndexData(request),
@@ -517,17 +596,18 @@ def editIndexDone(request):
             'img': '/static/image/yeah/yeah.jpg'
         }
 
-    return render(request, 'done.html', jasonApi)
+    return render(request, 'done.html', htmlApi)
 
 def editListing(request, asin):
-    user_id = request.GET.get('user_id')
-    jasonApi = {
+    user_email = request.GET.get('user_id')
+    htmlApi = {
 
-        'nav_index': data_source.nav(user_id)['_index_'],
-        'nav_nav': data_source.nav(user_id)['_nav_'],
-        'nav_account': data_source.nav(user_id)['_account_'],
-        'nav_admin': data_source.nav('')['_admin_'],
-        'user_account': True,
+        'nav_index': data_source.nav()['_index_'],
+        'nav_nav': data_source.nav()['_nav_'],
+        'nav_account': data_source.nav()['_account_'],
+        'nav_admin': data_source.nav()['_admin_'],
+        # 'user_status': user_status,
+        'user_account': user_email,
 
         'asin': asin,
         'listing': models.Listing.objects.filter(asin=asin).values()[0],
@@ -536,13 +616,13 @@ def editListing(request, asin):
         'edit_listing': 'admin&user_id=jessie&editlisting',
     }
 
-    return render(request, 'edit-listing.html', jasonApi)
+    return render(request, 'edit-listing.html', htmlApi)
 
 @csrf_protect
 @csrf_exempt
 @requires_csrf_token
 def editListingDone(request, asin):
-    jasonApi = {
+    htmlApi = {
 
         # 'nav_index': data_source.nav(request)['_index_'],
         # 'nav_nav': data_source.nav(request)['_nav_'],
@@ -557,7 +637,7 @@ def editListingDone(request, asin):
         'img': '/static/image/yeah/ok.jpg',
     }
 
-    return render(request, 'done.html', jasonApi)
+    return render(request, 'done.html', htmlApi)
 
 
 
