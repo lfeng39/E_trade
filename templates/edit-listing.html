@@ -18,7 +18,7 @@
         Form Data Start
      -->
 
-    <form class="login" action="/JAL/admin&editstatus=done={{ asin }}" method="post">
+    <form class="login" action="/JAL/adminjessie&edit-listing-status=done={{ asin }}" method="post">
         {%csrf_token%}
         <div class="wrap">
             <br>
@@ -26,7 +26,7 @@
                 <h3><b>{{ asin }}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="font-size: 20px;" href="{{ edit_listing }}">< Back to editList</a></h3><br>
                 <b>price: </b><input style="font-size: 18px;" type="text" name="price" id="" value="{{ listing.price }}" />
                 <b>status: </b><input style="font-size: 18px;" type="text" name="status" id="" value="{{ listing.status }}" />
-                <button id="" type="submit"><h3>commit</h3></button>
+                <button id="" type="submit"><h3>Commit</h3></button>
                 <!-- <button id=""  href="{{ editlist }}"><h3>Back to editList</h3></button> -->
                 
                 <!-- <label>{{ status }}</label> -->

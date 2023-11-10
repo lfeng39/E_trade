@@ -52,7 +52,7 @@ wrap > container > grid
 .account *
 {
   text-align: center;
-  line-height: 55px;
+  line-height: 50px;
 }
 .account * > a:hover
 {

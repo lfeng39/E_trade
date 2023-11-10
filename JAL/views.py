@@ -3,6 +3,7 @@ from django.contrib import auth
 from django.contrib.auth import authenticate,login, logout
 from urllib import request
 import os
+import re
 from JAL import models
 from JAL import urls
 from JAL import data_source
@@ -53,6 +54,7 @@ def _index_(request):
     '''
     user_status = request.session.get('user_status')
     user_email = request.session.get('user_email')
+    # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)[0]
 
     '''
     index IMG
@@ -72,6 +74,8 @@ def _index_(request):
         'nav_account': data_source.nav()['_account_'],
         'user_status': user_status,
         'user_account': user_email,
+        # 'user_name': user_name,
+
 
         'asin_code': asin_db_list,
         'includ_user_id_url': data_source.nav()['_index_']['includ_user_id_url'],
@@ -96,6 +100,7 @@ def _about_(request):
     '''
     user_status = request.session.get('user_status')
     user_email = request.session.get('user_email')
+    # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)[0]
 
     htmlApi = {
         'page_id': 'about',
@@ -104,6 +109,7 @@ def _about_(request):
         'nav_account': data_source.nav()['_account_'],
         'user_status': user_status,
         'user_account': user_email,
+        # 'user_name': user_name,
     }
     return render(request, 'about.html', htmlApi)
     
@@ -115,6 +121,7 @@ def _products_(request):
     '''
     user_status = request.session.get('user_status')
     user_email = request.session.get('user_email')
+    # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)[0]
 
     htmlApi = {
         'page_id': 'products',
@@ -123,6 +130,7 @@ def _products_(request):
         'nav_account': data_source.nav()['_account_'],
         'user_status': user_status,
         'user_account': user_email,
+        # 'user_name': user_name,
 
         # 'includ_user_id_url': data_source.nav()['_index_']['includ_user_id_url'],
         ### get all products info, but status is '00'
@@ -140,6 +148,7 @@ def _detail_(request, asin):
     '''
     user_status = request.session.get('user_status')
     user_email = request.session.get('user_email')
+    # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)[0]
 
     print('oooooooooo',asin)
     htmlApi = {
@@ -149,6 +158,7 @@ def _detail_(request, asin):
         'nav_account': data_source.nav()['_account_'],
         'user_status': user_status,
         'user_account': user_email,
+        # 'user_name': user_name,
 
         'product_img': detailImg(asin),
         'product_info': models.Listing.objects.filter(asin=asin).values()[0],
@@ -177,6 +187,7 @@ def _login_(request):
     '''
     user_status = request.session.get('user_status')
     user_email = request.session.get('user_email')
+    # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)[0]
 
     htmlApi = {
         'page_id': 'login',
@@ -185,6 +196,7 @@ def _login_(request):
         'nav_account': data_source.nav()['_account_'],
         'user_status': user_status,
         'user_account': user_email,
+        # 'user_name': user_name,
     }
     return render(request, 'login.html', htmlApi)
 
@@ -210,6 +222,7 @@ def createAccount(request):
     '''
     user_status = request.session.get('user_status')
     user_email = request.session.get('user_email')
+    # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
 
     htmlApi = {
 
@@ -218,6 +231,7 @@ def createAccount(request):
         'nav_account': data_source.nav()['_account_'],
         'user_status': user_status,
         'user_account': user_email,
+        # 'user_name': user_name[0][0],
 
         'page_id': 'createAccount',
         # 'user_account': verifyUserAccount(request),
@@ -225,45 +239,6 @@ def createAccount(request):
     return render(request, 'create-account.html', htmlApi)
 
 
-
-class VerifyAccount:
-    user_account_db = models.UserAccount.objects.all().values('email','password')
-    def account_info(request):
-        return forms.AccountDataForm.getAccountInfo(request)
-
-    def verifyEmail(request):
-        '''
-        get POST info is error, return tips
-        '''
-        if VerifyAccount.account_info(request)['email'] == 'Email' or VerifyAccount.account_info(request)['email'] == '':
-            return False, 'Input email, please!'
-        elif VerifyAccount.account_info(request)['password'] == 'Password' or VerifyAccount.account_info(request)['password'] == '':
-            return False, 'Input password, please!'
-        elif '@' not in VerifyAccount.account_info(request)['email']:
-            return False, 'email error'
-        '''
-        check user_account from db, if in, return tips
-        '''
-        for index in range(len(VerifyAccount.user_account_db)):
-            if VerifyAccount.account_info(request)['email'] == VerifyAccount.user_account_db[index]['email']:
-                print('here000000', index, VerifyAccount.user_account_db[index])
-                return True, VerifyAccount.user_account_db[index]['email'], index
-        '''
-        user not in db, return created
-        '''
-        return False, VerifyAccount.account_info(request)['email']
-    '''
-    check password by index
-    '''
-    def verifyPassWord(request):
-        if VerifyAccount.verifyEmail(request)[0]:
-            if VerifyAccount.account_info(request)['password'] == VerifyAccount.user_account_db[VerifyAccount.verifyEmail(request)[2]]['password']:
-                print('herepassword', VerifyAccount.verifyEmail(request)[2], VerifyAccount.user_account_db[VerifyAccount.verifyEmail(request)[2]])
-                return True
-            else:
-                return False
-
-# print(data_source.nav('test')['_account_']['myAccount'][0])
 
 @csrf_protect
 @csrf_exempt
@@ -274,6 +249,7 @@ def verifyAccountDone(request, type):
     '''
     user_status = request.session.get('user_status')
     user_email = request.session.get('user_email')
+    # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
 
     verify_user_account = VerifyAccount.verifyEmail(request)
     verify_user_password = VerifyAccount.verifyPassWord(request)
@@ -285,6 +261,7 @@ def verifyAccountDone(request, type):
             'nav_account': data_source.nav()['_account_'],
             'user_status': user_status,
             'user_account': user_email,
+            # 'user_name': user_name[0][0],
 
             'tips': verify_user_account[1] + ' is exist',
             'products': 'products',
@@ -294,12 +271,13 @@ def verifyAccountDone(request, type):
     if type == 'createAccount' and verify_user_account[0] == False:
         CreateUserAccount.addUserAccount(request)
         htmlApi = {
+            'account_create': True,
             'nav_index': data_source.nav()['_index_'],
             'nav_nav': data_source.nav()['_nav_'],
             'nav_account': data_source.nav()['_account_'],
             'user_status': user_status,
             'user_account': user_email,
-
+            
             'tips': verify_user_account[1] + ' is created',
             'products': 'products',
         }
@@ -325,6 +303,7 @@ def verifyAccountDone(request, type):
         '''
         request.session['user_status'] = True
         request.session['user_email'] = verify_user_account[1]
+        request.session.set_expiry(180)
         _urls_ = data_source.nav()['_account_']['myAccount'][0]
         return redirect(_urls_)
     
@@ -336,6 +315,7 @@ def verifyAccountDone(request, type):
             'nav_account': data_source.nav()['_account_'],
             'user_status': user_status,
             'user_account': user_email,
+            # 'user_name': user_name[0][0],
 
             'tips': verify_user_account[1] + ' is not exist',
             'products': 'products',
@@ -350,6 +330,7 @@ def verifyAccountDone(request, type):
             'nav_account': data_source.nav()['_account_'],
             'user_status': user_status,
             'user_account': user_email,
+            # 'user_name': user_name[0][0],
 
             'tips': 'Password error',
             'products': 'products',
@@ -367,12 +348,49 @@ END: Login SignUp Verify
 '''
 Part: user account module
 '''
-def _account_(request):
+def myAccount(request):
+    # user_id = '@@'
+    # status = request.COOKIES.get('is_login')
+    # user_id = request.COOKIES.get('is_login')
     '''
     get session
     '''
     user_status = request.session.get('user_status')
     user_email = request.session.get('user_email')
+    user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
+    # my_account = models.UserAccount.objects.filter(email=user_id).values()[0]
+    # print('mmmmmmmmm',user_name[0][0],type(user_name))
+
+    if not user_status:
+        urls_index = data_source.nav()['_account_']['login'][0]
+        rep = redirect(urls_index)
+        # rep.set_cookie("is_login", True)
+        return rep
+    else:
+        htmlApi = {
+            'page_id': 'myAccount',
+
+            'nav_index': data_source.nav()['_index_'],
+            'nav_nav': data_source.nav()['_nav_'],
+            'nav_account': data_source.nav()['_account_'],
+            'user_status': user_status,
+            'user_account': user_email,
+            'user_name': user_name[0],
+
+            'my_account': models.UserAccount.objects.filter(email=user_email).values()[0],
+            
+        }
+
+        return render(request, 'my-account.html', htmlApi)
+
+
+def editAccount(request):
+    '''
+    get session
+    '''
+    user_status = request.session.get('user_status')
+    user_email = request.session.get('user_email')
+    user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
 
     if not user_status:
         urls_index = data_source.nav()['_account_']['login'][0]
@@ -389,47 +407,44 @@ def _account_(request):
             'nav_account': data_source.nav()['_account_'],
             'user_status': user_status,
             'user_account': user_email,
+            # 'user_name': user_name[0][0],
 
-            'asin': detailImg('B09YLLXKDT'),
+            'my_account': models.UserAccount.objects.filter(email=user_email).values()[0],
 
         }
 
-        return render(request, 'account.html', htmlApi)
+        return render(request, 'edit-account.html', htmlApi)
 
 
-
-def myAccount(request):
-    # user_id = '@@'
-    # status = request.COOKIES.get('is_login')
-    # user_id = request.COOKIES.get('is_login')
+@csrf_protect
+@csrf_exempt
+@requires_csrf_token
+def editAccountDone(request):
     '''
     get session
     '''
     user_status = request.session.get('user_status')
     user_email = request.session.get('user_email')
+    # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
 
-    # my_account = models.UserAccount.objects.filter(email=user_id).values()[0]
-
-    if not user_status:
-        urls_index = data_source.nav()['_account_']['login'][0]
-        rep = redirect(urls_index)
-        # rep.set_cookie("is_login", True)
-        return rep
-    else:
-        htmlApi = {
-            'page_id': 'myAccount',
-
+    htmlApi = {
+            'account_edit': True,
             'nav_index': data_source.nav()['_index_'],
             'nav_nav': data_source.nav()['_nav_'],
             'nav_account': data_source.nav()['_account_'],
             'user_status': user_status,
             'user_account': user_email,
+            # 'user_name': user_name[0][0],
 
-            'my_account': models.UserAccount.objects.filter(email=user_email).values()[0],
-            
+            # 'tag': 'Your acount update  ',
+            # 'status': data_source.DataForm.getIndexData(request),
+            'status': CreateUserAccount.saveUserAccount(request, user_email),
+            'view': data_source.nav()['_index_']['index'],
+            'again': data_source.nav()['_admin_']['EditIndex'],
+            'img': '/static/image/yeah/yeah.jpg'
         }
 
-        return render(request, 'my-account.html', htmlApi)
+    return render(request, 'done.html', htmlApi)
 
 
 def myCart(request):
@@ -438,6 +453,7 @@ def myCart(request):
     '''
     user_status = request.session.get('user_status')
     user_email = request.session.get('user_email')
+    # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
 
     if not user_status:
         urls_index = data_source.nav()['_account_']['login'][0]
@@ -454,6 +470,7 @@ def myCart(request):
             'nav_account': data_source.nav()['_account_'],
             'user_status': user_status,
             'user_account': user_email,
+            # 'user_name': user_name[0][0],
 
             'product_info': models.Listing.objects.filter(asin='B0BTXB89PG').values()[0],
             'asin': detailImg('B0BTXB89PG'),
@@ -479,6 +496,7 @@ def _order_(request):
     '''
     user_status = request.session.get('user_status')
     user_email = request.session.get('user_email')
+    # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
 
     if not user_status:
         urls_index = data_source.nav()['_account_']['login'][0]
@@ -495,6 +513,7 @@ def _order_(request):
             'nav_account': data_source.nav()['_account_'],
             'user_status': user_status,
             'user_account': user_email,
+            # 'user_name': user_name[0][0],
 
             'product_info': models.Listing.objects.filter(asin='B0BTXB89PG').values()[0],
             'asin': detailImg('B0BTXB89PG'),
@@ -515,6 +534,7 @@ def _admin_(request):
     '''
     user_status = request.session.get('user_status')
     user_email = request.session.get('user_email')
+    # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
     
     htmlApi = {
 
@@ -523,20 +543,24 @@ def _admin_(request):
         'nav_account': data_source.nav()['_account_'],
         'nav_admin': data_source.nav()['_admin_'],
         'user_status': user_status,
-        'user_account': user_email,
+        'user_account': True,
 
         'listing': models.Listing.objects.all().values(),
-        'edit_listing': 'admin&user_id=jessie&editlisting',
-        'edit_index': 'admin&user_id=jessie&editIndex',
-
+        'edit_index': 'adminjessie&edit-index',
+        'edit_listing': 'adminjessie&edit-listing',
     }
 
     return render(request, 'admin.html', htmlApi)
 
 
 def managerProductList(request):
-    user_email = request.GET.get('user_id')
-    # asin = asin_transfer
+    '''
+    get session
+    '''
+    user_status = request.session.get('user_status')
+    user_email = request.session.get('user_email')
+    # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
+
     htmlApi = {
 
         'nav_index': data_source.nav()['_index_'],
@@ -545,6 +569,7 @@ def managerProductList(request):
         'nav_admin': data_source.nav()['_admin_'],
         # 'user_status': user_status,
         'user_account': user_email,
+        # 'user_name': user_name[0][0],
 
         'listing': models.Listing.objects.all().values(),
         'admin': 'adminjessie',
@@ -555,7 +580,13 @@ def managerProductList(request):
 
 
 def editIndex(request):
-    user_email = request.GET.get('user_id')
+    '''
+    get session
+    '''
+    user_status = request.session.get('user_status')
+    user_email = request.session.get('user_email')
+    # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
+
     product_description = models.ProductDescription.objects.all().values()
     
     htmlApi = {
@@ -566,6 +597,7 @@ def editIndex(request):
         'nav_admin': data_source.nav()['_admin_'],
         # 'user_status': user_status,
         'user_account': user_email,
+        # 'user_name': user_name[0][0],
 
         'admin': 'adminjessie',
         'asin': product_description,
@@ -583,23 +615,29 @@ def editIndex(request):
 def editIndexDone(request):
     # print(saveIndexData())
     htmlApi = {
-
-            # 'nav_index': data_source.nav(request)['_index_'],
-            # 'nav_nav': data_source.nav(request)['_nav_'],
-            # 'nav_account': data_source.nav(request)['_account_'],
+            'admin_index': True,
+            'nav_index': data_source.nav()['_index_'],
+            'nav_nav': data_source.nav()['_nav_'],
+            'nav_account': data_source.nav()['_account_'],
 
             'tag': 'edit index is   ',
             # 'status': data_source.DataForm.getIndexData(request),
             'status': saveIndexData(request),
-            'again': 'admin&=jessie&editIndex',
-            'admin': 'admin&=jessie&editIndex',
+            'view': data_source.nav()['_index_']['index'],
+            'again': data_source.nav()['_admin_']['EditIndex'],
             'img': '/static/image/yeah/yeah.jpg'
         }
 
     return render(request, 'done.html', htmlApi)
 
 def editListing(request, asin):
-    user_email = request.GET.get('user_id')
+    '''
+    get session
+    '''
+    user_status = request.session.get('user_status')
+    user_email = request.session.get('user_email')
+    # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
+    
     htmlApi = {
 
         'nav_index': data_source.nav()['_index_'],
@@ -608,32 +646,34 @@ def editListing(request, asin):
         'nav_admin': data_source.nav()['_admin_'],
         # 'user_status': user_status,
         'user_account': user_email,
+        # 'user_name': user_name[0][0],
 
         'asin': asin,
         'listing': models.Listing.objects.filter(asin=asin).values()[0],
         'bullet_point': eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']),
         'len_bullet_point': len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point'])),
-        'edit_listing': 'admin&user_id=jessie&editlisting',
+        'edit_listing': data_source.nav()['_admin_']['EditListing'],
     }
 
     return render(request, 'edit-listing.html', htmlApi)
+
 
 @csrf_protect
 @csrf_exempt
 @requires_csrf_token
 def editListingDone(request, asin):
     htmlApi = {
+        'admin_listing': True,
+        'nav_index': data_source.nav()['_index_'],
+        'nav_nav': data_source.nav()['_nav_'],
+        'nav_account': data_source.nav()['_account_'],
 
-        # 'nav_index': data_source.nav(request)['_index_'],
-        # 'nav_nav': data_source.nav(request)['_nav_'],
-        # 'nav_account': data_source.nav(request)['_account_'],
-
-        'tag': 'edit listing is   ',
+        'tag': 'edit listing done,  ',
         # 'status': data_source.DataForm.editListing(request, asin),
         'status': saveListing(request, asin),
         'view': 'products&asin=' + asin,
-        'again': 'admin&edit=' + asin,
-        'admin': 'admin&user_id=jessie&editlisting',
+        'again': data_source.nav()['_admin_']['EditListing'] + '=' + asin,
+        'edit_listing': data_source.nav()['_admin_']['EditListing'],
         'img': '/static/image/yeah/ok.jpg',
     }
 
@@ -679,29 +719,57 @@ class CreateProduct:
 
 
 
-
-
 '''
 Create UserAccount addAccount addUserInfo addCart addOder
 '''
 class CreateUserAccount:
     def addUserAccount(request):
-        get_account_info = forms.AccountDataForm.getAccountInfo(request)
+        # '''
+        # '''
+        # email = 'lfeng0309@gmail.com'
+        # email_name = r'([a-zA-Z0-9_.+-]+)@'
+        # email_plateform = r'([a-zA-Z0-9_.+-]+)@([a-zA-Z0-9-]+\.[a-zA-Z0-9-]+)'
+        # print('rerererererere',re.findall(email_name, email))
+        get_account_info = forms.getAccountInfo(request)
         models.UserAccount.objects.create(
-            user_id = get_account_info['email'],
-            user_name = get_account_info['email'],
+            user_id = data_source.generate_random_8_digit(),
+            user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', get_account_info['email'])[0],
             email = get_account_info['email'],
             password = get_account_info['password'],
-            first_name = get_account_info['firstname'],
-            last_name = get_account_info['lastname'],
-            address = get_account_info['address'],
-            street = get_account_info['street'],
-            ctiy = get_account_info['city'],
-            country = get_account_info['country'],
-            code = get_account_info['code'],
+            # first_name = get_account_info['firstname'],
+            # last_name = get_account_info['lastname'],
+            # address = get_account_info['address'],
+            # street = get_account_info['street'],
+            # ctiy = get_account_info['city'],
+            # country = get_account_info['country'],
+            # code = get_account_info['code'],
         )
-
-
+    '''
+    save data after edit account
+    '''
+    def saveUserAccount(request, user_email):
+        get_account_info = forms.getAccountInfo(request)
+        try:
+            '''
+            save the data that has been changed from edit.html to DB
+            '''
+            db_table_useraccount = models.UserAccount.objects.get(email=user_email)
+            db_table_useraccount.user_name = get_account_info['user_name']
+            db_table_useraccount.password = get_account_info['password']
+            db_table_useraccount.first_name = get_account_info['first_name']
+            db_table_useraccount.last_name = get_account_info['last_name']
+            db_table_useraccount.address = get_account_info['address']
+            db_table_useraccount.street = get_account_info['street']
+            db_table_useraccount.city = get_account_info['city']
+            db_table_useraccount.country = get_account_info['country']
+            db_table_useraccount.code = get_account_info['code']
+            db_table_useraccount.save()
+            return 'Congratulations!'
+        except:
+            error = str(user_email) + ' please try again...'
+            return error
+# db_table_useraccount = models.UserAccount.objects.get(email='lfeng@')
+# print('aaaaaaaaaaaaaa',db_table_useraccount.user_name)
 
 
 '''
@@ -759,7 +827,7 @@ save data after edit index
 check ProductDescription from DB, if False, create it
 '''
 def saveIndexData(request):
-    get_index_data = data_source.DataForm.getIndexData(request)
+    get_index_data = forms.getIndexData(request)
     try:
         '''
         save
@@ -793,7 +861,7 @@ def saveIndexData(request):
 save data after edit listing
 '''
 def saveListing(request, asin):
-    get_listing_data = data_source.DataForm.getListingData(request, asin)
+    get_listing_data = forms.getListingData(request, asin)
     try:
         '''
         save the data that has been changed from edit.html to DB
@@ -806,13 +874,13 @@ def saveListing(request, asin):
         db_table_listing.status = get_listing_data['status']
         db_table_listing.save()
 
-        db_table_productinfo = models.ProductInfo.objects.get(asin=asin)
-        db_table_productinfo.title = get_listing_data['title']
-        db_table_productinfo.price = get_listing_data['price']
-        db_table_productinfo.bullet_point = get_listing_data['bullet_point']
-        db_table_productinfo.description = get_listing_data['description']
-        db_table_productinfo.status = get_listing_data['status']
-        db_table_productinfo.save()
+        # db_table_productinfo = models.ProductInfo.objects.get(asin=asin)
+        # db_table_productinfo.title = get_listing_data['title']
+        # db_table_productinfo.price = get_listing_data['price']
+        # db_table_productinfo.bullet_point = get_listing_data['bullet_point']
+        # db_table_productinfo.description = get_listing_data['description']
+        # db_table_productinfo.status = get_listing_data['status']
+        # db_table_productinfo.save()
 
         return 'Congratulations!'
     except:
@@ -820,9 +888,35 @@ def saveListing(request, asin):
         return error
 
 
+# '''
+# save data after edit account
+# '''
+# def saveAccountData(request):
+#     get_account_info = forms.getAccountInfo(request)
+#     try:
+#         '''
+#         save the data that has been changed from edit.html to DB
+#         '''
+#         db_table_listing = models.Listing.objects.get(asin=asin)
+#         db_table_listing.title = get_account_info['title']
+#         db_table_listing.price = get_account_info['price']
+#         db_table_listing.bullet_point = get_account_info['bullet_point']
+#         db_table_listing.description = get_account_info['description']
+#         db_table_listing.status = get_account_info['status']
+#         db_table_listing.save()
 
+#         # db_table_productinfo = models.ProductInfo.objects.get(asin=asin)
+#         # db_table_productinfo.title = get_listing_data['title']
+#         # db_table_productinfo.price = get_listing_data['price']
+#         # db_table_productinfo.bullet_point = get_listing_data['bullet_point']
+#         # db_table_productinfo.description = get_listing_data['description']
+#         # db_table_productinfo.status = get_listing_data['status']
+#         # db_table_productinfo.save()
 
-
+#         return 'Congratulations!'
+#     except:
+#         error = asin + ' is not in productlist, please try again...'
+#         return error
 
 
 
@@ -848,6 +942,45 @@ def detailImg(asin):
 
 
 
+class VerifyAccount:
+    def accountDB():
+        return models.UserAccount.objects.all().values('email','password')
 
+    def getAccountInfo(request):
+        return forms.getAccountInfo(request)
+
+    def verifyEmail(request):
+        '''
+        get POST info is error, return tips
+        '''
+        if VerifyAccount.getAccountInfo(request)['email'] == 'Email' or VerifyAccount.getAccountInfo(request)['email'] == '':
+            return False, 'Input email, please!'
+        elif VerifyAccount.getAccountInfo(request)['password'] == 'Password' or VerifyAccount.getAccountInfo(request)['password'] == '':
+            return False, 'Input password, please!'
+        elif '@' not in VerifyAccount.getAccountInfo(request)['email']:
+            return False, 'email error'
+        '''
+        check user_account from db, if in, return tips
+        '''
+        print('>>>>>>>>>>>>>>>>',VerifyAccount.getAccountInfo(request)['email'])
+        for index in range(len(VerifyAccount.accountDB())):
+            if VerifyAccount.getAccountInfo(request)['email'] == VerifyAccount.accountDB()[index]['email']:
+                print('here000000', index, VerifyAccount.accountDB()[index])
+                return True, VerifyAccount.accountDB()[index]['email'], index
+        '''
+        user not in db, return created
+        '''
+        return False, VerifyAccount.getAccountInfo(request)['email']
+    # print(verifyEmail(request))
+    '''
+    check password by index
+    '''
+    def verifyPassWord(request):
+        if VerifyAccount.verifyEmail(request)[0]:
+            if VerifyAccount.getAccountInfo(request)['password'] == VerifyAccount.accountDB()[VerifyAccount.verifyEmail(request)[2]]['password']:
+                print('herepassword', VerifyAccount.verifyEmail(request)[2], VerifyAccount.accountDB()[VerifyAccount.verifyEmail(request)[2]])
+                return True
+            else:
+                return False
 
 

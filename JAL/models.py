@@ -17,9 +17,9 @@ class UserAccount(models.Model):
     last_name = models.CharField(max_length = 20, blank=True)
     address = models.CharField(max_length = 300, blank=True)
     street = models.CharField(max_length = 300, blank=True)
-    ctiy = models.CharField(max_length = 20, blank=True)
+    city = models.CharField(max_length = 20, blank=True)
     country = models.CharField(max_length = 20, blank=True)
-    code = models.CharField(max_length = 5, blank=True)
+    code = models.CharField(max_length = 20, blank=True)
 
 class AsinInfo(models.Model):
     asin = models.CharField(max_length=20, blank=True)

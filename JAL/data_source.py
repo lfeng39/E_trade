@@ -127,64 +127,8 @@ Get the DATA from POST
 '''
 # class DataForm(forms.Form):
 class DataForm:
-    '''
-    edit index
-    '''
-    def getIndexData(request):
-        get_content_dict = {
-            'id' : request.POST.get('id'),
-            'asin' : request.POST.get('asin'),
-            'bullet_point_01' : request.POST.get('bullet_point_01'),
-            'bullet_point_02' : request.POST.get('bullet_point_02'),
-            'bullet_point_03' : '',
-            'url' : [],
-        }
+    pass
 
-        return get_content_dict
-
-
-    '''
-    edit listing
-    '''
-    def getListingData(request, asin):
-    # def editListing(request, asin):
-        '''
-        get title from edit.html
-        '''
-        title = request.POST.get('title')
-
-        '''
-        get price from edit.html
-        '''
-        price = request.POST.get('price')
-
-        '''
-        get bullepoint from edit.html
-        '''
-        count = len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']))
-        bullet_point = []
-        for i in range(count):
-            bullet_point.append(request.POST.get('bullet_point_'+str(i+1)))
-        
-        '''
-        get description from edit.html
-        '''
-        description = request.POST.get('description')
-
-        '''
-        status
-        '''
-        status = request.POST.get('status')
-
-        get_listing_data = {
-            'title': title,
-            'price': price,
-            'bullet_point': bullet_point,
-            'description': description,
-            'status': status
-        }
-
-        return get_listing_data
 
     
             
@@ -248,100 +192,37 @@ _app_ = '/JAL/'
 base_url = http + _ip_ + _port_ + _app_
 # base_url = ''
 print('oooooo url_now:', base_url)
-# def nav(user_id):
-#     if user_id:
-#         nav_dict = {
-#             '_index_': 
-#             {
-#                 'index': base_url + 'index' + '?user_id=' + user_id,
-#                 'includ_user_id_url': '?user_id=' + user_id,
-#             },
-#             '_nav_': 
-#             {
-#                 'Brand': base_url + 'brand' + '?user_id=' + user_id,
-#                 'Products': base_url + 'products' + '?user_id=' + user_id,
-#             },
-#             '_account_': 
-#             {
-#                 'cart': [base_url + 'cart', 'Cart'],
-#                 'login': [base_url + 'login', 'Login'],
-#                 'createAccount': [base_url + 'createAccount', 'Create Account'],
-#                 'order': [base_url + 'order', 'Order'],
-#                 'account': [base_url + 'account', 'Account'],
-#                 # 'myAccount': [base_url + 'myAccount' + '?user_id=' + user_id, 'MyAccount'],
-#                 'myAccount': [base_url + 'myAccount', 'MyAccount'],
-#             },
-#             '_admin_':
-#             {
-#                 'Dashboard': base_url + 'admin' + '?user_id=' + user_id,
-#                 'EditIndex': base_url + 'admin' + '?user_id=' + user_id + '&edit_index',
-#                 'EditListing': base_url + 'admin' + '?user_id=' + user_id + '&edti_listing',
-#             },
-#         }
-#     else:
-#         nav_dict = {
-#             '_index_' : 
-#             {
-#                 'index': base_url + '',
-#                 'includ_user_id_url': '',
-#             },
-
-#             '_nav_' : 
-#             {
-#                 'Brand': base_url + 'brand',
-#                 'Products': base_url + 'products',
-#                 # 'admin': base_url + 'admin',
-#             },
-
-#             '_account_' : 
-#             {
-#                 'cart': [base_url + 'cart', 'Cart'],
-#                 'login': [base_url + 'login', 'Login'],
-#                 'createAccount': [base_url + 'createAccount', 'Create Account'],
-#                 'order': [base_url + 'order', 'Order'],
-#                 'account': [base_url + 'account', 'Account'],
-#                 'myAccount': [base_url + 'myAccount', 'MyAccount'],
-#             },
-#             '_admin_':
-#             {
-#                 'Dashboard': base_url + 'admin' + 'jessie',
-#                 'EditIndex': base_url + 'admin' + '?user_id=' + '&edit_index',
-#                 'EditListing': base_url + 'admin' + '?user_id=' + '&edti_listing',
-#             },
-#         }
-#     return nav_dict
-
 def nav():
     nav_dict = {
-            '_index_' : 
-            {
-                'index': base_url + '',
-                'includ_user_id_url': '',
-            },
+        '_index_' : 
+        {
+            'index': base_url + '',
+            'includ_user_id_url': '',
+        },
 
-            '_nav_' : 
-            {
-                'Brand': base_url + 'brand',
-                'Products': base_url + 'products',
-                # 'admin': base_url + 'admin',
-            },
+        '_nav_' : 
+        {
+            'Brand': base_url + 'brand',
+            'Products': base_url + 'products',
+            # 'admin': base_url + 'admin',
+        },
 
-            '_account_' : 
-            {
-                'cart': [base_url + 'cart', 'Cart'],
-                'login': [base_url + 'login', 'Login'],
-                'createAccount': [base_url + 'createAccount', 'Create Account'],
-                'order': [base_url + 'order', 'Order'],
-                'account': [base_url + 'account', 'Account'],
-                'myAccount': [base_url + 'myAccount', 'MyAccount'],
-            },
-            '_admin_':
-            {
-                'Dashboard': base_url + 'admin' + 'jessie',
-                'EditIndex': base_url + 'admin' + '?user_id=' + '&edit_index',
-                'EditListing': base_url + 'admin' + '?user_id=' + '&edti_listing',
-            },
-        }
+        '_account_' : 
+        {
+            'cart': [base_url + 'cart', 'Cart'],
+            'login': [base_url + 'login', 'Login'],
+            'createAccount': [base_url + 'createAccount', 'Create Account'],
+            'order': [base_url + 'order', 'Order'],
+            'account': [base_url + 'account', 'Account'],
+            'myAccount': [base_url + 'myAccount', 'MyAccount'],
+        },
+        '_admin_':
+        {
+            'Dashboard': base_url + 'admin' + 'jessie',
+            'EditIndex': base_url + 'admin' + 'jessie' + '&edit-index',
+            'EditListing': base_url + 'admin' + 'jessie' + '&edit-listing',
+        },
+    }
     return nav_dict
 
 '''
@@ -361,3 +242,4 @@ def generate_random_8_digit():
     # format to str
     random_string = f'{random_number:08}'
     return random_string
+# print(generate_random_8_digit())

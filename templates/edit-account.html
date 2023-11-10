@@ -1,0 +1,67 @@
+<!-- {%load static%} -->
+<!DOCTYPE html>
+<html>
+<head>
+{% include "head.html" %}
+<title>{{ app_title.0 }}</title>
+</head>
+<body page_id="{{ page_id }}">
+    
+    {% include "nav.html" %}
+    
+
+    <div class="wrap">
+
+        <div class="container">
+            
+            <form class="login" action="/JAL/myAccount&=edit-status-done" method="post">
+                {%csrf_token%}
+                <!-- {{ form }} -->
+                <div style="align-content: center;">
+                    <h1>{{ page_id }}</h1>
+                </div>
+                <ul>
+                    <!-- <label for="test">Your name: </label> -->
+                    <li>email: {{ my_account.email }}</li><button id="" type="submit"><h3>Commit</h3></button>
+                    <li><span>Password:</span>
+                        <input id="" type="text" name="password" value="{{ my_account.password }}">
+                    </li>
+                    <li><span>UserName :</span>
+                        <input id="" type="text" name="user_name" value="{{ my_account.user_name }}">
+                    </li>
+                    <li><span>FirstName :</span>
+                        <input id="" type="text" name="first_name" value="{{ my_account.first_name }}">
+                    </li>
+                    <li><span>LastName :</span>
+                        <input id="" type="text" name="last_name" value="{{ my_account.last_name }}">
+                    </li>
+                    <li><span>Address :</span>
+                        <input id="" type="text" name="address" value="{{ my_account.address }}">
+                    </li>
+                    <li><span>Street :</span>
+                        <input id="" type="text" name="street" value="{{ my_account.street }}">
+                    </li>
+                    <li><span>City :</span>
+                        <input id="" type="text" name="city" value="{{ my_account.city }}">
+                    </li>
+                    <li><span>Country :</span>
+                        <input id="" type="text" name="country" value="{{ my_account.country }}">
+                    </li>
+                    <li><span>Code :</span>
+                        <input id="" type="text" name="code" value="{{ my_account.code }}">
+                    </li>
+                </ul>
+            </form>
+
+        </div>
+
+
+        
+    </div>
+    
+
+
+    {% include "footer.html" %}
+    
+</body>
+</html>

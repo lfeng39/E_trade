@@ -12,23 +12,27 @@
 
     <div class="wrap">
 
-        <div class="container">
+        <div class="container grid">
             
-            <ul>
-                <h1>MyAccount</h1>
-                <li>login_status: {{ user_status }}</li>
-                <li>email: {{ my_account.email }}</li>
-                <li>passWord: {{ my_account.password }}</li>
-                <li>UserName: {{ my_account.user_id }}</li>
-                <li>FirstName: {{ my_account.first_name }}</li>
-                <li>LastName: {{ my_account.last_name }}</li>
-                <li>Address: {{ my_account.address }}</li>
-                <li>Street: {{ my_account.street }}</li>
-                <li>City: {{ my_account.city }}</li>
-                <li>Country: {{ my_account.country }}</li>
-                <li>Code: {{ my_account.code }}</li>
-                <li><a href="logout">Logout</a></li>
-            </ul>
+            <div>
+                <ul>
+                    <h1>MyAccount</h1>
+                    <li><a href="myAccount&=edit">Edit Account</a></li>
+                    <!-- <li>login_status: {{ user_status }}</li> -->
+                    <li>email: {{ my_account.email }}</li>
+                    <li>passWord: {{ my_account.password }}</li>
+                    <li>UserName: {{ my_account.user_name }}</li>
+                    <li>FirstName: {{ my_account.first_name }}</li>
+                    <li>LastName: {{ my_account.last_name }}</li>
+                    <li>Address: {{ my_account.address }}</li>
+                    <li>Street: {{ my_account.street }}</li>
+                    <li>City: {{ my_account.city }}</li>
+                    <li>Country: {{ my_account.country }}</li>
+                    <li>Code: {{ my_account.code }}</li>
+                    <li><a href="logout">Logout</a></li>
+                </ul>
+            </div>
+            <div>aaa</div>
 
         </div>
 

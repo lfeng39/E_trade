@@ -88,6 +88,16 @@ ul.app-list > li > a:hover
   color: rgb(51, 95, 66);
   font-size: large;
 }
+div.account > ul
+{
+  display: flex;
+  width: 70%;
+  margin-left: 30%;
+}
+div.account > ul > li
+{
+  width: 50%;
+}
 /*************************************************LINE*************************************************/
 ul
 {

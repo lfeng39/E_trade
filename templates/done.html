@@ -11,23 +11,8 @@
     
 
     <div class="wrap">
-
-        <!-- <div class="container">
-            <div class="card-standard no-margin min-height" style="background-image: url('{{ imgShow.1 }}'); background-size: 100%;">
-                <div class="position">
-                    <h1>{{ yes }}</h1>
-                    {% for x in test %}
-                        {{ x.email }}
-                    {% endfor %}
-                    
-                </div>
-            </div>
-        </div> -->
-
-        <!-- 
-            commit listing data done
-         -->
-
+        <!-- commit listing data done -->
+        {% if account_create %}
         <div class="container">
             <div style="margin: 20px 0 20px 0;"><h1>{{ tips }}</h1></div>
             
@@ -38,20 +23,42 @@
             <div><img src="{{ img }}" alt=""></div>
         </div>
 
+        {% elif account_edit %}
+        <div class="container">
+            <div style="margin: 20px 0 20px 0;"><h1>{{ tag }}{{ status }}</h1></div>
+            
+            <div style="margin: 20px 0 20px 0;">
+                <a style="font-size: 20px;" href="{{ view }}" target="_blank">View</a> | 
+                <a style="font-size: 20px;" href="{{ again }}">Again</a>
+            </div>
+            <div><img src="{{ img }}" alt=""></div>
+        </div>
+
+        {% elif admin_index %}
+        <div class="container">
+            <div style="margin: 20px 0 20px 0;"><h1>{{ tag }}{{ status }}</h1></div>
+            
+            <div style="margin: 20px 0 20px 0;">
+                <a style="font-size: 20px;" href="{{ view }}" target="_blank">View</a> | 
+                <a style="font-size: 20px;" href="{{ again }}">Again</a>
+            </div>
+            <div><img src="{{ img }}" alt=""></div>
+        </div>
+
+        {% elif admin_listing %}
         <div class="container">
             <div style="margin: 20px 0 20px 0;"><h1>{{ tag }}{{ status }}</h1></div>
             
             <div style="margin: 20px 0 20px 0;">
                 <a style="font-size: 20px;" href="{{ view }}" target="_blank">View</a> | 
                 <a style="font-size: 20px;" href="{{ again }}">Again</a> | 
-                <a style="font-size: 20px;" href="{{ admin }}">Back to ...</a>
+                <a style="font-size: 20px;" href="{{ edit_listing }}">Back to ...</a>
             </div>
             <div><img src="{{ img }}" alt=""></div>
         </div>
-        
+        {% endif %}
     </div>
     
-
 
     {% include "footer.html" %}
     
