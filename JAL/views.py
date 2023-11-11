@@ -93,10 +93,9 @@ def _index_(request):
         # 'csrftoken': csrftoken,
 
     }
-    print('index>>>', type(user_email), user_email)
     return render(request, 'index.html', htmlApi)
 
-# print('aaaaaaaaaaaaa',models.UserAccount.objects.filter(email='jessie0221@gmail.com').values()[0]['user_name'])
+
 
 def _about_(request):
     '''
@@ -239,30 +238,34 @@ def _logout_(request):
 
 
 def createAccount(request):
-    '''
-    get session
-    '''
-    user_status = request.session.get('user_status')
-    user_email = request.session.get('user_email')
+    _logout_(request)
+    # '''
+    # get session
+    # '''
+    # user_status = request.session.get('user_status')
+    # user_email = request.session.get('user_email')
     
-    if not user_status:
-        user_name = 'Login'
+    # if not user_status:
+    #     user_name = 'Login'
+    # else:
+    #     user_name = models.UserAccount.objects.filter(email=user_email).values()[0]['user_name']
+
+    if request.method == 'GET':
+        htmlApi = {
+
+            'nav_index': data_source.nav()['_index_'],
+            'nav_nav': data_source.nav()['_nav_'],
+            'nav_account': data_source.nav()['_account_'],
+            # 'user_status': user_status,
+            # 'user_account': user_email,
+            # 'user_name': user_name,
+
+            'page_id': 'createAccount',
+            # 'user_account': verifyUserAccount(request),
+        }
+        return render(request, 'create-account.html', htmlApi)
     else:
-        user_name = models.UserAccount.objects.filter(email=user_email).values()[0]['user_name']
-
-    htmlApi = {
-
-        'nav_index': data_source.nav()['_index_'],
-        'nav_nav': data_source.nav()['_nav_'],
-        'nav_account': data_source.nav()['_account_'],
-        'user_status': user_status,
-        'user_account': user_email,
-        'user_name': user_name,
-
-        'page_id': 'createAccount',
-        # 'user_account': verifyUserAccount(request),
-    }
-    return render(request, 'create-account.html', htmlApi)
+        return HttpResponse('hello world')
 
 
 
@@ -281,8 +284,12 @@ def verifyAccountDone(request, action):
     else:
         user_name = models.UserAccount.objects.filter(email=user_email).values()[0]['user_name']
 
+    verify_account_format = VerifyAccount.verifyFormat(request)
     verify_user_account = VerifyAccount.verifyEmail(request)
     verify_user_password = VerifyAccount.verifyPassWord(request)
+    '''
+    
+    '''
     if action == 'createAccount' and verify_user_account[0] == True:
         # CreateUserAccount.addUserAccount(request)
         htmlApi = {
@@ -300,21 +307,6 @@ def verifyAccountDone(request, action):
     
     if action == 'createAccount' and verify_user_account[0] == False:
         CreateUserAccount.addUserAccount(request)
-
-        '''
-        set_session
-        '''
-        user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', verify_user_account[1])[0]
-        request.session['user_status'] = True
-        request.session['user_email'] = verify_user_account[1]
-        request.session['user_name'] = user_name
-        # request.session = {
-        #     'user_status': True,
-        #     'user_email': verify_user_account[1],
-        #     'user_name': user_name,
-        # }
-        request.session.set_expiry(180)
-
         htmlApi = {
             'account_create': True,
             'nav_index': data_source.nav()['_index_'],
@@ -476,7 +468,11 @@ def editAccountDone(request):
     '''
     user_status = request.session.get('user_status')
     user_email = request.session.get('user_email')
-    user_name = request.session.get('user_name')
+    
+    if not user_status:
+        user_name = 'Login'
+    else:
+        user_name = models.UserAccount.objects.filter(email=user_email).values()[0]['user_name']
 
     htmlApi = {
             'account_edit': True,
@@ -512,6 +508,7 @@ def myCart(request):
         # rep.set_cookie("is_login", True)
         return rep
     else:
+        user_name = models.UserAccount.objects.filter(email=user_email).values()[0]['user_name']
         htmlApi = {
             'page_id': 'myCart',
             'asin_code': asin_db_list,
@@ -939,38 +936,6 @@ def saveListing(request, asin):
         return error
 
 
-# '''
-# save data after edit account
-# '''
-# def saveAccountData(request):
-#     get_account_info = forms.getAccountInfo(request)
-#     try:
-#         '''
-#         save the data that has been changed from edit.html to DB
-#         '''
-#         db_table_listing = models.Listing.objects.get(asin=asin)
-#         db_table_listing.title = get_account_info['title']
-#         db_table_listing.price = get_account_info['price']
-#         db_table_listing.bullet_point = get_account_info['bullet_point']
-#         db_table_listing.description = get_account_info['description']
-#         db_table_listing.status = get_account_info['status']
-#         db_table_listing.save()
-
-#         # db_table_productinfo = models.ProductInfo.objects.get(asin=asin)
-#         # db_table_productinfo.title = get_listing_data['title']
-#         # db_table_productinfo.price = get_listing_data['price']
-#         # db_table_productinfo.bullet_point = get_listing_data['bullet_point']
-#         # db_table_productinfo.description = get_listing_data['description']
-#         # db_table_productinfo.status = get_listing_data['status']
-#         # db_table_productinfo.save()
-
-#         return 'Congratulations!'
-#     except:
-#         error = asin + ' is not in productlist, please try again...'
-#         return error
-
-
-
 
 '''
 Global Variable
@@ -994,35 +959,46 @@ def detailImg(asin):
 
 
 class VerifyAccount:
+    '''
+    get account info from DB
+    '''
     def accountDB():
         return models.UserAccount.objects.all().values('email','password')
-
+    '''
+    get account info from web POST
+    '''
     def getAccountInfo(request):
         return forms.getAccountInfo(request)
-
-    def verifyEmail(request):
-        '''
-        get POST info is error, return tips
-        '''
+    '''
+    verify web POST format
+    '''
+    def verifyFormat(request):
         if VerifyAccount.getAccountInfo(request)['email'] == 'Email' or VerifyAccount.getAccountInfo(request)['email'] == '':
             return False, 'Input email, please!'
         elif VerifyAccount.getAccountInfo(request)['password'] == 'Password' or VerifyAccount.getAccountInfo(request)['password'] == '':
             return False, 'Input password, please!'
         elif '@' not in VerifyAccount.getAccountInfo(request)['email']:
             return False, 'email error'
+    '''
+    verify email, if exist, return True, if not, return False
+    '''
+    def verifyEmail(request):
+        # if VerifyAccount.getAccountInfo(request)['email'] == 'Email' or VerifyAccount.getAccountInfo(request)['email'] == '':
+        #     return False, 'Input email, please!'
+        # elif VerifyAccount.getAccountInfo(request)['password'] == 'Password' or VerifyAccount.getAccountInfo(request)['password'] == '':
+        #     return False, 'Input password, please!'
+        # elif '@' not in VerifyAccount.getAccountInfo(request)['email']:
+        #     return False, 'email error'
         '''
         check user_account from db, if in, return tips
         '''
-        print('>>>>>>>>>>>>>>>>',VerifyAccount.getAccountInfo(request)['email'])
         for index in range(len(VerifyAccount.accountDB())):
             if VerifyAccount.getAccountInfo(request)['email'] == VerifyAccount.accountDB()[index]['email']:
-                print('here000000', index, VerifyAccount.accountDB()[index])
                 return True, VerifyAccount.accountDB()[index]['email'], index
         '''
         user not in db, return created
         '''
         return False, VerifyAccount.getAccountInfo(request)['email']
-    # print(verifyEmail(request))
     '''
     check password by index
     '''
