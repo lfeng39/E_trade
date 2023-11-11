@@ -28,7 +28,7 @@ urlpatterns = [
     path('login',views._login_, name=''),
     path('logout',views._logout_, name=''),
     path('createAccount',views.createAccount, name=''),
-    path('account=<type>',views.verifyAccountDone, name=''),
+    path('account=<action>',views.verifyAccountDone, name=''),
     path('cart',views.myCart, name=''),
     path('order',views._order_, name=''),
     path('myAccount',views.myAccount, name=''),
