@@ -284,11 +284,36 @@ def verifyAccountDone(request, action):
     else:
         user_name = models.UserAccount.objects.filter(email=user_email).values()[0]['user_name']
 
-    verify_account_format = VerifyAccount.verifyFormat(request)
+    '''
+    verify account valid
+    '''
+    is_valid = forms.AccountDataForm(request.POST)
+    if is_valid.is_valid():
+        print(is_valid.cleaned_data,is_valid.errors)
+        return HttpResponse('is_valid')
+    elif not is_valid.is_valid():
+        print(is_valid.cleaned_data,is_valid.errors)
+        
+        htmlApi = {
+            'nav_index': data_source.nav()['_index_'],
+            'nav_nav': data_source.nav()['_nav_'],
+            'nav_account': data_source.nav()['_account_'],
+            'user_status': user_status,
+            'user_account': user_email,
+            'user_name': user_name,
+            'msg': is_valid.errors,
+
+            # 'tips': verify_user_account[1] + ' is exist',
+            'products': 'products',
+        }
+        return render(request, 'create-account.html', htmlApi)
+
+    # verify_account_format = VerifyAccount.verifyFormat(request)
     verify_user_account = VerifyAccount.verifyEmail(request)
     verify_user_password = VerifyAccount.verifyPassWord(request)
+
     '''
-    
+    if account is exist, again
     '''
     if action == 'createAccount' and verify_user_account[0] == True:
         # CreateUserAccount.addUserAccount(request)
@@ -304,7 +329,9 @@ def verifyAccountDone(request, action):
             'products': 'products',
         }
         return render(request, 'create-account.html', htmlApi)
-    
+    '''
+    if account is not exist, create it
+    '''
     if action == 'createAccount' and verify_user_account[0] == False:
         CreateUserAccount.addUserAccount(request)
         htmlApi = {
@@ -972,13 +999,13 @@ class VerifyAccount:
     '''
     verify web POST format
     '''
-    def verifyFormat(request):
-        if VerifyAccount.getAccountInfo(request)['email'] == 'Email' or VerifyAccount.getAccountInfo(request)['email'] == '':
-            return False, 'Input email, please!'
-        elif VerifyAccount.getAccountInfo(request)['password'] == 'Password' or VerifyAccount.getAccountInfo(request)['password'] == '':
-            return False, 'Input password, please!'
-        elif '@' not in VerifyAccount.getAccountInfo(request)['email']:
-            return False, 'email error'
+    # def verifyFormat(request):
+    #     if VerifyAccount.getAccountInfo(request)['email'] == 'Email' or VerifyAccount.getAccountInfo(request)['email'] == '':
+    #         return False, 'Input email, please!'
+    #     elif VerifyAccount.getAccountInfo(request)['password'] == 'Password' or VerifyAccount.getAccountInfo(request)['password'] == '':
+    #         return False, 'Input password, please!'
+    #     elif '@' not in VerifyAccount.getAccountInfo(request)['email']:
+    #         return False, 'email error'
     '''
     verify email, if exist, return True, if not, return False
     '''

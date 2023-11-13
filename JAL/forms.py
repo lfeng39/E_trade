@@ -11,8 +11,11 @@ from JAL import data_source
 '''
 Sava user account data into DB
 '''
-# class AccountDataForm(forms.Form):
-# class AccountDataForm:
+class AccountDataForm(forms.Form):
+    email= forms.EmailField(label='email', required=True, error_messages={'required':'Email can not null'})
+    password= forms.CharField(label='password', required=True, min_length=6, error_messages={'required':'ps error'})
+
+
 '''
 createAccount | login | edit userAccount
 '''
