@@ -220,7 +220,7 @@ def _login_(request):
         'user_status': user_status,
         'user_account': user_email,
         'user_name': user_name,
-        'account_emial': {'email':'Email'},
+        'account_email': {'email':'Email'},
     }
     return render(request, 'login.html', htmlApi)
 
@@ -262,6 +262,7 @@ def createAccount(request):
             # 'user_status': user_status,
             # 'user_account': user_email,
             # 'user_name': user_name,
+            'account_email': {'email':'Email'},
             # 'msg': is_valid.errors,
 
             # 'user_account': verifyUserAccount(request),
@@ -304,27 +305,31 @@ def verifyAccountDone(request, action):
     '''
     if action == 'createAccount' and not account_form.is_valid():        
         htmlApi = {
+            'page_id': 'createAccount',
             'nav_index': data_source.nav()['_index_'],
             'nav_nav': data_source.nav()['_nav_'],
             'nav_account': data_source.nav()['_account_'],
             # 'user_status': user_status,
             # 'user_account': user_email,
             # 'user_name': user_name,
+            # 'account_emial': {'email':'Email'},
 
             'msg': account_form.errors,
             'products': 'products',
         }
         return render(request, 'create-account.html', htmlApi)
     if action == 'login' and not account_form.is_valid():
-        print(account_form.cleaned_data,account_form.errors)
+        print('???',account_form.cleaned_data,account_form.errors)
         
         htmlApi = {
+            'page_id': 'login',
             'nav_index': data_source.nav()['_index_'],
             'nav_nav': data_source.nav()['_nav_'],
             'nav_account': data_source.nav()['_account_'],
             # 'user_status': user_status,
             # 'user_account': user_email,
             # 'user_name': user_name,
+            # 'account_email': {'email':'Email'},
 
             'msg': account_form.errors,
             'products': 'products',
@@ -343,6 +348,7 @@ def verifyAccountDone(request, action):
         if action == 'createAccount' and verify_user_account[0] == True:
             # CreateUserAccount.addUserAccount(request)
             htmlApi = {
+                'page_id': 'createAccount',
                 'nav_index': data_source.nav()['_index_'],
                 'nav_nav': data_source.nav()['_nav_'],
                 'nav_account': data_source.nav()['_account_'],
@@ -376,6 +382,7 @@ def verifyAccountDone(request, action):
                 'user_name': re.findall(r'([a-zA-Z0-9_.+-]+)@', verify_user_account[1])[0],
                 
                 'tip': verify_user_account[1] + ' is created',
+                # 'account_email': account_form.cleaned_data,
                 'products': 'products',
                 'img': '/static/image/yeah/yeah.jpg'
             }
@@ -419,6 +426,7 @@ def verifyAccountDone(request, action):
         if action == 'login' and verify_user_account[0] == False:
             # CreateUserAccount.addUserAccount(request)
             htmlApi = {
+                'page_id': 'login',
                 'nav_index': data_source.nav()['_index_'],
                 'nav_nav': data_source.nav()['_nav_'],
                 'nav_account': data_source.nav()['_account_'],
@@ -427,7 +435,7 @@ def verifyAccountDone(request, action):
                 # 'user_name': user_name,
 
                 'email_tip': verify_user_account[1] + ' is not exist',
-                'account_emial': account_form.cleaned_data,
+                # 'account_email': account_form.cleaned_data,
 
                 'products': 'products',
             }
@@ -438,6 +446,7 @@ def verifyAccountDone(request, action):
         if action == 'login' and verify_user_password == False:
             # CreateUserAccount.addUserAccount(request)
             htmlApi = {
+                'page_id': 'login',
                 'nav_index': data_source.nav()['_index_'],
                 'nav_nav': data_source.nav()['_nav_'],
                 'nav_account': data_source.nav()['_account_'],
@@ -446,7 +455,7 @@ def verifyAccountDone(request, action):
                 # 'user_name': user_name,
 
                 'password_tip': 'Password error',
-                'account_emial': account_form.cleaned_data,
+                'account_email': account_form.cleaned_data,
 
                 'products': 'products',
             }

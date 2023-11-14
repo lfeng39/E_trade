@@ -4,7 +4,7 @@ function addScript(url){
 }
 
 // account input control
-if(page_id == 'login' || 'signUp')
+if(page_id == 'login' || page_id =='createAccount')
 {
     var get_input_email = document.getElementById('email')
     var get_input_password = document.getElementById('password')

@@ -23,7 +23,7 @@
                 <ul>
                     <!-- <label for="test">Your name: </label> -->
                     <li>
-                        <input id="email" type="text" name="email" value="{{ account_emial.email }}" onclick="verifyAccountInfo('accountClick')" onblur="verifyAccountInfo('accountOnblur')" oninput="account_email()">
+                        <input id="email" type="text" name="email" value="{{ account_email.email }}" onclick="verifyAccountInfo('accountClick')" onblur="verifyAccountInfo('accountOnblur')" oninput="account_email()">
                         <span id="email_valid" style="display:none">Email is not valid</span>
                         <span id="email_tip">{{ email_tip }}</span>
                         {{ msg.email.0 }}
