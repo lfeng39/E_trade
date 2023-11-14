@@ -310,7 +310,7 @@ def verifyAccountDone(request, action):
             # 'user_status': user_status,
             # 'user_account': user_email,
             # 'user_name': user_name,
-            
+
             'msg': account_form.errors,
             'products': 'products',
         }
@@ -372,7 +372,8 @@ def verifyAccountDone(request, action):
                 'account_create': True,
                 'user_status': True,
                 # 'user_account': user_email,
-                'user_name': verify_user_account[1],
+                # 'user_name': verify_user_account[1],
+                'user_name': re.findall(r'([a-zA-Z0-9_.+-]+)@', verify_user_account[1])[0],
                 
                 'tip': verify_user_account[1] + ' is created',
                 'products': 'products',
