@@ -371,7 +371,7 @@ def verifyAccountDone(request, action):
                 'nav_account': data_source.nav()['_account_'],
                 'account_create': True,
                 'user_status': True,
-                # 'user_account': user_email,
+                'user_account': verify_user_account[1],
                 # 'user_name': verify_user_account[1],
                 'user_name': re.findall(r'([a-zA-Z0-9_.+-]+)@', verify_user_account[1])[0],
                 
