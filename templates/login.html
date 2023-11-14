@@ -23,12 +23,16 @@
                 <ul>
                     <!-- <label for="test">Your name: </label> -->
                     <li>
-                        <input id="email" type="text" name="email" value="Email" onclick="verifyAccountInfo('accountClick')" onblur="verifyAccountInfo('accountOnblur')" oninput="account_email()">
-                        <span id="email_format" style="display:none">email format error</span>
+                        <input id="email" type="text" name="email" value="{{ account_emial.email }}" onclick="verifyAccountInfo('accountClick')" onblur="verifyAccountInfo('accountOnblur')" oninput="account_email()">
+                        <span id="email_valid" style="display:none">Email is not valid</span>
+                        <span id="email_tip">{{ email_tip }}</span>
+                        {{ msg.email.0 }}
                     </li>
                     <li>
                         <input id="password" type="text" name="password" value="Password" onclick="verifyAccountInfo('passWordClick')" onblur="verifyAccountInfo('passWordOnblur')" oninput="account_email()">
-                        <span id="password_tips">{{ tips }}</span>
+                        <!-- <span id="password_error">{{ msg.password.0 }}</span> -->
+                        <span id="password_error">{{ password_tip }}</span>
+                        {{ msg.password.0 }}
                     </li>
                     <li>
                         <!-- <button id="login" type="submit"><h3>{{ nav_account.Login.1 }}</h3></button> -->

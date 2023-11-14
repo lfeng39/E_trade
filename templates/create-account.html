@@ -25,13 +25,14 @@
                     <li>
                         <input label="email" id="email" type="text" name="email" value="Email" onclick="verifyAccountInfo('accountClick')" onblur="verifyAccountInfo('accountOnblur')">
                         <!-- <span id="email_tips">{{ tips }}</span> -->
-                        <span id="email_format" style="display:none">email format error</span>
-                        {{ msg }}
+                        <span id="email_format" style="display:none">Email is not valid</span>
+                        {{ msg.email.0 }}
                     </li>
                     <li>
                         <input label="password" id="password" type="text" name="password" value="Password" onclick="verifyAccountInfo('passWordClick')" onblur="verifyAccountInfo('passWordOnblur')">
-                        <span id="password_tips">{{ tips }}</span>
+                        <span id="password_tips">{{ tip }}</span>
                         <!-- <span id="password_tip" class="password_tip" style="display:none">email error</span> -->
+                        {{ msg.password.0 }}
                     </li>
                     <li>
                         <button id="createAccount" type="submit">{{ nav_account.createAccount.1 }}</button>

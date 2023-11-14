@@ -9,8 +9,8 @@ if(page_id == 'login' || 'signUp')
     var get_input_email = document.getElementById('email')
     var get_input_password = document.getElementById('password')
     // var get_email_tips = document.getElementById('email_tips')
-    var get_email_format = document.getElementById('email_format')
-    var get_password_tips = document.getElementById('password_tips')
+    var get_email_valid = document.getElementById('email_valid')
+    var get_password_error = document.getElementById('password_error')
     console.log('account.js i get:',get_input_email.value)
 
     // verify email format valid
@@ -31,11 +31,12 @@ if(page_id == 'login' || 'signUp')
             {
                 get_input_email.value = ''
                 // get_email_tips.style = 'display:none'
-                get_email_format.style = 'display:none'
+                get_email_valid.style = 'display:none'
             }
-            if(get_input_email.value == get_input_email.value)
+            if(get_input_email.value !== '')
             {
                 get_input_email.value = get_input_email.value
+                get_email_valid.style = 'display:none'
             }
         }
         
@@ -48,14 +49,15 @@ if(page_id == 'login' || 'signUp')
             }
             else if(get_input_email.value !== '')
             {
-                if(get_input_email.value.includes('@'))
+                // if(get_input_email.value.includes('@'))
+                if(isEmail(get_input_email.value))
                 {
                     get_input_email.value = get_input_email.value
-                    get_email_format.style = 'display:none'
+                    get_email_valid.style = 'display:none'
                 }    
                 else
                 {
-                    get_email_format.style = ''
+                    get_email_valid.style = ''
                 }
             }
 
@@ -66,7 +68,7 @@ if(page_id == 'login' || 'signUp')
             if(get_input_password.value == 'Password')
             {
                 get_input_password.value = ''
-                get_password_tips.style = 'display:none'
+                get_password_error.style = 'display:none'
                 // activation verify email format
                 if(isEmail(get_input_email.value))
                 {
@@ -78,7 +80,7 @@ if(page_id == 'login' || 'signUp')
                 // }
                 else
                 {
-                    get_email_format.style = ''
+                    get_email_valid.style = ''
                     console.log('Invalid email');
                 }
             }

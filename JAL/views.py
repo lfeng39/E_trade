@@ -203,7 +203,9 @@ def _login_(request):
     '''
     user_status = request.session.get('user_status')
     user_email = request.session.get('user_email')
-    
+    '''
+    verify user_status online
+    '''
     if not user_status:
         user_name = 'Login'
     else:
@@ -218,6 +220,7 @@ def _login_(request):
         'user_status': user_status,
         'user_account': user_email,
         'user_name': user_name,
+        'account_emial': {'email':'Email'},
     }
     return render(request, 'login.html', htmlApi)
 
@@ -252,18 +255,37 @@ def createAccount(request):
 
     if request.method == 'GET':
         htmlApi = {
-
+            'page_id': 'createAccount',
             'nav_index': data_source.nav()['_index_'],
             'nav_nav': data_source.nav()['_nav_'],
             'nav_account': data_source.nav()['_account_'],
             # 'user_status': user_status,
             # 'user_account': user_email,
             # 'user_name': user_name,
+            # 'msg': is_valid.errors,
 
-            'page_id': 'createAccount',
             # 'user_account': verifyUserAccount(request),
         }
         return render(request, 'create-account.html', htmlApi)
+    if request.method == 'POST':
+        '''
+        verify account valid
+        '''
+        is_valid = forms.AccountDataForm(request.POST)
+        if not is_valid.is_valid():
+            htmlApi = {
+                'page_id': 'createAccount',
+                'nav_index': data_source.nav()['_index_'],
+                'nav_nav': data_source.nav()['_nav_'],
+                'nav_account': data_source.nav()['_account_'],
+                # 'user_status': user_status,
+                # 'user_account': user_email,
+                # 'user_name': user_name,
+                'msg': is_valid.errors,
+
+                # 'user_account': verifyUserAccount(request),
+            }
+            return render(request, 'create-account.html', htmlApi)
     else:
         return HttpResponse('hello world')
 
@@ -287,12 +309,26 @@ def verifyAccountDone(request, action):
     '''
     verify account valid
     '''
-    is_valid = forms.AccountDataForm(request.POST)
-    if is_valid.is_valid():
-        print(is_valid.cleaned_data,is_valid.errors)
-        return HttpResponse('is_valid')
-    elif not is_valid.is_valid():
-        print(is_valid.cleaned_data,is_valid.errors)
+    account_form = forms.AccountDataForm(request.POST)
+    '''
+    account is not valid
+    '''
+    if action == 'createAccount' and not account_form.is_valid():        
+        htmlApi = {
+            'nav_index': data_source.nav()['_index_'],
+            'nav_nav': data_source.nav()['_nav_'],
+            'nav_account': data_source.nav()['_account_'],
+            'user_status': user_status,
+            'user_account': user_email,
+            'user_name': user_name,
+            'msg': account_form.errors,
+
+            # 'tips': verify_user_account[1] + ' is exist',
+            'products': 'products',
+        }
+        return render(request, 'create-account.html', htmlApi)
+    if action == 'login' and not account_form.is_valid():
+        print(account_form.cleaned_data,account_form.errors)
         
         htmlApi = {
             'nav_index': data_source.nav()['_index_'],
@@ -301,113 +337,119 @@ def verifyAccountDone(request, action):
             'user_status': user_status,
             'user_account': user_email,
             'user_name': user_name,
-            'msg': is_valid.errors,
+            'msg': account_form.errors,
 
             # 'tips': verify_user_account[1] + ' is exist',
             'products': 'products',
         }
-        return render(request, 'create-account.html', htmlApi)
-
-    # verify_account_format = VerifyAccount.verifyFormat(request)
-    verify_user_account = VerifyAccount.verifyEmail(request)
-    verify_user_password = VerifyAccount.verifyPassWord(request)
-
-    '''
-    if account is exist, again
-    '''
-    if action == 'createAccount' and verify_user_account[0] == True:
-        # CreateUserAccount.addUserAccount(request)
-        htmlApi = {
-            'nav_index': data_source.nav()['_index_'],
-            'nav_nav': data_source.nav()['_nav_'],
-            'nav_account': data_source.nav()['_account_'],
-            'user_status': user_status,
-            'user_account': user_email,
-            'user_name': user_name,
-
-            'tips': verify_user_account[1] + ' is exist',
-            'products': 'products',
-        }
-        return render(request, 'create-account.html', htmlApi)
-    '''
-    if account is not exist, create it
-    '''
-    if action == 'createAccount' and verify_user_account[0] == False:
-        CreateUserAccount.addUserAccount(request)
-        htmlApi = {
-            'account_create': True,
-            'nav_index': data_source.nav()['_index_'],
-            'nav_nav': data_source.nav()['_nav_'],
-            'nav_account': data_source.nav()['_account_'],
-            'user_status': user_status,
-            'user_account': user_email,
-            'user_name': user_name,
-            
-            'tips': verify_user_account[1] + ' is created',
-            'products': 'products',
-        }
-        return render(request, 'done.html', htmlApi)
-    
-    if action == 'login' and verify_user_password == True:
-        # '''
-        # # set_cookie
-        #     # key : cookie的名称
-        #     # value : 保存的cookie的值
-        #     # max_age: 保存的时间，以秒为单位
-        #     # expires: 过期时间，为datetime对象或时间字符串
-        # '''
-        # _urls_ = data_source.nav(verify_user_account[1])['_account_']['myAccount'][0]
-        # rep = redirect(_urls_)
-        # key = 'is_login'
-        # value = verify_user_account[1]
-        # rep.set_cookie(key, value)
-        # return rep
+        return render(request, 'login.html', htmlApi)
+    else:
+        '''
+        account is valid, verify exist
+        '''
+        verify_user_account = verify.VerifyAccount.verifyEmail(request)
+        verify_user_password = verify.VerifyAccount.verifyPassWord(request)
 
         '''
-        set_session
+        if account is exist, again
         '''
-        # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', verify_user_account[1])[0]
-        request.session['user_status'] = True
-        request.session['user_email'] = verify_user_account[1]
-        # request.session['user_name'] = user_name
-        # request.session = {
-        #     'user_status': True,
-        #     'user_email': verify_user_account[1],
-        #     'user_name': user_name,
-        # }
-        request.session.set_expiry(180)
-        _urls_ = data_source.nav()['_account_']['myAccount'][0]
-        return redirect(_urls_)
-    
-    if action == 'login' and verify_user_account[0] == False:
-        # CreateUserAccount.addUserAccount(request)
-        htmlApi = {
-            'nav_index': data_source.nav()['_index_'],
-            'nav_nav': data_source.nav()['_nav_'],
-            'nav_account': data_source.nav()['_account_'],
-            'user_status': user_status,
-            'user_account': user_email,
-            'user_name': user_name,
+        if action == 'createAccount' and verify_user_account[0] == True:
+            # CreateUserAccount.addUserAccount(request)
+            htmlApi = {
+                'nav_index': data_source.nav()['_index_'],
+                'nav_nav': data_source.nav()['_nav_'],
+                'nav_account': data_source.nav()['_account_'],
+                'user_status': user_status,
+                'user_account': user_email,
+                'user_name': user_name,
 
-            'tips': verify_user_account[1] + ' is not exist',
-            'products': 'products',
-        }
-        return render(request, 'login.html', htmlApi)
-    
-    if action == 'login' and verify_user_password == False:
-        # CreateUserAccount.addUserAccount(request)
-        htmlApi = {
-            'nav_index': data_source.nav()['_index_'],
-            'nav_nav': data_source.nav()['_nav_'],
-            'nav_account': data_source.nav()['_account_'],
-            'user_status': user_status,
-            'user_account': user_email,
-            'user_name': user_name,
+                'tip': verify_user_account[1] + ' is exist',
+                'products': 'products',
+            }
+            return render(request, 'create-account.html', htmlApi)
+        '''
+        if account is not exist, create it
+        '''
+        if action == 'createAccount' and verify_user_account[0] == False:
+            CreateUserAccount.addUserAccount(request)
+            htmlApi = {
+                'account_create': True,
+                'nav_index': data_source.nav()['_index_'],
+                'nav_nav': data_source.nav()['_nav_'],
+                'nav_account': data_source.nav()['_account_'],
+                'user_status': user_status,
+                'user_account': user_email,
+                'user_name': user_name,
+                
+                'tip': verify_user_account[1] + ' is created',
+                'products': 'products',
+            }
+            return render(request, 'done.html', htmlApi)
+        
+        if action == 'login' and verify_user_password == True:
+            # '''
+            # # set_cookie
+            #     # key : cookie的名称
+            #     # value : 保存的cookie的值
+            #     # max_age: 保存的时间，以秒为单位
+            #     # expires: 过期时间，为datetime对象或时间字符串
+            # '''
+            # _urls_ = data_source.nav(verify_user_account[1])['_account_']['myAccount'][0]
+            # rep = redirect(_urls_)
+            # key = 'is_login'
+            # value = verify_user_account[1]
+            # rep.set_cookie(key, value)
+            # return rep
 
-            'tips': 'Password error',
-            'products': 'products',
-        }
-        return render(request, 'login.html', htmlApi)
+            '''
+            set_session
+            '''
+            # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', verify_user_account[1])[0]
+            request.session['user_status'] = True
+            request.session['user_email'] = verify_user_account[1]
+            # request.session['user_name'] = user_name
+            # request.session = {
+            #     'user_status': True,
+            #     'user_email': verify_user_account[1],
+            #     'user_name': user_name,
+            # }
+            request.session.set_expiry(180)
+            _urls_ = data_source.nav()['_account_']['myAccount'][0]
+            return redirect(_urls_)
+        
+        if action == 'login' and verify_user_account[0] == False:
+            # CreateUserAccount.addUserAccount(request)
+            htmlApi = {
+                'nav_index': data_source.nav()['_index_'],
+                'nav_nav': data_source.nav()['_nav_'],
+                'nav_account': data_source.nav()['_account_'],
+                'user_status': user_status,
+                'user_account': user_email,
+                'user_name': user_name,
+
+                'email_tip': verify_user_account[1] + ' is not exist',
+                'account_emial': account_form.cleaned_data,
+
+                'products': 'products',
+            }
+            return render(request, 'login.html', htmlApi)
+        
+        if action == 'login' and verify_user_password == False:
+            # CreateUserAccount.addUserAccount(request)
+            htmlApi = {
+                'nav_index': data_source.nav()['_index_'],
+                'nav_nav': data_source.nav()['_nav_'],
+                'nav_account': data_source.nav()['_account_'],
+                'user_status': user_status,
+                'user_account': user_email,
+                'user_name': user_name,
+
+                'password_tip': 'Password error',
+                'account_emial': account_form.cleaned_data,
+
+                'products': 'products',
+            }
+            return render(request, 'login.html', htmlApi)
 
 '''
 END: Login SignUp Verify
@@ -460,30 +502,28 @@ def editAccount(request):
     '''
     user_status = request.session.get('user_status')
     user_email = request.session.get('user_email')
-    user_name = request.session.get('user_name')
-
+    
     if not user_status:
-        urls_index = data_source.nav()['_account_']['login'][0]
-        rep = redirect(urls_index)
-        # rep.set_cookie("is_login", True)
-        return rep
+        user_name = 'Login'
     else:
-        htmlApi = {
-            'page_id': 'account',
-            'asin_code': asin_db_list,
+        user_name = models.UserAccount.objects.filter(email=user_email).values()[0]['user_name']
 
-            'nav_index': data_source.nav()['_index_'],
-            'nav_nav': data_source.nav()['_nav_'],
-            'nav_account': data_source.nav()['_account_'],
-            'user_status': user_status,
-            'user_account': user_email,
-            'user_name': user_name,
+    htmlApi = {
+        'page_id': 'account',
+        'asin_code': asin_db_list,
 
-            'user_account': models.UserAccount.objects.filter(email=user_email).values()[0],
+        'nav_index': data_source.nav()['_index_'],
+        'nav_nav': data_source.nav()['_nav_'],
+        'nav_account': data_source.nav()['_account_'],
+        'user_status': user_status,
+        'user_account': user_email,
+        'user_name': user_name,
 
-        }
+        'user_account': models.UserAccount.objects.filter(email=user_email).values()[0],
 
-        return render(request, 'edit-account.html', htmlApi)
+    }
+
+    return render(request, 'edit-account.html', htmlApi)
 
 
 @csrf_protect
@@ -985,56 +1025,60 @@ def detailImg(asin):
 
 
 
-class VerifyAccount:
-    '''
-    get account info from DB
-    '''
-    def accountDB():
-        return models.UserAccount.objects.all().values('email','password')
-    '''
-    get account info from web POST
-    '''
-    def getAccountInfo(request):
-        return forms.getAccountInfo(request)
-    '''
-    verify web POST format
-    '''
-    # def verifyFormat(request):
-    #     if VerifyAccount.getAccountInfo(request)['email'] == 'Email' or VerifyAccount.getAccountInfo(request)['email'] == '':
-    #         return False, 'Input email, please!'
-    #     elif VerifyAccount.getAccountInfo(request)['password'] == 'Password' or VerifyAccount.getAccountInfo(request)['password'] == '':
-    #         return False, 'Input password, please!'
-    #     elif '@' not in VerifyAccount.getAccountInfo(request)['email']:
-    #         return False, 'email error'
-    '''
-    verify email, if exist, return True, if not, return False
-    '''
-    def verifyEmail(request):
-        # if VerifyAccount.getAccountInfo(request)['email'] == 'Email' or VerifyAccount.getAccountInfo(request)['email'] == '':
-        #     return False, 'Input email, please!'
-        # elif VerifyAccount.getAccountInfo(request)['password'] == 'Password' or VerifyAccount.getAccountInfo(request)['password'] == '':
-        #     return False, 'Input password, please!'
-        # elif '@' not in VerifyAccount.getAccountInfo(request)['email']:
-        #     return False, 'email error'
-        '''
-        check user_account from db, if in, return tips
-        '''
-        for index in range(len(VerifyAccount.accountDB())):
-            if VerifyAccount.getAccountInfo(request)['email'] == VerifyAccount.accountDB()[index]['email']:
-                return True, VerifyAccount.accountDB()[index]['email'], index
-        '''
-        user not in db, return created
-        '''
-        return False, VerifyAccount.getAccountInfo(request)['email']
-    '''
-    check password by index
-    '''
-    def verifyPassWord(request):
-        if VerifyAccount.verifyEmail(request)[0]:
-            if VerifyAccount.getAccountInfo(request)['password'] == VerifyAccount.accountDB()[VerifyAccount.verifyEmail(request)[2]]['password']:
-                print('herepassword', VerifyAccount.verifyEmail(request)[2], VerifyAccount.accountDB()[VerifyAccount.verifyEmail(request)[2]])
-                return True
-            else:
-                return False
+# class VerifyAccount:
+#     '''
+#     get account info from DB
+#     '''
+#     def accountDB():
+#         return models.UserAccount.objects.all().values('email','password')
+#     '''
+#     get account info from web POST
+#     '''
+#     def getAccountInfo(request):
+#         return forms.getAccountInfo(request)
+#     '''
+#     verify web POST format
+#     '''
+#     # def verifyFormat(request):
+#     #     if VerifyAccount.getAccountInfo(request)['email'] == 'Email' or VerifyAccount.getAccountInfo(request)['email'] == '':
+#     #         return False, 'Input email, please!'
+#     #     elif VerifyAccount.getAccountInfo(request)['password'] == 'Password' or VerifyAccount.getAccountInfo(request)['password'] == '':
+#     #         return False, 'Input password, please!'
+#     #     elif '@' not in VerifyAccount.getAccountInfo(request)['email']:
+#     #         return False, 'email error'
+#     '''
+#     verify email, if exist, return True, if not, return False
+#     '''
+#     def verifyEmail(request):
+#         if VerifyAccount.getAccountInfo(request)['email'] == 'Email' or VerifyAccount.getAccountInfo(request)['email'] == '':
+#             return False, 'Input email, please!'
+#         elif VerifyAccount.getAccountInfo(request)['password'] == 'Password' or VerifyAccount.getAccountInfo(request)['password'] == '':
+#             return False, 'Input password, please!'
+#         elif VerifyAccount.getAccountInfo(request)['email'] == 'Email' and VerifyAccount.getAccountInfo(request)['password'] == 'password':
+#             return False, 'Enter is not valid'
+#         elif VerifyAccount.getAccountInfo(request)['email'] == '' and VerifyAccount.getAccountInfo(request)['password'] == '':
+#             return False, 'Enter can not null'
+#         elif '@' not in VerifyAccount.getAccountInfo(request)['email']:
+#             return False, 'email error'
+#         '''
+#         check user_account from db, if in, return tips
+#         '''
+#         for index in range(len(VerifyAccount.accountDB())):
+#             if VerifyAccount.getAccountInfo(request)['email'] == VerifyAccount.accountDB()[index]['email']:
+#                 return True, VerifyAccount.accountDB()[index]['email'], index
+#         '''
+#         user not in db, return created
+#         '''
+#         return False, VerifyAccount.getAccountInfo(request)['email']
+#     '''
+#     check password by index
+#     '''
+#     def verifyPassWord(request):
+#         if VerifyAccount.verifyEmail(request)[0]:
+#             if VerifyAccount.getAccountInfo(request)['password'] == VerifyAccount.accountDB()[VerifyAccount.verifyEmail(request)[2]]['password']:
+#                 print('herepassword', VerifyAccount.verifyEmail(request)[2], VerifyAccount.accountDB()[VerifyAccount.verifyEmail(request)[2]])
+#                 return True
+#             else:
+#                 return False
 
 
