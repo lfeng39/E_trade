@@ -295,17 +295,6 @@ def createAccount(request):
 @csrf_exempt
 @requires_csrf_token
 def verifyAccountDone(request, action):
-    # '''
-    # get session
-    # '''
-    # user_status = request.session.get('user_status')
-    # user_email = request.session.get('user_email')
-    
-    # if not user_status:
-    #     user_name = 'Login'
-    # else:
-    #     user_name = models.UserAccount.objects.filter(email=user_email).values()[0]['user_name']
-
     '''
     verify account valid
     '''
@@ -321,9 +310,8 @@ def verifyAccountDone(request, action):
             # 'user_status': user_status,
             # 'user_account': user_email,
             # 'user_name': user_name,
+            
             'msg': account_form.errors,
-
-            # 'tips': verify_user_account[1] + ' is exist',
             'products': 'products',
         }
         return render(request, 'create-account.html', htmlApi)
@@ -337,23 +325,12 @@ def verifyAccountDone(request, action):
             # 'user_status': user_status,
             # 'user_account': user_email,
             # 'user_name': user_name,
-            'msg': account_form.errors,
 
-            # 'tips': verify_user_account[1] + ' is exist',
+            'msg': account_form.errors,
             'products': 'products',
         }
         return render(request, 'login.html', htmlApi)
     else:
-        # '''
-        # get session
-        # '''
-        # user_status = request.session.get('user_status')
-        # user_email = request.session.get('user_email')
-        # if not user_status:
-        #     user_name = 'Login'
-        # else:
-        #     user_name = models.UserAccount.objects.filter(email=user_email).values()[0]['user_name']
-
         '''
         account is valid, verify exist
         '''
@@ -361,7 +338,7 @@ def verifyAccountDone(request, action):
         verify_user_password = verify.VerifyAccount.verifyPassWord(request)
 
         '''
-        if account is exist, again
+        account is exist, again
         '''
         if action == 'createAccount' and verify_user_account[0] == True:
             # CreateUserAccount.addUserAccount(request)
@@ -378,7 +355,7 @@ def verifyAccountDone(request, action):
             }
             return render(request, 'create-account.html', htmlApi)
         '''
-        if account is not exist, create it
+        account is not exist, create it
         '''
         if action == 'createAccount' and verify_user_account[0] == False:
             CreateUserAccount.addUserAccount(request)
@@ -393,7 +370,7 @@ def verifyAccountDone(request, action):
                 'nav_nav': data_source.nav()['_nav_'],
                 'nav_account': data_source.nav()['_account_'],
                 'account_create': True,
-                # 'user_status': user_status,
+                'user_status': True,
                 # 'user_account': user_email,
                 'user_name': verify_user_account[1],
                 
@@ -402,7 +379,9 @@ def verifyAccountDone(request, action):
                 'img': '/static/image/yeah/yeah.jpg'
             }
             return render(request, 'done.html', htmlApi)
-        
+        '''
+        login success, set session, and redirect to index or other page
+        '''
         if action == 'login' and verify_user_password == True:
             # '''
             # # set_cookie
@@ -433,7 +412,9 @@ def verifyAccountDone(request, action):
             request.session.set_expiry(180)
             _urls_ = data_source.nav()['_account_']['myAccount'][0]
             return redirect(_urls_)
-        
+        '''
+        account is noe exist, again
+        '''
         if action == 'login' and verify_user_account[0] == False:
             # CreateUserAccount.addUserAccount(request)
             htmlApi = {
@@ -450,7 +431,9 @@ def verifyAccountDone(request, action):
                 'products': 'products',
             }
             return render(request, 'login.html', htmlApi)
-        
+        '''
+        password error, again
+        '''
         if action == 'login' and verify_user_password == False:
             # CreateUserAccount.addUserAccount(request)
             htmlApi = {
