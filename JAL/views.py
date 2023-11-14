@@ -295,16 +295,16 @@ def createAccount(request):
 @csrf_exempt
 @requires_csrf_token
 def verifyAccountDone(request, action):
-    '''
-    get session
-    '''
-    user_status = request.session.get('user_status')
-    user_email = request.session.get('user_email')
+    # '''
+    # get session
+    # '''
+    # user_status = request.session.get('user_status')
+    # user_email = request.session.get('user_email')
     
-    if not user_status:
-        user_name = 'Login'
-    else:
-        user_name = models.UserAccount.objects.filter(email=user_email).values()[0]['user_name']
+    # if not user_status:
+    #     user_name = 'Login'
+    # else:
+    #     user_name = models.UserAccount.objects.filter(email=user_email).values()[0]['user_name']
 
     '''
     verify account valid
@@ -318,9 +318,9 @@ def verifyAccountDone(request, action):
             'nav_index': data_source.nav()['_index_'],
             'nav_nav': data_source.nav()['_nav_'],
             'nav_account': data_source.nav()['_account_'],
-            'user_status': user_status,
-            'user_account': user_email,
-            'user_name': user_name,
+            # 'user_status': user_status,
+            # 'user_account': user_email,
+            # 'user_name': user_name,
             'msg': account_form.errors,
 
             # 'tips': verify_user_account[1] + ' is exist',
@@ -334,9 +334,9 @@ def verifyAccountDone(request, action):
             'nav_index': data_source.nav()['_index_'],
             'nav_nav': data_source.nav()['_nav_'],
             'nav_account': data_source.nav()['_account_'],
-            'user_status': user_status,
-            'user_account': user_email,
-            'user_name': user_name,
+            # 'user_status': user_status,
+            # 'user_account': user_email,
+            # 'user_name': user_name,
             'msg': account_form.errors,
 
             # 'tips': verify_user_account[1] + ' is exist',
@@ -344,6 +344,16 @@ def verifyAccountDone(request, action):
         }
         return render(request, 'login.html', htmlApi)
     else:
+        # '''
+        # get session
+        # '''
+        # user_status = request.session.get('user_status')
+        # user_email = request.session.get('user_email')
+        # if not user_status:
+        #     user_name = 'Login'
+        # else:
+        #     user_name = models.UserAccount.objects.filter(email=user_email).values()[0]['user_name']
+
         '''
         account is valid, verify exist
         '''
@@ -359,9 +369,9 @@ def verifyAccountDone(request, action):
                 'nav_index': data_source.nav()['_index_'],
                 'nav_nav': data_source.nav()['_nav_'],
                 'nav_account': data_source.nav()['_account_'],
-                'user_status': user_status,
-                'user_account': user_email,
-                'user_name': user_name,
+                # 'user_status': user_status,
+                # 'user_account': user_email,
+                # 'user_name': user_name,
 
                 'tip': verify_user_account[1] + ' is exist',
                 'products': 'products',
@@ -372,17 +382,24 @@ def verifyAccountDone(request, action):
         '''
         if action == 'createAccount' and verify_user_account[0] == False:
             CreateUserAccount.addUserAccount(request)
+            '''
+            set_session
+            '''
+            request.session['user_status'] = True
+            request.session['user_email'] = verify_user_account[1]
+
             htmlApi = {
-                'account_create': True,
                 'nav_index': data_source.nav()['_index_'],
                 'nav_nav': data_source.nav()['_nav_'],
                 'nav_account': data_source.nav()['_account_'],
-                'user_status': user_status,
-                'user_account': user_email,
-                'user_name': user_name,
+                'account_create': True,
+                # 'user_status': user_status,
+                # 'user_account': user_email,
+                'user_name': verify_user_account[1],
                 
                 'tip': verify_user_account[1] + ' is created',
                 'products': 'products',
+                'img': '/static/image/yeah/yeah.jpg'
             }
             return render(request, 'done.html', htmlApi)
         
@@ -423,9 +440,9 @@ def verifyAccountDone(request, action):
                 'nav_index': data_source.nav()['_index_'],
                 'nav_nav': data_source.nav()['_nav_'],
                 'nav_account': data_source.nav()['_account_'],
-                'user_status': user_status,
-                'user_account': user_email,
-                'user_name': user_name,
+                # 'user_status': user_status,
+                # 'user_account': user_email,
+                # 'user_name': user_name,
 
                 'email_tip': verify_user_account[1] + ' is not exist',
                 'account_emial': account_form.cleaned_data,
@@ -440,9 +457,9 @@ def verifyAccountDone(request, action):
                 'nav_index': data_source.nav()['_index_'],
                 'nav_nav': data_source.nav()['_nav_'],
                 'nav_account': data_source.nav()['_account_'],
-                'user_status': user_status,
-                'user_account': user_email,
-                'user_name': user_name,
+                # 'user_status': user_status,
+                # 'user_account': user_email,
+                # 'user_name': user_name,
 
                 'password_tip': 'Password error',
                 'account_emial': account_form.cleaned_data,
