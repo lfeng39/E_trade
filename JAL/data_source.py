@@ -177,20 +177,28 @@ def getUserInfo(request):
 
 
 '''
-Start-Mould: Nav
+local test url
 '''
 http = 'http://'
-# _ip_ = '140.82.22.68'
-# _ip_ = '192.168.39.84'
 _ip_ = '127.0.0.1'
 # csrftoken: Eoa1iSdBOEbaTTdopOt49k05uczyAPvv
 # _ip_ = '0.0.0.0'
 # csrftoken: T83BR0wnzOOGoGNuSw3mw9kOyQWif8Ns
-# _ip_ = '822u770q09.zicp.fun:44088'
 _port_ = ':8000'
 _app_ = '/JAL/'
 base_url = http + _ip_ + _port_ + _app_
-# base_url = ''
+
+'''
+server test url
+'''
+_ip_ = '140.82.22.68'
+_ip_ = '192.168.39.84'
+# huashengke
+# _ip_ = '822u770q09.zicp.fun:44088'
+# ngrok
+_ip_ = '3e94-212-87-193-201.ngrok-free.app'
+# base_url = 'https://' + _ip_ + '/JAL/'
+
 print('oooooo url_now:', base_url)
 def nav():
     nav_dict = {
