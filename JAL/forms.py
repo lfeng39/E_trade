@@ -36,7 +36,6 @@ def getAccountInfo(request):
     return get_account_dict
 
 
-
 '''
 edit index
 '''

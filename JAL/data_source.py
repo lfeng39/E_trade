@@ -221,6 +221,7 @@ def nav():
             'Dashboard': base_url + 'admin' + 'jessie',
             'EditIndex': base_url + 'admin' + 'jessie' + '&edit-index',
             'EditListing': base_url + 'admin' + 'jessie' + '&edit-listing',
+            'Coupon': base_url + 'admin' + 'jessie' + '&coupon',
         },
     }
     return nav_dict

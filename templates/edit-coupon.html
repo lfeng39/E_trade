@@ -1,0 +1,33 @@
+<!-- {%load static%} -->
+<!DOCTYPE html>
+<html>
+<head>
+{% include "head.html" %}
+<title>{{ app_title.0 }}</title>
+</head>
+<body page_id="{{ page_id }}">
+    
+    {% include "nav.html" %}
+    
+
+    <div class="wrap">
+
+        <div class="container">
+            <a href="{{ nav_admin.Coupon }}=create">Create Coupon</a>
+            <ul>
+                <li>Title: Apply 20% coupon</li>
+                <li>Code: B0BTXB89PGFM318UI</li>
+            </ul>
+
+        </div>
+
+
+        
+    </div>
+    
+
+
+    {% include "footer.html" %}
+    
+</body>
+</html>

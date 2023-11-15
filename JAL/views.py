@@ -239,7 +239,9 @@ def _logout_(request):
     request.session.flush()
     return redirect('/JAL/login')
 
-
+@csrf_protect
+@csrf_exempt
+@requires_csrf_token
 def createAccount(request):
     _logout_(request)
     # '''
@@ -259,21 +261,68 @@ def createAccount(request):
             'nav_index': data_source.nav()['_index_'],
             'nav_nav': data_source.nav()['_nav_'],
             'nav_account': data_source.nav()['_account_'],
-            # 'user_status': user_status,
-            # 'user_account': user_email,
-            # 'user_name': user_name,
             'account_email': {'email':'Email'},
-            # 'msg': is_valid.errors,
-
-            # 'user_account': verifyUserAccount(request),
         }
         return render(request, 'create-account.html', htmlApi)
     if request.method == 'POST':
         '''
         verify account valid
         '''
-        is_valid = forms.AccountDataForm(request.POST)
-        if not is_valid.is_valid():
+        # is_valid = forms.AccountDataForm(request.POST)
+        account_form = forms.AccountDataForm(request.POST)
+        if account_form.is_valid():
+            '''
+            account is valid, verify exist
+            '''
+            verify_user_account = verify.VerifyAccount.verifyEmail(request)
+            verify_user_password = verify.VerifyAccount.verifyPassWord(request)
+
+            '''
+            account is exist, again
+            '''
+            if verify_user_account[0] == True:
+                # CreateUserAccount.addUserAccount(request)
+                htmlApi = {
+                    'page_id': 'createAccount',
+                    'nav_index': data_source.nav()['_index_'],
+                    'nav_nav': data_source.nav()['_nav_'],
+                    'nav_account': data_source.nav()['_account_'],
+                    # 'user_status': user_status,
+                    # 'user_account': user_email,
+                    # 'user_name': user_name,
+
+                    'tip': verify_user_account[1] + ' is exist',
+                    'products': 'products',
+                }
+                return render(request, 'create-account.html', htmlApi)
+            '''
+            account is not exist, create it
+            '''
+            if verify_user_account[0] == False:
+                CreateUserAccount.addUserAccount(request)
+                '''
+                set_session, after created account
+                '''
+                request.session['user_status'] = True
+                request.session['user_email'] = verify_user_account[1]
+
+                htmlApi = {
+                    'nav_index': data_source.nav()['_index_'],
+                    'nav_nav': data_source.nav()['_nav_'],
+                    'nav_account': data_source.nav()['_account_'],
+                    'account_create': True,
+                    'user_status': True,
+                    'user_account': verify_user_account[1],
+                    # 'user_name': verify_user_account[1],
+                    'user_name': re.findall(r'([a-zA-Z0-9_.+-]+)@', verify_user_account[1])[0],
+                    
+                    'tip': verify_user_account[1] + ' is created',
+                    # 'account_email': account_form.cleaned_data,
+                    'products': 'products',
+                    'img': '/static/image/yeah/yeah.jpg'
+                }
+                return render(request, 'done.html', htmlApi)
+        else:
             htmlApi = {
                 'page_id': 'createAccount',
                 'nav_index': data_source.nav()['_index_'],
@@ -282,13 +331,11 @@ def createAccount(request):
                 # 'user_status': user_status,
                 # 'user_account': user_email,
                 # 'user_name': user_name,
-                'msg': is_valid.errors,
+                # 'account_emial': {'email':'Email'},
 
-                # 'user_account': verifyUserAccount(request),
+                'msg': account_form.errors,
             }
             return render(request, 'create-account.html', htmlApi)
-    else:
-        return HttpResponse('hello world')
 
 
 
@@ -303,24 +350,21 @@ def verifyAccountDone(request, action):
     '''
     account is not valid
     '''
-    if action == 'createAccount' and not account_form.is_valid():        
-        htmlApi = {
-            'page_id': 'createAccount',
-            'nav_index': data_source.nav()['_index_'],
-            'nav_nav': data_source.nav()['_nav_'],
-            'nav_account': data_source.nav()['_account_'],
-            # 'user_status': user_status,
-            # 'user_account': user_email,
-            # 'user_name': user_name,
-            # 'account_emial': {'email':'Email'},
+    # if action == 'createAccount' and not account_form.is_valid():        
+    #     htmlApi = {
+    #         'page_id': 'createAccount',
+    #         'nav_index': data_source.nav()['_index_'],
+    #         'nav_nav': data_source.nav()['_nav_'],
+    #         'nav_account': data_source.nav()['_account_'],
+    #         # 'user_status': user_status,
+    #         # 'user_account': user_email,
+    #         # 'user_name': user_name,
+    #         # 'account_emial': {'email':'Email'},
 
-            'msg': account_form.errors,
-            'products': 'products',
-        }
-        return render(request, 'create-account.html', htmlApi)
-    if action == 'login' and not account_form.is_valid():
-        print('???',account_form.cleaned_data,account_form.errors)
-        
+    #         'msg': account_form.errors,
+    #     }
+    #     return render(request, 'create-account.html', htmlApi)
+    if action == 'login' and not account_form.is_valid():       
         htmlApi = {
             'page_id': 'login',
             'nav_index': data_source.nav()['_index_'],
@@ -342,51 +386,51 @@ def verifyAccountDone(request, action):
         verify_user_account = verify.VerifyAccount.verifyEmail(request)
         verify_user_password = verify.VerifyAccount.verifyPassWord(request)
 
-        '''
-        account is exist, again
-        '''
-        if action == 'createAccount' and verify_user_account[0] == True:
-            # CreateUserAccount.addUserAccount(request)
-            htmlApi = {
-                'page_id': 'createAccount',
-                'nav_index': data_source.nav()['_index_'],
-                'nav_nav': data_source.nav()['_nav_'],
-                'nav_account': data_source.nav()['_account_'],
-                # 'user_status': user_status,
-                # 'user_account': user_email,
-                # 'user_name': user_name,
+        # '''
+        # account is exist, again
+        # '''
+        # if action == 'createAccount' and verify_user_account[0] == True:
+        #     # CreateUserAccount.addUserAccount(request)
+        #     htmlApi = {
+        #         'page_id': 'createAccount',
+        #         'nav_index': data_source.nav()['_index_'],
+        #         'nav_nav': data_source.nav()['_nav_'],
+        #         'nav_account': data_source.nav()['_account_'],
+        #         # 'user_status': user_status,
+        #         # 'user_account': user_email,
+        #         # 'user_name': user_name,
 
-                'tip': verify_user_account[1] + ' is exist',
-                'products': 'products',
-            }
-            return render(request, 'create-account.html', htmlApi)
-        '''
-        account is not exist, create it
-        '''
-        if action == 'createAccount' and verify_user_account[0] == False:
-            CreateUserAccount.addUserAccount(request)
-            '''
-            set_session
-            '''
-            request.session['user_status'] = True
-            request.session['user_email'] = verify_user_account[1]
+        #         'tip': verify_user_account[1] + ' is exist',
+        #         'products': 'products',
+        #     }
+        #     return render(request, 'create-account.html', htmlApi)
+        # '''
+        # account is not exist, create it
+        # '''
+        # if action == 'createAccount' and verify_user_account[0] == False:
+        #     CreateUserAccount.addUserAccount(request)
+        #     '''
+        #     set_session
+        #     '''
+        #     request.session['user_status'] = True
+        #     request.session['user_email'] = verify_user_account[1]
 
-            htmlApi = {
-                'nav_index': data_source.nav()['_index_'],
-                'nav_nav': data_source.nav()['_nav_'],
-                'nav_account': data_source.nav()['_account_'],
-                'account_create': True,
-                'user_status': True,
-                'user_account': verify_user_account[1],
-                # 'user_name': verify_user_account[1],
-                'user_name': re.findall(r'([a-zA-Z0-9_.+-]+)@', verify_user_account[1])[0],
+        #     htmlApi = {
+        #         'nav_index': data_source.nav()['_index_'],
+        #         'nav_nav': data_source.nav()['_nav_'],
+        #         'nav_account': data_source.nav()['_account_'],
+        #         'account_create': True,
+        #         'user_status': True,
+        #         'user_account': verify_user_account[1],
+        #         # 'user_name': verify_user_account[1],
+        #         'user_name': re.findall(r'([a-zA-Z0-9_.+-]+)@', verify_user_account[1])[0],
                 
-                'tip': verify_user_account[1] + ' is created',
-                # 'account_email': account_form.cleaned_data,
-                'products': 'products',
-                'img': '/static/image/yeah/yeah.jpg'
-            }
-            return render(request, 'done.html', htmlApi)
+        #         'tip': verify_user_account[1] + ' is created',
+        #         # 'account_email': account_form.cleaned_data,
+        #         'products': 'products',
+        #         'img': '/static/image/yeah/yeah.jpg'
+        #     }
+        #     return render(request, 'done.html', htmlApi)
         '''
         login success, set session, and redirect to index or other page
         '''
@@ -519,7 +563,7 @@ def editAccount(request):
         user_name = models.UserAccount.objects.filter(email=user_email).values()[0]['user_name']
 
     htmlApi = {
-        'page_id': 'account',
+        'page_id': 'editAccount',
         'asin_code': asin_db_list,
 
         'nav_index': data_source.nav()['_index_'],
@@ -552,6 +596,7 @@ def editAccountDone(request):
         user_name = models.UserAccount.objects.filter(email=user_email).values()[0]['user_name']
 
     htmlApi = {
+            'page_id': 'createAccountDone',
             'account_edit': True,
             'nav_index': data_source.nav()['_index_'],
             'nav_nav': data_source.nav()['_nav_'],
@@ -580,8 +625,8 @@ def myCart(request):
     user_name = request.session.get('user_name')
 
     if not user_status:
-        urls_index = data_source.nav()['_account_']['login'][0]
-        rep = redirect(urls_index)
+        _url_ = data_source.nav()['_account_']['login'][0]
+        rep = redirect(_url_)
         # rep.set_cookie("is_login", True)
         return rep
     else:
@@ -662,7 +707,7 @@ def _admin_(request):
     # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
     
     htmlApi = {
-
+        'page_id': 'adminjessie',
         'nav_index': data_source.nav()['_index_'],
         'nav_nav': data_source.nav()['_nav_'],
         'nav_account': data_source.nav()['_account_'],
@@ -678,6 +723,80 @@ def _admin_(request):
     return render(request, 'admin.html', htmlApi)
 
 
+@csrf_protect
+@csrf_exempt
+@requires_csrf_token
+def editIndex(request):
+    if request.method == 'GET':
+        '''
+        get session
+        '''
+        user_status = request.session.get('user_status')
+        user_email = request.session.get('user_email')
+        # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
+
+        product_description = models.ProductDescription.objects.all().values()
+        
+        htmlApi = {
+            'page_id': 'editIndex',
+            'nav_index': data_source.nav()['_index_'],
+            'nav_nav': data_source.nav()['_nav_'],
+            'nav_account': data_source.nav()['_account_'],
+            'nav_admin': data_source.nav()['_admin_'],
+            # 'user_status': user_status,
+            'user_account': user_email,
+            # 'user_name': user_name[0][0],
+
+            'admin': 'adminjessie',
+            'asin': product_description,
+            'bullet_point': product_description,
+            'id': product_description,
+            'tips': 'tips',
+
+        }
+        return render(request, 'edit-index.html', htmlApi)
+    if request.method == 'POST':
+        # return HttpResponse('JAL')
+        htmlApi = {
+            'page_id': 'editIndexDone',
+            'admin_index': True,
+            'nav_index': data_source.nav()['_index_'],
+            'nav_nav': data_source.nav()['_nav_'],
+            'nav_account': data_source.nav()['_account_'],
+
+            'tag': 'edit index is   ',
+            # 'status': data_source.DataForm.getIndexData(request),
+            'status': saveIndexData(request),
+            'view': data_source.nav()['_index_']['index'],
+            'again': data_source.nav()['_admin_']['EditIndex'],
+            'img': '/static/image/yeah/yeah.jpg'
+            }
+
+        return render(request, 'done.html', htmlApi)
+
+# @csrf_protect
+# @csrf_exempt
+# @requires_csrf_token
+# def editIndexDone(request):
+#     # print(saveIndexData())
+#     htmlApi = {
+#         'page_id': 'editIndexDone',
+#         'admin_index': True,
+#         'nav_index': data_source.nav()['_index_'],
+#         'nav_nav': data_source.nav()['_nav_'],
+#         'nav_account': data_source.nav()['_account_'],
+
+#         'tag': 'edit index is   ',
+#         # 'status': data_source.DataForm.getIndexData(request),
+#         'status': saveIndexData(request),
+#         'view': data_source.nav()['_index_']['index'],
+#         'again': data_source.nav()['_admin_']['EditIndex'],
+#         'img': '/static/image/yeah/yeah.jpg'
+#         }
+
+#     return render(request, 'done.html', htmlApi)
+
+
 def managerProductList(request):
     '''
     get session
@@ -687,7 +806,7 @@ def managerProductList(request):
     # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
 
     htmlApi = {
-
+        'page_id': 'manager',
         'nav_index': data_source.nav()['_index_'],
         'nav_nav': data_source.nav()['_nav_'],
         'nav_account': data_source.nav()['_account_'],
@@ -700,112 +819,109 @@ def managerProductList(request):
         'admin': 'adminjessie',
 
     }
-
     return render(request, 'manager-product-list.html', htmlApi)
 
-
-def editIndex(request):
-    '''
-    get session
-    '''
-    user_status = request.session.get('user_status')
-    user_email = request.session.get('user_email')
-    # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
-
-    product_description = models.ProductDescription.objects.all().values()
-    
-    htmlApi = {
-
-        'nav_index': data_source.nav()['_index_'],
-        'nav_nav': data_source.nav()['_nav_'],
-        'nav_account': data_source.nav()['_account_'],
-        'nav_admin': data_source.nav()['_admin_'],
-        # 'user_status': user_status,
-        'user_account': user_email,
-        # 'user_name': user_name[0][0],
-
-        'admin': 'adminjessie',
-        'asin': product_description,
-        'bullet_point': product_description,
-        'id': product_description,
-        'tips': 'tips',
-
-    }
-
-    return render(request, 'edit-index.html', htmlApi)
 
 @csrf_protect
 @csrf_exempt
 @requires_csrf_token
-def editIndexDone(request):
-    # print(saveIndexData())
-    htmlApi = {
-            'admin_index': True,
+def editListing(request, asin):
+    if request.method == 'GET':
+        '''
+        get session
+        '''
+        user_status = request.session.get('user_status')
+        user_email = request.session.get('user_email')
+        # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
+        
+        htmlApi = {
+            'page_id': 'editListing',
+            'nav_index': data_source.nav()['_index_'],
+            'nav_nav': data_source.nav()['_nav_'],
+            'nav_account': data_source.nav()['_account_'],
+            'nav_admin': data_source.nav()['_admin_'],
+            # 'user_status': user_status,
+            'user_account': user_email,
+            # 'user_name': user_name[0][0],
+
+            'asin': asin,
+            'listing': models.Listing.objects.filter(asin=asin).values()[0],
+            'bullet_point': eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']),
+            'len_bullet_point': len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point'])),
+            'edit_listing': data_source.nav()['_admin_']['EditListing'],
+        }
+        return render(request, 'edit-listing.html', htmlApi)
+    if request.method == 'POST':
+        # return HttpResponse('JAL')
+        htmlApi = {
+            'page_id': 'editListingDone',
+            'admin_listing': True,
             'nav_index': data_source.nav()['_index_'],
             'nav_nav': data_source.nav()['_nav_'],
             'nav_account': data_source.nav()['_account_'],
 
-            'tag': 'edit index is   ',
-            # 'status': data_source.DataForm.getIndexData(request),
-            'status': saveIndexData(request),
-            'view': data_source.nav()['_index_']['index'],
-            'again': data_source.nav()['_admin_']['EditIndex'],
-            'img': '/static/image/yeah/yeah.jpg'
+            'tag': 'edit listing done,  ',
+            # 'status': data_source.DataForm.editListing(request, asin),
+            'status': saveListing(request, asin),
+            'view': 'products&asin=' + asin,
+            'again': data_source.nav()['_admin_']['EditListing'] + '=' + asin,
+            'edit_listing': data_source.nav()['_admin_']['EditListing'],
+            'img': '/static/image/yeah/ok.jpg',
         }
 
-    return render(request, 'done.html', htmlApi)
+        return render(request, 'done.html', htmlApi)
 
-def editListing(request, asin):
-    '''
-    get session
-    '''
-    user_status = request.session.get('user_status')
-    user_email = request.session.get('user_email')
-    # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
-    
+
+# @csrf_protect
+# @csrf_exempt
+# @requires_csrf_token
+# def editListingDone(request, asin):
+#     htmlApi = {
+#         'page_id': 'editListingDone',
+#         'admin_listing': True,
+#         'nav_index': data_source.nav()['_index_'],
+#         'nav_nav': data_source.nav()['_nav_'],
+#         'nav_account': data_source.nav()['_account_'],
+
+#         'tag': 'edit listing done,  ',
+#         # 'status': data_source.DataForm.editListing(request, asin),
+#         'status': saveListing(request, asin),
+#         'view': 'products&asin=' + asin,
+#         'again': data_source.nav()['_admin_']['EditListing'] + '=' + asin,
+#         'edit_listing': data_source.nav()['_admin_']['EditListing'],
+#         'img': '/static/image/yeah/ok.jpg',
+#     }
+
+#     return render(request, 'done.html', htmlApi)
+
+
+
+def _coupon_(request):
     htmlApi = {
-
+        'page_id': 'coupon',
         'nav_index': data_source.nav()['_index_'],
         'nav_nav': data_source.nav()['_nav_'],
-        'nav_account': data_source.nav()['_account_'],
         'nav_admin': data_source.nav()['_admin_'],
-        # 'user_status': user_status,
-        'user_account': user_email,
-        # 'user_name': user_name[0][0],
 
-        'asin': asin,
-        'listing': models.Listing.objects.filter(asin=asin).values()[0],
-        'bullet_point': eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']),
-        'len_bullet_point': len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point'])),
-        'edit_listing': data_source.nav()['_admin_']['EditListing'],
+        'Hello_world': 'Hello World',
     }
-
-    return render(request, 'edit-listing.html', htmlApi)
-
-
+    return render(request, 'edit-coupon.html', htmlApi)
 @csrf_protect
 @csrf_exempt
 @requires_csrf_token
-def editListingDone(request, asin):
-    htmlApi = {
-        'admin_listing': True,
-        'nav_index': data_source.nav()['_index_'],
-        'nav_nav': data_source.nav()['_nav_'],
-        'nav_account': data_source.nav()['_account_'],
+def createCoupon(request):
+    if request.method == 'GET':
+        htmlApi = {
+            'page_id': 'coupon',
+            'nav_index': data_source.nav()['_index_'],
+            'nav_nav': data_source.nav()['_nav_'],
+            'nav_admin': data_source.nav()['_admin_'],
 
-        'tag': 'edit listing done,  ',
-        # 'status': data_source.DataForm.editListing(request, asin),
-        'status': saveListing(request, asin),
-        'view': 'products&asin=' + asin,
-        'again': data_source.nav()['_admin_']['EditListing'] + '=' + asin,
-        'edit_listing': data_source.nav()['_admin_']['EditListing'],
-        'img': '/static/image/yeah/ok.jpg',
-    }
-
-    return render(request, 'done.html', htmlApi)
-
-
-
+            'Hello_world': 'Hello World',
+        }
+        return render(request, 'create-coupon.html', htmlApi)
+    if request.method == 'POST':
+        return HttpResponse('done')
 
 
 '''
