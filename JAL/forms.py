@@ -13,14 +13,13 @@ Sava user account data into DB
 '''
 class AccountDataForm(forms.Form):
     email= forms.EmailField(label='email', required=True, error_messages={'required':'Email can not null'})
-    password= forms.CharField(label='password', required=True, min_length=3, error_messages={'min_length':'Least 3 characters','required':'Password can not null'})
+    password= forms.CharField(label='password', required=True, min_length=6, error_messages={'min_length':'Least 3 characters','required':'Password can not null'})
 
 
 '''
 createAccount | login | edit userAccount
 '''
 def getAccountInfo(request):
-    # 获取前端数据内容
     get_account_dict = {
         # 'userid': request.POST.get('email'),
         'user_name': request.POST.get('user_name'),
@@ -34,27 +33,8 @@ def getAccountInfo(request):
         'country': request.POST.get('country'),
         'code': request.POST.get('code'),
     }
-    # 保存至UserAccount
-    
-
     return get_account_dict
 
-def accountVerify():
-    pass
-'''
-edit userAccount
-'''
-# def getUserAccountData(request):
-#     # pass
-#     user_name = request.POST.get('user_name')
-#     password = request.POST.get('password')
-#     first_name = request.POST.get('first_name')
-#     last_name = request.POST.get('last_name')
-#     address = request.POST.get('address')
-#     street = request.POST.get('street')
-#     ctiy = request.POST.get('ctiy')
-#     country = request.POST.get('country')
-#     code = request.POST.get('code')
 
 
 '''
