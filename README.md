@@ -1,5 +1,9 @@
 # E_trade V1.05
 ## 功能更新：
+- 
+
+# E_trade V1.05
+## 功能更新：
 - 启用forms.py，设置forms.Form
 - 账户有效性前端JS验证、后端forms.Form.is_valid()验证
 - 用户注册、登录成功后，显示用户名，不再显示邮箱
