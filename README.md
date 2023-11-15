@@ -1,6 +1,7 @@
-# E_trade V1.05
+# E_trade V1.06
 ## 功能更新：
-- 
+- 增加coupon功能
+- 升级myAccount模块
 
 # E_trade V1.05
 ## 功能更新：
