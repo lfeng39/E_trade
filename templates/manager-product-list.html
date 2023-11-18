@@ -21,8 +21,12 @@
         </div>
         {% endfor %} -->
         {% for listing in listing %}
-        <br>
-        <div class="container"><a href="adminjessie&edit-listing={{ listing.asin }}"><b>{{ listing.status }} > {{listing.asin}}</b> -- {{listing.title}}</a></div>
+        <!-- <br> -->
+        <!-- <div class="container"><a href="adminjessie&edit-listing={{ listing.asin }}"><b>{{ listing.status }} > {{listing.asin}}</b> -- {{listing.title}}</a></div> -->
+        <fieldset class="container">
+            <legend><b>{{ listing.status }} | {{listing.asin}}</b></legend>
+            <div><a href="adminjessie&edit-listing={{ listing.asin }}">{{listing.title}}</a></div>
+        </fieldset>
         {% endfor %}
         <!-- <ul class="container">
         {% for listing in listing %}

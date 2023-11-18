@@ -11,21 +11,27 @@
     
 
     <div class="wrap">
-
+        <br>
         <div class="container">
-            <a href="{{ nav_admin.Coupon }}=create"><h3>Create Coupon</h3></a><a style="font-size: 20px;" href="{{ nav_admin.Dashboard }}"><h3>< Back to Manager</h3></a>
-            <ul>
-                <li>Title: Apply 20% coupon</li>
-                <li>Code: B0BTXB89PGFM318UI</li>
-                <li>asin: B0BTXB89PG | ALL | ['B0BTXB89PG','B0BTXB89PG']</li>
-                <li>Cash: $ 5.00</li>
-                <li>Percentage: 20%</li>
-                <li>Created at: 20231102</li>
-                <li>Start at: 20231102</li>
-                <li>End at: 20231202</li>
-                <li>Status: Run | Invalid</li>
-            </ul>
-
+            <h3>
+                <a href="{{ nav_admin.Dashboard }}">< Back to Manager</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <a href="{{ nav_admin.Coupon }}=create">Create Coupon</a>
+            </h3>
+        </div>
+        <div class="container">
+            {% for coupon in coupon %}
+            <br>
+            <fieldset>
+                <legend>Coupon {{ coupon.created_at.date }}</legend>
+                <div class="asin">Title: {{ coupon.title }}</div>
+                <div class="asin">Code: {{ coupon.coupon_code }}</div>
+                <!-- <div class="asin">Cash: $ 5.00</div>
+                <div class="asin">Created at: {{ created_at }}</div>
+                <div class="asin">Start at: 20231102</div>
+                <div class="asin">End at: 20231202</div>
+                <div class="asin">Run</div> -->
+            </fieldset>
+            {% endfor %}
         </div>
 
 

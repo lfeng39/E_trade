@@ -102,8 +102,8 @@ class Coupon(models.Model):
     type_cash = models.DecimalField(max_digits=10, decimal_places=2)
     type_percentage = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
-    start_at = models.DateTimeField(auto_now_add=True)
-    end_at = models.DateTimeField(auto_now_add=True)
+    start_at = models.DateTimeField()
+    end_at = models.DateTimeField()
     type_status = models.CharField(max_length=2, blank=True)
 
 

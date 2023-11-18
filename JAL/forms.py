@@ -46,7 +46,6 @@ def getIndexData(request):
         'bullet_point_03' : '',
         'url' : [],
     }
-
     return get_content_dict
 
 
@@ -90,9 +89,24 @@ def getListingData(request, asin):
         'description': description,
         'status': status
     }
-
     return get_listing_data
 
 
+'''
+create coupon
+'''
+def getCouponData(request):
+    print('create coupon:::',request.POST.get('asin'))
+    get_coupon_dict = {
+        'title' : request.POST.get('title'),
+        'asin' : request.POST.get('asin'),
+        'code' : request.POST.get('code'),
+        'cash' : request.POST.get('cash'),
+        # 'percentage' : request.POST.get('percentage'),
+        # 'start_at' : request.POST.get('start_at'),
+        # 'end_at' : request.POST.get('end_at'),
+        # 'status' : request.POST.get('status'),
+    }
+    return get_coupon_dict
 
 

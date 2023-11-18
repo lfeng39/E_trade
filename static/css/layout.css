@@ -182,5 +182,10 @@ wrap > container > grid
 }
 
 
+fieldset > div.asin{
+  float: left;
+  margin-left: 3%;
+}
+
 
 

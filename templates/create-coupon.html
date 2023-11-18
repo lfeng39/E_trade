@@ -4,6 +4,7 @@
 <head>
 {% include "head.html" %}
 <title>{{ app_title.0 }}</title>
+
 </head>
 <body page_id="{{ page_id }}">
     
@@ -17,29 +18,99 @@
             <!-- <form class="login" action="/JAL/coupon&=public-done" method="post"> -->
             <form class="login" action="{{ nav_admin.Coupon }}=create-done" method="post">
                 {%csrf_token%}
-                <div style="align-content: center;">
-                    <h1>{{ page_id }}</h1>
+                <div class="container">
+                    <h3>
+                        <br>
+                        <a href="{{ nav_admin.Coupon }}"><h3>< back coupon</h3></a>
+                        <br>
+                        <button id="" type="submit">Commit</button>
+                    </h3>
                 </div>
+                <br>
+                <fieldset>
+                    <legend>Create Coupon</legend>
+                    <div class="asin">
+                        Title: <input id="" type="text" name="title" value="">
+                    </div>
+                    <div class="asin">
+                        Code: <input id="" type="text" name="code" value="">
+                    </div>
+                    <div class="asin">
+                        <input type="radio" id="2" name="cash" value="2" checked />
+                        <label for="2">$ 2.00</label>
+                    </div>
+                    <div class="asin">
+                        <input type="radio" id="5" name="cash" value="5" />
+                        <label for="5">$ 5.00</label>
+                    </div>
+                </fieldset>
                 <ul>
-                    <li><a href="{{ nav_admin.Coupon }}"><h3>< back coupon</h3></a><button id="" type="submit"><h3>Commit</h3></button></li>
-                    <li>Title: <input id="" type="text" name="code" value="{{ Hello_world }}"></li>
-                    <li>Code: <input id="" type="text" name="code" value="{{ Hello_world }}"></li>
-                    <li>asin: </li>
-                    <li>Cash: <input id="" type="text" name="code" value="{{ Hello_world }}"></li>
-                    <li>Percentage: <input id="" type="text" name="code" value="{{ Hello_world }}">%</li>
-                    <li>Start at: <input id="" type="text" name="code" value="{{ Hello_world }}"></li>
-                    <li>End at: <input id="" type="text" name="code" value="{{ Hello_world }}"></li>
-                    <li>Status: <input id="" type="text" name="code" value="{{ Hello_world }}"></li>
+                    <!-- <li>Title: <input id="" type="text" name="title" value="{{ Hello_world }}"></li>
+                    <li>Code: <input id="" type="text" name="code" value="{{ Hello_world }}"></li> -->
+                    <!-- <fieldset>
+                        <legend>Choose Asin</legend>
+                      
+                        <div class="asin">
+                          <input type="checkbox" id="B0C2BXYS94" name="asin" value="B0C2BXYS94" checked />
+                          <label for="B0C2BXYS94">B0C2BXYS94</label>
+                        </div>
+                      
+                        <div class="asin">
+                          <input type="checkbox" id="B0BVYRJSZT" name="asin" value="B0BVYRJSZT" checked />
+                          <label for="B0BVYRJSZT">B0BVYRJSZT</label>
+                        </div>
+               
+                    </fieldset>
+                    <fieldset>
+                        <legend>Choose Coupon Amount</legend>
+                        
+                        <div>
+                            <input type="radio" id="2" name="cash" value="2" checked />
+                            <label for="2">$ 2.00</label>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" id="5" name="cash" value="5" />
+                            <label for="5">$ 5.00</label>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Choose Coupon Percentage</legend>
+                      
+                        <div>
+                          <input type="radio" id="10" name="percentage" value="10" checked />
+                          <label for="10">10%</label>
+                        </div>
+                      
+                        <div>
+                          <input type="radio" id="20" name="percentage" value="20" />
+                          <label for="20">20%</label>
+                        </div>
+                    </fieldset>
+                    <li>Start at: <input type="date" id="start" name="start_at" min="{{time_date}}" value="{{time_date}}" /></li>
+                    <li>End at: <input type="date" id="start" name="end_at" min="{{time_date}}" value="{{time_date}}" /></li>
+                    <fieldset>
+                        <legend>Coupon Status</legend>
+                      
+                        <div>
+                            <input type="radio" id="on" name="status" value="01" checked />
+                            <label for="on">On</label>
+                            </div>
+                        
+                            <div>
+                            <input type="radio" id="off" name="status" value="00" />
+                            <label for="off">Off</label>
+                        </div>
+                    </fieldset> -->
                 </ul>
             </form>
-
+            
         </div>
 
 
         
     </div>
     
-
 
     {% include "footer.html" %}
     

@@ -44,27 +44,33 @@ print('===========================')
 '''
 print('\n=== Eastern time zone ========================')
 all_timezones = pytz.all_timezones
+_format_ = '%Y-%m-%d %H:%M:%S %Z%z'
+# _format_ = '%Y%m%d %H:%M:%S'
+# _format_ = '%m/%d/%Y %H:%M:%S'
 # print(all_timezones)
 # current_time
-city_BJS = datetime.datetime.now()
+local_time = datetime.datetime.now()
+print('| BJS_time', local_time, ' |')
 # BJS_time
-shanghai_timezone = pytz.timezone('Asia/Shanghai')
-shanghai_time = city_BJS.astimezone(shanghai_timezone)
-print('| BJS_time', shanghai_time, ' |')
+_shanghai_ = pytz.timezone('Asia/Shanghai')
+shanghai_time = datetime.datetime.now(tz=_shanghai_).strftime(_format_)
+print('| SHA_time', shanghai_time, ' |')
 # LON_time
-city_LON = timezone.now()
-print('| LON_time', city_LON, ' |')
+Greenwich_Mean_Time = timezone.now()
+_lon_ = pytz.timezone('Europe/London')
+lon_time = datetime.datetime.now(tz=_lon_).strftime(_format_)
+print('| LON_time', lon_time, ' |')
 # NYC_time
-ny_timezone = pytz.timezone('America/New_York')
-ny_time = city_BJS.astimezone(ny_timezone)
-print('| NYC_time', ny_time, ' |')
+_nyc_ = pytz.timezone('America/New_York')
+nyc_time = datetime.datetime.now(tz=_nyc_).strftime(_format_)
+print('| NYC_time', nyc_time, ' |')
 # LAX_time
-lax_timezone = pytz.timezone('America/Los_Angeles')
-lax_time = city_BJS.astimezone(lax_timezone)
+_lax_ = pytz.timezone('America/Los_Angeles')
+lax_time = datetime.datetime.now(tz=_lax_)
+
+time_zone = lax_time
 print('| LAX_time', lax_time, ' |')
 print('=== Western time zone ========================\n')
-
-
 
 '''
 =======================
@@ -190,7 +196,7 @@ def _index_(request):
         'product_bullet_point': eval(models.Listing.objects.filter(asin='B0BRHWQ27R').values()[0]['bullet_point']),
         'product_description': product_description,
         # 'csrftoken': csrftoken,
-        'timezone': city_LON,
+        'timezone': time_zone,
     }
     return render(request, 'index.html', htmlApi)
 
@@ -216,7 +222,7 @@ def _about_(request):
         'user_status': user_status,
         'user_account': user_email,
         'user_name': user_name,
-        'timezone': city_LON,
+        'timezone': time_zone,
     }
     return render(request, 'about.html', htmlApi)
     
@@ -254,7 +260,7 @@ def _products_(request):
         'product_info': product_info,
         'product_image': '',
         'product_title': '',
-        'timezone': city_LON,
+        'timezone': time_zone,
     }
     return render(request, 'products.html', htmlApi)
 
@@ -289,7 +295,7 @@ def _listing_(request, asin):
         'sales_status': '',
         'cupon': '',
         'amazon': 'https://www.amazon.com/dp/' + asin,
-        'timezone': city_LON,
+        'timezone': time_zone,
     }
     return render(request, 'listing.html', htmlApi)
 
@@ -325,7 +331,7 @@ def _login_(request):
         'user_account': user_email,
         'user_name': user_name,
         'account_email': {'email':'Email'},
-        'timezone': city_LON,
+        'timezone': time_zone,
     }
     return render(request, 'login.html', htmlApi)
 
@@ -369,7 +375,7 @@ def createAccount(request):
             'nav_nav': nav()['_nav_'],
             'nav_account': nav()['_account_'],
             'account_email': {'email':'Email'},
-            'timezone': city_LON,
+            'timezone': time_zone,
         }
         return render(request, 'create-account.html', htmlApi)
     if request.method == 'POST':
@@ -401,7 +407,7 @@ def createAccount(request):
 
                     'tip': verify_user_account[1] + ' is exist',
                     'products': 'products',
-                    'timezone': city_LON,
+                    'timezone': time_zone,
                 }
                 return render(request, 'create-account.html', htmlApi)
             '''
@@ -429,7 +435,7 @@ def createAccount(request):
                     # 'account_email': account_form.cleaned_data,
                     'products': 'products',
                     'img': '/static/image/yeah/yeah.jpg',
-                    'timezone': city_LON,
+                    'timezone': time_zone,
                 }
                 return render(request, 'done.html', htmlApi)
         else:
@@ -444,7 +450,7 @@ def createAccount(request):
                 # 'account_emial': {'email':'Email'},
 
                 'msg': account_form.errors,
-                'timezone': city_LON,
+                'timezone': time_zone,
             }
             return render(request, 'create-account.html', htmlApi)
 
@@ -489,7 +495,7 @@ def verifyAccountDone(request):
 
             'msg': account_form.errors,
             'products': 'products',
-            'timezone': city_LON,
+            'timezone': time_zone,
         }
         return render(request, 'login.html', htmlApi)
     else:
@@ -595,7 +601,7 @@ def verifyAccountDone(request):
                 # 'account_email': account_form.cleaned_data,
 
                 'products': 'products',
-                'timezone': city_LON,
+                'timezone': time_zone,
             }
             return render(request, 'login.html', htmlApi)
         '''
@@ -616,7 +622,7 @@ def verifyAccountDone(request):
                 'account_email': account_form.cleaned_data,
 
                 'products': 'products',
-                'timezone': city_LON,
+                'timezone': time_zone,
             }
             return render(request, 'login.html', htmlApi)
 
@@ -659,7 +665,7 @@ def myAccount(request):
             'user_name': user_account['user_name'],
 
             'user_account': user_account,
-            'timezone': city_LON,
+            'timezone': time_zone,
         }
 
         return render(request, 'my-account.html', htmlApi)
@@ -689,7 +695,7 @@ def editAccount(request):
         'user_name': user_name,
 
         'user_account': models.UserAccount.objects.filter(email=user_email).values()[0],
-        'timezone': city_LON,
+        'timezone': time_zone,
     }
 
     return render(request, 'edit-account.html', htmlApi)
@@ -726,7 +732,7 @@ def editAccountDone(request):
             'view': nav()['_index_']['index'],
             'again': nav()['_admin_']['EditIndex'],
             'img': '/static/image/yeah/yeah.jpg',
-            'timezone': city_LON,
+            'timezone': time_zone,
         }
 
     return render(request, 'done.html', htmlApi)
@@ -761,7 +767,7 @@ def myCart(request):
             'product_info': models.Listing.objects.filter(asin='B0BTXB89PG').values()[0],
             'asin': detailImg('B0BTXB89PG'),
             'url_page_id_order': page_id[6],
-            'timezone': city_LON,
+            'timezone': time_zone,
         }
 
         return render(request, 'my-cart.html', htmlApi)
@@ -806,7 +812,7 @@ def _order_(request):
 
             'product_info': models.Listing.objects.filter(asin='B0BTXB89PG').values()[0],
             'asin': detailImg('B0BTXB89PG'),
-            'timezone': city_LON,
+            'timezone': time_zone,
         }
 
         return render(request, 'order.html', htmlApi)
@@ -842,7 +848,7 @@ def _admin_(request):
         'listing': models.Listing.objects.all().values(),
         'edit_index': 'adminjessie&edit-index',
         'edit_listing': 'adminjessie&edit-listing',
-        'timezone': city_LON,
+        'timezone': time_zone,
     }
     return render(request, 'admin.html', htmlApi)
 
@@ -876,7 +882,7 @@ def editIndex(request):
             'bullet_point': product_description,
             'id': product_description,
             'tips': 'tips',
-            'timezone': city_LON,
+            'timezone': time_zone,
         }
         return render(request, 'edit-index.html', htmlApi)
     if request.method == 'POST':
@@ -894,7 +900,7 @@ def editIndex(request):
             'view': nav()['_index_']['index'],
             'again': nav()['_admin_']['EditIndex'],
             'img': '/static/image/yeah/yeah.jpg',
-            'timezone': city_LON,
+            'timezone': time_zone,
         }
         return render(request, 'done.html', htmlApi)
 
@@ -940,7 +946,7 @@ def managerProductList(request):
         # 'user_name': user_name[0][0],
 
         'listing': models.Listing.objects.all().values(),
-        'timezone': city_LON,
+        'timezone': time_zone,
     }
     return render(request, 'manager-product-list.html', htmlApi)
 
@@ -972,7 +978,7 @@ def editListing(request, asin):
             'bullet_point': eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']),
             'len_bullet_point': len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point'])),
             'edit_listing': nav()['_admin_']['EditListing'],
-            'timezone': city_LON,
+            'timezone': time_zone,
         }
         return render(request, 'edit-listing.html', htmlApi)
     if request.method == 'POST':
@@ -991,7 +997,7 @@ def editListing(request, asin):
             'again': nav()['_admin_']['EditListing'] + '=' + asin,
             'edit_listing': nav()['_admin_']['EditListing'],
             'img': '/static/image/yeah/ok.jpg',
-            'timezone': city_LON,
+            'timezone': time_zone,
         }
         return render(request, 'done.html', htmlApi)
 
@@ -1018,17 +1024,31 @@ def editListing(request, asin):
 
 #     return render(request, 'done.html', htmlApi)
 
+def _calculate_(amount, coupon):
+    amount = float(amount)
+    coupon = float(coupon)
+    if coupon > 1:
+        off_price = '{:.2f}'.format(amount - coupon )
+        return off_price
+    if coupon < 1:
+        off_price = '{:.2f}'.format(amount * ( 1 - coupon ))
+        return off_price
 
 
 def _coupon_(request):
+    coupon_dataDB = models.Coupon.objects.all().values()
     htmlApi = {
         'page_id': 'coupon',
         'nav_index': nav()['_index_'],
         'nav_nav': nav()['_nav_'],
         'nav_admin': nav()['_admin_'],
 
-        'Hello_world': 'Hello World',
-        'timezone': city_LON,
+        # 'title': coupon_dataDB['title'],
+        # 'code': coupon_dataDB['coupon_code'],
+        # 'created_at': coupon_dataDB['created_at'].strftime('%Y-%m-%d %H:%M'),
+        'coupon': coupon_dataDB,
+        
+        'timezone': time_zone,
     }
     return render(request, 'edit-coupon.html', htmlApi)
 @csrf_protect
@@ -1042,15 +1062,15 @@ def createCoupon(request):
             'nav_nav': nav()['_nav_'],
             'nav_admin': nav()['_admin_'],
 
-            'Hello_world': 'Hello World',
-            'timezone': city_LON,
+            'time_date': time_zone.strftime('%Y-%m-%d'),
+            'timezone': time_zone,
         }
         return render(request, 'create-coupon.html', htmlApi)
     if request.method == 'POST':
+        CreateCoupon.createCoupon(request)
+        # get_coupon_info = forms.getCouponData(request)
+        # print('get_coupon_info',type(get_coupon_info['percentage']),get_coupon_info['percentage'])
         return HttpResponse('done')
-
-
-
 
 
 
@@ -1148,7 +1168,24 @@ class CreateUserAccount:
 
 
 class CreateCoupon:
-    pass
+    def createCoupon(request):
+        get_coupon_info = forms.getCouponData(request)
+
+        # if get_coupon_info['cash']:
+        #     pass
+
+        models.Coupon.objects.create(     
+            asin = 'ALL',
+            sku = 'ALL',
+            title = get_coupon_info['title'],
+            coupon_code = get_coupon_info['code'],
+            type_cash = get_coupon_info['cash'],
+            type_percentage = float(0),
+            # type_percentage = float(get_coupon_info['percentage'])/100,
+            start_at = lax_time,
+            end_at = lax_time,
+            type_status = '01',
+        )
 
 
 
