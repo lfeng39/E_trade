@@ -2,6 +2,14 @@ from JAL import forms
 from JAL import models
 
 
+class VerifyAsin:
+    def checkAsin():
+        pass
+
+    def addAsin():
+        pass
+
+
 class VerifyAccount:
     '''
     get account info from DB

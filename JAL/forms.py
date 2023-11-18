@@ -6,7 +6,6 @@ from django import forms
 from urllib import request
 from JAL import models
 from JAL import views
-from JAL import data_source
 
 '''
 Sava user account data into DB
@@ -14,7 +13,6 @@ Sava user account data into DB
 class AccountDataForm(forms.Form):
     email= forms.EmailField(label='email', required=True, error_messages={'required':'Email can not null'})
     password= forms.CharField(label='password', required=True, min_length=6, error_messages={'min_length':'Least 3 characters','required':'Password can not null'})
-
 
 '''
 createAccount | login | edit userAccount

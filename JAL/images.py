@@ -1,7 +1,6 @@
 from importlib.resources import path
 from operator import imod
 import os
-from JAL import data_source
 from JAL import models
 
 

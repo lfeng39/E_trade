@@ -27,7 +27,8 @@ h2
   /* color: #666; */
   font-size: 20px;
   line-height: 24px;
-  font-weight: normal;
+  /* font-weight: normal; */
+  font-weight: 600;
   /* width: 100%; */
   margin: 0;
   padding: 0;
@@ -36,7 +37,23 @@ h3
 {
   font-size: 18px;
   line-height: 20px;
-  font-weight: normal;
+  /* font-weight: normal; */
+  font-weight: 600;
+  margin: 0;
+  padding: 2px 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+h4
+{
+  font-size: 16px;
+  line-height: 18px;
+  /* font-weight: normal; */
+  font-weight: 600;
   margin: 0;
   padding: 2px 0;
   display: -webkit-box;
@@ -92,4 +109,18 @@ h3
 }
 
 
-
+.price_int{
+  /* color: rgb(110, 180, 125); */
+  /* color: rgb(80, 175, 219) */
+  color: #000000;
+}
+.price_float{
+  /* color: rgb(110, 180, 125); */
+  /* color: rgb(80, 175, 219) */
+  color: #000000;
+  font-size: 12px;
+}
+.coupon{
+  color: rgb(110, 180, 125);
+  /* color: rgb(80, 175, 219); */
+}

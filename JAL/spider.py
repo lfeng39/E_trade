@@ -25,7 +25,7 @@ class AsinDB:
     type data from DB is <class 'django.db.models.query.QuerySet'>
     return Dict
     '''
-    # asin_db = models.AsinInfo.objects.all()
+    asin_db = models.AsinInfo.objects.all().values('asin')
 
     '''
     from DB table AsinInfo
@@ -33,7 +33,7 @@ class AsinDB:
     '''
     def asinList():
         asin_db_list = []
-        for asin_dict in models.AsinInfo.objects.all().values('asin'):
+        for asin_dict in AsinDB.asin_db:
             # print('ooooooo',asin_dict['asin'])
             asin_db_list.append(asin_dict['asin'])
 
@@ -175,68 +175,6 @@ def getUserInfo(request):
 
 
 
-
-'''
-local test url
-'''
-http = 'http://'
-_ip_ = '127.0.0.1'
-# csrftoken: Eoa1iSdBOEbaTTdopOt49k05uczyAPvv
-# _ip_ = '0.0.0.0'
-# csrftoken: T83BR0wnzOOGoGNuSw3mw9kOyQWif8Ns
-_port_ = ':8000'
-_app_ = '/JAL/'
-base_url = http + _ip_ + _port_ + _app_
-
-'''
-server test url
-'''
-_ip_ = '140.82.22.68'
-_ip_ = '192.168.39.84'
-# huashengke
-# _ip_ = '822u770q09.zicp.fun:44088'
-# ngrok
-_ip_ = '3e94-212-87-193-201.ngrok-free.app'
-# base_url = 'https://' + _ip_ + '/JAL/'
-
-print('oooooo url_now:', base_url)
-def nav():
-    nav_dict = {
-        '_index_' : 
-        {
-            'index': base_url + '',
-            'includ_user_id_url': '',
-        },
-
-        '_nav_' : 
-        {
-            'Brand': base_url + 'brand',
-            'Products': base_url + 'products',
-            # 'admin': base_url + 'admin',
-        },
-
-        '_account_' : 
-        {
-            'cart': [base_url + 'cart', 'Cart'],
-            'login': [base_url + 'login', 'Login'],
-            'createAccount': [base_url + 'createAccount', 'Create Account'],
-            'order': [base_url + 'order', 'Order'],
-            'account': [base_url + 'account', 'Account'],
-            'myAccount': [base_url + 'myAccount', 'MyAccount'],
-        },
-        '_admin_':
-        {
-            'Dashboard': base_url + 'admin' + 'jessie',
-            'EditIndex': base_url + 'admin' + 'jessie' + '&edit-index',
-            'EditListing': base_url + 'admin' + 'jessie' + '&edit-listing',
-            'Coupon': base_url + 'admin' + 'jessie' + '&coupon',
-        },
-    }
-    return nav_dict
-
-'''
-End-Mould: Nav
-'''
 
 
 '''

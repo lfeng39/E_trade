@@ -107,3 +107,16 @@ function onClick()
 // {
 //     document.getElementById('side_bar').style = "display: none;"
 // }
+
+
+// if(page_id == 'products')
+// {
+//     // price
+//     var get_price = document.getElementById('price').textContent
+//     var get_price_int = document.getElementById('price_int')
+//     console.log('price $', get_price)
+//     get_price = get_price.split('.')
+//     console.log('price $ split:', get_price)
+//     document.getElementById('price').textContent = get_price[1]
+//     document.getElementById('price_int').textContent = get_price[0]
+// }

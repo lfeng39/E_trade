@@ -1,45 +1,145 @@
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
+from django.http import HttpResponse
 from django.contrib import auth
 from django.contrib.auth import authenticate,login, logout
 from urllib import request
+from django.utils import timezone
+import datetime, time, zoneinfo
+import pytz
 import os
 import re
-from JAL import models
-from JAL import urls
-from JAL import data_source
-from JAL import images
-from JAL import forms
-from JAL import verify
+from JAL import models, urls, spider, images, forms, verify
 
-from django.views.decorators.csrf import csrf_protect
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.csrf import requires_csrf_token
-from django.http import HttpResponse
+
+from django.views.decorators.csrf import csrf_protect, csrf_exempt, requires_csrf_token
+# from django.views.decorators.csrf import csrf_exempt
+# from django.views.decorators.csrf import requires_csrf_token
+
 
 print('\n>>> this is views.py <<< ')
+print('==============================================')
+print('|  Part: user interface                      |')
+print('|  index | brand | products                  |')
+print('|                                            |')
+print('|  Part: account module                      |')
+print('|  login | signUp | verify                   |')
+print('|                                            |')
+print('|  Part: order cart module                   |')
+print('|                                            |')
+print('|  Part: manager module                      |')
+print('|  edit index | edit listing | edit coupon   |')
+print('|                                            |')
+print('|  Part: check asin                          |')
+print('|  csv & db                                  |')
+print('|                                            |')
+print('|  Part: save data                           |')
+print('==============================================')
+
+
 
 '''
-    Part: user interface
-
-    Part: login module
-    login | signUp | verify
-
-    Part: user account module
-
-    Part: order cart module
-
-    Part: manager module
-    edit index | edit listing | edit coupon
-
-    Part: check asin
-    csv & db
-
-    Part: save data
-    
+print('===========================')
+print('|   Part: set timezone    |')
+print('===========================')
 '''
+print('\n=== Eastern time zone ========================')
+all_timezones = pytz.all_timezones
+# print(all_timezones)
+# current_time
+city_BJS = datetime.datetime.now()
+# BJS_time
+shanghai_timezone = pytz.timezone('Asia/Shanghai')
+shanghai_time = city_BJS.astimezone(shanghai_timezone)
+print('| BJS_time', shanghai_time, ' |')
+# LON_time
+city_LON = timezone.now()
+print('| LON_time', city_LON, ' |')
+# NYC_time
+ny_timezone = pytz.timezone('America/New_York')
+ny_time = city_BJS.astimezone(ny_timezone)
+print('| NYC_time', ny_time, ' |')
+# LAX_time
+lax_timezone = pytz.timezone('America/Los_Angeles')
+lax_time = city_BJS.astimezone(lax_timezone)
+print('| LAX_time', lax_time, ' |')
+print('=== Western time zone ========================\n')
+
+
 
 '''
-Part: user interface
+=======================
+|   Part: test url    |
+=======================
+'''
+'''
+local test url
+'''
+http = 'http://'
+_ip_ = '127.0.0.1'
+# csrftoken: Eoa1iSdBOEbaTTdopOt49k05uczyAPvv
+# _ip_ = '0.0.0.0'
+# csrftoken: T83BR0wnzOOGoGNuSw3mw9kOyQWif8Ns
+_port_ = ':8000'
+_app_ = '/JAL/'
+base_url = http + _ip_ + _port_ + _app_
+'''
+server test url
+'''
+# huashengke
+# _ip_ = '822u770q09.zicp.fun:44088'
+# ngrok
+_ip_ = '3e94-212-87-193-201.ngrok-free.app'
+# base_url = 'https://' + _ip_ + '/JAL/'
+'''
+Vultr server url
+'''
+# _ip_ = '140.82.22.68'
+# _ip_ = '192.168.39.84'
+_ip_ = ''
+# base_url = 'https://' + _ip_ + '/JAL/'
+print('oooooo Part: test url >>> url_now')
+print('oooooo', base_url, '\n')
+def nav():
+    nav_dict = {
+        '_index_' : 
+        {
+            'index': base_url + '',
+            'includ_user_id_url': '',
+        },
+
+        '_nav_' : 
+        {
+            'Brand': base_url + 'brand',
+            'Products': base_url + 'products',
+            # 'admin': base_url + 'admin',
+        },
+
+        '_account_' : 
+        {
+            'cart': [base_url + 'cart', 'Cart'],
+            'login': [base_url + 'login', 'Login'],
+            'createAccount': [base_url + 'createAccount', 'Create Account'],
+            'order': [base_url + 'order', 'Order'],
+            'account': [base_url + 'account', 'Account'],
+            'myAccount': [base_url + 'myAccount', 'MyAccount'],
+        },
+        '_admin_':
+        {
+            'Dashboard': base_url + 'admin' + 'jessie',
+            'EditIndex': base_url + 'admin' + 'jessie' + '&edit-index',
+            'EditListing': base_url + 'admin' + 'jessie' + '&edit-listing',
+            'Coupon': base_url + 'admin' + 'jessie' + '&coupon',
+        },
+    }
+    return nav_dict
+
+
+
+'''
+===============================
+|   Part: user interface      |
+|   index | brand | products  |
+===============================
 '''
 def _index_(request):
     # '''
@@ -73,16 +173,15 @@ def _index_(request):
     
     htmlApi = {
         'page_id': 'index',
-        'nav_index': data_source.nav()['_index_'],
-        'nav_nav': data_source.nav()['_nav_'],
-        'nav_account': data_source.nav()['_account_'],
+        'nav_index': nav()['_index_'],
+        'nav_nav': nav()['_nav_'],
+        'nav_account': nav()['_account_'],
         'user_status': user_status,
         'user_account': user_email,
         'user_name': user_name,
 
-
         'asin_code': asin_db_list,
-        'includ_user_id_url': data_source.nav()['_index_']['includ_user_id_url'],
+        'includ_user_id_url': nav()['_index_']['includ_user_id_url'],
         'product_info': models.Listing.objects.all().values(),
         'product_asin': asin_db_list,
         'img_name': img_show_dict,
@@ -91,7 +190,7 @@ def _index_(request):
         'product_bullet_point': eval(models.Listing.objects.filter(asin='B0BRHWQ27R').values()[0]['bullet_point']),
         'product_description': product_description,
         # 'csrftoken': csrftoken,
-
+        'timezone': city_LON,
     }
     return render(request, 'index.html', htmlApi)
 
@@ -111,12 +210,13 @@ def _about_(request):
 
     htmlApi = {
         'page_id': 'about',
-        'nav_index': data_source.nav()['_index_'],
-        'nav_nav': data_source.nav()['_nav_'],
-        'nav_account': data_source.nav()['_account_'],
+        'nav_index': nav()['_index_'],
+        'nav_nav': nav()['_nav_'],
+        'nav_account': nav()['_account_'],
         'user_status': user_status,
         'user_account': user_email,
         'user_name': user_name,
+        'timezone': city_LON,
     }
     return render(request, 'about.html', htmlApi)
     
@@ -134,26 +234,32 @@ def _products_(request):
     else:
         user_name = models.UserAccount.objects.filter(email=user_email).values()[0]['user_name']
 
+    '''
+    Instantiate
+    '''
+    product_info = models.Listing.objects.filter(status='01')
+
     htmlApi = {
         'page_id': 'products',
-        'nav_index': data_source.nav()['_index_'],
-        'nav_nav': data_source.nav()['_nav_'],
-        'nav_account': data_source.nav()['_account_'],
+        'nav_index': nav()['_index_'],
+        'nav_nav': nav()['_nav_'],
+        'nav_account': nav()['_account_'],
         'user_status': user_status,
         'user_account': user_email,
         'user_name': user_name,
 
-        # 'includ_user_id_url': data_source.nav()['_index_']['includ_user_id_url'],
+        # 'includ_user_id_url': nav()['_index_']['includ_user_id_url'],
         ### get all products info, but status is '00'
-        'lenth': len(models.Listing.objects.filter(status='01')),
-        'product_info': models.Listing.objects.filter(status='01'),
+        'lenth': len(product_info),
+        'product_info': product_info,
         'product_image': '',
         'product_title': '',
+        'timezone': city_LON,
     }
     return render(request, 'products.html', htmlApi)
 
 
-def _detail_(request, asin):
+def _listing_(request, asin):
     '''
     get session
     '''
@@ -165,19 +271,17 @@ def _detail_(request, asin):
     else:
         user_name = models.UserAccount.objects.filter(email=user_email).values()[0]['user_name']
 
-    print('oooooooooo',asin)
     htmlApi = {
         'page_id': asin,
-        'nav_index': data_source.nav()['_index_'],
-        'nav_nav': data_source.nav()['_nav_'],
-        'nav_account': data_source.nav()['_account_'],
+        'nav_index': nav()['_index_'],
+        'nav_nav': nav()['_nav_'],
+        'nav_account': nav()['_account_'],
         'user_status': user_status,
         'user_account': user_email,
         'user_name': user_name,
 
         'product_img': detailImg(asin),
         'product_info': models.Listing.objects.filter(asin=asin).values()[0],
-        'product_price': models.Listing.objects.filter(asin=asin).values()[0],
         ### the data tpye is 'str' that got from DB
         ### method eval() can changed 'str' to 'list' or 'dict'
         'product_bullet_point': eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']),
@@ -185,16 +289,16 @@ def _detail_(request, asin):
         'sales_status': '',
         'cupon': '',
         'amazon': 'https://www.amazon.com/dp/' + asin,
+        'timezone': city_LON,
     }
-    return render(request, 'detail.html', htmlApi)
-
-
-
+    return render(request, 'listing.html', htmlApi)
 
 
 '''
-Part: login module
-Login | SignUp | Verify
+===============================
+|   Part: account module      |
+|   Login | SignUp | Verify   |
+===============================
 '''
 def _login_(request):
     _logout_(request)
@@ -214,13 +318,14 @@ def _login_(request):
     print(user_status,user_email,user_name)
     htmlApi = {
         'page_id': 'login',
-        'nav_index': data_source.nav()['_index_'],
-        'nav_nav': data_source.nav()['_nav_'],
-        'nav_account': data_source.nav()['_account_'],
+        'nav_index': nav()['_index_'],
+        'nav_nav': nav()['_nav_'],
+        'nav_account': nav()['_account_'],
         'user_status': user_status,
         'user_account': user_email,
         'user_name': user_name,
         'account_email': {'email':'Email'},
+        'timezone': city_LON,
     }
     return render(request, 'login.html', htmlApi)
 
@@ -238,6 +343,8 @@ def _logout_(request):
     # del request.session["key"]
     request.session.flush()
     return redirect('/JAL/login')
+
+
 
 @csrf_protect
 @csrf_exempt
@@ -258,10 +365,11 @@ def createAccount(request):
     if request.method == 'GET':
         htmlApi = {
             'page_id': 'createAccount',
-            'nav_index': data_source.nav()['_index_'],
-            'nav_nav': data_source.nav()['_nav_'],
-            'nav_account': data_source.nav()['_account_'],
+            'nav_index': nav()['_index_'],
+            'nav_nav': nav()['_nav_'],
+            'nav_account': nav()['_account_'],
             'account_email': {'email':'Email'},
+            'timezone': city_LON,
         }
         return render(request, 'create-account.html', htmlApi)
     if request.method == 'POST':
@@ -284,15 +392,16 @@ def createAccount(request):
                 # CreateUserAccount.addUserAccount(request)
                 htmlApi = {
                     'page_id': 'createAccount',
-                    'nav_index': data_source.nav()['_index_'],
-                    'nav_nav': data_source.nav()['_nav_'],
-                    'nav_account': data_source.nav()['_account_'],
+                    'nav_index': nav()['_index_'],
+                    'nav_nav': nav()['_nav_'],
+                    'nav_account': nav()['_account_'],
                     # 'user_status': user_status,
                     # 'user_account': user_email,
                     # 'user_name': user_name,
 
                     'tip': verify_user_account[1] + ' is exist',
                     'products': 'products',
+                    'timezone': city_LON,
                 }
                 return render(request, 'create-account.html', htmlApi)
             '''
@@ -307,9 +416,9 @@ def createAccount(request):
                 request.session['user_email'] = verify_user_account[1]
 
                 htmlApi = {
-                    'nav_index': data_source.nav()['_index_'],
-                    'nav_nav': data_source.nav()['_nav_'],
-                    'nav_account': data_source.nav()['_account_'],
+                    'nav_index': nav()['_index_'],
+                    'nav_nav': nav()['_nav_'],
+                    'nav_account': nav()['_account_'],
                     'account_create': True,
                     'user_status': True,
                     'user_account': verify_user_account[1],
@@ -319,21 +428,23 @@ def createAccount(request):
                     'tip': verify_user_account[1] + ' is created',
                     # 'account_email': account_form.cleaned_data,
                     'products': 'products',
-                    'img': '/static/image/yeah/yeah.jpg'
+                    'img': '/static/image/yeah/yeah.jpg',
+                    'timezone': city_LON,
                 }
                 return render(request, 'done.html', htmlApi)
         else:
             htmlApi = {
                 'page_id': 'createAccount',
-                'nav_index': data_source.nav()['_index_'],
-                'nav_nav': data_source.nav()['_nav_'],
-                'nav_account': data_source.nav()['_account_'],
+                'nav_index': nav()['_index_'],
+                'nav_nav': nav()['_nav_'],
+                'nav_account': nav()['_account_'],
                 # 'user_status': user_status,
                 # 'user_account': user_email,
                 # 'user_name': user_name,
                 # 'account_emial': {'email':'Email'},
 
                 'msg': account_form.errors,
+                'timezone': city_LON,
             }
             return render(request, 'create-account.html', htmlApi)
 
@@ -342,7 +453,7 @@ def createAccount(request):
 @csrf_protect
 @csrf_exempt
 @requires_csrf_token
-def verifyAccountDone(request, action):
+def verifyAccountDone(request):
     '''
     verify account valid
     '''
@@ -350,12 +461,13 @@ def verifyAccountDone(request, action):
     '''
     account is not valid
     '''
+    
     # if action == 'createAccount' and not account_form.is_valid():        
     #     htmlApi = {
     #         'page_id': 'createAccount',
-    #         'nav_index': data_source.nav()['_index_'],
-    #         'nav_nav': data_source.nav()['_nav_'],
-    #         'nav_account': data_source.nav()['_account_'],
+    #         'nav_index': nav()['_index_'],
+    #         'nav_nav': nav()['_nav_'],
+    #         'nav_account': nav()['_account_'],
     #         # 'user_status': user_status,
     #         # 'user_account': user_email,
     #         # 'user_name': user_name,
@@ -364,12 +476,12 @@ def verifyAccountDone(request, action):
     #         'msg': account_form.errors,
     #     }
     #     return render(request, 'create-account.html', htmlApi)
-    if action == 'login' and not account_form.is_valid():       
+    if not account_form.is_valid():
         htmlApi = {
             'page_id': 'login',
-            'nav_index': data_source.nav()['_index_'],
-            'nav_nav': data_source.nav()['_nav_'],
-            'nav_account': data_source.nav()['_account_'],
+            'nav_index': nav()['_index_'],
+            'nav_nav': nav()['_nav_'],
+            'nav_account': nav()['_account_'],
             # 'user_status': user_status,
             # 'user_account': user_email,
             # 'user_name': user_name,
@@ -377,6 +489,7 @@ def verifyAccountDone(request, action):
 
             'msg': account_form.errors,
             'products': 'products',
+            'timezone': city_LON,
         }
         return render(request, 'login.html', htmlApi)
     else:
@@ -393,9 +506,9 @@ def verifyAccountDone(request, action):
         #     # CreateUserAccount.addUserAccount(request)
         #     htmlApi = {
         #         'page_id': 'createAccount',
-        #         'nav_index': data_source.nav()['_index_'],
-        #         'nav_nav': data_source.nav()['_nav_'],
-        #         'nav_account': data_source.nav()['_account_'],
+        #         'nav_index': nav()['_index_'],
+        #         'nav_nav': nav()['_nav_'],
+        #         'nav_account': nav()['_account_'],
         #         # 'user_status': user_status,
         #         # 'user_account': user_email,
         #         # 'user_name': user_name,
@@ -416,9 +529,9 @@ def verifyAccountDone(request, action):
         #     request.session['user_email'] = verify_user_account[1]
 
         #     htmlApi = {
-        #         'nav_index': data_source.nav()['_index_'],
-        #         'nav_nav': data_source.nav()['_nav_'],
-        #         'nav_account': data_source.nav()['_account_'],
+        #         'nav_index': nav()['_index_'],
+        #         'nav_nav': nav()['_nav_'],
+        #         'nav_account': nav()['_account_'],
         #         'account_create': True,
         #         'user_status': True,
         #         'user_account': verify_user_account[1],
@@ -434,7 +547,7 @@ def verifyAccountDone(request, action):
         '''
         login success, set session, and redirect to index or other page
         '''
-        if action == 'login' and verify_user_password == True:
+        if verify_user_password == True:
             # '''
             # # set_cookie
             #     # key : cookie的名称
@@ -442,7 +555,7 @@ def verifyAccountDone(request, action):
             #     # max_age: 保存的时间，以秒为单位
             #     # expires: 过期时间，为datetime对象或时间字符串
             # '''
-            # _urls_ = data_source.nav(verify_user_account[1])['_account_']['myAccount'][0]
+            # _urls_ = nav(verify_user_account[1])['_account_']['myAccount'][0]
             # rep = redirect(_urls_)
             # key = 'is_login'
             # value = verify_user_account[1]
@@ -462,18 +575,18 @@ def verifyAccountDone(request, action):
             #     'user_name': user_name,
             # }
             request.session.set_expiry(180)
-            _urls_ = data_source.nav()['_account_']['myAccount'][0]
+            _urls_ = nav()['_account_']['myAccount'][0]
             return redirect(_urls_)
         '''
         account is noe exist, again
         '''
-        if action == 'login' and verify_user_account[0] == False:
+        if verify_user_account[0] == False:
             # CreateUserAccount.addUserAccount(request)
             htmlApi = {
                 'page_id': 'login',
-                'nav_index': data_source.nav()['_index_'],
-                'nav_nav': data_source.nav()['_nav_'],
-                'nav_account': data_source.nav()['_account_'],
+                'nav_index': nav()['_index_'],
+                'nav_nav': nav()['_nav_'],
+                'nav_account': nav()['_account_'],
                 # 'user_status': user_status,
                 # 'user_account': user_email,
                 # 'user_name': user_name,
@@ -482,18 +595,19 @@ def verifyAccountDone(request, action):
                 # 'account_email': account_form.cleaned_data,
 
                 'products': 'products',
+                'timezone': city_LON,
             }
             return render(request, 'login.html', htmlApi)
         '''
         password error, again
         '''
-        if action == 'login' and verify_user_password == False:
+        if verify_user_password == False:
             # CreateUserAccount.addUserAccount(request)
             htmlApi = {
                 'page_id': 'login',
-                'nav_index': data_source.nav()['_index_'],
-                'nav_nav': data_source.nav()['_nav_'],
-                'nav_account': data_source.nav()['_account_'],
+                'nav_index': nav()['_index_'],
+                'nav_nav': nav()['_nav_'],
+                'nav_account': nav()['_account_'],
                 # 'user_status': user_status,
                 # 'user_account': user_email,
                 # 'user_name': user_name,
@@ -502,6 +616,7 @@ def verifyAccountDone(request, action):
                 'account_email': account_form.cleaned_data,
 
                 'products': 'products',
+                'timezone': city_LON,
             }
             return render(request, 'login.html', htmlApi)
 
@@ -526,7 +641,7 @@ def myAccount(request):
 
     if not user_status:
         user_name = 'Login'
-        urls_index = data_source.nav()['_account_']['login'][0]
+        urls_index = nav()['_account_']['login'][0]
         rep = redirect(urls_index)
         # rep.set_cookie("is_login", True)
         return rep
@@ -536,15 +651,15 @@ def myAccount(request):
         htmlApi = {
             'page_id': 'myAccount',
 
-            'nav_index': data_source.nav()['_index_'],
-            'nav_nav': data_source.nav()['_nav_'],
-            'nav_account': data_source.nav()['_account_'],
+            'nav_index': nav()['_index_'],
+            'nav_nav': nav()['_nav_'],
+            'nav_account': nav()['_account_'],
             'user_status': user_status,
             'user_account': user_email,
             'user_name': user_account['user_name'],
 
             'user_account': user_account,
-            
+            'timezone': city_LON,
         }
 
         return render(request, 'my-account.html', htmlApi)
@@ -566,15 +681,15 @@ def editAccount(request):
         'page_id': 'editAccount',
         'asin_code': asin_db_list,
 
-        'nav_index': data_source.nav()['_index_'],
-        'nav_nav': data_source.nav()['_nav_'],
-        'nav_account': data_source.nav()['_account_'],
+        'nav_index': nav()['_index_'],
+        'nav_nav': nav()['_nav_'],
+        'nav_account': nav()['_account_'],
         'user_status': user_status,
         'user_account': user_email,
         'user_name': user_name,
 
         'user_account': models.UserAccount.objects.filter(email=user_email).values()[0],
-
+        'timezone': city_LON,
     }
 
     return render(request, 'edit-account.html', htmlApi)
@@ -598,19 +713,20 @@ def editAccountDone(request):
     htmlApi = {
             'page_id': 'createAccountDone',
             'account_edit': True,
-            'nav_index': data_source.nav()['_index_'],
-            'nav_nav': data_source.nav()['_nav_'],
-            'nav_account': data_source.nav()['_account_'],
+            'nav_index': nav()['_index_'],
+            'nav_nav': nav()['_nav_'],
+            'nav_account': nav()['_account_'],
             'user_status': user_status,
             'user_account': user_email,
             'user_name': user_name,
 
             # 'tag': 'Your acount update  ',
-            # 'status': data_source.DataForm.getIndexData(request),
+            # 'status': DataForm.getIndexData(request),
             'status': CreateUserAccount.saveUserAccount(request, user_email),
-            'view': data_source.nav()['_index_']['index'],
-            'again': data_source.nav()['_admin_']['EditIndex'],
-            'img': '/static/image/yeah/yeah.jpg'
+            'view': nav()['_index_']['index'],
+            'again': nav()['_admin_']['EditIndex'],
+            'img': '/static/image/yeah/yeah.jpg',
+            'timezone': city_LON,
         }
 
     return render(request, 'done.html', htmlApi)
@@ -625,7 +741,7 @@ def myCart(request):
     user_name = request.session.get('user_name')
 
     if not user_status:
-        _url_ = data_source.nav()['_account_']['login'][0]
+        _url_ = nav()['_account_']['login'][0]
         rep = redirect(_url_)
         # rep.set_cookie("is_login", True)
         return rep
@@ -635,9 +751,9 @@ def myCart(request):
             'page_id': 'myCart',
             'asin_code': asin_db_list,
 
-            'nav_index': data_source.nav()['_index_'],
-            'nav_nav': data_source.nav()['_nav_'],
-            'nav_account': data_source.nav()['_account_'],
+            'nav_index': nav()['_index_'],
+            'nav_nav': nav()['_nav_'],
+            'nav_account': nav()['_account_'],
             'user_status': user_status,
             'user_account': user_email,
             'user_name': user_name,
@@ -645,7 +761,7 @@ def myCart(request):
             'product_info': models.Listing.objects.filter(asin='B0BTXB89PG').values()[0],
             'asin': detailImg('B0BTXB89PG'),
             'url_page_id_order': page_id[6],
-
+            'timezone': city_LON,
         }
 
         return render(request, 'my-cart.html', htmlApi)
@@ -655,7 +771,10 @@ def myCart(request):
 
 
 '''
-Part: order module
+===============================
+|   Part: order cart module   |
+|   order | cart              |
+===============================
 '''
 @csrf_protect
 @csrf_exempt
@@ -669,7 +788,7 @@ def _order_(request):
     user_name = request.session.get('user_name')
 
     if not user_status:
-        urls_index = data_source.nav()['_account_']['login'][0]
+        urls_index = nav()['_account_']['login'][0]
         rep = redirect(urls_index)
         # rep.set_cookie("is_login", True)
         return rep
@@ -678,25 +797,30 @@ def _order_(request):
             'page_id': 'order',
             'asin_code': asin_db_list,
 
-            'nav_index': data_source.nav()['_index_'],
-            'nav_nav': data_source.nav()['_nav_'],
-            'nav_account': data_source.nav()['_account_'],
+            'nav_index': nav()['_index_'],
+            'nav_nav': nav()['_nav_'],
+            'nav_account': nav()['_account_'],
             'user_status': user_status,
             'user_account': user_email,
             'user_name': user_name,
 
             'product_info': models.Listing.objects.filter(asin='B0BTXB89PG').values()[0],
             'asin': detailImg('B0BTXB89PG'),
-            
+            'timezone': city_LON,
         }
 
         return render(request, 'order.html', htmlApi)
 
 
 
+
+
+
 '''
-Part: manager module
-edit index | edit listing | edit coupon
+===============================================
+|   Part: manager module                      |
+|   edit index | edit listing | edit coupon   |
+===============================================
 '''
 def _admin_(request):
     '''
@@ -708,18 +832,18 @@ def _admin_(request):
     
     htmlApi = {
         'page_id': 'adminjessie',
-        'nav_index': data_source.nav()['_index_'],
-        'nav_nav': data_source.nav()['_nav_'],
-        'nav_account': data_source.nav()['_account_'],
-        'nav_admin': data_source.nav()['_admin_'],
+        'nav_index': nav()['_index_'],
+        'nav_nav': nav()['_nav_'],
+        'nav_account': nav()['_account_'],
+        'nav_admin': nav()['_admin_'],
         'user_status': user_status,
         'user_account': True,
 
         'listing': models.Listing.objects.all().values(),
         'edit_index': 'adminjessie&edit-index',
         'edit_listing': 'adminjessie&edit-listing',
+        'timezone': city_LON,
     }
-
     return render(request, 'admin.html', htmlApi)
 
 
@@ -739,10 +863,10 @@ def editIndex(request):
         
         htmlApi = {
             'page_id': 'editIndex',
-            'nav_index': data_source.nav()['_index_'],
-            'nav_nav': data_source.nav()['_nav_'],
-            'nav_account': data_source.nav()['_account_'],
-            'nav_admin': data_source.nav()['_admin_'],
+            'nav_index': nav()['_index_'],
+            'nav_nav': nav()['_nav_'],
+            'nav_account': nav()['_account_'],
+            'nav_admin': nav()['_admin_'],
             # 'user_status': user_status,
             'user_account': user_email,
             # 'user_name': user_name[0][0],
@@ -752,7 +876,7 @@ def editIndex(request):
             'bullet_point': product_description,
             'id': product_description,
             'tips': 'tips',
-
+            'timezone': city_LON,
         }
         return render(request, 'edit-index.html', htmlApi)
     if request.method == 'POST':
@@ -760,18 +884,18 @@ def editIndex(request):
         htmlApi = {
             'page_id': 'editIndexDone',
             'admin_index': True,
-            'nav_index': data_source.nav()['_index_'],
-            'nav_nav': data_source.nav()['_nav_'],
-            'nav_account': data_source.nav()['_account_'],
+            'nav_index': nav()['_index_'],
+            'nav_nav': nav()['_nav_'],
+            'nav_account': nav()['_account_'],
 
             'tag': 'edit index is   ',
-            # 'status': data_source.DataForm.getIndexData(request),
+            # 'status': spider.DataForm.getIndexData(request),
             'status': saveIndexData(request),
-            'view': data_source.nav()['_index_']['index'],
-            'again': data_source.nav()['_admin_']['EditIndex'],
-            'img': '/static/image/yeah/yeah.jpg'
-            }
-
+            'view': nav()['_index_']['index'],
+            'again': nav()['_admin_']['EditIndex'],
+            'img': '/static/image/yeah/yeah.jpg',
+            'timezone': city_LON,
+        }
         return render(request, 'done.html', htmlApi)
 
 # @csrf_protect
@@ -782,15 +906,15 @@ def editIndex(request):
 #     htmlApi = {
 #         'page_id': 'editIndexDone',
 #         'admin_index': True,
-#         'nav_index': data_source.nav()['_index_'],
-#         'nav_nav': data_source.nav()['_nav_'],
-#         'nav_account': data_source.nav()['_account_'],
+#         'nav_index': nav()['_index_'],
+#         'nav_nav': nav()['_nav_'],
+#         'nav_account': nav()['_account_'],
 
 #         'tag': 'edit index is   ',
-#         # 'status': data_source.DataForm.getIndexData(request),
+#         # 'status': spider.DataForm.getIndexData(request),
 #         'status': saveIndexData(request),
-#         'view': data_source.nav()['_index_']['index'],
-#         'again': data_source.nav()['_admin_']['EditIndex'],
+#         'view': nav()['_index_']['index'],
+#         'again': nav()['_admin_']['EditIndex'],
 #         'img': '/static/image/yeah/yeah.jpg'
 #         }
 
@@ -807,17 +931,16 @@ def managerProductList(request):
 
     htmlApi = {
         'page_id': 'manager',
-        'nav_index': data_source.nav()['_index_'],
-        'nav_nav': data_source.nav()['_nav_'],
-        'nav_account': data_source.nav()['_account_'],
-        'nav_admin': data_source.nav()['_admin_'],
+        'nav_index': nav()['_index_'],
+        'nav_nav': nav()['_nav_'],
+        'nav_account': nav()['_account_'],
+        'nav_admin': nav()['_admin_'],
         # 'user_status': user_status,
         'user_account': user_email,
         # 'user_name': user_name[0][0],
 
         'listing': models.Listing.objects.all().values(),
-        'admin': 'adminjessie',
-
+        'timezone': city_LON,
     }
     return render(request, 'manager-product-list.html', htmlApi)
 
@@ -836,10 +959,10 @@ def editListing(request, asin):
         
         htmlApi = {
             'page_id': 'editListing',
-            'nav_index': data_source.nav()['_index_'],
-            'nav_nav': data_source.nav()['_nav_'],
-            'nav_account': data_source.nav()['_account_'],
-            'nav_admin': data_source.nav()['_admin_'],
+            'nav_index': nav()['_index_'],
+            'nav_nav': nav()['_nav_'],
+            'nav_account': nav()['_account_'],
+            'nav_admin': nav()['_admin_'],
             # 'user_status': user_status,
             'user_account': user_email,
             # 'user_name': user_name[0][0],
@@ -848,7 +971,8 @@ def editListing(request, asin):
             'listing': models.Listing.objects.filter(asin=asin).values()[0],
             'bullet_point': eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']),
             'len_bullet_point': len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point'])),
-            'edit_listing': data_source.nav()['_admin_']['EditListing'],
+            'edit_listing': nav()['_admin_']['EditListing'],
+            'timezone': city_LON,
         }
         return render(request, 'edit-listing.html', htmlApi)
     if request.method == 'POST':
@@ -856,19 +980,19 @@ def editListing(request, asin):
         htmlApi = {
             'page_id': 'editListingDone',
             'admin_listing': True,
-            'nav_index': data_source.nav()['_index_'],
-            'nav_nav': data_source.nav()['_nav_'],
-            'nav_account': data_source.nav()['_account_'],
+            'nav_index': nav()['_index_'],
+            'nav_nav': nav()['_nav_'],
+            'nav_account': nav()['_account_'],
 
             'tag': 'edit listing done,  ',
-            # 'status': data_source.DataForm.editListing(request, asin),
+            # 'status': spider.DataForm.editListing(request, asin),
             'status': saveListing(request, asin),
             'view': 'products&asin=' + asin,
-            'again': data_source.nav()['_admin_']['EditListing'] + '=' + asin,
-            'edit_listing': data_source.nav()['_admin_']['EditListing'],
+            'again': nav()['_admin_']['EditListing'] + '=' + asin,
+            'edit_listing': nav()['_admin_']['EditListing'],
             'img': '/static/image/yeah/ok.jpg',
+            'timezone': city_LON,
         }
-
         return render(request, 'done.html', htmlApi)
 
 
@@ -879,16 +1003,16 @@ def editListing(request, asin):
 #     htmlApi = {
 #         'page_id': 'editListingDone',
 #         'admin_listing': True,
-#         'nav_index': data_source.nav()['_index_'],
-#         'nav_nav': data_source.nav()['_nav_'],
-#         'nav_account': data_source.nav()['_account_'],
+#         'nav_index': nav()['_index_'],
+#         'nav_nav': nav()['_nav_'],
+#         'nav_account': nav()['_account_'],
 
 #         'tag': 'edit listing done,  ',
-#         # 'status': data_source.DataForm.editListing(request, asin),
+#         # 'status': DataForm.editListing(request, asin),
 #         'status': saveListing(request, asin),
 #         'view': 'products&asin=' + asin,
-#         'again': data_source.nav()['_admin_']['EditListing'] + '=' + asin,
-#         'edit_listing': data_source.nav()['_admin_']['EditListing'],
+#         'again': nav()['_admin_']['EditListing'] + '=' + asin,
+#         'edit_listing': nav()['_admin_']['EditListing'],
 #         'img': '/static/image/yeah/ok.jpg',
 #     }
 
@@ -899,11 +1023,12 @@ def editListing(request, asin):
 def _coupon_(request):
     htmlApi = {
         'page_id': 'coupon',
-        'nav_index': data_source.nav()['_index_'],
-        'nav_nav': data_source.nav()['_nav_'],
-        'nav_admin': data_source.nav()['_admin_'],
+        'nav_index': nav()['_index_'],
+        'nav_nav': nav()['_nav_'],
+        'nav_admin': nav()['_admin_'],
 
         'Hello_world': 'Hello World',
+        'timezone': city_LON,
     }
     return render(request, 'edit-coupon.html', htmlApi)
 @csrf_protect
@@ -913,19 +1038,26 @@ def createCoupon(request):
     if request.method == 'GET':
         htmlApi = {
             'page_id': 'coupon',
-            'nav_index': data_source.nav()['_index_'],
-            'nav_nav': data_source.nav()['_nav_'],
-            'nav_admin': data_source.nav()['_admin_'],
+            'nav_index': nav()['_index_'],
+            'nav_nav': nav()['_nav_'],
+            'nav_admin': nav()['_admin_'],
 
             'Hello_world': 'Hello World',
+            'timezone': city_LON,
         }
         return render(request, 'create-coupon.html', htmlApi)
     if request.method == 'POST':
         return HttpResponse('done')
 
 
+
+
+
+
 '''
-CreateProduct addAsin addListing addFirstImg addSevenImg addAPlusImg
+==============================================================================
+|   CreateProduct: addAsin addListing addFirstImg addSevenImg addAPlusImg    |
+==============================================================================
 '''
 class CreateProduct:
     '''
@@ -948,10 +1080,10 @@ class CreateProduct:
             asin = asin,
             sku = asin,
             sku_sn = asin,
-            title = data_source.DataCSV.listingTitle(asin)['Product Title'],
+            title = spider.DataCSV.listingTitle(asin)['Product Title'],
             price = 39.99,
-            bullet_point = data_source.DataCSV.bulletPoint(asin)['Bullet Point'],
-            description = data_source.DataCSV.__description__(asin)['Description'],
+            bullet_point = spider.DataCSV.bulletPoint(asin)['Bullet Point'],
+            description = spider.DataCSV.__description__(asin)['Description'],
             first_img = images.Img.firstImg(asin, '7'),
             status = '01',
         )
@@ -959,9 +1091,10 @@ class CreateProduct:
         pass
 
 
-
 '''
-Create UserAccount addAccount addUserInfo addCart addOder
+==================================================================
+|   CreateUserAccount: addAccount addUserInfo addCart addOder    |
+==================================================================
 '''
 class CreateUserAccount:
     def addUserAccount(request):
@@ -973,10 +1106,11 @@ class CreateUserAccount:
         # print('rerererererere',re.findall(email_name, email))
         get_account_info = forms.getAccountInfo(request)
         models.UserAccount.objects.create(
-            user_id = data_source.generate_random_8_digit(),
+            user_id = spider.generate_random_8_digit(),
             user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', get_account_info['email'])[0],
             email = get_account_info['email'],
             password = get_account_info['password'],
+            email_platform = re.findall(r'@([a-zA-Z0-9_.+-]+)', get_account_info['email'])[0],
             # first_name = get_account_info['firstname'],
             # last_name = get_account_info['lastname'],
             # address = get_account_info['address'],
@@ -1013,18 +1147,25 @@ class CreateUserAccount:
 # print('aaaaaaaaaaaaaa',db_table_useraccount.user_name)
 
 
+class CreateCoupon:
+    pass
+
+
+
 '''
-Part: save data
-check Asin between AsinInfo DB and CSV, if new, update table AsinInfo
+==============================================================================
+|   Part: save data                                                          |
+|   check Asin between AsinInfo DB and CSV, if new, update table AsinInfo    |
+==============================================================================
 '''
-asin_csv_list = data_source.DataCSV.asinList()
-asin_db_list = data_source.AsinDB.asinList()
-print('oooooo from DB, Total:', len(asin_db_list), '\n', asin_db_list, '\n')
+asin_csv_list = spider.DataCSV.asinList()
+asin_db_list = spider.AsinDB.asinList()
+print('oooooo Part: save data >>> from DB, length:', len(asin_db_list), '\n', asin_db_list, '\n')
 if len(asin_csv_list) == len(asin_db_list):
     '''
     the same csv and mySql_db, return None
     '''
-    print('oooooo no new asin', '\n')
+    print('oooooo Part: save data >>> no new asin', '\n')
 
 elif len(asin_csv_list) > len(asin_db_list):
     '''
@@ -1038,16 +1179,16 @@ elif len(asin_csv_list) > len(asin_db_list):
             # new_asin_list.append(asin)
             CreateProduct.addAsin(asin)
             CreateProduct.addListing(asin)
-    print('oooooo have new asin... ', asin, 'saving...', '\n')
+    print('oooooo Part: save data >>> have new asin... ', asin, 'saving...', '\n')
     # return new_asin_list
 
 elif len(asin_csv_list) < len(asin_db_list):
     '''
     more mySql_db, delete different asin, and return asin list from mySql DB
     '''
-    print('oooooo asin_csv_list less than asin_db_list, Check it!')
+    print('oooooo Part: save data >>> asin_csv_list less than asin_db_list, Check it!')
 else:
-    print('oooooo error..., Check Please!')
+    print('oooooo Part: save data >>> error..., Check Please!')
 
 
 
@@ -1141,7 +1282,7 @@ page_id = ['index', 'about', 'products', 'myCart', 'login', 'signUp', 'order', '
 def detailImg(asin):
 
     detail_img = {
-        'img_7_url': images.urlAsinImg(asin_db_list)[asin]['7'],
+        'img_7_url': images.urlAsinImg(asin_db_list)[asin]['7'], 
         'img_970_url': images.urlAsinImg(asin_db_list)[asin]['970'],
         'img_300_url': images.urlAsinImg(asin_db_list)[asin]['300'],
     }

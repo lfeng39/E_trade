@@ -3,7 +3,6 @@ from django.urls import path, re_path
 from django.shortcuts import render, HttpResponse, redirect
 # from session import views as session_views
 from JAL import views
-from JAL import data_source
 from JAL import models
 
 print('\n>>> this is urls.py <<<')
@@ -24,12 +23,12 @@ urlpatterns = [
     path('index', views._index_, name=''),
     path('brand',views._about_, name=''),
     path('products',views._products_, name=''),
-    path('products&asin=<asin>',views._detail_, name=''),
+    path('products&asin=<asin>',views._listing_, name=''),
     path('login',views._login_, name=''),
     path('logout',views._logout_, name=''),
+    path('account=login',views.verifyAccountDone, name=''),
     path('createAccount',views.createAccount, name=''),
     path('account=createAccount',views.createAccount, name=''),
-    # path('account=<action>',views.verifyAccountDone, name=''),
     path('cart',views.myCart, name=''),
     path('order',views._order_, name=''),
     path('myAccount',views.myAccount, name=''),

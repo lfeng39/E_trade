@@ -12,28 +12,68 @@
 
     <div class="wrap">
         <br>
-        <div class="container" >&#20;&#20;result over {{ lenth }}</div>
+        <div class="container">&nbsp;&nbsp;result over {{ lenth }}</div>
+
         <div class="container grid-container">
-            
+
             <!-- <div class="products-shelf">
                 <div>img</div>
                 <div><h1>title</h1></div>
-                <div><h2>price</h2></div>
+                <div><h2 id="price">price</h2></div>
+                <div><h2 id="price_int">price</h2></div>
             </div> -->
 
             {% for product_info in product_info %}
             <div class="margin-around">
                 <div><a href="products&asin={{ product_info.asin }}{{ includ_user_id_url }}"><img src="{{ product_info.first_img }}" alt=""></a></div>
-                <div><h3><a href="products&asin={{ product_info.asin }}{{ includ_user_id_url }}" title="{{ product_info.title }}" class="display-row-3">{{ product_info.title }}</a></h3></div>
-                <div><b>$ {{ product_info.price }} | {{ product_info.status }}</b></div>
-                <div><b>$ {{ product_info.price }} | {{ product_info.asin }} | {{ product_info.status }}</b></div>
+                <div><h2><a href="products&asin={{ product_info.asin }}{{ includ_user_id_url }}" title="{{ product_info.title }}" class="display-row-3">{{ product_info.title }}</a></h2></div>
+                <div><h2 class="price_float">$ {{ product_info.price }}</h2></div>
+                <div><h2 class="price_int" style="font-size: 12px;"></h2></div>
+                <div><h4 class="coupon">Coupon: 20% off | {{ product_info.asin }} | {{ product_info.status }}</h4></div>
             </div>
             {% endfor %}
+            <!-- <div id="lfeng1" class="margin-around">
+                <div><a href=""><img src="/static/image/products/B09KG4R3YR/v1.00/7/00-Listing-01.jpg" alt=""></a></div>
+                <div><h2><a href="" title="" class="display-row-3">abd</a></h2></div>
+                <div><h2 id="price">$ 39.99</h2></div>
+                <div><h2 id="price_int"></h2></div>
+                <div><h4 class="coupon">Coupon: 20% off</h4></div>
+            </div>
+            <div id="lfeng2" class="margin-around">
+                <div><a href=""><img src="/static/image/products/B09KG4R3YR/v1.00/7/00-Listing-01.jpg" alt=""></a></div>
+                <div><h2><a href="" title="" class="display-row-3">abd</a></h2></div>
+                <div><h2 id="price">$ 39.99</h2></div>
+                <div><h2 id="price_int"></h2></div>
+                <div><h4 class="coupon">Coupon: 20% off</h4></div>
+            </div>
+            <div class="margin-around">
+                <div><a href=""><img src="/static/image/products/B09KG4R3YR/v1.00/7/00-Listing-01.jpg" alt=""></a></div>
+                <div><h2><a href="" title="" class="display-row-3">abd</a></h2></div>
+                <div><h2 id="price">$ 39.99</h2></div>
+                <div><h2 id="price_int"></h2></div>
+                <div><h4 class="coupon">Coupon: 20% off</h4></div>
+            </div>
+            <div class="margin-around">
+                <div><a href=""><img src="/static/image/products/B09KG4R3YR/v1.00/7/00-Listing-01.jpg" alt=""></a></div>
+                <div><h2><a href="" title="" class="display-row-3">abd</a></h2></div>
+                <div><h2 id="price">$ 39.99</h2></div>
+                <div><h2 id="price_int"></h2></div>
+                <div><h4 class="coupon">Coupon: 20% off</h4></div>
+            </div>
+            <div class="margin-around">
+                <div><a href=""><img src="/static/image/products/B09KG4R3YR/v1.00/7/00-Listing-01.jpg" alt=""></a></div>
+                <div><h2><a href="" title="" class="display-row-3">abd</a></h2></div>
+                <div><h2 id="price">$ 39.99</h2></div>
+                <div><h2 id="price_int"></h2></div>
+                <div><h4 class="coupon">Coupon: 20% off</h4></div>
+            </div> -->
 
         </div>
+        
     </div>
 
     {% include "footer.html" %}
 
 </body>
+<!-- <script src="/static/js/price.js"></script> -->
 </html>

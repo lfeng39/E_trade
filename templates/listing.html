@@ -21,7 +21,9 @@
             </div>
             <div class="product-info">
                 <div><h1>{{ product_info.title }}</h1></div>
-                <div class="product-price"><h2>$ {{ product_price.price }}</h2></div>
+                <div><h2 class="price_float">$ {{ product_info.price }}</h2></div>
+                <!-- <div><h2 class="price_int" style="font-size: 12px;"></h2></div> -->
+                
                 <!-- <div> -->
                     <!-- <form action="/JAL/" method="post"> -->
                         <!-- {%csrf_token%} -->
@@ -29,9 +31,8 @@
                         <!-- <button href="" type="submit" name="cart" value="{{ page_id }}" class="widget-btn">Add to Cart</button> -->
                     <!-- </form> -->
                 <!-- </div> -->
-                <div>
-                    <a href="{{ amazon }}" target="_blank" class="widget-btn">Buy on Amazon</a>
-                </div>
+                <div><a href="{{ amazon }}" target="_blank" class="widget-btn">Buy on Amazon</a></div>
+                <div><h4 class="coupon">Coupon: 20% off | {{ product_info.asin }} | {{ product_info.status }}</h4></div>
                 <div>
                     <ul class="bullet-point">
                         {% for bullet_point in product_bullet_point %}
