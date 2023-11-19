@@ -1,3 +1,5 @@
+print('>>> this is verify.py <<<')
+
 from JAL import forms
 from JAL import models
 

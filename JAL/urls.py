@@ -1,3 +1,5 @@
+print('\n>>> this is urls.py <<<')
+
 from urllib import request
 from django.urls import path, re_path
 from django.shortcuts import render, HttpResponse, redirect
@@ -5,7 +7,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from JAL import views
 from JAL import models
 
-print('\n>>> this is urls.py <<<')
+
 
 app_name = 'jal'
 

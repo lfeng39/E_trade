@@ -1,10 +1,12 @@
+print('>>> this is images.py <<<')
+
 from importlib.resources import path
 from operator import imod
 import os
 from JAL import models
 
 
-print('>>> this is images.py <<<')
+
 
 # data列表
 # _asin_ = ['B09KG4R3YR', 'B09YLKWBMV', 'B09YLLXKDT', 'B0BFHQTG6R']

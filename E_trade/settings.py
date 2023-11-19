@@ -144,3 +144,31 @@ STATICFILES_DIRS =[
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+'''
+send email
+'''
+'''
+gmail
+'''
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_SSL = True
+# EMAIL_PORT = 465
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'lfeng0309@gmail.com'
+EMAIL_HOST_PASSWORD = 'htzn zfvj shlr ztbh' # 发送邮件的邮箱密码或授权码
+# EMAIL_CA_CERTS = ''  # 将这行添加并设置为空字符串
+'''
+gmail
+'''
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.163.com' # 修改为你的 SMTP 服务器
+# EMAIL_PORT = 465 # SMTP 端口
+# EMAIL_USE_SSL = True
+# # EMAIL_USE_TLS = True # 使用 TLS 安全连接
+# EMAIL_HOST_USER = 'sandianjiuke@163.com' # 发送邮件的邮箱地址
+# EMAIL_HOST_PASSWORD = 'NINLXTRXBRQHEUOC' # 发送邮件的邮箱密码或授权码

@@ -1,3 +1,5 @@
+print('>>> this is models.py <<<')
+
 from django.db import models
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 import datetime, time
@@ -108,5 +110,5 @@ class Coupon(models.Model):
 
 
 
-print('>>> this is models.py <<<')
+
 

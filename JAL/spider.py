@@ -1,3 +1,5 @@
+print('>>> this is spider.py <<<')
+
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib import auth
 from django.contrib.auth import authenticate,login
@@ -12,7 +14,7 @@ from django.http import HttpResponse
 from JAL import images
 from JAL import models
 
-print('>>> this is data_source.py <<<')
+
 
 
 

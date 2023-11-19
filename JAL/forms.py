@@ -1,3 +1,5 @@
+print('\n>>> this is forms.py <<<')
+
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 import pandas as pd
 import random

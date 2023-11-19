@@ -1,9 +1,11 @@
+print('\n>>> this is views.py <<< ')
+
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.http import HttpResponse
-from django.contrib import auth
-from django.contrib.auth import authenticate,login, logout
-from urllib import request
+from django.contrib.auth import authenticate, login, logout
+from django.core.mail import send_mail, send_mass_mail
 from django.utils import timezone
+from urllib import request
 import datetime, time, zoneinfo
 import pytz
 import os
@@ -15,8 +17,60 @@ from django.views.decorators.csrf import csrf_protect, csrf_exempt, requires_csr
 # from django.views.decorators.csrf import csrf_exempt
 # from django.views.decorators.csrf import requires_csrf_token
 
+# import E_trade.settings
+def email():
+    send_mail(
+        "Coupon Coming 3",
+        "ME AND MR.LEO DJ923IR0DFJ92",
+        "lfeng0309@gmail.com",
+        ["lfeng39@163.com", "51630822@qq.com",'jessiezhu221@163.com'],
+        fail_silently=False, 
+    )
+    # datatuple = (
+    #     ("Coupon Coming", "ME AND MR.LEO 8XN23K3RJ8CJ", "lfeng0309@gmail.com", ["lfeng39@163.com"]),
+    #     ("Coupon Coming", "ME AND MR.LEO XI2039RIIDL9", "lfeng0309@gmail.com", ["jessie0221@gmail.com"]),
+    # )
+    # send_mass_mail(datatuple)
+    print('Email sent successfully!')
 
-print('\n>>> this is views.py <<< ')
+email()
+# import smtplib
+# from email.mime.text import MIMEText
+
+# # 你的 SMTP 配置
+# smtp_host = 'smtp.gmail.com'
+# smtp_port = 465
+# smtp_user = 'lfeng0309@gmail.com'
+# smtp_password = 'htzn zfvj shlr ztbh'  # 请替换为你的 Gmail 邮箱密码
+
+# # 收件人和发件人信息
+# to_email = 'lfeng39@163.com'
+# from_email = 'lfeng0309@gmail.com'
+
+# # 邮件内容
+# subject = 'Test Email'
+# body = 'This is a test email.'
+
+# # 构建邮件
+# msg = MIMEText(body)
+# msg['Subject'] = subject
+# msg['From'] = from_email
+# msg['To'] = to_email
+
+# try:
+#     # 连接 SMTP 服务器
+#     with smtplib.SMTP_SSL(smtp_host, smtp_port) as server:
+#         server.login(smtp_user, smtp_password)
+
+#         # 发送邮件
+#         server.sendmail(from_email, to_email, msg.as_string())
+#         server.quit()
+#         print('Email sent successfully!')
+
+# except Exception as e:
+#     print(f'Error: {e}', e)
+
+
 print('==============================================')
 print('|  Part: user interface                      |')
 print('|  index | brand | products                  |')
@@ -1071,6 +1125,7 @@ def createCoupon(request):
         # get_coupon_info = forms.getCouponData(request)
         # print('get_coupon_info',type(get_coupon_info['percentage']),get_coupon_info['percentage'])
         return HttpResponse('done')
+
 
 
 
