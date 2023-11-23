@@ -224,7 +224,7 @@ def _products_(request):
         'product_info': product_info,
         'product_image': '',
         'product_title': '',
-        'timezone': spider.spider.time_zone,
+        'timezone': spider.time_zone,
     }
     return render(request, 'products.html', htmlApi)
 
@@ -571,7 +571,7 @@ def verifyAccountDone(request):
             #     'user_email': verify_user_account[1],
             #     'user_name': user_name,
             # }
-            request.session.set_expiry(180)
+            request.session.set_expiry(10800)
             _urls_ = nav()['_account_']['myAccount'][0]
             return redirect(_urls_)
         '''
