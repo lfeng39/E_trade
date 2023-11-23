@@ -3,73 +3,18 @@ print('\n>>> this is views.py <<< ')
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
-from django.core.mail import send_mail, send_mass_mail
+from django.core.mail import send_mail, send_mass_mail, EmailMessage
 from django.utils import timezone
 from urllib import request
-import datetime, time, zoneinfo
-import pytz
+import datetime, time, zoneinfo, pytz
 import os
 import re
-from JAL import models, urls, spider, images, forms, verify
-
+from JAL import models, urls, spider, images, forms, verify, spider
+import schedule
 
 from django.views.decorators.csrf import csrf_protect, csrf_exempt, requires_csrf_token
 # from django.views.decorators.csrf import csrf_exempt
 # from django.views.decorators.csrf import requires_csrf_token
-
-# import E_trade.settings
-def email():
-    send_mail(
-        "Coupon Coming 3",
-        "ME AND MR.LEO DJ923IR0DFJ92",
-        "lfeng0309@gmail.com",
-        ["lfeng39@163.com", "51630822@qq.com",'jessiezhu221@163.com'],
-        fail_silently=False, 
-    )
-    # datatuple = (
-    #     ("Coupon Coming", "ME AND MR.LEO 8XN23K3RJ8CJ", "lfeng0309@gmail.com", ["lfeng39@163.com"]),
-    #     ("Coupon Coming", "ME AND MR.LEO XI2039RIIDL9", "lfeng0309@gmail.com", ["jessie0221@gmail.com"]),
-    # )
-    # send_mass_mail(datatuple)
-    print('Email sent successfully!')
-
-email()
-# import smtplib
-# from email.mime.text import MIMEText
-
-# # 你的 SMTP 配置
-# smtp_host = 'smtp.gmail.com'
-# smtp_port = 465
-# smtp_user = 'lfeng0309@gmail.com'
-# smtp_password = 'htzn zfvj shlr ztbh'  # 请替换为你的 Gmail 邮箱密码
-
-# # 收件人和发件人信息
-# to_email = 'lfeng39@163.com'
-# from_email = 'lfeng0309@gmail.com'
-
-# # 邮件内容
-# subject = 'Test Email'
-# body = 'This is a test email.'
-
-# # 构建邮件
-# msg = MIMEText(body)
-# msg['Subject'] = subject
-# msg['From'] = from_email
-# msg['To'] = to_email
-
-# try:
-#     # 连接 SMTP 服务器
-#     with smtplib.SMTP_SSL(smtp_host, smtp_port) as server:
-#         server.login(smtp_user, smtp_password)
-
-#         # 发送邮件
-#         server.sendmail(from_email, to_email, msg.as_string())
-#         server.quit()
-#         print('Email sent successfully!')
-
-# except Exception as e:
-#     print(f'Error: {e}', e)
-
 
 print('==============================================')
 print('|  Part: user interface                      |')
@@ -90,41 +35,6 @@ print('|  Part: save data                           |')
 print('==============================================')
 
 
-
-'''
-print('===========================')
-print('|   Part: set timezone    |')
-print('===========================')
-'''
-print('\n=== Eastern time zone ========================')
-all_timezones = pytz.all_timezones
-_format_ = '%Y-%m-%d %H:%M:%S %Z%z'
-# _format_ = '%Y%m%d %H:%M:%S'
-# _format_ = '%m/%d/%Y %H:%M:%S'
-# print(all_timezones)
-# current_time
-local_time = datetime.datetime.now()
-print('| BJS_time', local_time, ' |')
-# BJS_time
-_shanghai_ = pytz.timezone('Asia/Shanghai')
-shanghai_time = datetime.datetime.now(tz=_shanghai_).strftime(_format_)
-print('| SHA_time', shanghai_time, ' |')
-# LON_time
-Greenwich_Mean_Time = timezone.now()
-_lon_ = pytz.timezone('Europe/London')
-lon_time = datetime.datetime.now(tz=_lon_).strftime(_format_)
-print('| LON_time', lon_time, ' |')
-# NYC_time
-_nyc_ = pytz.timezone('America/New_York')
-nyc_time = datetime.datetime.now(tz=_nyc_).strftime(_format_)
-print('| NYC_time', nyc_time, ' |')
-# LAX_time
-_lax_ = pytz.timezone('America/Los_Angeles')
-lax_time = datetime.datetime.now(tz=_lax_)
-
-time_zone = lax_time
-print('| LAX_time', lax_time, ' |')
-print('=== Western time zone ========================\n')
 
 '''
 =======================
@@ -148,7 +58,7 @@ server test url
 # huashengke
 # _ip_ = '822u770q09.zicp.fun:44088'
 # ngrok
-_ip_ = '3e94-212-87-193-201.ngrok-free.app'
+_ip_ = '808d-240e-36f-424-19c0-e2b1-569-7df6-a027.ngrok-free.app'
 # base_url = 'https://' + _ip_ + '/JAL/'
 '''
 Vultr server url
@@ -250,7 +160,7 @@ def _index_(request):
         'product_bullet_point': eval(models.Listing.objects.filter(asin='B0BRHWQ27R').values()[0]['bullet_point']),
         'product_description': product_description,
         # 'csrftoken': csrftoken,
-        'timezone': time_zone,
+        'timezone': spider.time_zone,
     }
     return render(request, 'index.html', htmlApi)
 
@@ -276,7 +186,7 @@ def _about_(request):
         'user_status': user_status,
         'user_account': user_email,
         'user_name': user_name,
-        'timezone': time_zone,
+        'timezone': spider.time_zone,
     }
     return render(request, 'about.html', htmlApi)
     
@@ -314,7 +224,7 @@ def _products_(request):
         'product_info': product_info,
         'product_image': '',
         'product_title': '',
-        'timezone': time_zone,
+        'timezone': spider.spider.time_zone,
     }
     return render(request, 'products.html', htmlApi)
 
@@ -349,9 +259,36 @@ def _listing_(request, asin):
         'sales_status': '',
         'cupon': '',
         'amazon': 'https://www.amazon.com/dp/' + asin,
-        'timezone': time_zone,
+        'timezone': spider.time_zone,
     }
     return render(request, 'listing.html', htmlApi)
+
+
+from django.template.loader import render_to_string
+def htmlMsg():
+    SHA = spider.cityWeather('Shanghai')
+    LON = spider.cityWeather('London')
+    NYC = spider.cityWeather('New York')
+    LAX = spider.cityWeather('Los Angeles')
+    city_info = {
+        # 'Shanghai': {'city':'SHA', 'time': spider.shanghai_time, 'temp': SHA['temp'], 'description': SHA['description']},
+        # 'London': {'city':'LON', 'time': spider.lon_time, 'temp': LON['temp'], 'description': LON['description']},
+        # 'NewYork': {'city':'NYC', 'time': spider.nyc_time, 'temp': NYC['temp'], 'description': NYC['description']},
+        # 'LosAngeles': {'city':'LAX', 'time': spider.lax_time, 'temp': LAX['temp'], 'description': LAX['description']},
+        'Shanghai': {'city':'SHA', 'time': datetime.datetime.now(tz=spider._shanghai_).strftime(spider._format_), 'temp': SHA['temp'], 'description': SHA['description']},
+        'London': {'city':'LON', 'time': datetime.datetime.now(tz=spider._lon_).strftime('%Y-%m-%d %H:%M:%S %Z %z'), 'temp': LON['temp'], 'description': LON['description']},
+        'NewYork': {'city':'NYC', 'time': datetime.datetime.now(tz=spider._nyc_).strftime('%Y-%m-%d %H:%M:%S %Z %z'), 'temp': NYC['temp'], 'description': NYC['description']},
+        'LosAngeles': {'city':'LAX', 'time': datetime.datetime.now(tz=spider._lax_).strftime(spider._format_), 'temp': LAX['temp'], 'description': LAX['description']},
+    }
+
+    htmlApi = {
+        'page_id': 'htmlMsg',
+        'nav_index': nav()['_index_'],
+        'nav_nav': nav()['_nav_'],
+        'city': ['Los Angeles', 'New York', 'London', 'Shanghai'],
+        'city_info': city_info,
+    }
+    return render_to_string('html-msg.html', htmlApi)
 
 
 '''
@@ -385,7 +322,7 @@ def _login_(request):
         'user_account': user_email,
         'user_name': user_name,
         'account_email': {'email':'Email'},
-        'timezone': time_zone,
+        'timezone': spider.time_zone,
     }
     return render(request, 'login.html', htmlApi)
 
@@ -429,7 +366,7 @@ def createAccount(request):
             'nav_nav': nav()['_nav_'],
             'nav_account': nav()['_account_'],
             'account_email': {'email':'Email'},
-            'timezone': time_zone,
+            'timezone': spider.time_zone,
         }
         return render(request, 'create-account.html', htmlApi)
     if request.method == 'POST':
@@ -461,7 +398,7 @@ def createAccount(request):
 
                     'tip': verify_user_account[1] + ' is exist',
                     'products': 'products',
-                    'timezone': time_zone,
+                    'timezone': spider.time_zone,
                 }
                 return render(request, 'create-account.html', htmlApi)
             '''
@@ -489,7 +426,7 @@ def createAccount(request):
                     # 'account_email': account_form.cleaned_data,
                     'products': 'products',
                     'img': '/static/image/yeah/yeah.jpg',
-                    'timezone': time_zone,
+                    'timezone': spider.time_zone,
                 }
                 return render(request, 'done.html', htmlApi)
         else:
@@ -504,7 +441,7 @@ def createAccount(request):
                 # 'account_emial': {'email':'Email'},
 
                 'msg': account_form.errors,
-                'timezone': time_zone,
+                'timezone': spider.time_zone,
             }
             return render(request, 'create-account.html', htmlApi)
 
@@ -549,7 +486,7 @@ def verifyAccountDone(request):
 
             'msg': account_form.errors,
             'products': 'products',
-            'timezone': time_zone,
+            'timezone': spider.time_zone,
         }
         return render(request, 'login.html', htmlApi)
     else:
@@ -655,7 +592,7 @@ def verifyAccountDone(request):
                 # 'account_email': account_form.cleaned_data,
 
                 'products': 'products',
-                'timezone': time_zone,
+                'timezone': spider.time_zone,
             }
             return render(request, 'login.html', htmlApi)
         '''
@@ -676,7 +613,7 @@ def verifyAccountDone(request):
                 'account_email': account_form.cleaned_data,
 
                 'products': 'products',
-                'timezone': time_zone,
+                'timezone': spider.time_zone,
             }
             return render(request, 'login.html', htmlApi)
 
@@ -719,7 +656,7 @@ def myAccount(request):
             'user_name': user_account['user_name'],
 
             'user_account': user_account,
-            'timezone': time_zone,
+            'timezone': spider.time_zone,
         }
 
         return render(request, 'my-account.html', htmlApi)
@@ -749,7 +686,7 @@ def editAccount(request):
         'user_name': user_name,
 
         'user_account': models.UserAccount.objects.filter(email=user_email).values()[0],
-        'timezone': time_zone,
+        'timezone': spider.time_zone,
     }
 
     return render(request, 'edit-account.html', htmlApi)
@@ -786,7 +723,7 @@ def editAccountDone(request):
             'view': nav()['_index_']['index'],
             'again': nav()['_admin_']['EditIndex'],
             'img': '/static/image/yeah/yeah.jpg',
-            'timezone': time_zone,
+            'timezone': spider.time_zone,
         }
 
     return render(request, 'done.html', htmlApi)
@@ -821,7 +758,7 @@ def myCart(request):
             'product_info': models.Listing.objects.filter(asin='B0BTXB89PG').values()[0],
             'asin': detailImg('B0BTXB89PG'),
             'url_page_id_order': page_id[6],
-            'timezone': time_zone,
+            'timezone': spider.time_zone,
         }
 
         return render(request, 'my-cart.html', htmlApi)
@@ -866,7 +803,7 @@ def _order_(request):
 
             'product_info': models.Listing.objects.filter(asin='B0BTXB89PG').values()[0],
             'asin': detailImg('B0BTXB89PG'),
-            'timezone': time_zone,
+            'timezone': spider.time_zone,
         }
 
         return render(request, 'order.html', htmlApi)
@@ -902,7 +839,7 @@ def _admin_(request):
         'listing': models.Listing.objects.all().values(),
         'edit_index': 'adminjessie&edit-index',
         'edit_listing': 'adminjessie&edit-listing',
-        'timezone': time_zone,
+        'timezone': spider.time_zone,
     }
     return render(request, 'admin.html', htmlApi)
 
@@ -936,7 +873,7 @@ def editIndex(request):
             'bullet_point': product_description,
             'id': product_description,
             'tips': 'tips',
-            'timezone': time_zone,
+            'timezone': spider.time_zone,
         }
         return render(request, 'edit-index.html', htmlApi)
     if request.method == 'POST':
@@ -954,7 +891,7 @@ def editIndex(request):
             'view': nav()['_index_']['index'],
             'again': nav()['_admin_']['EditIndex'],
             'img': '/static/image/yeah/yeah.jpg',
-            'timezone': time_zone,
+            'timezone': spider.time_zone,
         }
         return render(request, 'done.html', htmlApi)
 
@@ -1000,7 +937,7 @@ def managerProductList(request):
         # 'user_name': user_name[0][0],
 
         'listing': models.Listing.objects.all().values(),
-        'timezone': time_zone,
+        'timezone': spider.time_zone,
     }
     return render(request, 'manager-product-list.html', htmlApi)
 
@@ -1032,7 +969,7 @@ def editListing(request, asin):
             'bullet_point': eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']),
             'len_bullet_point': len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point'])),
             'edit_listing': nav()['_admin_']['EditListing'],
-            'timezone': time_zone,
+            'timezone': spider.time_zone,
         }
         return render(request, 'edit-listing.html', htmlApi)
     if request.method == 'POST':
@@ -1051,7 +988,7 @@ def editListing(request, asin):
             'again': nav()['_admin_']['EditListing'] + '=' + asin,
             'edit_listing': nav()['_admin_']['EditListing'],
             'img': '/static/image/yeah/ok.jpg',
-            'timezone': time_zone,
+            'timezone': spider.time_zone,
         }
         return render(request, 'done.html', htmlApi)
 
@@ -1102,7 +1039,7 @@ def _coupon_(request):
         # 'created_at': coupon_dataDB['created_at'].strftime('%Y-%m-%d %H:%M'),
         'coupon': coupon_dataDB,
         
-        'timezone': time_zone,
+        'timezone': spider.time_zone,
     }
     return render(request, 'edit-coupon.html', htmlApi)
 @csrf_protect
@@ -1116,8 +1053,8 @@ def createCoupon(request):
             'nav_nav': nav()['_nav_'],
             'nav_admin': nav()['_admin_'],
 
-            'time_date': time_zone.strftime('%Y-%m-%d'),
-            'timezone': time_zone,
+            'time_date': spider.time_zone.strftime('%Y-%m-%d'),
+            'timezone': spider.time_zone,
         }
         return render(request, 'create-coupon.html', htmlApi)
     if request.method == 'POST':
@@ -1380,6 +1317,8 @@ def detailImg(asin):
     }
 
     return detail_img
+
+
 
 
 

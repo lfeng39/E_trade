@@ -4,14 +4,14 @@ from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib import auth
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.models import User
+import datetime, time, zoneinfo, pytz
+from django.utils import timezone
 from urllib import request
+import requests
 import pandas as pd
-import csv
 import os
-import sys
 from django import forms
 from django.http import HttpResponse
-from JAL import images
 from JAL import models
 
 
@@ -174,11 +174,75 @@ def getUserInfo(request):
     login
     '''
 
+'''
+Citytime: set timezone
+'''
+print('\n=== Eastern time zone ========================')
+all_timezones = pytz.all_timezones
+_format_ = '%Y-%m-%d %H:%M:%S %Z %z'
+# _format_ = '%Y%m%d %H:%M:%S'
+# _format_ = '%m/%d/%Y %H:%M:%S'
+# print(all_timezones)
+# current_time
+local_time = datetime.datetime.now()
+print('| BJS_time', local_time, ' |')
+# BJS_time
+_shanghai_ = pytz.timezone('Asia/Shanghai')
+shanghai_time = datetime.datetime.now(tz=_shanghai_).strftime(_format_)
+print('| SHA_time', shanghai_time, ' |')
+# LON_time
+# Greenwich_Mean_Time = timezone.now()
+_lon_ = pytz.timezone('Europe/London')
+lon_time = datetime.datetime.now(tz=_lon_).strftime(_format_)
+print('| LON_time', lon_time, ' |')
+# NYC_time
+_nyc_ = pytz.timezone('America/New_York')
+nyc_time = datetime.datetime.now(tz=_nyc_).strftime(_format_)
+print('| NYC_time', nyc_time, ' |')
+# LAX_time
+_lax_ = pytz.timezone('America/Los_Angeles')
+lax_time = datetime.datetime.now(tz=_lax_).strftime(_format_)
+
+time_zone = lax_time
+print('| LAX_time', lax_time, ' |')
+print('=== Western time zone ========================\n')
+
+# def cityTime(city):
+#     city_time = 
+#     return city_time
 
 
 
 
+'''
+Weather: AccuWeather API | OpenWeather API
+'''
+# city = ['Los Angeles', 'New York', 'London', 'Wuhan']
+def cityWeather(city):
+    lang = ['en', 'zh_cn']
+    # for city in city:
+    OpenWeather = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&lang=' + lang[0] + '&appid=05c5e335a194653cec7c397f6b82ad34&units=metric'
+    response = requests.get(OpenWeather)
+    
 
+    if response.status_code == 200:
+        data = response.json()
+        response_city_data = {
+            # 'city': city,
+            'temp': data['main']['temp'],
+            'description': data['weather'][0]['description'],
+            'pressure': data['main']['pressure'],
+            'humidity:': data['main']['humidity']
+        }
+        # print(city,data)
+        # print(city,'>',data['main']['temp'],'>',data['weather'][0]['description'],'>','pressure:',data['main']['pressure'],'>','humidity:',data['main']['humidity'])
+    else:
+        print("无法获取天气信息")
+
+        
+    return response_city_data
+
+# print(cityWeather('shanghai'))
 '''
 Create random 8 digits
 by secrets module

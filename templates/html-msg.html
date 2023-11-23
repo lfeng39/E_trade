@@ -1,0 +1,55 @@
+<!-- {%load static%} -->
+<!DOCTYPE html>
+<html>
+<head>
+{% include "head.html" %}
+<title>{{ app_title.0 }}</title>
+</head>
+<body page_id="{{ page_id }}">
+    
+    {% include "nav.html" %}
+    
+
+    <div class="wrap">
+
+        <div class="container">
+
+            <div>{{city_info.Shanghai.city}}</div>
+            <div>{{city_info.Shanghai.time}}</div>
+            <div>temp: {{city_info.Shanghai.temp}}℃ | description: {{city_info.Shanghai.description}}</div>
+
+        </div>
+        <br>
+        <div class="container">
+
+            <div>{{city_info.London.city}}</div>
+            <div>{{city_info.London.time}}</div>
+            <div>temp: {{city_info.London.temp}}℃ | description: {{city_info.London.description}}</div>
+
+        </div>
+        <br>
+        <div class="container">
+
+            <div>{{city_info.NewYork.city}}</div>
+            <div>{{city_info.NewYork.time}}</div>
+            <div>temp: {{city_info.NewYork.temp}}℃ | description: {{city_info.NewYork.description}}</div>
+
+        </div>
+        <br>
+        <div class="container">
+
+            <div>{{city_info.LosAngeles.city}}</div>
+            <div>{{city_info.LosAngeles.time}}</div>
+            <div>temp: {{city_info.LosAngeles.temp}}℃ | description: {{city_info.LosAngeles.description}}</div>
+
+        </div>
+
+        
+    </div>
+    
+
+
+    {% include "footer.html" %}
+    
+</body>
+</html>

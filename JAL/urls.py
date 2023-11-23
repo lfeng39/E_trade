@@ -26,6 +26,8 @@ urlpatterns = [
     path('brand',views._about_, name=''),
     path('products',views._products_, name=''),
     path('products&asin=<asin>',views._listing_, name=''),
+    path('html-msg',views.htmlMsg, name=''),
+
     path('login',views._login_, name=''),
     path('logout',views._logout_, name=''),
     path('account=login',views.verifyAccountDone, name=''),
