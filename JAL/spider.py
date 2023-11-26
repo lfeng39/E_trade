@@ -191,7 +191,8 @@ _shanghai_ = pytz.timezone('Asia/Shanghai')
 shanghai_time = datetime.datetime.now(tz=_shanghai_).strftime(_format_)
 print('| SHA_time', shanghai_time, ' |')
 # LON_time
-# Greenwich_Mean_Time = timezone.now()
+Greenwich_Mean_Time = timezone.now().strftime(_format_)
+print('| UTC_time', Greenwich_Mean_Time, ' |')
 _lon_ = pytz.timezone('Europe/London')
 lon_time = datetime.datetime.now(tz=_lon_).strftime(_format_)
 print('| LON_time', lon_time, ' |')
@@ -211,8 +212,8 @@ print('=== Western time zone ========================\n')
 #     city_time = 
 #     return city_time
 
-
-
+# now = datetime.datetime.now(tz=_shanghai_).strftime('%M%S')
+# print(now)
 
 '''
 Weather: AccuWeather API | OpenWeather API

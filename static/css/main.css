@@ -168,7 +168,8 @@ footer *
 }
 .margin-around > div, .margin-around > li
 {
-  margin: 3%;
+  /* margin: 3%; */
+  margin: 0%;
 }
 .padding-t-b
 {

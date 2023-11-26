@@ -12,29 +12,46 @@
 
     <div class="wrap">
 
-        <div class="container grid">
-            
+        <div class="container flex-container">
             <div>
-                <ul>
-                    <h1>MyAccount</h1>
-                    <li><a href="myAccount&=edit">Edit Account</a></li>
-                    <!-- <li>login_status: {{ user_status }}</li> -->
-                    <li>email: {{ user_account.email }}</li>
-                    <!-- <li>PassWord: {{ my_account.password }}</li> -->
-                    <li>UserName: {{ user_account.user_name }}</li>
-                    <li>FirstName: {{ user_account.first_name }}</li>
-                    <li>LastName: {{ user_account.last_name }}</li>
-                    <li>Address: {{ user_account.address }}</li>
-                    <li>Street: {{ user_account.street }}</li>
-                    <li>City: {{ user_account.city }}</li>
-                    <li>Country: {{ user_account.country }}</li>
-                    <li>Code: {{ user_account.code }}</li>
-                    {{tzname}}
-                    <li><a href="logout">Logout</a></li>
-                </ul>
+                <fieldset>
+                    <legend>MyAccount</legend>
+                    <br>
+                    <div>Email: {{ user_account.email }}</div>
+                    <div>UserName: {{ user_account.user_name }}</div>
+                    <div>FirstName: {{ user_account.first_name }}</div>
+                    <div>LastName: {{ user_account.last_name }}</div>
+                    <div>Address: {{ user_account.address }}</div>
+                    <div>Street: {{ user_account.street }}</div>
+                    <div>City: {{ user_account.city }}</div>
+                    <div>Country: {{ user_account.country }}</div>
+                    <div>Code: {{ user_account.code }}</div>
+                    <br>
+                    <div><a href="myAccount&=edit">[Edit Account]</a><a href="logout">[Logout]</a></div>
+                </fieldset>
             </div>
-            <div>COMING SOON...
-                
+            <div>
+                <fieldset>
+                    <legend>MyCoupon</legend>
+                    <div style="float: left; margin-left: 1%;">Title: Ceramic Hamsa Hand Incense Holder Ceramic Hamsa Hand Incense Holder Ceramic Hamsa</div>
+                    <div style="float: left; margin-left: 1%;">Code: E3QFVDAG3RFWR3FA</div>
+
+                </fieldset>
+                <fieldset>
+                    <legend>MyOrder</legend>
+                    <br>
+                    <div>Email: {{ user_account.email }}</div>
+                    <div>UserName: {{ user_account.user_name }}</div>
+                    <div>FirstName: {{ user_account.first_name }}</div>
+                    <div>LastName: {{ user_account.last_name }}</div>
+                    <div>Address: {{ user_account.address }}</div>
+                    <div>Street: {{ user_account.street }}</div>
+                    <div>City: {{ user_account.city }}</div>
+                    <div>Country: {{ user_account.country }}</div>
+                    <div>Code: {{ user_account.code }}</div>
+                    <br>
+                    <div><a href="myAccount&=edit">[Edit Account]</a><a href="logout">[Logout]</a></div>
+                </fieldset>
             </div>
 
         </div>

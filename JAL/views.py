@@ -13,8 +13,7 @@ from JAL import models, urls, spider, images, forms, verify, spider
 import schedule
 
 from django.views.decorators.csrf import csrf_protect, csrf_exempt, requires_csrf_token
-# from django.views.decorators.csrf import csrf_exempt
-# from django.views.decorators.csrf import requires_csrf_token
+
 
 print('==============================================')
 print('|  Part: user interface                      |')
@@ -58,7 +57,7 @@ server test url
 # huashengke
 # _ip_ = '822u770q09.zicp.fun:44088'
 # ngrok
-_ip_ = '808d-240e-36f-424-19c0-e2b1-569-7df6-a027.ngrok-free.app'
+_ip_ = '5b61-240e-36f-423-6990-6f52-2c75-70ba-d624.ngrok-free.app'
 # base_url = 'https://' + _ip_ + '/JAL/'
 '''
 Vultr server url
