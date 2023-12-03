@@ -15,26 +15,34 @@
             <input type="text" value="{{ title_01.bullet_point_01 }}">
         </div> -->
         
-        <form class="login" action="/JAL/adminjessie&edit-index-status-done" method="post">
+        <form class="login" action="/JAL/adminjessie&promote={{ promote_info.0.promote_code }}-edit-done" method="post">
             {%csrf_token%}
-            <br> 
-            <div class="container products-shelf">
-                <h3><a style="font-size: 20px;" href="{{ admin }}">< Back to Manager</a></h3><br>
-                <button id="" type="submit"><h3>commit</h3></button><div>{{ tips }}</div>
+            <br>
+            <div class="container" style="border: 1px dashed #ff8800; border-radius: 6px;">
+                <div style="margin: 20px;">
+                    <a style="margin: 10px;" href="{{ nav_admin.Dashboard }}">Dashboard</a>
+                    <span>/</span>
+                    <a style="margin: 10px;" href="{{ manage_promote }}">Manage Promote</a>
+                    <span>/</span>
+                    <span style="margin: 10px;">Edit Promote ></span>
+                    <button id="" type="submit">commit</button>
+                </div>
             </div>
             <br>
             <div class="container">
-                <a style="font-size: 18px;">{{ asin.0.asin }}</a> | 
-                <a style="font-size: 18px;">{{ asin.1.asin }}</a>
-            </div>
-            <br>
-            <div class="container products-shelf">
-                <b>id</b><h3><input style="font-size: 18px;" type="text" name="id" id="" value="{{ id.0.id }}" /></h3>
-                <b>asin</b><h3><input style="font-size: 18px;" type="text" name="asin" id="" value="{{ asin.0.asin }}" /></h3>
+                <!-- <b>id</b><h3><input style="font-size: 18px;" type="text" name="id" id="" value="{{ id.0.id }}" /></h3> -->
+                <b>promote_type</b><h3>{{ promote_info.0.promote_type }}</h3>
+                <b>promote_code</b><h3>{{ promote_info.0.promote_code }}</h3>
+                <h3>promote_img</h3>
+                <textarea style="font-size: 18px;" name="promote_img" id="" cols="130" rows="2">{{ promote_info.0.promote_img }}</textarea>
+                <h3>promote_url</h3>
+                <textarea style="font-size: 18px;" name="promote_url" id="" cols="130" rows="2">{{ promote_info.0.promote_url }}</textarea>
                 <h3><b>Title-01</b></h3>
-                <textarea style="font-size: 18px;" name="bullet_point_01" id="" cols="130" rows="2">{{ bullet_point.0.bullet_point_01 }}</textarea>
+                <textarea style="font-size: 18px;" name="bullet_point_01" id="" cols="130" rows="2">{{ promote_info.0.bullet_point_01 }}</textarea>
                 <h3><b>Title-02</b></h3>
-                <textarea style="font-size: 18px;" name="bullet_point_02" id="" cols="130" rows="2">{{ bullet_point.0.bullet_point_02 }}</textarea>
+                <textarea style="font-size: 18px;" name="bullet_point_02" id="" cols="130" rows="2">{{ promote_info.0.bullet_point_02 }}</textarea>
+                <h3><b>Title-03</b></h3>
+                <textarea style="font-size: 18px;" name="bullet_point_03" id="" cols="130" rows="2">{{ promote_info.0.bullet_point_03 }}</textarea>
             </div>
             <!-- <br>
             <div class="container products-shelf">

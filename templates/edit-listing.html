@@ -18,18 +18,25 @@
         Form Data Start
      -->
 
-    <form class="login" action="/JAL/adminjessie&edit-listing-status=done={{ asin }}" method="post">
+    <form class="login" action="/JAL/adminjessie&listing={{ asin }}-edit-done" method="post">
         {%csrf_token%}
         <div class="wrap">
             <br>
+            <div class="container" style="border: 1px dashed #ff8800; border-radius: 6px;">
+                <div style="margin: 20px;">
+                    <a style="margin: 10px;" href="{{ nav_admin.Dashboard }}">Dashboard</a>
+                    <span>/</span>
+                    <a style="margin: 10px;" href="{{ edit_listing }}">Manage Listing</a>
+                    <span>/</span>
+                    <span style="margin: 10px;">Edit Listing  ></span>
+                    <span>{{ asin }}</span>
+                </div>
+            </div>
+            <br>
             <div class="container">
-                <h3><b>{{ asin }}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="font-size: 20px;" href="{{ edit_listing }}">< Back to editList</a></h3><br>
                 <b>price: </b><input style="font-size: 18px;" type="text" name="price" id="" value="{{ listing.price }}" />
                 <b>status: </b><input style="font-size: 18px;" type="text" name="status" id="" value="{{ listing.status }}" />
                 <button id="" type="submit"><h3>Commit</h3></button>
-                <!-- <button id=""  href="{{ editlist }}"><h3>Back to editList</h3></button> -->
-                
-                <!-- <label>{{ status }}</label> -->
             </div>
             <br>
             <div class="container">

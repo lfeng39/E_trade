@@ -16,15 +16,18 @@
         <div class="container">
             
             <!-- <form class="login" action="/JAL/coupon&=public-done" method="post"> -->
-            <form class="login" action="{{ nav_admin.Coupon }}=create-done" method="post">
+            <form class="login" action="{{ nav_admin.Promote }}=create-done" method="post">
                 {%csrf_token%}
-                <div class="container">
-                    <h3>
-                        <br>
-                        <a href="{{ nav_admin.Coupon }}"><h3>< back coupon</h3></a>
-                        <br>
+                <br>
+                <div class="container" style="border: 1px dashed #ff8800; border-radius: 6px;">
+                    <div style="margin: 20px;">
+                        <a style="margin: 10px;" href="{{ nav_admin.Dashboard }}">Dashboard</a>
+                        <span>/</span>
+                        <a style="margin: 10px;" href="{{ nav_admin.CouponRelease }}">Coupon Released</a>
+                        <span>/</span>
+                        <span style="margin: 10px;">Create Coupon ></span>
                         <button id="" type="submit">Commit</button>
-                    </h3>
+                    </div>
                 </div>
                 <br>
                 <fieldset>

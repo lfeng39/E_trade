@@ -1,0 +1,46 @@
+<!-- {%load static%} -->
+<!DOCTYPE html>
+<html>
+<head>
+{% include "head.html" %}
+<title>{{ app_title.0 }}</title>
+</head>
+<body page_id="{{ page_id }}">
+    
+    {% include "nav.html" %}
+    
+
+    <div class="wrap">
+        <br>
+        <div class="container" style="border: 1px dashed #ff8800; border-radius: 6px;">
+            <div style="margin: 20px;">
+                <a style="margin: 10px;" href="{{ nav_admin.Dashboard }}">Dashboard</a>
+                <span>/</span>
+                <span style="margin: 10px;">Manage Promote</span>
+                <span>/</span>
+                <a style="margin: 10px;" href="{{ nav_admin.Promote }}=create">Create PromoteMoulde</a>
+            </div>
+        </div>
+        <div class="container">
+            {% for promote_info in promote_info %}
+            <br>
+            <a href="{{ nav_admin.Promote }}={{ promote_info.promote_code }}-edit">
+                <fieldset>
+                    <legend>Promote Type: {{ promote_info.promote_type }}</legend>
+                    <div class="asin">Code: {{ promote_info.promote_code }}</div>
+                    <div><img src="{{ promote_info.promote_img }}" alt="" style="height: 50px; width: 50px;"></div>
+                </fieldset>
+            </a>
+            {% endfor %}
+        </div>
+
+
+        
+    </div>
+    
+
+
+    {% include "footer.html" %}
+    
+</body>
+</html>

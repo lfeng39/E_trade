@@ -11,9 +11,14 @@
 
     <div class="wrap">
         <br>
-        <div class="container">
-            <h3><a style="font-size: 20px;" href="{{ nav_admin.Dashboard }}">< Back to Manager</a></h3>
+        <div class="container" style="border: 1px dashed #ff8800; border-radius: 6px;">
+            <div style="margin: 20px;">
+                <a style="margin: 10px;" href="{{ nav_admin.Dashboard }}">Dashboard</a>
+                <span>/</span>
+                <span style="margin: 10px;">Manage Listing</span>
+            </div>
         </div>
+        <br>
         <!-- {% for title in listing %}
         <div class="container grid">
             <div>left</div>
@@ -25,7 +30,7 @@
         <!-- <div class="container"><a href="adminjessie&edit-listing={{ listing.asin }}"><b>{{ listing.status }} > {{listing.asin}}</b> -- {{listing.title}}</a></div> -->
         <fieldset class="container">
             <legend><b>{{ listing.status }} | {{listing.asin}}</b></legend>
-            <div><a href="adminjessie&edit-listing={{ listing.asin }}">{{listing.title}}</a></div>
+            <div><a href="adminjessie&listing={{ listing.asin }}-edit">{{listing.title}}</a></div>
         </fieldset>
         {% endfor %}
         <!-- <ul class="container">

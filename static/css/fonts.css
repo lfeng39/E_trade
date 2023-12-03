@@ -20,13 +20,14 @@ h1
 {
   font-size: 36px;
   line-height: 36px;
-  font-weight: normal;
+  /* font-weight: normal; */
+  font-weight: 600;
 }
 h2
 {
   /* color: #666; */
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 24px;
+  /* line-height: 24px; */
   /* font-weight: normal; */
   font-weight: 600;
   /* width: 100%; */
@@ -40,7 +41,7 @@ h3
   /* font-weight: normal; */
   font-weight: 600;
   margin: 0;
-  padding: 2px 0;
+  /* padding: 2px 0; */
   display: -webkit-box;
   -webkit-box-orient: vertical;
   line-clamp: 3;
@@ -50,10 +51,10 @@ h3
 }
 h4
 {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 18px;
   /* font-weight: normal; */
-  font-weight: 600;
+  font-weight: 390;
   margin: 0;
   padding: 2px 0;
   display: -webkit-box;
@@ -98,7 +99,7 @@ h4
 }
 
 /* 大于981 */
-@media screen and (min-width:981px)
+/* @media screen and (min-width:981px)
 {
   h1
   {
@@ -106,20 +107,24 @@ h4
     line-height: 32px;
     font-weight: normal;
   }
-}
+} */
 
-
-.price_int{
-  /* color: rgb(110, 180, 125); */
-  /* color: rgb(80, 175, 219) */
-  color: #000000;
-}
-.price_float{
-  /* color: rgb(110, 180, 125); */
-  /* color: rgb(80, 175, 219) */
-  color: #000000;
+.price > span
+{
   font-size: 12px;
+  color: #333;
 }
+.price > span.price-int
+{
+  font-size: 24px;
+  font-weight: 600;
+}
+/* .price-float{  */
+  /* color: rgb(110, 180, 125); */
+  /* color: rgb(80, 175, 219) */
+  /* color: #333; */
+  /* font-size: 12px; */
+/* } */
 .coupon{
   color: rgb(110, 180, 125);
   /* color: rgb(80, 175, 219); */

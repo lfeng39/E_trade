@@ -95,9 +95,9 @@ def nav():
         '_admin_':
         {
             'Dashboard': base_url + 'admin' + 'jessie',
-            'EditIndex': base_url + 'admin' + 'jessie' + '&edit-index',
-            'EditListing': base_url + 'admin' + 'jessie' + '&edit-listing',
-            'Coupon': base_url + 'admin' + 'jessie' + '&coupon',
+            'Listing': base_url + 'admin' + 'jessie' + '&listing',
+            'Promote': base_url + 'admin' + 'jessie' + '&promote',
+            'CouponRelease': base_url + 'admin' + 'jessie' + '&coupon',
         },
     }
     return nav_dict
@@ -110,6 +110,18 @@ def nav():
 |   index | brand | products  |
 ===============================
 '''
+def test(request):
+    htmlApi = {
+        'page_id': 'test',
+        'nav_index': nav()['_index_'],
+        'nav_nav': nav()['_nav_'],
+        'nav_account': nav()['_account_'],
+
+        'timezone': spider.time_zone,
+    }
+    return render(request, 'test.html', htmlApi)
+
+
 def _index_(request):
     # '''
     # get cookies
@@ -138,16 +150,31 @@ def _index_(request):
         for k in range(len(img_show_dict[asin_db_list[i]])):
             img_show_dict[asin_db_list[i]] = img_show_dict[asin_db_list[i]][k].replace('.jpg', '')
 
-    product_description = models.ProductDescription.objects.all().values()
-    
+
+    promote_info = models.Promote.objects.all().values()[0]
+    # print(promote_info)
     htmlApi = {
         'page_id': 'index',
+
+        # '''
+        # nav module
+        # '''
         'nav_index': nav()['_index_'],
         'nav_nav': nav()['_nav_'],
         'nav_account': nav()['_account_'],
+
+        # '''
+        # user module
+        # '''
         'user_status': user_status,
         'user_account': user_email,
         'user_name': user_name,
+        # 'csrftoken': csrftoken,
+
+        # '''
+        # promote-banner
+        # '''
+        'promote_info': promote_info,
 
         'asin_code': asin_db_list,
         'includ_user_id_url': nav()['_index_']['includ_user_id_url'],
@@ -157,13 +184,15 @@ def _index_(request):
         'first_img': models.Listing.objects.filter(status='01',asin='B0BRHWQ27R').values('first_img'),
         'product_title': models.Listing.objects.filter(asin='B0BRHWQ27R').values()[0],
         'product_bullet_point': eval(models.Listing.objects.filter(asin='B0BRHWQ27R').values()[0]['bullet_point']),
-        'product_description': product_description,
-        # 'csrftoken': csrftoken,
+
+        # '''
+        # footer-timezone
+        # '''
         'timezone': spider.time_zone,
     }
     return render(request, 'index.html', htmlApi)
 
-
+print('spider.time_zone',spider.time_zone)
 
 def _about_(request):
     '''
@@ -179,12 +208,25 @@ def _about_(request):
 
     htmlApi = {
         'page_id': 'about',
+        
+        # '''
+        # nav module
+        # '''
         'nav_index': nav()['_index_'],
         'nav_nav': nav()['_nav_'],
         'nav_account': nav()['_account_'],
+        # 'csrftoken': csrftoken,
+
+        # '''
+        # user module
+        # '''
         'user_status': user_status,
         'user_account': user_email,
         'user_name': user_name,
+
+        # '''
+        # footer
+        # '''
         'timezone': spider.time_zone,
     }
     return render(request, 'about.html', htmlApi)
@@ -210,9 +252,18 @@ def _products_(request):
 
     htmlApi = {
         'page_id': 'products',
+
+        # '''
+        # nav module
+        # '''
         'nav_index': nav()['_index_'],
         'nav_nav': nav()['_nav_'],
         'nav_account': nav()['_account_'],
+        # 'csrftoken': csrftoken,
+
+        # '''
+        # user module
+        # '''
         'user_status': user_status,
         'user_account': user_email,
         'user_name': user_name,
@@ -223,6 +274,10 @@ def _products_(request):
         'product_info': product_info,
         'product_image': '',
         'product_title': '',
+
+        # '''
+        # footer
+        # '''
         'timezone': spider.time_zone,
     }
     return render(request, 'products.html', htmlApi)
@@ -242,9 +297,18 @@ def _listing_(request, asin):
 
     htmlApi = {
         'page_id': asin,
+
+        # '''
+        # nav module
+        # '''
         'nav_index': nav()['_index_'],
         'nav_nav': nav()['_nav_'],
         'nav_account': nav()['_account_'],
+        # 'csrftoken': csrftoken,
+
+        # '''
+        # user module
+        # '''
         'user_status': user_status,
         'user_account': user_email,
         'user_name': user_name,
@@ -258,6 +322,10 @@ def _listing_(request, asin):
         'sales_status': '',
         'cupon': '',
         'amazon': 'https://www.amazon.com/dp/' + asin,
+
+        # '''
+        # footer-timezone
+        # '''
         'timezone': spider.time_zone,
     }
     return render(request, 'listing.html', htmlApi)
@@ -314,13 +382,27 @@ def _login_(request):
     print(user_status,user_email,user_name)
     htmlApi = {
         'page_id': 'login',
+
+        # '''
+        # nav module
+        # '''
         'nav_index': nav()['_index_'],
         'nav_nav': nav()['_nav_'],
         'nav_account': nav()['_account_'],
+        # 'csrftoken': csrftoken,
+
+        # '''
+        # user module
+        # '''
         'user_status': user_status,
         'user_account': user_email,
         'user_name': user_name,
+
         'account_email': {'email':'Email'},
+
+        # '''
+        # footer-timezone
+        # '''
         'timezone': spider.time_zone,
     }
     return render(request, 'login.html', htmlApi)
@@ -361,10 +443,20 @@ def createAccount(request):
     if request.method == 'GET':
         htmlApi = {
             'page_id': 'createAccount',
+
+            # '''
+            # nav module
+            # '''
             'nav_index': nav()['_index_'],
             'nav_nav': nav()['_nav_'],
             'nav_account': nav()['_account_'],
+            # 'csrftoken': csrftoken,
+
             'account_email': {'email':'Email'},
+
+            # '''
+            # footer-timezone
+            # '''
             'timezone': spider.time_zone,
         }
         return render(request, 'create-account.html', htmlApi)
@@ -388,15 +480,25 @@ def createAccount(request):
                 # CreateUserAccount.addUserAccount(request)
                 htmlApi = {
                     'page_id': 'createAccount',
+
+                    # '''
+                    # nav module
+                    # '''
                     'nav_index': nav()['_index_'],
                     'nav_nav': nav()['_nav_'],
                     'nav_account': nav()['_account_'],
+                    # 'csrftoken': csrftoken,
+
                     # 'user_status': user_status,
                     # 'user_account': user_email,
                     # 'user_name': user_name,
 
                     'tip': verify_user_account[1] + ' is exist',
                     'products': 'products',
+
+                    # '''
+                    # footer-timezone
+                    # '''
                     'timezone': spider.time_zone,
                 }
                 return render(request, 'create-account.html', htmlApi)
@@ -412,9 +514,14 @@ def createAccount(request):
                 request.session['user_email'] = verify_user_account[1]
 
                 htmlApi = {
+                    # '''
+                    # nav module
+                    # '''
                     'nav_index': nav()['_index_'],
                     'nav_nav': nav()['_nav_'],
                     'nav_account': nav()['_account_'],
+                    # 'csrftoken': csrftoken,
+
                     'account_create': True,
                     'user_status': True,
                     'user_account': verify_user_account[1],
@@ -425,21 +532,34 @@ def createAccount(request):
                     # 'account_email': account_form.cleaned_data,
                     'products': 'products',
                     'img': '/static/image/yeah/yeah.jpg',
+
+                    # '''
+                    # footer-timezone
+                    # '''
                     'timezone': spider.time_zone,
                 }
                 return render(request, 'done.html', htmlApi)
         else:
             htmlApi = {
                 'page_id': 'createAccount',
+
+                # '''
+                # nav module
+                # '''
                 'nav_index': nav()['_index_'],
                 'nav_nav': nav()['_nav_'],
                 'nav_account': nav()['_account_'],
+                # 'csrftoken': csrftoken,
                 # 'user_status': user_status,
                 # 'user_account': user_email,
                 # 'user_name': user_name,
                 # 'account_emial': {'email':'Email'},
 
                 'msg': account_form.errors,
+
+                # '''
+                # footer
+                # '''
                 'timezone': spider.time_zone,
             }
             return render(request, 'create-account.html', htmlApi)
@@ -475,9 +595,15 @@ def verifyAccountDone(request):
     if not account_form.is_valid():
         htmlApi = {
             'page_id': 'login',
+
+            # '''
+            # nav module
+            # '''
             'nav_index': nav()['_index_'],
             'nav_nav': nav()['_nav_'],
             'nav_account': nav()['_account_'],
+            # 'csrftoken': csrftoken,
+
             # 'user_status': user_status,
             # 'user_account': user_email,
             # 'user_name': user_name,
@@ -485,6 +611,10 @@ def verifyAccountDone(request):
 
             'msg': account_form.errors,
             'products': 'products',
+
+            # '''
+            # footer
+            # '''
             'timezone': spider.time_zone,
         }
         return render(request, 'login.html', htmlApi)
@@ -580,6 +710,10 @@ def verifyAccountDone(request):
             # CreateUserAccount.addUserAccount(request)
             htmlApi = {
                 'page_id': 'login',
+                
+                # '''
+                # nav module
+                # '''
                 'nav_index': nav()['_index_'],
                 'nav_nav': nav()['_nav_'],
                 'nav_account': nav()['_account_'],
@@ -591,6 +725,10 @@ def verifyAccountDone(request):
                 # 'account_email': account_form.cleaned_data,
 
                 'products': 'products',
+
+                # '''
+                # footer
+                # '''
                 'timezone': spider.time_zone,
             }
             return render(request, 'login.html', htmlApi)
@@ -601,6 +739,10 @@ def verifyAccountDone(request):
             # CreateUserAccount.addUserAccount(request)
             htmlApi = {
                 'page_id': 'login',
+
+                # '''
+                # nav module
+                # '''
                 'nav_index': nav()['_index_'],
                 'nav_nav': nav()['_nav_'],
                 'nav_account': nav()['_account_'],
@@ -612,6 +754,10 @@ def verifyAccountDone(request):
                 'account_email': account_form.cleaned_data,
 
                 'products': 'products',
+
+                # '''
+                # footer
+                # '''
                 'timezone': spider.time_zone,
             }
             return render(request, 'login.html', htmlApi)
@@ -647,14 +793,25 @@ def myAccount(request):
         htmlApi = {
             'page_id': 'myAccount',
 
+            # '''
+            # nav module
+            # '''
             'nav_index': nav()['_index_'],
             'nav_nav': nav()['_nav_'],
             'nav_account': nav()['_account_'],
+
+            # '''
+            # user module
+            # '''
             'user_status': user_status,
             'user_account': user_email,
             'user_name': user_account['user_name'],
 
             'user_account': user_account,
+
+            # '''
+            # footer
+            # '''
             'timezone': spider.time_zone,
         }
 
@@ -677,14 +834,25 @@ def editAccount(request):
         'page_id': 'editAccount',
         'asin_code': asin_db_list,
 
+        # '''
+        # nav module
+        # '''
         'nav_index': nav()['_index_'],
         'nav_nav': nav()['_nav_'],
         'nav_account': nav()['_account_'],
+
+        # '''
+        # user module
+        # '''
         'user_status': user_status,
         'user_account': user_email,
         'user_name': user_name,
 
         'user_account': models.UserAccount.objects.filter(email=user_email).values()[0],
+        
+        # '''
+        # footer
+        # '''
         'timezone': spider.time_zone,
     }
 
@@ -709,9 +877,17 @@ def editAccountDone(request):
     htmlApi = {
             'page_id': 'createAccountDone',
             'account_edit': True,
+
+            # '''
+            # nav module
+            # '''
             'nav_index': nav()['_index_'],
             'nav_nav': nav()['_nav_'],
             'nav_account': nav()['_account_'],
+            
+            # '''
+            # user module
+            # '''
             'user_status': user_status,
             'user_account': user_email,
             'user_name': user_name,
@@ -720,8 +896,12 @@ def editAccountDone(request):
             # 'status': DataForm.getIndexData(request),
             'status': CreateUserAccount.saveUserAccount(request, user_email),
             'view': nav()['_index_']['index'],
-            'again': nav()['_admin_']['EditIndex'],
+            'again': nav()['_admin_']['EditPromote'],
             'img': '/static/image/yeah/yeah.jpg',
+
+            # '''
+            # footer
+            # '''
             'timezone': spider.time_zone,
         }
 
@@ -747,9 +927,16 @@ def myCart(request):
             'page_id': 'myCart',
             'asin_code': asin_db_list,
 
+            # '''
+            # nav module
+            # '''
             'nav_index': nav()['_index_'],
             'nav_nav': nav()['_nav_'],
             'nav_account': nav()['_account_'],
+
+            # '''
+            # user module
+            # '''
             'user_status': user_status,
             'user_account': user_email,
             'user_name': user_name,
@@ -757,6 +944,10 @@ def myCart(request):
             'product_info': models.Listing.objects.filter(asin='B0BTXB89PG').values()[0],
             'asin': detailImg('B0BTXB89PG'),
             'url_page_id_order': page_id[6],
+
+            # '''
+            # footer
+            # '''
             'timezone': spider.time_zone,
         }
 
@@ -793,15 +984,26 @@ def _order_(request):
             'page_id': 'order',
             'asin_code': asin_db_list,
 
+            # '''
+            # nav module
+            # '''
             'nav_index': nav()['_index_'],
             'nav_nav': nav()['_nav_'],
             'nav_account': nav()['_account_'],
+
+            # '''
+            # user module
+            # '''
             'user_status': user_status,
             'user_account': user_email,
             'user_name': user_name,
 
             'product_info': models.Listing.objects.filter(asin='B0BTXB89PG').values()[0],
             'asin': detailImg('B0BTXB89PG'),
+
+            # '''
+            # footer
+            # '''
             'timezone': spider.time_zone,
         }
 
@@ -828,25 +1030,77 @@ def _admin_(request):
     
     htmlApi = {
         'page_id': 'adminjessie',
+
+        # '''
+        # nav module
+        # '''
         'nav_index': nav()['_index_'],
         'nav_nav': nav()['_nav_'],
         'nav_account': nav()['_account_'],
         'nav_admin': nav()['_admin_'],
+
+        # '''
+        # user module
+        # '''
         'user_status': user_status,
         'user_account': True,
 
         'listing': models.Listing.objects.all().values(),
-        'edit_index': 'adminjessie&edit-index',
+        'edit_promote': 'adminjessie&editPromote',
         'edit_listing': 'adminjessie&edit-listing',
+
+        # '''
+        # footer
+        # '''
         'timezone': spider.time_zone,
     }
     return render(request, 'admin.html', htmlApi)
 
 
+def managePromote(request):
+    '''
+    get session
+    '''
+    user_status = request.session.get('user_status')
+    user_email = request.session.get('user_email')
+    # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
+
+    promote_info = models.Promote.objects.all().values()
+    print(promote_info)
+    htmlApi = {
+        'page_id': 'editIndex',
+
+        # '''
+        # nav module
+        # '''
+        'nav_index': nav()['_index_'],
+        'nav_nav': nav()['_nav_'],
+        'nav_account': nav()['_account_'],
+        'nav_admin': nav()['_admin_'],
+
+        # '''
+        # user module
+        # '''
+        # 'user_status': user_status,
+        'user_account': user_email,
+        # 'user_name': user_name[0][0],
+
+        'admin': 'adminjessie',
+        'id': promote_info,
+        'promote_info': promote_info,
+        'bullet_point': promote_info,
+        'tips': 'tips',
+
+        # '''
+        # footer
+        # '''
+        'timezone': spider.time_zone,
+    }
+    return render(request, 'manage-promote.html', htmlApi)
 @csrf_protect
 @csrf_exempt
 @requires_csrf_token
-def editIndex(request):
+def createPromote(request):
     if request.method == 'GET':
         '''
         get session
@@ -855,8 +1109,73 @@ def editIndex(request):
         user_email = request.session.get('user_email')
         # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
 
-        product_description = models.ProductDescription.objects.all().values()
+        # promote_info = models.Promote.objects.all().values()
+        # promote_info = models.Promote.objects.filter(promote_code=code).values()
+        htmlApi = {
+            'page_id': 'editIndex',
+
+            # '''
+            # nav module
+            # '''
+            'nav_index': nav()['_index_'],
+            'nav_nav': nav()['_nav_'],
+            'nav_account': nav()['_account_'],
+            'nav_admin': nav()['_admin_'],
+
+            # '''
+            # user module
+            # '''
+            # 'user_status': user_status,
+            'user_account': user_email,
+            # 'user_name': user_name[0][0],
+
+            'admin': 'adminjessie',
+            # 'id': promote_info,
+            # 'promote_info': promote_info,
+            'manage_promote': nav()['_admin_']['Promote'],
+            'tips': 'tips',
+
+            # '''
+            # footer
+            # '''
+            'timezone': spider.time_zone,
+        }
+        return render(request, 'create-promote.html', htmlApi)
+    if request.method == 'POST':
+        # return HttpResponse('JAL')
         
+        htmlApi = {
+            'page_id': 'editPromoteDone',
+            'admin_index': True,
+            'nav_index': nav()['_index_'],
+            'nav_nav': nav()['_nav_'],
+            'nav_account': nav()['_account_'],
+
+            'tag': 'edit index is   ',
+            # 'status': spider.DataForm.getIndexData(request),
+            # 'status': saveIndexData(request),
+            'status': CreateCoupon.createPromote(request),
+            'view': nav()['_index_']['index'],
+            'again': nav()['_admin_']['Promote'],
+            'img': '/static/image/yeah/yeah.jpg',
+            'timezone': spider.time_zone,
+        }
+        return render(request, 'done.html', htmlApi)
+@csrf_protect
+@csrf_exempt
+@requires_csrf_token
+def editPromote(request, code):
+    if request.method == 'GET':
+        '''
+        get session
+        '''
+        user_status = request.session.get('user_status')
+        user_email = request.session.get('user_email')
+        # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
+
+        # promote_info = models.Promote.objects.all().values()
+        promote_info = models.Promote.objects.filter(promote_code=code).values()
+
         htmlApi = {
             'page_id': 'editIndex',
             'nav_index': nav()['_index_'],
@@ -868,17 +1187,17 @@ def editIndex(request):
             # 'user_name': user_name[0][0],
 
             'admin': 'adminjessie',
-            'asin': product_description,
-            'bullet_point': product_description,
-            'id': product_description,
+            'id': promote_info,
+            'promote_info': promote_info,
+            'manage_promote': nav()['_admin_']['Promote'],
             'tips': 'tips',
             'timezone': spider.time_zone,
         }
-        return render(request, 'edit-index.html', htmlApi)
+        return render(request, 'edit-promote.html', htmlApi)
     if request.method == 'POST':
         # return HttpResponse('JAL')
         htmlApi = {
-            'page_id': 'editIndexDone',
+            'page_id': 'editPromoteDone',
             'admin_index': True,
             'nav_index': nav()['_index_'],
             'nav_nav': nav()['_nav_'],
@@ -886,9 +1205,10 @@ def editIndex(request):
 
             'tag': 'edit index is   ',
             # 'status': spider.DataForm.getIndexData(request),
-            'status': saveIndexData(request),
+            # 'status': saveIndexData(request),
+            'status': CreateCoupon.createPromote(request),
             'view': nav()['_index_']['index'],
-            'again': nav()['_admin_']['EditIndex'],
+            'again': nav()['_admin_']['Promote'],
             'img': '/static/image/yeah/yeah.jpg',
             'timezone': spider.time_zone,
         }
@@ -917,7 +1237,7 @@ def editIndex(request):
 #     return render(request, 'done.html', htmlApi)
 
 
-def managerProductList(request):
+def managerProduct(request):
     '''
     get session
     '''
@@ -938,7 +1258,7 @@ def managerProductList(request):
         'listing': models.Listing.objects.all().values(),
         'timezone': spider.time_zone,
     }
-    return render(request, 'manager-product-list.html', htmlApi)
+    return render(request, 'manage-product.html', htmlApi)
 
 
 @csrf_protect
@@ -967,7 +1287,7 @@ def editListing(request, asin):
             'listing': models.Listing.objects.filter(asin=asin).values()[0],
             'bullet_point': eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']),
             'len_bullet_point': len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point'])),
-            'edit_listing': nav()['_admin_']['EditListing'],
+            'edit_listing': nav()['_admin_']['Listing'],
             'timezone': spider.time_zone,
         }
         return render(request, 'edit-listing.html', htmlApi)
@@ -982,10 +1302,10 @@ def editListing(request, asin):
 
             'tag': 'edit listing done,  ',
             # 'status': spider.DataForm.editListing(request, asin),
-            'status': saveListing(request, asin),
+            'status': CreateProduct.saveListing(request, asin),
             'view': 'products&asin=' + asin,
-            'again': nav()['_admin_']['EditListing'] + '=' + asin,
-            'edit_listing': nav()['_admin_']['EditListing'],
+            'again': nav()['_admin_']['Listing'] + '=' + asin,
+            'edit_listing': nav()['_admin_']['Listing'],
             'img': '/static/image/yeah/ok.jpg',
             'timezone': spider.time_zone,
         }
@@ -1040,7 +1360,7 @@ def _coupon_(request):
         
         'timezone': spider.time_zone,
     }
-    return render(request, 'edit-coupon.html', htmlApi)
+    return render(request, 'manage-coupon.html', htmlApi)
 @csrf_protect
 @csrf_exempt
 @requires_csrf_token
@@ -1052,7 +1372,7 @@ def createCoupon(request):
             'nav_nav': nav()['_nav_'],
             'nav_admin': nav()['_admin_'],
 
-            'time_date': spider.time_zone.strftime('%Y-%m-%d'),
+            'time_date': spider.cityTime('America/Los_Angeles').strftime('%Y-%m-%d'),
             'timezone': spider.time_zone,
         }
         return render(request, 'create-coupon.html', htmlApi)
@@ -1098,6 +1418,36 @@ class CreateProduct:
             first_img = images.Img.firstImg(asin, '7'),
             status = '01',
         )
+    '''
+    save data after edit listing
+    '''
+    def saveListing(request, asin):
+        get_listing_data = forms.getListingData(request, asin)
+        try:
+            '''
+            save the data that has been changed from edit.html to DB
+            '''
+            db_table_listing = models.Listing.objects.get(asin=asin)
+            db_table_listing.title = get_listing_data['title']
+            db_table_listing.price = get_listing_data['price']
+            db_table_listing.bullet_point = get_listing_data['bullet_point']
+            db_table_listing.description = get_listing_data['description']
+            db_table_listing.status = get_listing_data['status']
+            db_table_listing.save()
+
+            # db_table_productinfo = models.ProductInfo.objects.get(asin=asin)
+            # db_table_productinfo.title = get_listing_data['title']
+            # db_table_productinfo.price = get_listing_data['price']
+            # db_table_productinfo.bullet_point = get_listing_data['bullet_point']
+            # db_table_productinfo.description = get_listing_data['description']
+            # db_table_productinfo.status = get_listing_data['status']
+            # db_table_productinfo.save()
+
+            return 'Congratulations!'
+        except:
+            error = asin + ' is not in productlist, please try again...'
+            return error
+
     def addImgUrl(asin):
         pass
 
@@ -1173,11 +1523,45 @@ class CreateCoupon:
             type_cash = get_coupon_info['cash'],
             type_percentage = float(0),
             # type_percentage = float(get_coupon_info['percentage'])/100,
-            start_at = lax_time,
-            end_at = lax_time,
+            start_at = spider.time_zone,
+            end_at = spider.time_zone,
             type_status = '01',
         )
 
+    # def createPromote(request):
+    '''
+    save data after edit index
+    check ProductDescription from DB, if False, create it
+    '''
+    def createPromote(request):
+        get_index_data = forms.getIndexData(request)
+        try:
+            '''
+            save
+            '''
+            db_table_promote = models.Promote.objects.get(promote_code=get_index_data['promote_code'])
+            db_table_promote.promote_type = get_index_data['promote_type']
+            db_table_promote.promote_img = get_index_data['promote_img']
+            db_table_promote.bullet_point_01 = get_index_data['bullet_point_01']
+            db_table_promote.bullet_point_02 = get_index_data['bullet_point_02']
+            db_table_promote.bullet_point_03 = get_index_data['bullet_point_03']
+            db_table_promote.promote_url = get_index_data['promote_url']
+            db_table_promote.save()
+            return 'Save done'
+        except:
+            '''
+            if False, create it
+            '''
+            models.Promote.objects.create(
+                promote_type = get_index_data['promote_type'],
+                promote_code = get_index_data['promote_code'],
+                promote_img = get_index_data['promote_img'],
+                bullet_point_01 = get_index_data['bullet_point_01'],
+                bullet_point_02 = get_index_data['bullet_point_02'],
+                bullet_point_03 = get_index_data['bullet_point_03'],
+                promote_url = get_index_data['promote_url']
+            )
+            return 'Create done'
 
 
 '''
@@ -1242,7 +1626,7 @@ def saveIndexData(request):
         '''
         save
         '''
-        db_table_index = models.ProductDescription.objects.get(id=get_index_data['id'])
+        db_table_index = models.Promote.objects.get(id=get_index_data['id'])
         db_table_index.asin = get_index_data['asin']
         db_table_index.bullet_point_01 = get_index_data['bullet_point_01']
         db_table_index.bullet_point_02 = get_index_data['bullet_point_02']
@@ -1255,47 +1639,47 @@ def saveIndexData(request):
         '''
         if False, create it
         '''
-        models.ProductDescription.objects.create(
+        models.Promote.objects.create(
             id = get_index_data['id'],
-            asin = get_index_data['asin'],
+            promote_code = get_index_data['promote_code'],
             bullet_point_01 = get_index_data['bullet_point_01'],
             bullet_point_02 = get_index_data['bullet_point_02'],
             bullet_point_03 = get_index_data['bullet_point_03'],
-            url = get_index_data['url']
+            promote_url = get_index_data['promote_url']
         )
         return 'Create it done!'
 
 
 
-'''
-save data after edit listing
-'''
-def saveListing(request, asin):
-    get_listing_data = forms.getListingData(request, asin)
-    try:
-        '''
-        save the data that has been changed from edit.html to DB
-        '''
-        db_table_listing = models.Listing.objects.get(asin=asin)
-        db_table_listing.title = get_listing_data['title']
-        db_table_listing.price = get_listing_data['price']
-        db_table_listing.bullet_point = get_listing_data['bullet_point']
-        db_table_listing.description = get_listing_data['description']
-        db_table_listing.status = get_listing_data['status']
-        db_table_listing.save()
+# '''
+# save data after edit listing
+# '''
+# def saveListing(request, asin):
+#     get_listing_data = forms.getListingData(request, asin)
+#     try:
+#         '''
+#         save the data that has been changed from edit.html to DB
+#         '''
+#         db_table_listing = models.Listing.objects.get(asin=asin)
+#         db_table_listing.title = get_listing_data['title']
+#         db_table_listing.price = get_listing_data['price']
+#         db_table_listing.bullet_point = get_listing_data['bullet_point']
+#         db_table_listing.description = get_listing_data['description']
+#         db_table_listing.status = get_listing_data['status']
+#         db_table_listing.save()
 
-        # db_table_productinfo = models.ProductInfo.objects.get(asin=asin)
-        # db_table_productinfo.title = get_listing_data['title']
-        # db_table_productinfo.price = get_listing_data['price']
-        # db_table_productinfo.bullet_point = get_listing_data['bullet_point']
-        # db_table_productinfo.description = get_listing_data['description']
-        # db_table_productinfo.status = get_listing_data['status']
-        # db_table_productinfo.save()
+#         # db_table_productinfo = models.ProductInfo.objects.get(asin=asin)
+#         # db_table_productinfo.title = get_listing_data['title']
+#         # db_table_productinfo.price = get_listing_data['price']
+#         # db_table_productinfo.bullet_point = get_listing_data['bullet_point']
+#         # db_table_productinfo.description = get_listing_data['description']
+#         # db_table_productinfo.status = get_listing_data['status']
+#         # db_table_productinfo.save()
 
-        return 'Congratulations!'
-    except:
-        error = asin + ' is not in productlist, please try again...'
-        return error
+#         return 'Congratulations!'
+#     except:
+#         error = asin + ' is not in productlist, please try again...'
+#         return error
 
 
 

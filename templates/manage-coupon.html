@@ -12,12 +12,16 @@
 
     <div class="wrap">
         <br>
-        <div class="container">
-            <h3>
-                <a href="{{ nav_admin.Dashboard }}">< Back to Manager</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                <a href="{{ nav_admin.Coupon }}=create">Create Coupon</a>
-            </h3>
+        <div class="container" style="border: 1px dashed #ff8800; border-radius: 6px;">
+            <div style="margin: 20px;">
+                <a style="margin: 10px;" href="{{ nav_admin.Dashboard }}">Dashboard</a>
+                <span>/</span>
+                <span style="margin: 10px;">Coupon Released</span>
+                <span>/</span>
+                <a href="{{ nav_admin.CouponRelease }}=create">Create Coupon</a>
+            </div>
         </div>
+        <br>
         <div class="container">
             {% for coupon in coupon %}
             <br>

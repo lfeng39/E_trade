@@ -41,12 +41,14 @@ edit index
 '''
 def getIndexData(request):
     get_content_dict = {
-        'id' : request.POST.get('id'),
-        'asin' : request.POST.get('asin'),
+        # 'id' : request.POST.get('id'),
+        'promote_type' : request.POST.get('promote_type'),
+        'promote_code' : request.POST.get('promote_code'),
+        'promote_img' : request.POST.get('promote_img'),
+        'promote_url' : request.POST.get('promote_url'),
         'bullet_point_01' : request.POST.get('bullet_point_01'),
         'bullet_point_02' : request.POST.get('bullet_point_02'),
-        'bullet_point_03' : '',
-        'url' : [],
+        'bullet_point_03' : request.POST.get('bullet_point_03'),
     }
     return get_content_dict
 
@@ -60,20 +62,18 @@ def getListingData(request, asin):
     get title from edit.html
     '''
     title = request.POST.get('title')
-
     '''
     get price from edit.html
     '''
     price = request.POST.get('price')
-
     '''
     get bullepoint from edit.html
     '''
     count = len(eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']))
     bullet_point = []
     for i in range(count):
-        bullet_point.append(request.POST.get('bullet_point_'+str(i+1)))
-    
+        bullet_point.append(request.POST.get('bullet_point_' + str( i + 1 )))
+    print(bullet_point)
     '''
     get description from edit.html
     '''

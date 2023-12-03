@@ -28,25 +28,34 @@ urlpatterns = [
     path('products&asin=<asin>',views._listing_, name=''),
     path('html-msg',views.htmlMsg, name=''),
 
+
     path('login',views._login_, name=''),
     path('logout',views._logout_, name=''),
     path('account=login',views.verifyAccountDone, name=''),
     path('createAccount',views.createAccount, name=''),
     path('account=createAccount',views.createAccount, name=''),
+
+
     path('cart',views.myCart, name=''),
     path('order',views._order_, name=''),
     path('myAccount',views.myAccount, name=''),
     path('myAccount&=edit',views.editAccount, name=''),
     path('myAccount&=edit-status-done',views.editAccountDone, name=''),
+
+
     path('adminjessie',views._admin_, name=''),
-    path('adminjessie&edit-index',views.editIndex, name=''),
-    path('adminjessie&edit-index-status-done',views.editIndex, name=''),
-    # path('adminjessie&edit-index-status-done',views.editIndexDone, name=''),
-    path('adminjessie&edit-listing',views.managerProductList, name=''),
-    path('adminjessie&edit-listing=<asin>',views.editListing, name=''),
-    path('adminjessie&edit-listing-status=done=<asin>',views.editListing, name=''),
-    # path('adminjessie&edit-listing-status=done=<asin>',views.editListingDone, name=''),
+    path('adminjessie&promote',views.managePromote, name=''),
+    path('adminjessie&promote=create',views.createPromote, name=''),
+    path('adminjessie&promote=create-done',views.createPromote, name=''),
+    path('adminjessie&promote=<code>-edit',views.editPromote, name=''),
+    path('adminjessie&promote=<code>-edit-done',views.editPromote, name=''),
+
+    path('adminjessie&listing',views.managerProduct, name=''),
+    path('adminjessie&listing=<asin>-edit',views.editListing, name=''),
+    path('adminjessie&listing=<asin>-edit-done',views.editListing, name=''),
+
     path('adminjessie&coupon', views._coupon_, name=''),
     path('adminjessie&coupon=create', views.createCoupon, name=''),
     path('adminjessie&coupon=create-done', views.createCoupon, name=''),
+    path('test', views.test, name=''),
 ]

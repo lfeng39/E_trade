@@ -11,18 +11,26 @@
     
 
 
-    <div id="{{ page_id }}" class="wrap">
+    <main id="{{ page_id }}">
         <!-- 产品图片及价格信息 -->
-        <div class="container grid-listing margin-t-b">
+        <div class="container grid-listing">
             <div>
                 <div>
                     <img src="{{ product_info.first_img }}" alt="" />
                 </div>
             </div>
             <div class="product-info">
+            <!-- <div> -->
                 <div><h1>{{ product_info.title }}</h1></div>
-                <div><h2 class="price_float">$ {{ product_info.price }}</h2></div>
-                <!-- <div><h2 class="price_int" style="font-size: 12px;"></h2></div> -->
+                <!-- <div><h2 class="price_init">$ {{ product_info.price }}</h2></div> -->
+                
+                <div>
+                    <span class="flex-container price">
+                        <span class="price-symbol">$</span>
+                        <span class="price-int">{{ product_info.price }}</span>
+                        <span class="price-float"></span>
+                    </span>
+                </div>
                 
                 <!-- <div> -->
                     <!-- <form action="/JAL/" method="post"> -->
@@ -32,11 +40,13 @@
                     <!-- </form> -->
                 <!-- </div> -->
                 <div><a href="{{ amazon }}" target="_blank" class="widget-btn">Buy on Amazon</a></div>
-                <div><h4 class="coupon">Coupon: 20% off | {{ product_info.asin }} | {{ product_info.status }}</h4></div>
+                <div>
+                    <span class="coupon">Coupon: 20% off | {{ product_info.asin }} | {{ product_info.status }}</span>
+                </div>
                 <div>
                     <ul class="bullet-point">
                         {% for bullet_point in product_bullet_point %}
-                        <li><h3>{{ bullet_point }}</h3></li>
+                        <li><p>{{ bullet_point }}</p></li>
                         {% endfor %}
                         
                         <!-- <li>{{ product_description.bullet_point_00 }}</li>
@@ -49,7 +59,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </main>
 
         <!-- <div class="container">
 

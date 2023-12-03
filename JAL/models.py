@@ -63,13 +63,16 @@ class ProductInfo(models.Model):
     # def __str__(self):
     #     return self.asin + ' *** ' + self.title
 
-class ProductDescription(models.Model):
+# class ProductDescription(models.Model):
+class Promote(models.Model):
     # id = models.CharField(max_length=20, primary_key=True)
-    asin = models.CharField(max_length=20, blank=True)
+    promote_type = models.CharField(max_length=20, blank=True)
+    promote_code = models.CharField(max_length=20, blank=True)
+    promote_img = models.CharField(max_length=500, blank=True)
     bullet_point_01 = models.CharField(max_length=500, blank=True)
     bullet_point_02 = models.CharField(max_length=500, blank=True)
     bullet_point_03 = models.CharField(max_length=500, blank=True)
-    url = models.CharField(max_length=500, blank=True)
+    promote_url = models.CharField(max_length=500, blank=True)
 
 class Image(models.Model):
     asin = models.CharField(max_length=20, blank=True)

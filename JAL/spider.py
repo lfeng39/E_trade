@@ -203,18 +203,15 @@ print('| NYC_time', nyc_time, ' |')
 # LAX_time
 _lax_ = pytz.timezone('America/Los_Angeles')
 lax_time = datetime.datetime.now(tz=_lax_).strftime(_format_)
-
-time_zone = lax_time
 print('| LAX_time', lax_time, ' |')
 print('=== Western time zone ========================\n')
 
-# def cityTime(city):
-#     city_time = 
-#     return city_time
-
-# now = datetime.datetime.now(tz=_shanghai_).strftime('%M%S')
-# print(now)
-
+def cityTime(city_timezone):
+    city_time = pytz.timezone(city_timezone)
+    city_time = datetime.datetime.now(tz=city_time)
+    return city_time
+time_zone = cityTime('America/Los_Angeles').strftime('%Y')
+print(time_zone)
 '''
 Weather: AccuWeather API | OpenWeather API
 '''
@@ -225,7 +222,6 @@ def cityWeather(city):
     OpenWeather = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&lang=' + lang[0] + '&appid=05c5e335a194653cec7c397f6b82ad34&units=metric'
     response = requests.get(OpenWeather)
     
-
     if response.status_code == 200:
         data = response.json()
         response_city_data = {
@@ -238,9 +234,7 @@ def cityWeather(city):
         # print(city,data)
         # print(city,'>',data['main']['temp'],'>',data['weather'][0]['description'],'>','pressure:',data['main']['pressure'],'>','humidity:',data['main']['humidity'])
     else:
-        print("无法获取天气信息")
-
-        
+        print("i can't get any info about weather")      
     return response_city_data
 
 # print(cityWeather('shanghai'))

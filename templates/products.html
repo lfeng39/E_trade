@@ -10,8 +10,8 @@
     {% include "nav.html" %}
     
 
-    <div class="wrap">
-        <br>
+    <main class="wrap">
+        
         <div class="container">&nbsp;&nbsp;result over {{ lenth }}</div>
 
         <div class="container grid-container">
@@ -27,9 +27,28 @@
             <div class="margin-around">
                 <div><a href="products&asin={{ product_info.asin }}{{ includ_user_id_url }}"><img src="{{ product_info.first_img }}" alt=""></a></div>
                 <div><h2><a href="products&asin={{ product_info.asin }}{{ includ_user_id_url }}" title="{{ product_info.title }}" class="display-row-3">{{ product_info.title }}</a></h2></div>
-                <div><h2 class="price_float">$ {{ product_info.price }}</h2></div>
-                <div><h2 class="price_int" style="font-size: 12px;"></h2></div>
-                <div><h4 class="coupon">Coupon: 20% off | {{ product_info.asin }} | {{ product_info.status }}</h4></div>
+                <div>
+                    <span class="flex-container price">
+                        <span class="price-symbol">$</span>
+                        <span class="price-int">{{ product_info.price }}</span>
+                        <span class="price-float"></span>
+                    </span>
+                </div>
+                <div>
+                    <span class="coupon">Coupon: 20% off</span>
+                </div>
+            </div>
+            {% endfor %}
+            {% for product_info in product_info %}
+            <div class="margin-around">
+                <div><a href="products&asin={{ product_info.asin }}{{ includ_user_id_url }}"><img src="{{ product_info.first_img }}" alt=""></a></div>
+                <div><h2><a href="products&asin={{ product_info.asin }}{{ includ_user_id_url }}" title="{{ product_info.title }}" class="display-row-3">{{ product_info.title }}</a></h2></div>
+                <div class="flex-container price">
+                    <span class="price-symbol">$</span>
+                    <span class="price-int">{{ product_info.price }}</span>
+                    <span class="price-float"></span>
+                </div>
+                <div class="coupon"><h4>Coupon: 20% off</h4></div>
             </div>
             {% endfor %}
             <!-- <div id="lfeng1" class="margin-around">
@@ -70,7 +89,7 @@
 
         </div>
         
-    </div>
+    </main>
 
     {% include "footer.html" %}
 
