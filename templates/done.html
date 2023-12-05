@@ -20,41 +20,50 @@
                 <a style="font-size: 20px;" href="{{ products }}" target="_blank">Shopping</a> | 
                 <a style="font-size: 20px;" href="{{ nav_account.myAccount.0 }}">Check Account:  {{ user_account }}</a>
             </div>
-            <div><img src="{{ img }}" alt=""></div>
+            <!-- <div><img src="{{ img }}" alt=""></div> -->
         </div>
 
         {% elif account_edit %}
         <div class="container">
-            <div style="margin: 20px 0 20px 0;"><h1>{{ tag }}{{ status }}</h1></div>
+            <div style="margin: 20px 0 20px 0;"><h1>{{ tip }}</h1></div>
             
             <div style="margin: 20px 0 20px 0;">
                 <a style="font-size: 20px;" href="{{ view }}" target="_blank">View</a> | 
                 <a style="font-size: 20px;" href="{{ again }}">Again</a>
             </div>
-            <div><img src="{{ img }}" alt=""></div>
+            <!-- <div><img src="{{ img }}" alt=""></div> -->
         </div>
 
-        {% elif admin_index %}
+        {% elif listing_edit %}
         <div class="container">
-            <div style="margin: 20px 0 20px 0;"><h1>{{ tag }}{{ status }}</h1></div>
-            
-            <div style="margin: 20px 0 20px 0;">
-                <a style="font-size: 20px;" href="{{ view }}" target="_blank">View</a> | 
-                <a style="font-size: 20px;" href="{{ again }}">Again</a>
-            </div>
-            <div><img src="{{ img }}" alt=""></div>
-        </div>
-
-        {% elif admin_listing %}
-        <div class="container">
-            <div style="margin: 20px 0 20px 0;"><h1>{{ tag }}{{ status }}</h1></div>
+            <div style="margin: 20px 0 20px 0;"><h1>{{ tip }}</h1></div>
             
             <div style="margin: 20px 0 20px 0;">
                 <a style="font-size: 20px;" href="{{ view }}" target="_blank">View</a> | 
                 <a style="font-size: 20px;" href="{{ again }}">Again</a> | 
-                <a style="font-size: 20px;" href="{{ edit_listing }}">Back to ...</a>
+                <a style="font-size: 20px;" href="{{ back }}">Listing</a>
             </div>
-            <div><img src="{{ img }}" alt=""></div>
+            <!-- <div><img src="{{ img }}" alt=""></div> -->
+        </div>
+
+        {% elif protome_create %}
+        <div class="container">
+            <div style="margin: 20px 0 20px 0;"><h1>{{ tip }}</h1></div>
+            
+            <div style="margin: 20px 0 20px 0;">
+                <a style="font-size: 20px;" href="{{ back }}">Protome List</a>
+            </div>
+            <!-- <div><img src="{{ img }}" alt=""></div> -->
+        </div>
+
+        {% elif counpon_create %}
+        <div class="container">
+            <div style="margin: 20px 0 20px 0;"><h1>{{ tip }}</h1></div>
+            
+            <div style="margin: 20px 0 20px 0;">
+                <a style="font-size: 20px;" href="{{ back }}">CouponRelease</a>
+            </div>
+            <!-- <div><img src="{{ img }}" alt=""></div> -->
         </div>
         {% endif %}
     </div>

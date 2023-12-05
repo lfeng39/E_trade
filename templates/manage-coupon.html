@@ -23,12 +23,12 @@
         </div>
         <br>
         <div class="container">
-            {% for coupon in coupon %}
+            {% for coupon_info in coupon_info %}
             <br>
             <fieldset>
-                <legend>Coupon {{ coupon.created_at.date }}</legend>
-                <div class="asin">Title: {{ coupon.title }}</div>
-                <div class="asin">Code: {{ coupon.coupon_code }}</div>
+                <legend>Coupon {{ coupon_info.created_at.year }}-{{ coupon_info.created_at.month }}-{{ coupon_info.created_at.day }} {{ coupon_info.created_at.time }}</legend>
+                <div class="asin">Title: {{ coupon_info.title }}</div>
+                <div class="asin">Code: {{ coupon_info.coupon_code }}</div>
                 <!-- <div class="asin">Cash: $ 5.00</div>
                 <div class="asin">Created at: {{ created_at }}</div>
                 <div class="asin">Start at: 20231102</div>

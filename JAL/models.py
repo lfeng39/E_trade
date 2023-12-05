@@ -63,17 +63,6 @@ class ProductInfo(models.Model):
     # def __str__(self):
     #     return self.asin + ' *** ' + self.title
 
-# class ProductDescription(models.Model):
-class Promote(models.Model):
-    # id = models.CharField(max_length=20, primary_key=True)
-    promote_type = models.CharField(max_length=20, blank=True)
-    promote_code = models.CharField(max_length=20, blank=True)
-    promote_img = models.CharField(max_length=500, blank=True)
-    bullet_point_01 = models.CharField(max_length=500, blank=True)
-    bullet_point_02 = models.CharField(max_length=500, blank=True)
-    bullet_point_03 = models.CharField(max_length=500, blank=True)
-    promote_url = models.CharField(max_length=500, blank=True)
-
 class Image(models.Model):
     asin = models.CharField(max_length=20, blank=True)
     listing_7 = models.CharField(max_length=140, blank=True)
@@ -98,6 +87,18 @@ class Order(models.Model):
     user_id = models.CharField(max_length = 20, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+# class ProductDescription(models.Model):
+class Promote(models.Model):
+    # id = models.CharField(max_length=20, primary_key=True)
+    promote_type = models.CharField(max_length=20, blank=True)
+    promote_code = models.CharField(max_length=20, blank=True)
+    promote_img = models.CharField(max_length=500, blank=True)
+    bullet_point_01 = models.CharField(max_length=500, blank=True)
+    bullet_point_02 = models.CharField(max_length=500, blank=True)
+    bullet_point_03 = models.CharField(max_length=500, blank=True)
+    promote_url = models.CharField(max_length=500, blank=True)
+    promote_channel = models.CharField(max_length=500, blank=True)
 
 class Coupon(models.Model):
     asin = models.CharField(max_length=1000, blank=True)

@@ -46,6 +46,7 @@ def getIndexData(request):
         'promote_code' : request.POST.get('promote_code'),
         'promote_img' : request.POST.get('promote_img'),
         'promote_url' : request.POST.get('promote_url'),
+        'promote_channel': request.POST.get('promote_channel'),
         'bullet_point_01' : request.POST.get('bullet_point_01'),
         'bullet_point_02' : request.POST.get('bullet_point_02'),
         'bullet_point_03' : request.POST.get('bullet_point_03'),
@@ -104,6 +105,7 @@ def getCouponData(request):
         'asin' : request.POST.get('asin'),
         'code' : request.POST.get('code'),
         'cash' : request.POST.get('cash'),
+
         # 'percentage' : request.POST.get('percentage'),
         # 'start_at' : request.POST.get('start_at'),
         # 'end_at' : request.POST.get('end_at'),

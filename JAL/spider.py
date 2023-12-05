@@ -210,7 +210,7 @@ def cityTime(city_timezone):
     city_time = pytz.timezone(city_timezone)
     city_time = datetime.datetime.now(tz=city_time)
     return city_time
-time_zone = cityTime('America/Los_Angeles').strftime('%Y')
+time_zone = cityTime('America/Los_Angeles')
 print(time_zone)
 '''
 Weather: AccuWeather API | OpenWeather API
