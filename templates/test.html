@@ -15,64 +15,79 @@
 
 <!-- Web Icon -->
 <link rel="icon" href="/static/image/ico/l&j.ico" type="image/x-icon" />
+<script defer="defer">
+window.onload = function()
+{  
+    num = Math.floor(Math.random()*10)
+    console.log(num)
 
-<!-- CSS -->
-<!-- <link type="text/css" rel="stylesheet" media="all" href="/static/css/main.css"> -->
-<!-- <link type="text/css" rel="stylesheet" media="all" href="/static/css/layout.css"> -->
-<!-- <link type="text/css" rel="stylesheet" media="all" href="/static/css/module.css"> -->
+    var a = document.getElementById('a')
+    var b = document.getElementById('b')
+    console.log('a: ', a.left)
+    
+}
+function nex()
+{
+    // a.style.display = "none"
+    // b.style.display = ""
+    // a.style.transform = 'translateX(-1260px)'
+    // b.style.transform = 'translateX(-1260px)'
+    var a = document.getElementById('a')
+    var b = document.getElementById('b')
+    console.log('aaaaa: ', a.style.left)
+    a.style.left = parseInt(a.style.left) - 1260 + 'px'
+    b.style.left = parseInt(b.style.left) - 1260 + 'px'
+    console.log('BBB: ', a.style.left)
+}
+function pre()
+{
+    // a.style.transform = 'translateX(0)'
+    // b.style.transform = 'translateX(0)'
+    var a = document.getElementById('a')
+    var b = document.getElementById('b')
+    console.log('aaaaa: ', a.style.left)
+    a.style.left = parseInt(a.style.left) + 1260 + 'px'
+    b.style.left = parseInt(b.style.left) + 1260 + 'px'
+    console.log('AAAAA: ', a.style.left)
+}
+</script>
+
 <style>
 .container
 {
-width: 98%;
-margin: auto;
+    width: 98%;
+    margin: auto;
 }
 .grid-container
 {
-display: grid;
-/* grid-gap: 8% 2%; */
-grid-gap: 10px;
-grid-template-columns: repeat(auto-fit, minmax(200px, auto));
-grid-template-rows: auto;
-justify-content: space-around;
+    display: grid;
+    /* grid-gap: 8% 2%; */
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+    grid-template-rows: auto;
+    justify-content: space-around;
+}
+.flex-container
+{
+    display: flex;
+    overflow: hidden;
 }
 </style>
-<!-- Js -->
-<!-- <script src="/static/js/base.js" defer="defer"></script>
-<script src="/static/js/account.js" defer="defer"></script>
-<script src="/static/js/price.js" defer="defer"></script> -->
-<script>
-// function resizeFunction()
-// {
-//     // 打印页面默认加载时的宽度
-//     console.log('bodyWid:', document.body.clientWidth)
-//     console.log('bodyHei:', document.body.clientHeight)
 
-//     var bodyWid = document.body.clientWidth
-//     var bodyHei = document.body.clientHeight
 
-// }
-
-// // 监听事件及运行函数体
-// // window.addEventListener("resize", resizeFunction);
-
-// // 页面加载时，运行函数体
-// window.onload = function()
-// {  
-//     resizeFunction()
-//     a = document.getElementById('a')
-//     b = document.getElementById('b')
-//     c = document.getElementById('c')
-//     console.log('wrap:', a.clientHeight, a.offsetHeight)
-//     console.log('container:', b.clientHeight, b.offsetHeight)
-//     console.log('footer:', c.clientHeight, c.offsetHeight)
-// }
-</script>
 <title></title>
 </head>
 <body style=" background-color: bisque; ">
 
     <nav style="min-height: 100px; background-color: #ff0000;">
-        sss
+        <div class="container flex-container">
+            <div><span onclick="pre()"  style="font-size: 36px; color: #fff; cursor: pointer;"> &lt; </span></div>
+            <div class="flex-container">
+                <div id="a" style="height: 600px; padding-right: 290px; position: relative; left: 0;"><img style="height: 600px;" src="/static/image/products/B0BTXB89PG/v1.00/970/1-A+-970.jpg" alt=""></div>
+                <div id="b" style="height: 600px; padding-right: 290px; position: relative; left: 0;"><img style="height: 600px;" src="/static/image/products/B0BTXB89PG/v1.00/970/2-A+-970.jpg" alt=""></div>
+            </div>
+            <div><span onclick="nex()"  style="font-size: 36px; color: #fff; cursor: pointer;"> &gt; </span></div>
+        </div>
     </nav>
     
     <main class="container grid-container" style="background-color: #ffbb00; border: 1px solid #ff0000;">
@@ -106,5 +121,6 @@ justify-content: space-around;
     <footer id="c" style="height: 150px; background: rgb(0, 0, 0, 0.2);">
         fffff
     </footer>
+
 </body>
 </html>

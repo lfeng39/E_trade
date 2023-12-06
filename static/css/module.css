@@ -24,7 +24,6 @@ wrap > container > grid
   background: url('../image/ico/mamleo-200-35-03.png') no-repeat;
   border-radius: 3px;
 }
-
 .brand-mini
 {
   width: 570px;
@@ -42,11 +41,13 @@ wrap > container > grid
 {
   background-color: #f5f5f5;
   border-radius: 6px;
+  margin: 0 15px;
+  padding: 3%;
 }
 /* products-shelf & product-info start */
-.product-info > div, div > p
+.product-info > div, .product-info > h1, div > p
 {
-  margin: 2%;
+  margin-bottom: 5%;
 }
 /* products-shelf & product-info end */
 

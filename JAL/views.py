@@ -125,9 +125,9 @@ def test(request):
 
 
 '''
-==============================================================================
-|   Object Product: addAsin addListing addFirstImg addSevenImg addAPlusImg    |
-==============================================================================
+===========================================================================================================================
+|   Object Product: _shelf_ _lisitng_ manageListing editListing addAsin addListing addFirstImg addSevenImg addAPlusImg    |
+===========================================================================================================================
 '''
 class Product:
     '''
@@ -337,15 +337,6 @@ class Product:
                 'timezone': spider.time_zone,
             }
             return render(request, 'done.html', htmlApi)
-    '''
-    from CSV
-    '''
-    '''
-    from From
-    '''
-    '''
-    from Syn
-    '''
     def addAsin(asin):
         models.AsinInfo.objects.create(
             asin = asin,
@@ -386,6 +377,11 @@ class Product:
 
 
 
+'''
+===========================================================================================================
+|   Object Promote: _index_ managePromote createPromote editPromote _counpon_ _calculate_ createCoupon    |
+===========================================================================================================
+'''
 class Promote:
     '''
     index
@@ -418,8 +414,10 @@ class Promote:
             for k in range(len(img_show_dict[asin_db_list[i]])):
                 img_show_dict[asin_db_list[i]] = img_show_dict[asin_db_list[i]][k].replace('.jpg', '')
 
-
-        promote_info = models.Promote.objects.all().values()[0]
+        try:
+            promote_info = models.Promote.objects.all().values()[0]
+        except:
+            promote_info = ''
         # print(promote_info)
         htmlApi = {
             'page_id': 'index',
@@ -598,10 +596,11 @@ class Promote:
                 promote_type = get_index_data['promote_type'],
                 promote_code = get_index_data['promote_code'],
                 promote_img = get_index_data['promote_img'],
+                promote_url = get_index_data['promote_url'],
+                promote_channel = get_index_data['promote_channel'],
                 bullet_point_01 = get_index_data['bullet_point_01'],
                 bullet_point_02 = get_index_data['bullet_point_02'],
                 bullet_point_03 = get_index_data['bullet_point_03'],
-                promote_url = get_index_data['promote_url']
             )
             #     return 'Promote Create done'
             # except:
@@ -676,10 +675,11 @@ class Promote:
             db_table_promote = models.Promote.objects.get(promote_code=get_index_data['promote_code'])
             # db_table_promote.promote_type = aaa
             db_table_promote.promote_img = get_index_data['promote_img']
+            db_table_promote.promote_url = get_index_data['promote_url']
+            db_table_promote.promote_channel = get_index_data['promote_channel']
             db_table_promote.bullet_point_01 = get_index_data['bullet_point_01']
             db_table_promote.bullet_point_02 = get_index_data['bullet_point_02']
             db_table_promote.bullet_point_03 = get_index_data['bullet_point_03']
-            db_table_promote.promote_url = get_index_data['promote_url']
             db_table_promote.save()
             htmlApi = {
                 'page_id': 'editPromoteDone',
@@ -692,9 +692,7 @@ class Promote:
                 'nav_nav': nav()['_nav_'],
                 'nav_account': nav()['_account_'],
 
-                # 'status': spider.DataForm.getIndexData(request),
-                # 'status': saveIndexData(request),
-                'tip': Promote.editPromote(request),
+                'tip': 'Promote Save done',
                 'back': nav()['_admin_']['Promote'],
                 'img': '/static/image/yeah/yeah.jpg',
                 
@@ -704,27 +702,6 @@ class Promote:
                 'timezone': spider.time_zone,
             }
             return render(request, 'done.html', htmlApi)
-        
-    def createCoupon(request):
-        get_coupon_info = forms.getCouponData(request)
-
-        # if get_coupon_info['cash']:
-        #     pass
-
-        models.Coupon.objects.create(     
-            asin = 'ALL',
-            sku = 'ALL',
-            title = get_coupon_info['title'],
-            coupon_code = get_coupon_info['code'],
-            type_cash = get_coupon_info['cash'],
-            type_percentage = float(0),
-            # type_percentage = float(get_coupon_info['percentage'])/100,
-            start_at = spider.time_zone,
-            end_at = spider.time_zone,
-            type_status = '01',
-        )
-        return 'Coupon Create done'
-        
     def _coupon_(request):
         coupon_dataDB = models.Coupon.objects.all().values()
         htmlApi = {
@@ -750,6 +727,25 @@ class Promote:
         if coupon < 1:
             off_price = '{:.2f}'.format(amount * ( 1 - coupon ))
             return off_price
+    # def createCoupon(request):
+    #     get_coupon_info = forms.getCouponData(request)
+
+    #     # if get_coupon_info['cash']:
+    #     #     pass
+
+    #     models.Coupon.objects.create(     
+    #         asin = 'ALL',
+    #         sku = 'ALL',
+    #         title = get_coupon_info['title'],
+    #         coupon_code = get_coupon_info['code'],
+    #         type_cash = get_coupon_info['cash'],
+    #         type_percentage = float(0),
+    #         # type_percentage = float(get_coupon_info['percentage'])/100,
+    #         start_at = spider.time_zone,
+    #         end_at = spider.time_zone,
+    #         type_status = '01',
+    #     )
+    #     return 'Coupon Create done'
     @csrf_protect
     @csrf_exempt
     @requires_csrf_token
@@ -770,7 +766,19 @@ class Promote:
             }
             return render(request, 'create-coupon.html', htmlApi)
         if request.method == 'POST':
-            
+            get_coupon_info = forms.getCouponData(request)
+            models.Coupon.objects.create(     
+                asin = 'ALL',
+                sku = 'ALL',
+                title = get_coupon_info['title'],
+                coupon_code = get_coupon_info['code'],
+                type_cash = get_coupon_info['cash'],
+                type_percentage = float(0),
+                # type_percentage = float(get_coupon_info['percentage'])/100,
+                start_at = spider.time_zone,
+                end_at = spider.time_zone,
+                type_status = '01',
+            )
             htmlApi = {
                 'page_id': 'editListingDone',
                 'counpon_create': True,
@@ -782,7 +790,7 @@ class Promote:
                 'nav_nav': nav()['_nav_'],
                 'nav_account': nav()['_account_'],
 
-                'tip': Promote.createCoupon(request),
+                'tip': 'Coupon Create done',
                 'back': nav()['_admin_']['CouponRelease'],
                 'img': '/static/image/yeah/ok.jpg',
                 

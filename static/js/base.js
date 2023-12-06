@@ -96,20 +96,87 @@ if(page_id == 'index')
 }
 
 
-//
-function onClick()
+// set listing img
+var listing_img_1 = document.getElementById('1')
+var listing_img_2 = document.getElementById('2')
+var listing_img_3 = document.getElementById('3')
+var listing_img_4 = document.getElementById('4')
+var listing_img_5 = document.getElementById('5')
+var listing_img_6 = document.getElementById('6')
+var listing_img_7 = document.getElementById('7')
+// get external css
+// var get_listing_img_style = window.getComputedStyle(a,null).left
+function nexa()
 {
-    document.getElementById('side_bar').style = "width: 300px; height:100px; background: rgb(250,250,250); position: absolute; index: 1000; right: 2%; top: 10%; display: block;"
+    var img_7 = document.getElementById('img_7')
+    img_7.style.left = parseInt(img_7.style.left) - 590 + 'px'
+    console.log('img_7: ', img_7.style.left)
 }
-// function onClosed()
-// {
-//     document.getElementById('side_bar').style = "display: none;"
-// }
+function prea()
+{
+    var img_7 = document.getElementById('img_7')
+    img_7.style.left = parseInt(img_7.style.left) + 590 + 'px'
+    console.log('img_7: ', img_7.style.left)
+    // a.style.transform = 'translateX(0)'
+    // b.style.transform = 'translateX(0)'
+    // c.style.transform = 'translateX(0)'
+}
+function nex()
+{
+    // a.style.display = "none"
+    // b.style.display = ""
+    // console.log('a: ', get_listing_img_style)
+    listing_img_1.style.left = parseInt(listing_img_1.style.left) - 590 + 'px'
+    listing_img_2.style.left = parseInt(listing_img_2.style.left) - 590 + 'px'
+    listing_img_3.style.left = parseInt(listing_img_3.style.left) - 590 + 'px'
+    listing_img_4.style.left = parseInt(listing_img_4.style.left) - 590 + 'px'
+    listing_img_5.style.left = parseInt(listing_img_5.style.left) - 590 + 'px'
+    listing_img_6.style.left = parseInt(listing_img_6.style.left) - 590 + 'px'
+    listing_img_7.style.left = parseInt(listing_img_7.style.left) - 590 + 'px'
+    console.log('listing_img_3: ', listing_img_3.style.left)
+}
+function pre()
+{
+    listing_img_1.style.left = parseInt(listing_img_1.style.left) + 590 + 'px'
+    listing_img_2.style.left = parseInt(listing_img_2.style.left) + 590 + 'px'
+    listing_img_3.style.left = parseInt(listing_img_3.style.left) + 590 + 'px'
+    listing_img_4.style.left = parseInt(listing_img_4.style.left) + 590 + 'px'
+    listing_img_5.style.left = parseInt(listing_img_5.style.left) + 590 + 'px'
+    listing_img_6.style.left = parseInt(listing_img_6.style.left) + 590 + 'px'
+    listing_img_7.style.left = parseInt(listing_img_7.style.left) + 590 + 'px'
+    // a.style.transform = 'translateX(0)'
+    // b.style.transform = 'translateX(0)'
+    // c.style.transform = 'translateX(0)'
+}
+function cho(num)
+{
+    var position = (num-1) * 590
+    // var listing_img = document.getElementById(num)
+    // var img_3 = document.getElementById('3')
+    // listing_img.style.left = parseInt(listing_img.style.left) - position + 'px'
+
+    var img_7 = document.getElementById('img_7')
+    img_7.style.left = -position + 'px'
+    document.getElementById('7-'+num).style.border = '#ff0000'
+
+    console.log('listing_img-', num, img_7.style.left)
+    console.log('listing_img_1: ', listing_img_1.style.left)
+    console.log('listing_img_2: ', listing_img_2.style.left)
+    console.log('listing_img_3: ', listing_img_3.style.left)
+    console.log('listing_img_4: ', listing_img_4.style.left)
+    console.log('listing_img_5: ', listing_img_5.style.left)
+    console.log('listing_img_6: ', listing_img_6.style.left)
+    console.log('listing_img_7: ', listing_img_7.style.left)
+}
+
+
 
 var come_soon = document.getElementById('come_soon')
-console.log('come_soon',come_soon)
-come_soon.style = 'border: 3px solid #ff8800; height: '+(clientHei*0.6)+'px; text-align: center; line-height: '+(clientHei*0.6)+'px; font-size: 100px'
-
+if(come_soon == true)
+{
+    console.log('come_soon',come_soon)
+    come_soon.style = 'border: 3px solid #ff8800; height: '+(clientHei*0.6)+'px; text-align: center; line-height: '+(clientHei*0.6)+'px; font-size: 100px'
+}
 
 
 
