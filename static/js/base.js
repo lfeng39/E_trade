@@ -23,6 +23,7 @@ for(i=0; i<_nav_.children.length; i++)
     }
 }
 
+
 // set bodyHeight
 var hei = document.getElementById('hei')
 var clientHei = document.documentElement.clientHeight
@@ -32,12 +33,13 @@ hei.textContent = 'clientHei: '+clientHei+' | '+'bodyHei: '+bodyHei
 var footerTag = document.getElementsByTagName('footer')[0]
 var footerHeight = window.getComputedStyle(footerTag,null).height
 console.log('footerHeight:', footerHeight)
-
 if(bodyHei < clientHei)
 {
     hei.textContent = 'clientHei: '+clientHei+' | '+'bodyHei: '+bodyHei +' | '+'newHei: '+clientHei 
     document.body.style.height = clientHei +'px'
 }
+
+
 
 // set banner img
 if(page_id == 'index')
@@ -52,122 +54,88 @@ if(page_id == 'index')
     console.log('banner_img:',banner_img)
     if(bodyWid > 1280)
     {
-        banner_bg_style = "background: url('/static/image/show/" + banner_asin + "/" + banner_img + ".jpg') no-repeat; background-size: 100%; height:" + bodyWid * 0.5 + "px;"
+        banner_bg_style = "background: url('/static/image/show/" + banner_asin + "/" + banner_img + ".jpg') no-repeat 50% 50%; background-size: 100%; height:" + 680 + "px;"
         banner.style = banner_bg_style
         console.log('bodyWid > 1280, banner_wid:', bodyWid)
     }
     if(bodyWid < 1280)
     {
-        banner_bg_style = "background: url('/static/image/show/" + banner_asin + "/" + banner_img + ".jpg') no-repeat 80%; background-size: auto 100%; height:" + bodyWid + "px;"
+        banner_bg_style = "background: url('/static/image/show/" + banner_asin + "/" + banner_img + ".jpg') no-repeat 50% 50%; background-size: auto 100%; height:" + bodyWid + "px;"
         document.getElementById('banner').style = banner_bg_style
         console.log('bodyWid < 1280, banner_wid:', bodyWid)
     }
-    if(page_id == 'index')
+
+    // set resize
+    function resizeFunction()
     {
-        // set resize
-        function resizeFunction()
+        // 打印页面默认加载时的宽度
+        console.log('bodyWid:', document.body.clientWidth)
+        console.log('bodyHei:', document.body.clientHeight)
+
+        var bodyWid = document.body.clientWidth
+        var bodyHei = document.body.clientHeight
+        var newHei = document.body.clientHeight
+        console.log('new_banner:', newHei)
+        if(bodyWid < 1280)
         {
-            // 打印页面默认加载时的宽度
-            console.log('bodyWid:', document.body.clientWidth)
-            console.log('bodyHei:', document.body.clientHeight)
-
-            var bodyWid = document.body.clientWidth
-            var bodyHei = document.body.clientHeight
-            var newHei = document.body.clientHeight
+            document.getElementById('banner').style.height = newHei
             console.log('new_banner:', newHei)
-            if(bodyWid < 1280)
-            {
-                document.getElementById('banner').style.height = newHei
-                console.log('new_banner:', newHei)
-            }
-            
-        }
-
-        // windows method listener
-        window.addEventListener("resize", resizeFunction);
-
-        // windows method onload()
-        window.onload = function()
-        {  
-            resizeFunction()
         }
         
     }
+
+    // windows method listener
+    window.addEventListener("resize", resizeFunction);
+
+    // windows method onload()
+    window.onload = function()
+    {  
+        resizeFunction()
+    }
+        
+    
 }
 
+// ================ //
+// set listing img  //
+// ================ //
 
-// set listing img
-var listing_img_1 = document.getElementById('1')
-var listing_img_2 = document.getElementById('2')
-var listing_img_3 = document.getElementById('3')
-var listing_img_4 = document.getElementById('4')
-var listing_img_5 = document.getElementById('5')
-var listing_img_6 = document.getElementById('6')
-var listing_img_7 = document.getElementById('7')
 // get external css
-// var get_listing_img_style = window.getComputedStyle(a,null).left
-function nexa()
-{
-    var img_7 = document.getElementById('img_7')
-    img_7.style.left = parseInt(img_7.style.left) - 590 + 'px'
-    console.log('img_7: ', img_7.style.left)
-}
-function prea()
-{
-    var img_7 = document.getElementById('img_7')
-    img_7.style.left = parseInt(img_7.style.left) + 590 + 'px'
-    console.log('img_7: ', img_7.style.left)
-    // a.style.transform = 'translateX(0)'
-    // b.style.transform = 'translateX(0)'
-    // c.style.transform = 'translateX(0)'
-}
+// var get_listing_img_style = window.getComputedStyle(img_7,null).left
+var img_7_object = document.getElementById('img_7')
+var img_listing_width = parseInt(img_7_object.children[0].children[0].getAttribute('style').split(':')[1])
+console.log('img: ', img_listing_width)
 function nex()
 {
-    // a.style.display = "none"
-    // b.style.display = ""
-    // console.log('a: ', get_listing_img_style)
-    listing_img_1.style.left = parseInt(listing_img_1.style.left) - 590 + 'px'
-    listing_img_2.style.left = parseInt(listing_img_2.style.left) - 590 + 'px'
-    listing_img_3.style.left = parseInt(listing_img_3.style.left) - 590 + 'px'
-    listing_img_4.style.left = parseInt(listing_img_4.style.left) - 590 + 'px'
-    listing_img_5.style.left = parseInt(listing_img_5.style.left) - 590 + 'px'
-    listing_img_6.style.left = parseInt(listing_img_6.style.left) - 590 + 'px'
-    listing_img_7.style.left = parseInt(listing_img_7.style.left) - 590 + 'px'
-    console.log('listing_img_3: ', listing_img_3.style.left)
+    // must be in real time to get img_7_object.style.left value
+    var img_7_move_range = (img_7_object.children.length-1) * -590
+    if(parseInt(img_7_object.style.left) > img_7_move_range)
+    {
+        img_7_object.style.left = parseInt(img_7_object.style.left) - 590 + 'px'
+        console.log('position_nex: ', img_7_object.style.left)
+    }
 }
 function pre()
 {
-    listing_img_1.style.left = parseInt(listing_img_1.style.left) + 590 + 'px'
-    listing_img_2.style.left = parseInt(listing_img_2.style.left) + 590 + 'px'
-    listing_img_3.style.left = parseInt(listing_img_3.style.left) + 590 + 'px'
-    listing_img_4.style.left = parseInt(listing_img_4.style.left) + 590 + 'px'
-    listing_img_5.style.left = parseInt(listing_img_5.style.left) + 590 + 'px'
-    listing_img_6.style.left = parseInt(listing_img_6.style.left) + 590 + 'px'
-    listing_img_7.style.left = parseInt(listing_img_7.style.left) + 590 + 'px'
-    // a.style.transform = 'translateX(0)'
-    // b.style.transform = 'translateX(0)'
-    // c.style.transform = 'translateX(0)'
+    // must be in real time to get img_7_object.style.left value
+    if(parseInt(img_7_object.style.left) < 0)
+    {
+        img_7_object.style.left = parseInt(img_7_object.style.left) + 590 + 'px'
+        console.log('position_pre: ', img_7_object.style.left)
+    }
 }
 function cho(num)
 {
+    var num = parseInt(num)
     var position = (num-1) * 590
-    // var listing_img = document.getElementById(num)
-    // var img_3 = document.getElementById('3')
-    // listing_img.style.left = parseInt(listing_img.style.left) - position + 'px'
-
-    var img_7 = document.getElementById('img_7')
     img_7.style.left = -position + 'px'
-    document.getElementById('7-'+num).style.border = '#ff0000'
+    // document.getElementById('7-'+num).style.border = '2px solid #ff0000'
+    console.log('position_cho: ', img_7_object.style.left)
 
-    console.log('listing_img-', num, img_7.style.left)
-    console.log('listing_img_1: ', listing_img_1.style.left)
-    console.log('listing_img_2: ', listing_img_2.style.left)
-    console.log('listing_img_3: ', listing_img_3.style.left)
-    console.log('listing_img_4: ', listing_img_4.style.left)
-    console.log('listing_img_5: ', listing_img_5.style.left)
-    console.log('listing_img_6: ', listing_img_6.style.left)
-    console.log('listing_img_7: ', listing_img_7.style.left)
+    console.log('listing_img-', num, typeof('1'), parseInt('1'), typeof(Number('1')))
 }
+
+
 
 
 

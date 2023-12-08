@@ -33,6 +33,10 @@ body
   flex-direction: column;
   /* position: relative; */
 }
+body > main, body > nav:nth-child(2)
+{
+  margin-bottom: 1%;
+}
 /*************************************************LINE*************************************************/
 /*************************************************
  NAV
@@ -69,7 +73,11 @@ nav > .nav-mini > ul *
 main
 {
   width: 100%;
-  padding-top: 1%;
+  /* padding-top: 1%; */
+}
+main > div.container
+{
+  margin-bottom: 1%;
 }
 
 ul.nav-app-list

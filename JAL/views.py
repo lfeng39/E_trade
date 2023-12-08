@@ -213,6 +213,7 @@ class Product:
             'user_account': user_email,
             'user_name': user_name,
 
+            'img_7': images.Img.imgUrl(asin, '7'),
             'product_img': detailImg(asin),
             'product_info': models.Listing.objects.filter(asin=asin).values()[0],
             ### the data tpye is 'str' that got from DB
@@ -1626,9 +1627,9 @@ page_id = ['index', 'about', 'products', 'myCart', 'login', 'signUp', 'order', '
 def detailImg(asin):
 
     detail_img = {
-        'img_7_url': images.urlAsinImg(asin_db_list)[asin]['7'], 
-        'img_970_url': images.urlAsinImg(asin_db_list)[asin]['970'],
-        'img_300_url': images.urlAsinImg(asin_db_list)[asin]['300'],
+        'img_7_url': images.urlAsinImg()[asin]['7'], 
+        'img_970_url': images.urlAsinImg()[asin]['970'],
+        'img_300_url': images.urlAsinImg()[asin]['300'],
     }
 
     return detail_img

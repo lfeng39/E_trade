@@ -9,10 +9,8 @@
     
     {% include "nav.html" %}
 
-    <!--------------------------------->
-    <!----- promote-banner-module ----->
-    <!--------------------------------->
-    <!-- <div id="B0BTXB89PG" class="wrap" img_name="{{ img_name.B0BTXB89PG }}"> -->
+
+    <!-------- promote-banner --------->
     <div id="banner" name="B0BTXB89PG" class="wrap" img_name="{{ img_name.B0BTXB89PG }}">
 
         <div style="box-shadow: inset 0px -1px 30px 1px rgb(0, 0, 0, 0.3); height: 100%;">
@@ -31,10 +29,7 @@
 
     </div>
 
-    <!-------------------------------->
-    <!------ promote-sku-module ------>
-    <!------ img left text right ----->
-    <!-------------------------------->
+    <!---------- promote-sku ---------->
     <div class="wrap">
         <div class="container grid-container" style="padding: 10% 0;">
             <div style="height: 500px; text-align: center;"><img src="{{ first_img.0.first_img }}" style="width: auto; height: 100%;" alt=""></div>
@@ -53,9 +48,7 @@
         </div>
     </div>
 
-    <!-- module four product-->
     <main>
-
         <div class="container grid-container products-shelf">
             <div class="margin-around">
                 <div><a href="products&asin={{ product_info.5.asin }}{{ includ_user_id_url }}"><img src="{{ product_info.5.first_img }}" alt=""></a></div>
@@ -119,57 +112,8 @@
                 </div>
             </div>
         </div>
-        
     </main>
 
-    <!-- <div id="B0BTWT5GL8" class="wrap" img_name="{{ img_name.B0BTWT5GL8 }}">
-    
-        <div class="position">
-            <div>
-                <h1 class="stronger">CLOUD KEY HOLDER</h1>
-            </div>
-            <div>
-                <span>Minimalistic Style Wooden Wall Decor</span>
-            </div>
-            <div>
-                <a href="products/{{ product_asin.1 }}{{ includ_user_id_url }}" class="learnMore auto-margin">Learn more</a>
-            </div>
-        </div>
-
-    </div> -->
-    
-    
-    <!-- <div id="B0BRHWQ27R" class="wrap" img_name="{{ img_name.B0BRHWQ27R }}">
-
-        <div class="position">
-            <div>
-                <h1 class="stronger">BRING YOUR IDEAL KITCHEN TO LIFE</h1>
-            </div>
-            <div>
-                <p><span>Minimalistic Style Wooden Wall Decor</span></p>
-            </div>
-            <div>
-                <a href="products/{{ product_asin.2 }}{{ includ_user_id_url }}" class="learnMore auto-margin">Learn more</a>
-            </div>
-        </div>
-
-    </div> -->
-    
-    <!-- <div id="B09KG4R3YR" class="wrap" img_name="{{ img_name.B09KG4R3YR }}">
-
-        <div class="position">
-            <div>
-                <h1 class="stronger">CLOUD KEY HOLDER</h1>
-            </div>
-            <div>
-                <p><span>Minimalistic Style Wooden Wall Decor</span></p>
-            </div>
-            <div>
-                <a href="products/{{ product_asin.0 }}{{ includ_user_id_url }}" class="learnMore auto-margin">Learn more</a>
-            </div>
-        </div>
-        
-    </div> -->
 
 
     {% include "footer.html" %}

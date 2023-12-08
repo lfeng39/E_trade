@@ -3,16 +3,21 @@ print('>>> this is images.py <<<')
 from importlib.resources import path
 from operator import imod
 import os
-from JAL import models
+from JAL import models, spider
 
 
 
 
 # data列表
 # _asin_ = ['B09KG4R3YR', 'B09YLKWBMV', 'B09YLLXKDT', 'B0BFHQTG6R']
-# _asin_ = models.Products.getAsin()
+asin_list = spider.AsinDB.asinList()
 _version_ = ['v1.00', 'v1.01', 'v1.02']
 _folder_ = ['7', '970', '300']
+# print(_asin_)
+
+
+
+
 
 '''
 构建每个asin下的图片路径
@@ -24,7 +29,7 @@ _folder_ = ['7', '970', '300']
 '''
 # 以字典形式，返回asin下三个文件夹内的图片路径
 # path: 'static/image/B09YLLXKDT/v1.00/7/'
-def pathAsinImg(_asin_):
+def pathAsinImg():
 
     '''
     paths_asin_img_dict = {
@@ -36,19 +41,19 @@ def pathAsinImg(_asin_):
     paths_img = []
     # 将paths_img列表中，每个子列表对应到对应的asin，并以字典形式存储
     paths_asin_img_dict = {}
-    for k in range(len(_asin_)):
+    for k in range(len(asin_list)):
         paths_img.append([])
         for i in range(len(_folder_)):
             # 将7、970、300的路径循环进paths_img对应的列表
-            paths_img[k].append('static/image/products/' + _asin_[k] + '/' + _version_[0] + '/' + _folder_[i] + '/')
+            paths_img[k].append('static/image/products/' + asin_list[k] + '/' + _version_[0] + '/' + _folder_[i] + '/')
             # 将每个asin下的7、970、300路径列表循环进paths_asin_img_dict字典
-            paths_asin_img_dict[_asin_[k]] = paths_img[k]
+            paths_asin_img_dict[asin_list[k]] = paths_img[k]
     
     return paths_asin_img_dict
 
 
 # url: '/static/image/B09YLLXKDT/v1.00/7/Listing-1.jpg'
-def urlAsinImg(_asin_):
+def urlAsinImg():
     '''
     urls_asin_img_dict = {
         'asins':{ 'folder': ['/asin/version/folder/files_name',], },
@@ -57,11 +62,11 @@ def urlAsinImg(_asin_):
     # files_name_list = [['A+-970-01.jpg', 'A+-970-03.jpg', 'A+-970-02.jpg'],[],[]]
     files_name_list = []
     urls_asin_img_dict = {}
-    for i in range(len(_asin_)):
+    for i in range(len(asin_list)):
         files_name_list.append([])
         for k in range(len(_folder_)):
             # 获取图片名称，并添加至对应文件夹列表
-            files_name = os.listdir(pathAsinImg(_asin_)[_asin_[i]][k])
+            files_name = os.listdir(pathAsinImg()[asin_list[i]][k])
             
             # 删除MacOs系统下，改变图片名称，自动生成的隐藏文件'.DS_Store'
             # 将图片排序，名称开头包含1的图片，放在列表第一位
@@ -77,17 +82,17 @@ def urlAsinImg(_asin_):
             # 将过滤后的图片列表添加至目标列表
             files_name_list[i].append(files_name)
         
-        urls_asin_img_dict[_asin_[i]] = {'7':[],'970':[],'300':[]}
+        urls_asin_img_dict[asin_list[i]] = {'7':[],'970':[],'300':[]}
     
-    for v in range(len(_asin_)):
+    for v in range(len(asin_list)):
         for k in range(len(_folder_)):
             for i in  range(len(files_name_list[v][k])):
-                urls_asin_img_dict[_asin_[v]][_folder_[k]].append('/' + pathAsinImg(_asin_)[_asin_[v]][k] + files_name_list[v][k][i])
+                urls_asin_img_dict[asin_list[v]][_folder_[k]].append('/' + pathAsinImg()[asin_list[v]][k] + files_name_list[v][k][i])
 
     return urls_asin_img_dict
 
 # asin_db_list = data_source.AsinDB.asinList
-# print(urlAsinImg(asin_db_list))
+# print(urlAsinImg()['B0BTXB89PG']['7'])
 
 
 
@@ -126,7 +131,7 @@ class Img:
     def imgUrl(asin, type):
         img_url = []
         for url in Img.imgDict(asin, type)['img_file_list']:
-            url = Img.imgPath(asin, type) + url
+            url = '/' + Img.imgPath(asin, type) + url
             img_url.append(url)
 
         return img_url
@@ -140,10 +145,13 @@ class Img:
                 first_img = '/' + Img.imgPath(asin, type) + img_file
                 return first_img
 
+    def listingImg(asin):
+        return Img.imgDict(asin, '7')['img_file_list']
+
 '''
 test print 
 '''
-# print(Img.firstImg('B0BGHBW13S', '7'))
+# print(Img.imgUrl('B0BTXB89PG', '970'))
 
 # for file in os.listdir(Img.imgPath('B0BGHBW13S', '7')):
 #     print(file)

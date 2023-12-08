@@ -35,93 +35,34 @@ function pre()
     
     {% include "nav.html" %}
     
-
-
+    
     <main id="{{ page_id }}">
         <!-- 产品图片及价格信息 -->
         <div class="container grid-listing">
+            <!-- <div>
+                <img src="{{ product_img.img_7_url.0 }}" alt="" />
+                <img src="{{ product_info.first_img }}" alt="" />
+            </div> -->
             <div>
                 <div class="flex-container" style="justify-content: space-between;">
-                    <div><span onclick="prea()" style="width: 25px; line-height: 590px; font-size: 36px; cursor: pointer;"> &lt; </span></div>
+                    <div><a onclick="pre()" style="width: 25px; line-height: 590px; font-size: 36px; cursor: pointer; display: block;"> &lt; </a></div>
                     <div style="width: 590px; height: 590px; overflow: hidden; border-radius: 6px;">
                         <div id="img_7" class="listing-img" style="width: 590px; height: 590px; display: flex; position: relative; left: 0;">
-                            <div id="1" style="width: 590px; height: 590px;"><img style="width: 590px;" src="/static/image/products/B0BTXB89PG/v1.00/7/00-1-01-Listing.jpg" alt=""></div>
-                            <div id="2" style="width: 590px; height: 590px;"><img style="width: 590px;" src="/static/image/products/B0BTXB89PG/v1.00/7/2-01-Listing.jpg" alt=""></div>
-                            <div id="3" style="width: 590px; height: 590px;"><img style="width: 590px;" src="/static/image/products/B0BTXB89PG/v1.00/7/3-01-Listing.jpg" alt=""></div>
-                            <div id="4" style="width: 590px; height: 590px;"><img style="width: 590px;" src="/static/image/products/B0BTXB89PG/v1.00/7/4-01-Listing.jpg" alt=""></div>
-                            <div id="5" style="width: 590px; height: 590px;"><img style="width: 590px;" src="/static/image/products/B0BTXB89PG/v1.00/7/5-01-Listing.jpg" alt=""></div>
-                            <div id="6" style="width: 590px; height: 590px;"><img style="width: 590px;" src="/static/image/products/B0BTXB89PG/v1.00/7/6-01-Listing.jpg" alt=""></div>
-                            <div id="7" style="width: 590px; height: 590px;"><img style="width: 590px;" src="/static/image/products/B0BTXB89PG/v1.00/7/7-01-Listing.jpg" alt=""></div>
+                            {% for img_7 in img_7 %}
+                            <div id="{{ forloop.counter }}" style="width: 590px; height: 590px;">
+                                <img style="width: 590px;" src="{{ img_7 }}" alt="">
+                            </div>
+                            {% endfor %}
                         </div>
                     </div>
-                    <div><span onclick="nexa()"  style="width: 25px; line-height: 590px; font-size: 36px; cursor: pointer;"> &gt; </span></div>
+                    <div><a onclick="nex()" style="width: 25px; line-height: 590px; font-size: 36px; cursor: pointer; display: block;"> &gt; </a></div>
                 </div>
-                <div class="flex-container" style="margin-top: 20px; justify-content: space-evenly;">
-                    <div id="7-1" onclick="cho(1)" style="width: 80px; height: 80px; cursor: pointer; border: 2px solid #f6f6f6;"><img style="width: 80px;" src="/static/image/products/B0BTXB89PG/v1.00/7/00-1-01-Listing.jpg" alt=""></div>
-                    <div id="7-2" onclick="cho(2)" style="width: 80px; height: 80px; cursor: pointer; border: 2px solid #f6f6f6;"><img style="width: 80px;" src="/static/image/products/B0BTXB89PG/v1.00/7/2-01-Listing.jpg" alt=""></div>
-                    <div id="7-3" onclick="cho(3)" style="width: 80px; height: 80px; cursor: pointer; border: 2px solid #f6f6f6;"><img style="width: 80px;" src="/static/image/products/B0BTXB89PG/v1.00/7/3-01-Listing.jpg" alt=""></div>
-                    <div id="7-4" onclick="cho(4)" style="width: 80px; height: 80px; cursor: pointer; border: 2px solid #f6f6f6;"><img style="width: 80px;" src="/static/image/products/B0BTXB89PG/v1.00/7/4-01-Listing.jpg" alt=""></div>
-                    <div id="7-5" onclick="cho(5)" style="width: 80px; height: 80px; cursor: pointer; border: 2px solid #f6f6f6;"><img style="width: 80px;" src="/static/image/products/B0BTXB89PG/v1.00/7/5-01-Listing.jpg" alt=""></div>
-                    <div id="7-6" onclick="cho(6)" style="width: 80px; height: 80px; cursor: pointer; border: 2px solid #f6f6f6;"><img style="width: 80px;" src="/static/image/products/B0BTXB89PG/v1.00/7/6-01-Listing.jpg" alt=""></div>
-                    <div id="7-7" onclick="cho(7)" style="width: 80px; height: 80px; cursor: pointer; border: 2px solid #f6f6f6;"><img style="width: 80px;" src="/static/image/products/B0BTXB89PG/v1.00/7/7-01-Listing.jpg" alt=""></div>
-                </div>
-            </div>
-            <div class="product-info">
-                <h1>{{ product_info.title }}</h1>
-                <div>
-                    <span class="flex-container price">
-                        <span class="price-symbol">$</span>
-                        <span class="price-int">{{ product_info.price }}</span>
-                        <span class="price-float"></span>
-                    </span>
-                </div>
-                <div><a href="{{ amazon }}" target="_blank" class="widget-btn">Buy on Amazon</a></div>
-                <div>
-                    <span class="coupon">Coupon: 20% off | {{ product_info.asin }} | {{ product_info.status }}</span>
-                </div>
-                <div>
-                    <ul class="bullet-point">
-                        {% for bullet_point in product_bullet_point %}
-                        <li><p>{{ bullet_point }}</p></li>
-                        {% endfor %}
-                        
-                        <!-- <li>{{ product_description.bullet_point_00 }}</li>
-                        <li>{{ product_description.bullet_point_01 }}</li>
-                        <li>{{ product_description.bullet_point_02 }}</li>
-                        <li>{{ product_description.bullet_point_03 }}</li>
-                        <li>{{ product_description.bullet_point_04 }}</li>
-                        <li>{{ product_description.bullet_point_05 }}</li>
-                        <li>{{ product_description.bullet_point_06 }}</li> -->
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </main>
-    <main id="{{ page_id }}">
-        <!-- 产品图片及价格信息 -->
-        <div class="container grid-listing">
-            <div>
-                <div class="flex-container" style="justify-content: space-between;">
-                    <div><span onclick="pre()" style="width: 25px; line-height: 590px; font-size: 36px; cursor: pointer;"> &lt; </span></div>
-                    <div class="listing-img" style="width: 590px; height: 590px; display: flex; overflow: hidden; border-radius: 6px;">
-                        <div id="1" style="position: relative; left: 0; width: 590px; height: 590px;"><img style="width: 590px;" src="/static/image/products/B0BTXB89PG/v1.00/7/00-1-01-Listing.jpg" alt=""></div>
-                        <div id="2" style="position: relative; left: 0; width: 590px; height: 590px;"><img style="width: 590px;" src="/static/image/products/B0BTXB89PG/v1.00/7/2-01-Listing.jpg" alt=""></div>
-                        <div id="3" style="position: relative; left: 0; width: 590px; height: 590px;"><img style="width: 590px;" src="/static/image/products/B0BTXB89PG/v1.00/7/3-01-Listing.jpg" alt=""></div>
-                        <div id="4" style="position: relative; left: 0; width: 590px; height: 590px;"><img style="width: 590px;" src="/static/image/products/B0BTXB89PG/v1.00/7/4-01-Listing.jpg" alt=""></div>
-                        <div id="5" style="position: relative; left: 0; width: 590px; height: 590px;"><img style="width: 590px;" src="/static/image/products/B0BTXB89PG/v1.00/7/5-01-Listing.jpg" alt=""></div>
-                        <div id="6" style="position: relative; left: 0; width: 590px; height: 590px;"><img style="width: 590px;" src="/static/image/products/B0BTXB89PG/v1.00/7/6-01-Listing.jpg" alt=""></div>
-                        <div id="7" style="position: relative; left: 0; width: 590px; height: 590px;"><img style="width: 590px;" src="/static/image/products/B0BTXB89PG/v1.00/7/7-01-Listing.jpg" alt=""></div>
+                <div class="flex-container" style="margin-top: 20px; justify-content: space-between;">
+                    {% for img_7 in img_7 %}
+                    <div id="7-{{ forloop.counter }}" onclick="cho('{{ forloop.counter }}')" style="width: 80px; height: 80px; cursor: pointer; border: 2px solid #f6f6f6;">
+                        <img style="width: 80px;" src="{{ img_7 }}" alt="">
                     </div>
-                    <div><span onclick="nex()"  style="width: 25px; line-height: 590px; font-size: 36px; cursor: pointer;"> &gt; </span></div>
-                </div>
-                <div class="flex-container" style="margin-top: 20px; justify-content: space-evenly;">
-                    <div onclick="cho(1)" style="cursor: pointer;"><img style="width: 80px;" src="/static/image/products/B0BTXB89PG/v1.00/7/00-1-01-Listing.jpg" alt=""></div>
-                    <div onclick="cho(2)" style="cursor: pointer;"><img style="width: 80px;" src="/static/image/products/B0BTXB89PG/v1.00/7/2-01-Listing.jpg" alt=""></div>
-                    <div onclick="cho(3)" style="cursor: pointer;"><img style="width: 80px;" src="/static/image/products/B0BTXB89PG/v1.00/7/3-01-Listing.jpg" alt=""></div>
-                    <div onclick="cho(4)" style="cursor: pointer;"><img style="width: 80px;" src="/static/image/products/B0BTXB89PG/v1.00/7/4-01-Listing.jpg" alt=""></div>
-                    <div onclick="cho(5)" style="cursor: pointer;"><img style="width: 80px;" src="/static/image/products/B0BTXB89PG/v1.00/7/5-01-Listing.jpg" alt=""></div>
-                    <div onclick="cho(6)" style="cursor: pointer;"><img style="width: 80px;" src="/static/image/products/B0BTXB89PG/v1.00/7/6-01-Listing.jpg" alt=""></div>
-                    <div onclick="cho(7)" style="cursor: pointer;"><img style="width: 80px;" src="/static/image/products/B0BTXB89PG/v1.00/7/7-01-Listing.jpg" alt=""></div>
+                    {% endfor %}
                 </div>
             </div>
             <div class="product-info">
@@ -142,62 +83,14 @@ function pre()
                         {% for bullet_point in product_bullet_point %}
                         <li><p>{{ bullet_point }}</p></li>
                         {% endfor %}
-                        
-                        <!-- <li>{{ product_description.bullet_point_00 }}</li>
-                        <li>{{ product_description.bullet_point_01 }}</li>
-                        <li>{{ product_description.bullet_point_02 }}</li>
-                        <li>{{ product_description.bullet_point_03 }}</li>
-                        <li>{{ product_description.bullet_point_04 }}</li>
-                        <li>{{ product_description.bullet_point_05 }}</li>
-                        <li>{{ product_description.bullet_point_06 }}</li> -->
                     </ul>
                 </div>
             </div>
         </div>
+        <div class="container"><p>{{ product_description.description }}</p></div>
     </main>
-        <!-- <div class="container">
 
-            <img src="{{ product_img.img_970_url.0 }}" alt="" />
 
-        </div> -->
-
-        <div class="container">
-
-            <p>{{ product_description.description }}</p>
-
-        </div>
-
-        <!-- <div class="container grid">
-            <div>
-                <img src="{{ product_img.img_300_url.0 }}" alt="" />
-            </div>
-            <div>
-                <img src="{{ product_img.img_300_url.1 }}" alt="" />
-            </div>
-            <div>
-                <img src="{{ product_img.img_300_url.2 }}" alt="" />
-            </div>
-        </div>
-
-        <div class="container">
-
-            <div>
-                <img src="{{ product_img.img_970_url.1 }}" alt="" />
-            </div>
-
-            <div>
-                <img src="{{ product_img.img_970_url.2 }}" alt="" />
-            </div>
-
-        </div> -->
-
-    </div>
-
-    <!-- A+描述 -->
-    <div></div>
-
-    <!-- 保养及维护 -->
-    <div></div>
 
     {% include "footer.html" %}
 
