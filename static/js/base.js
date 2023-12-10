@@ -87,10 +87,13 @@ if(page_id == 'index')
         var bodyHei = document.body.clientHeight
         var clientHei = document.documentElement.clientHeight
 
-        
-        banner_child[0].style.width = bodyWid + 'px'
-        banner_child[1].style.width = bodyWid + 'px'
-        banner_child[2].style.width = bodyWid + 'px'
+        for(i=0; i<banner_child.length; i++)
+        {
+            banner_child[i].style.width = bodyWid + 'px'
+        }
+        // banner_child[0].style.width = bodyWid + 'px'
+        // banner_child[1].style.width = bodyWid + 'px'
+        // banner_child[2].style.width = bodyWid + 'px'
 
         banner_container.style.width = bodyWid * banner_child.length + 'px'
 
