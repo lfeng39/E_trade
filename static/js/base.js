@@ -49,21 +49,21 @@ if(bodyHei < clientHei)
 // ================ //
 //  set banner img  //
 // ================ //
-
 if(page_id == 'index')
 {
     var banner_container = document.getElementById('banner-container')
-    var banner_child = document.getElementById('banner-container').children
-    console.log('banner_child_count: ',banner_child.length)
+    var banner_child = banner_container.children
+    console.log('banner_child_count: ',banner_container.offsetLeft)
 
-    var int=self.setInterval("clock()",10);
+    var int=self.setInterval("move_01()",10);
     
     // setTimeout(() => {
-    //     console.log("这是第一条消息");
+    //     console.log('Hello World');
+    //     move_01()
     // }, '3000');
 
     var speed = 1
-    function clock()
+    function move_01()
     {
         console.log('speed: ',speed)
         console.log('bodyWid: ', document.body.clientWidth)
@@ -76,8 +76,15 @@ if(page_id == 'index')
         {
             banner_container.style.left = parseInt(banner_container.style.left) - last_move + 'px'
             window.clearInterval(int)
+            // setTimeout(() => {
+            //     console.log('Hello World');
+            // }, '3000');
         }
         speed ++
+    }
+    function move_02()
+    {
+
     }
 
     function setBanner()
@@ -96,9 +103,7 @@ if(page_id == 'index')
         // banner_child[2].style.width = bodyWid + 'px'
 
         banner_container.style.width = bodyWid * banner_child.length + 'px'
-
-        console.log('banner_container: ', document.getElementById('banner-container').style.width)
-
+        console.log('banner_container: ', banner_container.style.width)
 
         if(bodyWid > 1280)
         {
