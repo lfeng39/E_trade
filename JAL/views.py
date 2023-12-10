@@ -443,13 +443,16 @@ class Promote:
             # '''
             'promote_info': promote_info,
 
+            # '''
+            # promote-sku
+            # '''
             'asin_code': asin_db_list,
             'includ_user_id_url': nav()['_index_']['includ_user_id_url'],
+            # 6 is B0BRHWQ27R
             'product_info': models.Listing.objects.all().values(),
-            'product_asin': asin_db_list,
+            'product_info_title': models.Listing.objects.all().values()[6]['title'].split('-'),
+
             'img_name': img_show_dict,
-            'first_img': models.Listing.objects.filter(status='01',asin='B0BRHWQ27R').values('first_img'),
-            'product_title': models.Listing.objects.filter(asin='B0BRHWQ27R').values()[0],
             'product_bullet_point': eval(models.Listing.objects.filter(asin='B0BRHWQ27R').values()[0]['bullet_point']),
 
             # '''

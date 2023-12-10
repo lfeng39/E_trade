@@ -3,10 +3,10 @@
 
 @media screen and (min-width:981px)
 {
-  .position
+  .banner-tip
   {
     position: relative; 
-    top: 30%; 
+    top: 20%; 
     left: 25%; 
     width: 50%; 
     min-height: 100px; 
@@ -15,7 +15,7 @@
     border-radius: 10px;
     color: #fff;
   }
-  .position > div
+  .banner-tip > div
   {
     /* min-height: 60px; */
     padding: 10px;

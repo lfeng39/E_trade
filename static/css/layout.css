@@ -19,6 +19,7 @@ wrap > container > grid
 {
   width: 100%;
   /* padding-top: 1%; */
+  /* position: relative; */
 }
 /* .grid
 {

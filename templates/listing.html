@@ -3,35 +3,10 @@
 <html>
 <head>
 {% include "head.html" %}
-<!-- <script>
-window.onload = function()
-{  
-    num = Math.floor(Math.random()*10)
-    console.log(num)
-
-    var a = document.getElementById('1')
-    var b = document.getElementById('2')
-    var c = document.getElementById('3')
-    console.log('a: ', a)
-}
-function nex()
-{
-    // a.style.display = "none"
-    // b.style.display = ""
-    a.style.transform = 'translateX(-590px)'
-    b.style.transform = 'translateX(-590px)'
-    c.style.transform = 'translateX(-590px)'
-}
-function pre()
-{
-    a.style.transform = 'translateX(0)'
-    b.style.transform = 'translateX(0)'
-    c.style.transform = 'translateX(0)'
-}
-</script> -->
 <title>{{ product_info.title }}</title>
 </head>
-<body page_id="{{ page_id }}">
+<!-- <body page_id="{{ page_id }}"> -->
+<body page_id="listing">
     
     {% include "nav.html" %}
     
@@ -47,7 +22,7 @@ function pre()
                 <div class="flex-container" style="justify-content: space-between;">
                     <div><a onclick="pre()" style="width: 25px; line-height: 590px; font-size: 36px; cursor: pointer; display: block;"> &lt; </a></div>
                     <div style="width: 590px; height: 590px; overflow: hidden; border-radius: 6px;">
-                        <div id="img_7" class="listing-img" style="width: 590px; height: 590px; display: flex; position: relative; left: 0;">
+                        <div id="img_7" style="height: 590px; display: flex; position: relative; left: 0;">
                             {% for img_7 in img_7 %}
                             <div id="{{ forloop.counter }}" style="width: 590px; height: 590px;">
                                 <img style="width: 590px;" src="{{ img_7 }}" alt="">

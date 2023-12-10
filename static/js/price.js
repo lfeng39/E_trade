@@ -23,13 +23,19 @@
 // {
 // get price_obj by className
 var price_obj = document.getElementsByClassName('price')
-console.log('price_obj_all', price_obj.length)
-console.log('price_int', price_obj[0].getElementsByClassName('price-int')[0].textContent.split('.'))
-for(i = 0; i < price_obj.length; i++)
+if(price_obj.length != 0)
 {
-    var price_split = price_obj[i].getElementsByClassName('price-int')[0].textContent.split('.')
-    price_obj[i].getElementsByClassName('price-int')[0].textContent = price_split[0]
-    price_obj[i].getElementsByClassName('price-float')[0].textContent = price_split[1]
+    console.log('price_obj_all', price_obj.length)
+    console.log('price_int', price_obj[0].getElementsByClassName('price-int')[0].textContent.split('.'))
+    for(i = 0; i < price_obj.length; i++)
+    {
+        var price_split = price_obj[i].getElementsByClassName('price-int')[0].textContent.split('.')
+        price_obj[i].getElementsByClassName('price-int')[0].textContent = price_split[0]
+        price_obj[i].getElementsByClassName('price-float')[0].textContent = price_split[1]
+    }
 }
-// }
+else
+{
+    console.log('price_obj_???', price_obj.length, price_obj)
+}
 

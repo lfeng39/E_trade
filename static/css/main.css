@@ -33,7 +33,7 @@ body
   flex-direction: column;
   /* position: relative; */
 }
-body > main, body > nav:nth-child(2)
+body > main
 {
   margin-bottom: 1%;
 }

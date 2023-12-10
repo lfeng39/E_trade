@@ -9,33 +9,44 @@
     
     {% include "nav.html" %}
 
-
+    <div id="bannerr" style="width:100%; height:680px; overflow: hidden;">
+    <!-------- promote-banner --------->
+        <div id="banner-container" style="height:680px; display: flex; position: relative; left: 0;">
+            <div id="1" name="B0BZ3MGYXL" style="height:680px; background: url('/static/image/show/B0BZ3MGYXL/2-A+-970.jpg') no-repeat 50% 50%; background-size: cover;"></div>
+            <div id="2" name="B0C6F3CK4F" style="height:680px; background: url('/static/image/show/B0C6F3CK4F/2-A+-970.jpg') no-repeat 50% 50%; background-size: cover;"></div>
+            <div id="3" name="B0BTWT5GL8" style="height:680px; background: url('/static/image/show/B0BTWT5GL8/2-A+-970.jpg') no-repeat 50% 50%; background-size: cover;"></div>
+        </div>
+    </div>
     <!-------- promote-banner --------->
     <div id="banner" name="B0BTXB89PG" class="wrap" img_name="{{ img_name.B0BTXB89PG }}">
 
-        <div style="box-shadow: inset 0px -1px 30px 1px rgb(0, 0, 0, 0.3); height: 100%;">
-            <div class="position">
+        <!-- <div style="box-shadow: inset 0px -1px 30px 1px rgb(0, 0, 0, 0.3); height: 100%;"> -->
+            <div class="banner-tip">
                 <div>
                     <h1 class="stronger">{{ promote_info.bullet_point_01 }}</h1>
                 </div>
                 <div>
                     <span>{{ promote_info.bullet_point_02 }}</span>
+                    <h2>{{ promote_info.bullet_point_02 }}</h2>
                 </div>
                 <div>
-                    <a href="{{ promote_info.promote_url }}" class="learnMore auto-margin">Learn more</a>
+                    <h3><a href="{{ promote_info.promote_url }}" class="learnMore auto-margin">Learn more</a></h3>
                 </div>
             </div>
-        </div>
-
+        <!-- </div> -->
+        
     </div>
 
     <!---------- promote-sku ---------->
     <div class="wrap">
-        <div class="container grid-container" style="padding: 10% 0;">
-            <div style="height: 500px; text-align: center;"><img src="{{ first_img.0.first_img }}" style="width: auto; height: 100%;" alt=""></div>
-            <div style="height: 100%; padding: 10%;">
-                <div style="margin-bottom: 3%;"><h1>Ceramic Hamsa Hand Incense Holder</h1></div>
-                <div style="margin-bottom: 9%;"><h4>{{ product_title.title }}</h4></div>
+        <div class="container flex-container" style="padding: 10% 0;">
+            <div style="height: 500px; width: 50%; text-align: center;"><img src="{{ product_info.6.first_img }}" style="width: auto; height: 100%;" alt=""></div>
+            <div style="height: 100%; width: 50%;">
+                <div style="margin-bottom: 3%;"><h1>{{ product_info_title.0 }}</h1></div>
+                <div style="margin-bottom: 9%;"><h3>{{ product_info_title.1 }}</h3></div>
+                <div style="margin-bottom: 9%;"><h3>{{ product_info_title.2 }}</h3></div>
+                <div style="margin-bottom: 9%;"><h3>{{ product_info_title.3 }}</h3></div>
+                <div style="margin-bottom: 9%;"><h4>{{ product_info_title }}</h4></div>
                 <div style="margin-bottom: 9%;">
                     <span class="flex-container price">
                         <span class="price-symbol">$</span>
@@ -43,7 +54,7 @@
                         <span class="price-float"></span>
                     </span>
                 </div>
-                <div style="margin-bottom: 3%;"><a href="">Buy on Amazon >>></a></div>
+                <div style="margin-bottom: 3%;"><a href="http://www.amazon.com/dp/{{ product_info.6.asin }}" class="learnMore" target="_blank">Buy on Amazon</a></div>
             </div>
         </div>
     </div>
