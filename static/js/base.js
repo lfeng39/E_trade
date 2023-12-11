@@ -1,3 +1,4 @@
+console.log('/=== base set ===/')
 // get page_id
 var page_id = document.getElementsByTagName('body')[0].getAttribute('page_id')
 console.log('base.js has get page_id:', page_id)
@@ -43,7 +44,7 @@ if(bodyHei < clientHei)
     // hei.textContent = 'clientHei: '+clientHei+' | '+'bodyHei: '+bodyHei +' | '+'newHei: '+clientHei 
     document.body.style.height = clientHei +'px'
 }
-
+console.log('\n')
 
 
 // ================ //
@@ -51,46 +52,94 @@ if(bodyHei < clientHei)
 // ================ //
 if(page_id == 'index')
 {
+    console.log('/=== set banner img ===/')
+    // get banner object
     var banner_container = document.getElementById('banner-container')
     var banner_child = banner_container.children
-    console.log('banner_child_count: ',banner_container.offsetLeft)
+    console.log('banner_child_count: ',banner_child.length)
 
-    var int=self.setInterval("move_01()",10);
+    // var int=setInterval('move_02()', 10);
     
     // setTimeout(() => {
     //     console.log('Hello World');
-    //     move_01()
+    //     move_img()
     // }, '3000');
 
-    var speed = 1
-    function move_01()
+    function num()
     {
-        console.log('speed: ',speed)
-        console.log('bodyWid: ', document.body.clientWidth)
-        banner_container.style.left = parseInt(banner_container.style.left) - speed + 'px'
-        console.log('000: ',document.body.clientWidth - -parseInt(banner_container.style.left))
-        console.log('left: ',parseInt(banner_container.style.left), '(', document.body.clientWidth - -parseInt(banner_container.style.left), '-', document.body.clientWidth, ')')
-        console.log('\n')
-        var last_move = document.body.clientWidth - -parseInt(banner_container.style.left)
-        if(speed == 56)
+        for(i=2; i<document.body.clientWidth; i++)
+    {
+        var cou = (1+i)*i/2
+        if(cou>document.body.clientWidth)
         {
-            banner_container.style.left = parseInt(banner_container.style.left) - last_move + 'px'
-            window.clearInterval(int)
-            // setTimeout(() => {
-            //     console.log('Hello World');
-            // }, '3000');
+            return i - 1
         }
-        speed ++
     }
-    function move_02()
+    }
+    console.log(num())
+    function move_img()
     {
+        var int=setInterval(move, 10);
 
+        var speed = 1
+        function move()
+        {
+            // self.setInterval("move_01()",10);
+            // must be in real time to get img_7_object.style.left value
+            var banner_move_range = (banner_container.children.length-1) * -document.body.clientWidth
+            console.log('speed: ',speed, '/', 'banner_move_range: ', banner_move_range)
+            console.log('banner_container.style.left: ',parseInt(banner_container.style.left),)
+            // console.log()
+            if(parseInt(banner_container.style.left) > banner_move_range)
+            {
+                banner_container.style.left = parseInt(banner_container.style.left) - speed + 'px'
+                console.log('after_move: ', banner_container.style.left)
+                // var less = document.body.clientWidth - -parseInt(banner_container.style.left)
+                
+                if(speed == num())
+                {
+                    var less = document.body.clientWidth - (1+num())*num()/2
+                    console.log('less: ', less)
+                    banner_container.style.left = parseInt(banner_container.style.left) - less + 'px'
+                    window.clearInterval(int)
+                    console.log('banner_container.style.left: ',banner_container.style.left)
+                }
+
+            }
+            else
+            {
+                window.clearInterval(int)
+            }
+            speed ++
+            console.log('\n')
+        }
     }
+    // function move_03()
+    // {
+    //     console.log('speed: ',speed)
+    //     // self.setInterval("move_01()",10);
+    //     // must be in real time to get img_7_object.style.left value
+    //     var banner_move_range = (banner_container.children.length-1) * -document.body.clientWidth
+    //     console.log('A: ',parseInt(banner_container.style.left), 'B: ', banner_move_range)
+    //     if(parseInt(banner_container.style.left) > banner_move_range)
+    //     {
+    //         banner_container.style.left = parseInt(banner_container.style.left) - speed + 'px'
+    //         console.log('position_nex: ', banner_container.style.left)
+    //         console.log('000: ',document.body.clientWidth - -parseInt(banner_container.style.left))
+    //         if(speed == 75)
+    //         {
+    //             banner_container.style.left = parseInt(banner_container.style.left) - 27 + 'px'
+    //             window.clearInterval(int)
+    //         }
+    //     }
+    //     speed ++
+    // }
 
     function setBanner()
     {
         // set index banner
         var bodyWid = document.body.clientWidth
+        console.log('bodyWid: ', bodyWid)
         var bodyHei = document.body.clientHeight
         var clientHei = document.documentElement.clientHeight
 
@@ -103,7 +152,7 @@ if(page_id == 'index')
         // banner_child[2].style.width = bodyWid + 'px'
 
         banner_container.style.width = bodyWid * banner_child.length + 'px'
-        console.log('banner_container: ', banner_container.style.width)
+        console.log('banner_container_width: ', banner_container.style.width, '= bodyWid * banner_child.length','(', banner_child.length,')')
 
         if(bodyWid > 1280)
         {
