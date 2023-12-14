@@ -47,47 +47,116 @@ if(bodyHei < clientHei)
 console.log('\n')
 
 
+
 // ================ //
 //  set banner img  //
 // ================ //
 if(page_id == 'index')
 {
+    
+
+    window.addEventListener('load', function load()
+    {
+        setBanner()
+        console.log('loading')
+    })
+    window.addEventListener('resize', function resize()
+    {
+        clearInterval(tempo)
+        setBanner()
+        console.log('resize')
+    })
+    window.addEventListener('visibilitychange', function visibilitychange()
+    {
+        if(document.visibilityState == 'visible')
+        {
+            tempo = setInterval(moveImg, 6000)
+            console.log('visible, start tempo')
+        }
+        if(document.visibilityState == 'hidden')
+        {
+            clearInterval(tempo)
+            console.log('hidden, stop tempo')
+        }
+    })
+
     console.log('/=== set banner img ===/')
     // get banner object
+    var banner = document.getElementById('banner')
     var banner_container = document.getElementById('banner-container')
     var banner_child = banner_container.children
-    console.log('banner_child_count: ',banner_child.length)
-
-    // var int=setInterval('move_02()', 10);
-    
-    // setTimeout(() => {
-    //     console.log('Hello World');
-    //     move_img()
-    // }, '3000');
-
-    function num()
+    console.log('banner_child_count: ', banner_child.length)
+    console.log('bodyWid: ', document.body.clientWidth)
+    console.log('banner_container_width: ', banner_container.style.width, '= bodyWid * banner_child.length','(', banner_child.length,')')
+    function setBanner()
     {
-        for(i=2; i<document.body.clientWidth; i++)
-    {
-        var cou = (1+i)*i/2
-        if(cou>document.body.clientWidth)
+        // set index banner auto width
+        var bodyWid = document.body.clientWidth
+        
+        // set banner_container width
+        banner_container.style.width = bodyWid * banner_child.length + 'px'
+        
+        // set banner & banner_container height
+        if(bodyWid > 1280)
         {
-            return i - 1
+            banner.style.height = 680 + 'px'
+            banner_container.style.height = 680 + 'px'
+            // banner.style = banner_hei
+        }
+        if(bodyWid < 1280)
+        {
+            banner.style.height = bodyWid + 'px'
+            banner_container.style.height = bodyWid + 'px'
+        }
+
+        // set banner_child width & height
+        for(i=0; i<banner_child.length; i++)
+        {
+            // set banner_child width
+            banner_child[i].style.width = bodyWid + 'px'
+            
+            // set banner_child height
+            if(bodyWid > 1280)
+            {
+                banner_child[i].style.height = 680 + 'px'
+            }
+            if(bodyWid < 1280)
+            {
+                banner_child[i].style.height =  bodyWid + 'px'
+            }
         }
     }
-    }
-    console.log(num())
-    function move_img()
+    // create new tag
+    var insertTag = document.createElement('div')
+    insertTag.style = banner_child[0].getAttribute('style')
+    banner_container.appendChild(insertTag)
+    // after page load, start moveImg
+    tempo = setInterval(moveImg, 6000)
+    var nth_run = 0
+    var nth_img = 1
+    function moveImg()
     {
-        var int=setInterval(move, 10);
+        
+        var velocity = setInterval(move, 10);
+        
+        function moveStep()
+        {
+            for(i=2; i<document.body.clientWidth; i++)
+            {
+                var cou = (1+i)*i/2
+                if(cou>document.body.clientWidth)
+                {
+                    return i - 1
+                }
+            }
+        }
 
         var speed = 1
         function move()
         {
-            // self.setInterval("move_01()",10);
             // must be in real time to get img_7_object.style.left value
-            var banner_move_range = (banner_container.children.length-1) * -document.body.clientWidth
-            console.log('speed: ',speed, '/', 'banner_move_range: ', banner_move_range)
+            var banner_move_range = (banner_child.length-1) * -document.body.clientWidth
+            console.log('speed: ',speed, '/', 'banner_wid: ', document.body.clientWidth, '/', 'range: ', banner_move_range)
             console.log('banner_container.style.left: ',parseInt(banner_container.style.left),)
             // console.log()
             if(parseInt(banner_container.style.left) > banner_move_range)
@@ -95,94 +164,77 @@ if(page_id == 'index')
                 banner_container.style.left = parseInt(banner_container.style.left) - speed + 'px'
                 console.log('after_move: ', banner_container.style.left)
                 // var less = document.body.clientWidth - -parseInt(banner_container.style.left)
-                
-                if(speed == num())
+                if(speed == moveStep())
                 {
-                    var less = document.body.clientWidth - (1+num())*num()/2
+                    var less = document.body.clientWidth - (1 + moveStep()) * moveStep()/2
                     console.log('less: ', less)
                     banner_container.style.left = parseInt(banner_container.style.left) - less + 'px'
-                    window.clearInterval(int)
+                    window.clearInterval(velocity)
+                    if(nth_img>banner_child.length-1)
+                    {
+                        nth_img = banner_child.length-(banner_child.length-1)
+                        console.log('current the', nth_img, 'th img vs', banner_child.length)
+                    }else{
+                        console.log('current the', nth_img, 'th img')
+                    }
+                    
                     console.log('banner_container.style.left: ',banner_container.style.left)
+                    console.log('run the ', nth_run, 'th')
                 }
-
             }
-            else
+            if(parseInt(banner_container.style.left) == banner_move_range)
             {
-                window.clearInterval(int)
+                clearInterval(velocity)
+                banner_container.style.left = 0 + 'px'
+                nth_img = 1
             }
             speed ++
             console.log('\n')
         }
+        nth_run++
+        nth_img++
     }
-    // function move_03()
+
+    // function flipImg()
     // {
-    //     console.log('speed: ',speed)
-    //     // self.setInterval("move_01()",10);
-    //     // must be in real time to get img_7_object.style.left value
-    //     var banner_move_range = (banner_container.children.length-1) * -document.body.clientWidth
-    //     console.log('A: ',parseInt(banner_container.style.left), 'B: ', banner_move_range)
-    //     if(parseInt(banner_container.style.left) > banner_move_range)
+    // var co = 0
+    // function flipImg()
+    // {
+    //     var banner = document.getElementById('banner-02')
+    //     var img = [
+    //         "background: url('/static/image/show/B0BZ3MGYXL/2-A+-970.jpg') no-repeat 50% 50%;",
+    //         "background: url('/static/image/show/B0C6F3CK4F/2-A+-970.jpg') no-repeat 50% 50%;",
+    //         "background: url('/static/image/show/B0BTWT5GL8/2-A+-970.jpg') no-repeat 50% 50%;",
+    //     ]
+    //     if(co < img.length)
     //     {
-    //         banner_container.style.left = parseInt(banner_container.style.left) - speed + 'px'
-    //         console.log('position_nex: ', banner_container.style.left)
-    //         console.log('000: ',document.body.clientWidth - -parseInt(banner_container.style.left))
-    //         if(speed == 75)
+    //         var banner_bg_img = img[co]
+    //         var banner_bg_size = 'background-size: cover;'
+    //         var banner_hei = 'height:' + 680 + 'px'
+    //         banner.style = banner_bg_img + banner_bg_size + banner_hei
+    //         co ++
+    //     }
+    //     if(co == img.length)
+    //     {
+    //         co = 0
+    //     }
+    //     banner.style.opacity = 1
+    //     console.log('i',i)
+    //     var i = banner.style.opacity * 100
+    //     var hid = setInterval(hidden, 30)
+    //     function hidden()
+    //     {
+    //         i--
+    //         banner.style.opacity = i/100
+    //         console.log('??',banner.style.opacity)
+    //         if(i == 0)
     //         {
-    //             banner_container.style.left = parseInt(banner_container.style.left) - 27 + 'px'
-    //             window.clearInterval(int)
+    //             clearInterval(hid)
+    //             console.log('co: ',co)
     //         }
     //     }
-    //     speed ++
     // }
-
-    function setBanner()
-    {
-        // set index banner
-        var bodyWid = document.body.clientWidth
-        console.log('bodyWid: ', bodyWid)
-        var bodyHei = document.body.clientHeight
-        var clientHei = document.documentElement.clientHeight
-
-        for(i=0; i<banner_child.length; i++)
-        {
-            banner_child[i].style.width = bodyWid + 'px'
-        }
-        // banner_child[0].style.width = bodyWid + 'px'
-        // banner_child[1].style.width = bodyWid + 'px'
-        // banner_child[2].style.width = bodyWid + 'px'
-
-        banner_container.style.width = bodyWid * banner_child.length + 'px'
-        console.log('banner_container_width: ', banner_container.style.width, '= bodyWid * banner_child.length','(', banner_child.length,')')
-
-        if(bodyWid > 1280)
-        {
-            var banner = document.getElementById('banner')
-            var banner_asin = banner.getAttribute('name')
-            var banner_img = banner.getAttribute('img_name')
-            var banner_bg_img = "background: url('/static/image/show/" + banner_asin + "/" + banner_img + ".jpg') no-repeat 50% 50%;"
-            var banner_bg_size = 'background-size: cover;'
-            var banner_hei = 'height:' + 680 + 'px'
-            banner.style = banner_bg_img + banner_bg_size + banner_hei
-        }
-        if(bodyWid < 1280)
-        {
-            var banner = document.getElementById('banner')
-            var banner_asin = banner.getAttribute('name')
-            var banner_img = banner.getAttribute('img_name')
-            var banner_bg_img = "background: url('/static/image/show/" + banner_asin + "/" + banner_img + ".jpg') no-repeat 50% 50%;"
-            var banner_bg_size = 'background-size: cover;'
-            var banner_hei = 'height:' + bodyWid + 'px'
-            banner.style = banner_bg_img + banner_bg_size + banner_hei
-            console.log('1280_banner:', banner_hei)
-        }
-    }
-    // windows method listener
-    window.addEventListener("resize", setBanner);
-    // windows method onload()
-    window.onload = function()
-    {
-        setBanner()
-    }
+    // }
 }
 
 
