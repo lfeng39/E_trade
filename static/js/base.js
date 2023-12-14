@@ -53,18 +53,13 @@ console.log('\n')
 // ================ //
 if(page_id == 'index')
 {
-    
-
-    window.addEventListener('load', function load()
-    {
-        setBanner()
-        console.log('loading')
-    })
     window.addEventListener('resize', function resize()
     {
-        clearInterval(tempo)
+        // clearInterval(tempo)
         setBanner()
         console.log('resize')
+        new_position = document.body.clientWidth * -(nth_img-1)
+        document.getElementById('banner-container').style.left = new_position + 'px'
     })
     window.addEventListener('visibilitychange', function visibilitychange()
     {
@@ -86,13 +81,13 @@ if(page_id == 'index')
     var banner_container = document.getElementById('banner-container')
     var banner_child = banner_container.children
     console.log('banner_child_count: ', banner_child.length)
-    console.log('bodyWid: ', document.body.clientWidth)
+    // console.log('bodyWid: ', document.body.clientWidth)
     console.log('banner_container_width: ', banner_container.style.width, '= bodyWid * banner_child.length','(', banner_child.length,')')
     function setBanner()
     {
         // set index banner auto width
         var bodyWid = document.body.clientWidth
-        
+        console.log('>>>',bodyWid)
         // set banner_container width
         banner_container.style.width = bodyWid * banner_child.length + 'px'
         
@@ -126,19 +121,22 @@ if(page_id == 'index')
             }
         }
     }
+
     // create new tag
     var insertTag = document.createElement('div')
     insertTag.style = banner_child[0].getAttribute('style')
     banner_container.appendChild(insertTag)
+
+    des = insertTag
+
     // after page load, start moveImg
     tempo = setInterval(moveImg, 6000)
     var nth_run = 0
     var nth_img = 1
     function moveImg()
     {
-        
         var velocity = setInterval(move, 10);
-        
+
         function moveStep()
         {
             for(i=2; i<document.body.clientWidth; i++)
@@ -152,12 +150,13 @@ if(page_id == 'index')
         }
 
         var speed = 1
-        function move()
+        function move(position)
         {
             // must be in real time to get img_7_object.style.left value
             var banner_move_range = (banner_child.length-1) * -document.body.clientWidth
+            var position = banner_container.style.left
             console.log('speed: ',speed, '/', 'banner_wid: ', document.body.clientWidth, '/', 'range: ', banner_move_range)
-            console.log('banner_container.style.left: ',parseInt(banner_container.style.left),)
+            console.log('banner_container.position: ',parseInt(position),)
             // console.log()
             if(parseInt(banner_container.style.left) > banner_move_range)
             {
@@ -181,13 +180,19 @@ if(page_id == 'index')
                     console.log('banner_container.style.left: ',banner_container.style.left)
                     console.log('run the ', nth_run, 'th')
                 }
-            }
-            if(parseInt(banner_container.style.left) == banner_move_range)
-            {
+            }else{
+            // if(parseInt(banner_container.style.left) == banner_move_range)
+            // {
                 clearInterval(velocity)
+                // clearInterval(tempo)
                 banner_container.style.left = 0 + 'px'
                 nth_img = 1
+                console.log('out range, stop velocity, but tempo running also')
             }
+            // if(parseInt(banner_container.style.left) < banner_move_range)
+            // {
+            //     clearInterval(velocity)
+            // }
             speed ++
             console.log('\n')
         }
