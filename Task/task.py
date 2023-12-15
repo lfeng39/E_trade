@@ -6,22 +6,17 @@ from django.utils import timezone
 from django.core.mail import send_mail, send_mass_mail, EmailMessage
 from django.template.loader import render_to_string
 from JAL import models, urls, spider, images, forms, verify, views
-
-
-email = models.UserAccount.objects.all().values()[0]
-
-
-
-
+# from E_trade import settings
 
 
 def sendMail():
     '''
     send_mail()/send_mass_mail()
     '''
-    subject = 'Coupon from ME AND MR.LEO Offical'
+    subject = 'Coupon from ME AND MR.LEO Promote'
     body = 'Coupon Code: DJ923IR0DFJ92'
-    from_email = 'sandianjiuke@163.com'
+    from_email = 'me.and.mr.leo.promote@gmail.com'
+    # from_email = settings.EMAIL_HOST_USER
     to_email = [
         'lfeng39@163.com',
         '51630822@qq.com',

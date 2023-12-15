@@ -57,7 +57,7 @@ server test url
 # huashengke
 # _ip_ = '822u770q09.zicp.fun:44088'
 # ngrok
-_ip_ = '88e6-240e-36f-425-9830-5b1b-be7d-67ea-34e0.ngrok-free.app'
+_ip_ = '4510-240e-36f-425-9830-5b1b-be7d-67ea-34e0.ngrok-free.app'
 # base_url = 'https://' + _ip_ + '/JAL/'
 '''
 Vultr server url

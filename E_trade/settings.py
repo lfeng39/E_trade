@@ -152,19 +152,31 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 send email
 '''
 '''
-gmail
+me.and.mr.leo.s@gmail.com
 '''
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# # EMAIL_USE_SSL = True
-# # EMAIL_PORT = 465
-# EMAIL_USE_TLS = True
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = 'me.and.mr.leo.s@gmail.com'
-# EMAIL_HOST_PASSWORD = 'ncjg laji euxl fyso' # 发送邮件的邮箱密码或授权码
-# EMAIL_CA_CERTS = ''  # 将这行添加并设置为空字符串
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_SSL = True
+# EMAIL_PORT = 465
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'me.and.mr.leo.s@gmail.com'
+EMAIL_HOST_PASSWORD = 'ncjg laji euxl fyso' # 发送邮件的邮箱密码或授权码
+EMAIL_CA_CERTS = ''  # 将这行添加并设置为空字符串
 '''
-163
+me.and.mr.leo.promote@gmail.com
+'''
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_SSL = True
+# EMAIL_PORT = 465
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'me.and.mr.leo.promote@gmail.com'
+EMAIL_HOST_PASSWORD = 'mlwr rqsl yviw jqyp' # 发送邮件的邮箱密码或授权码
+EMAIL_CA_CERTS = ''  # 将这行添加并设置为空字符串
+'''
+sandianjiuke@163.com
 '''
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.163.com' # 修改为你的 SMTP 服务器
