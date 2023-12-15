@@ -79,6 +79,7 @@ main
 {
   width: 100%;
   /* padding-top: 1%; */
+  margin-top: 1%;
 }
 main > div.container
 {
@@ -140,7 +141,7 @@ ul
 } */
 p
 {
-  line-height: 22px;
+  line-height: 20px;
   padding: 5px;
 }
 li

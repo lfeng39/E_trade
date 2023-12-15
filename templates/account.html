@@ -1,0 +1,173 @@
+<!-- {%load static%} -->
+<!DOCTYPE html>
+<html>
+<head>
+{% include "head.html" %}
+<title>{{ app_title.0 }}</title>
+</head>
+<body page_id="{{ page_id }}">
+    
+    {% include "nav.html" %}
+    
+
+    <main>
+        <div class="container flex-container" style="border-bottom: 2px solid rgb(125, 181, 131);">
+            <div style="width: 50%; height: 50px; line-height: 50px;"><h1>Account</h1></div>
+            <div style="width: 50%; height: 50px; line-height: 50px;"><a style="color: cornflowerblue; float: right;" href="logout">Sign out ></a></div>
+        </div>
+    </main>
+
+    <div class="wrap">
+        <div class="container flex-container" style="height: 100px; border-radius: 6px;">
+            <h1>Hi, {{ user_name }}.</h1>
+        </div>
+        <div class="container flex-container" style="line-height: 100px;">
+            <p style="line-height: 100px;">Your bag is empty. </p>&nbsp;&nbsp;&nbsp;<a style="color: cornflowerblue; text-decoration-line: underline;" href="/JAL/products"><h2>Shopping Now</h2></a>
+        </div>
+    </div>
+
+    <div class="wrap" style="height: 200px; background: #fafafa; padding: 2% 0; margin: 2% 0;">
+        <div class="container">
+            <fieldset>
+                <legend>YourCoupon</legend>
+                <div style="float: left; margin-left: 1%;">Title: Ceramic Hamsa Hand Incense Holder Ceramic Hamsa Hand Incense Holder Ceramic Hamsa</div>
+                <div style="float: left; margin-left: 1%;">Code: E3QFVDAG3RFWR3FA</div>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="wrap">
+        <div class="container">
+            <h1>Account Settings</h1>
+            <br>
+            <div class="flex-container">
+                <div style="height: 200px; width: 25%;">
+                    <h2>Shpping</h2>
+                    <a href="myAccount&=edit" style="color: cornflowerblue; text-decoration-line: underline;">Edit</a>
+                </div>
+                <div style="height: 200px; width: 25%; padding-top: 5px;">
+                    <h3>Shipping address</h3>
+                    {% if user_account.address %}
+                    <div>{{ user_account.address }}</div>
+                    {% else %}
+                    <div>Address</div>
+                    {% endif %}
+                    {% if user_account.street %}
+                    <div>{{ user_account.street }}</div>
+                    {% else %}
+                    <div>Street</div>
+                    {% endif %}
+                    {% if user_account.city %}
+                    <div>{{ user_account.city }} {{ user_account.code }}</div>
+                    {% else %}
+                    <div>City: {{ user_account.city }}</div>
+                    {% endif %}
+                    {% if user_account.country %}
+                    <div>{{ user_account.country }}</div>
+                    {% else %}
+                    <div>Country</div>
+                    {% endif %}
+                </div>
+                <div style="height: 200px; width: 25%; padding-top: 5px;">
+                    <h3>Contact information</h3>
+                    <div>{{ user_account.email }}</div>
+                </div>
+            </div>
+            <form class="login" action="/JAL/myAccount&=edit-done" method="post" style="display: none;">
+                {%csrf_token%}
+                <div class="flex-container" style="background: #fafafa;">
+                    <div style="height: 200px; width: 25%;">
+                        <h2>Shpping</h2>
+                        <button id="" type="submit"><h3>Commit</h3></button>
+                    </div>
+                    <div style="height: 300px; width: 25%;">
+                        <h3>Shipping address</h3>
+                        <div>Address</div>
+                        <div><input id="" type="text" name="address" value="{{ user_account.address }}"></div>
+                        <div>Street</div>
+                        <div><input id="" type="text" name="street" value="{{ user_account.street }}"></div>
+                        <div>City</div>
+                        <div><input id="" type="text" name="city" value="{{ user_account.city }}"><input id="" type="text" name="code" value="{{ user_account.code }}"></div>
+                        <div>Country</div>
+                        <div><input id="" type="text" name="country" value="{{ user_account.country }}"></div>
+                    </div>
+                    <div style="height: 200px; width: 25%;">
+                        <h3>Contact information</h3>
+                        <div>{{ user_account.email }}</div>
+                    </div>
+                </div>
+            </form>
+            <div class="flex-container">
+                <div style="height: 200px; width: 25%;">
+                    <h2>Payment</h2>
+                </div>
+                <div style="height: 200px; width: 25%; padding-top: 5px;">
+                COMMING SOON...
+                </div>
+            </div>
+            <div class="flex-container">
+                <div style="height: 200px; width: 25%;">
+                    <h2>ID Information</h2>
+                </div>
+                <div style="height: 200px; width: 25%; padding-top: 5px;">
+                    <div>{{ user_account.email }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="wrap">
+        <div class="container flex-container">
+            <div class="account-info" style="margin-right: 2%;">
+                <p>Hi {{ user_name }}, Welcome to ME AND MR. LEO</p>
+                <fieldset>
+                    <legend>MyAccount</legend>
+                    <br>
+                    <div>Email: {{ user_account.email }}</div>
+                    <div>UserName: {{ user_account.user_name }}</div>
+                    <div>FirstName: {{ user_account.first_name }}</div>
+                    <div>LastName: {{ user_account.last_name }}</div>
+                    <div>Address: {{ user_account.address }}</div>
+                    <div>Street: {{ user_account.street }}</div>
+                    <div>City: {{ user_account.city }}</div>
+                    <div>Country: {{ user_account.country }}</div>
+                    <div>Code: {{ user_account.code }}</div>
+                    <br>
+                    <div><a href="myAccount&=edit">[Edit Account]</a><a href="logout">[Logout]</a></div>
+                </fieldset>
+            </div>
+            <div class="order-info">
+                <fieldset>
+                    <legend>MyCoupon</legend>
+                    <div style="float: left; margin-left: 1%;">Title: Ceramic Hamsa Hand Incense Holder Ceramic Hamsa Hand Incense Holder Ceramic Hamsa</div>
+                    <div style="float: left; margin-left: 1%;">Code: E3QFVDAG3RFWR3FA</div>
+
+                </fieldset>
+                <fieldset>
+                    <legend>MyOrder</legend>
+                    <br>
+                    <div>Email: {{ user_account.email }}</div>
+                    <div>UserName: {{ user_account.user_name }}</div>
+                    <div>FirstName: {{ user_account.first_name }}</div>
+                    <div>LastName: {{ user_account.last_name }}</div>
+                    <div>Address: {{ user_account.address }}</div>
+                    <div>Street: {{ user_account.street }}</div>
+                    <div>City: {{ user_account.city }}</div>
+                    <div>Country: {{ user_account.country }}</div>
+                    <div>Code: {{ user_account.code }}</div>
+                    <br>
+                    <div><a href="myAccount&=edit">[Edit Account]</a><a href="logout">[Logout]</a></div>
+                </fieldset>
+            </div>
+        </div>
+
+
+        
+    </div> -->
+    
+
+
+    {% include "footer.html" %}
+    
+</body>
+</html>

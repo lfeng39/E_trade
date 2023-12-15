@@ -35,7 +35,7 @@ urlpatterns = [
     path('account=createAccount',views.createAccount, name=''),
     path('cart',views.myCart, name=''),
     path('order',views._order_, name=''),
-    path('myAccount',views.myAccount, name=''),
+    path('account',views.myAccount, name=''),
     path('myAccount&=edit',views.editAccount, name=''),
     path('myAccount&=edit-done',views.editAccount, name=''),
 

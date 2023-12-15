@@ -1130,7 +1130,7 @@ def myAccount(request):
     else:
         user_account = models.UserAccount.objects.filter(email=user_email).values()[0]
         htmlApi = {
-            'page_id': 'myAccount',
+            'page_id': 'account',
 
             # '''
             # nav module
@@ -1153,7 +1153,7 @@ def myAccount(request):
             # '''
             'timezone': spider.time_zone,
         }
-        return render(request, 'my-account.html', htmlApi)
+        return render(request, 'account.html', htmlApi)
 @csrf_protect
 @csrf_exempt
 @requires_csrf_token

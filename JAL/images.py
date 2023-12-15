@@ -151,7 +151,7 @@ class Img:
 '''
 test print 
 '''
-# print(Img.imgUrl('B0BTXB89PG', '970'))
+print(Img.imgUrl('B0BTXB89PG', '7'))
 
 # for file in os.listdir(Img.imgPath('B0BGHBW13S', '7')):
 #     print(file)
