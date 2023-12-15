@@ -53,6 +53,24 @@ console.log('\n')
 // ================ //
 if(page_id == 'index')
 {
+    window.addEventListener('load', function load()
+    {
+        // create new tag after onload the page, promise the first image onload width 100%, not display more than two
+        var insertTag = document.createElement('div')
+        insertTag.style = banner_child[0].getAttribute('style')
+        banner_container.appendChild(insertTag)
+        console.log('created a new div after load the page done, now the banner_child_count:',banner_child.length)
+
+        clon_first = document.getElementById('leo').cloneNode(true)
+        banner_container.lastChild.appendChild(clon_first)
+
+        if(banner_child.length == 2)
+        {
+            clearInterval(tempo)
+            console.log('banner_child_count less than', banner_child.length, ', can not moveImg')
+        }
+        console.log('in load, done \n')
+    })
     window.addEventListener('resize', function resize()
     {
         // clearInterval(tempo)
@@ -80,17 +98,19 @@ if(page_id == 'index')
     var banner = document.getElementById('banner')
     var banner_container = document.getElementById('banner-container')
     var banner_child = banner_container.children
-    console.log('banner_child_count: ', banner_child.length)
-    // console.log('bodyWid: ', document.body.clientWidth)
-    console.log('banner_container_width: ', banner_container.style.width, '= bodyWid * banner_child.length','(', banner_child.length,')')
+    var banner_child_count = banner_child.length
+    console.log('banner_child_count: ', banner_child_count)
+    console.log('bodyWid: ', document.body.clientWidth)
+    console.log('/=== set banner img initialization done===/')
+
     function setBanner()
     {
         // set index banner auto width
         var bodyWid = document.body.clientWidth
-        console.log('>>>',bodyWid)
+
         // set banner_container width
-        banner_container.style.width = bodyWid * banner_child.length + 'px'
-        
+        banner_container.style.width = bodyWid * (banner_child.length+1) + 'px'
+
         // set banner & banner_container height
         if(bodyWid > 1280)
         {
@@ -123,11 +143,13 @@ if(page_id == 'index')
     }
 
     // create new tag
-    var insertTag = document.createElement('div')
-    insertTag.style = banner_child[0].getAttribute('style')
-    banner_container.appendChild(insertTag)
+    // var insertTag = document.createElement('div')
+    // insertTag.style = banner_child[0].getAttribute('style')
+    // insertTag.id ='jessie'
+    // banner_container.appendChild(insertTag)
+    // console.log('create new tag?',banner_child.length)
 
-    des = insertTag
+    
 
     // after page load, start moveImg
     tempo = setInterval(moveImg, 6000)
@@ -149,15 +171,17 @@ if(page_id == 'index')
             }
         }
 
+        
+
         var speed = 1
-        function move(position)
+        function move()
         {
             // must be in real time to get img_7_object.style.left value
             var banner_move_range = (banner_child.length-1) * -document.body.clientWidth
             var position = banner_container.style.left
             console.log('speed: ',speed, '/', 'banner_wid: ', document.body.clientWidth, '/', 'range: ', banner_move_range)
-            console.log('banner_container.position: ',parseInt(position),)
-            // console.log()
+            console.log('banner_container.position: ', position)
+
             if(parseInt(banner_container.style.left) > banner_move_range)
             {
                 banner_container.style.left = parseInt(banner_container.style.left) - speed + 'px'
@@ -173,12 +197,16 @@ if(page_id == 'index')
                     {
                         nth_img = banner_child.length-(banner_child.length-1)
                         console.log('current the', nth_img, 'th img vs', banner_child.length)
+                        dis = document.querySelectorAll('.banner-tip')[nth_img-1].style.display = ''
+                        console.log('dis',dis)
                     }else{
-                        console.log('current the', nth_img, 'th img')
+                        console.log('current the', nth_img +'th img')
+                        dis = document.getElementsByClassName('banner-tip')[nth_img-1].style.display = ''
+                        console.log('dis',dis)
                     }
                     
                     console.log('banner_container.style.left: ',banner_container.style.left)
-                    console.log('run the ', nth_run, 'th')
+                    console.log('run the ', nth_run +'th')
                 }
             }else{
             // if(parseInt(banner_container.style.left) == banner_move_range)
