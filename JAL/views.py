@@ -1038,7 +1038,7 @@ def verifyAccountDone(request):
             #     'user_name': user_name,
             # }
             request.session.set_expiry(10800)
-            _urls_ = nav()['_account_']['myAccount'][0]
+            _urls_ = nav()['_account_']['account'][0]
             return redirect(_urls_)
         '''
         login error, account is not exist
