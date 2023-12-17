@@ -114,15 +114,24 @@ ul.nav-app-list > li > a:hover
   color: rgb(51, 95, 66);
   font-size: large;
 }
-div.account > ul
+div.account
 {
-  display: flex;
-  width: 70%;
-  margin-left: 30%;
+  justify-content: flex-end;
+  /* width: 70%; */
+  /* margin-left: 30%; */
 }
-div.account > ul > li
+div.account > div
 {
-  width: 50%;
+  /* width: 50%; */
+  margin-left: 15%;
+  text-align: right;
+}
+.bag
+{
+  background: url('/static/image/ico/shpping-bag.png') no-repeat 0 12px;
+  display: block;
+  width: 25px;
+  height: 55px;
 }
 /*************************************************LINE*************************************************/
 ul
@@ -194,13 +203,12 @@ footer *
 /*************************************************
  Margin Padding  
  *************************************************/
-.margin-t-b > div, .margin-t-b > li
+/* .margin-t-b > div, .margin-t-b > li
 {
   margin: 2% 0;
 }
 .margin-around > div, .margin-around > li
 {
-  /* margin: 3%; */
   margin: 0%;
 }
 .padding-t-b
@@ -242,7 +250,7 @@ footer *
 .padding-20
 {
   padding: 2%;
-}
+} */
 .price > span
 {
   padding-left: 0.5%;
@@ -251,6 +259,12 @@ footer *
 .price > span.price-symbol,.price > span:last-child
 {
   padding-top: 6px;
+}
+.shipping > div > div > span, .id-information > div > div > span
+{
+  display: block;
+  margin-top: 2%;
+  font-size: 18px;
 }
 /*************************************************LINE*************************************************/
 

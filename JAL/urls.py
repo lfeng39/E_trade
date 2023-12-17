@@ -38,6 +38,8 @@ urlpatterns = [
     path('account',views.myAccount, name=''),
     path('myAccount&=edit',views.editAccount, name=''),
     path('myAccount&=edit-done',views.editAccount, name=''),
+    path('account&=edit-<module>',views.editMyAccount, name=''),
+
 
 
     path('adminjessie',views._admin_, name=''),

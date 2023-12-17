@@ -1,7 +1,7 @@
 // import base.js
-function addScript(url){
-	document.write("<script language='javascript' src='./base.js'></script>");
-}
+// function addScript(url){
+// 	document.write("<script language='javascript' src='./base.js'></script>");
+// }
 
 // account input control
 if(page_id == 'login' || page_id =='createAccount')
@@ -123,11 +123,29 @@ if(page_id == 'login' || page_id =='createAccount')
     }
 }
 
-// if(page_id == 'signUp')
-// {
-//     var get_input_email = document.getElementById('email')
-//     var get_input_password = document.getElementById('passWord')
-//     console.log('i get:',get_input_email.value)
-//     // login input control
-    
-// }
+
+if(page_id == 'account')
+{
+    document.getElementById('user_name').style.display = 'none'
+    // console.log('page_id:',document.getElementById('user_name').textContent)
+    // login input control
+    function widget(active)
+    {
+        if(active == 'editShipping')
+        {
+            document.getElementById('edit-shipping').style.display = ''
+            document.getElementById('edit-ID').style.display = 'none'
+        }
+        if(active == 'close')
+        {
+            document.getElementById('edit-shipping').style.display = 'none'
+            document.getElementById('edit-ID').style.display = 'none'
+        }
+        if(active == 'editID')
+        {
+            document.getElementById('edit-ID').style.display = ''
+            document.getElementById('edit-shipping').style.display = 'none'
+        }
+    }
+
+}

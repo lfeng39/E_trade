@@ -24,15 +24,14 @@
             <!-- <div id="hei" style="line-height: 55px;"></div> -->
         </div>
         <div class="account flex-container">
-            <ul>
             {% if user_status %}
-            <li><a href="{{ nav_account.account.0 }}">{{ user_name }}</a></li>
+            <div id="user_name"><a href="{{ nav_account.account.0 }}">{{ user_name }}</a></div>
             <!-- <div><a href="{{ nav_account.cart.0 }}">{{ nav_account.cart.1 }}</a></div> -->
-            <li><a href="{{ nav_account.cart.0 }}" class="material-symbols-outlined size-30">shopping_cart</a></li>
+            <div><a href="{{ nav_account.cart.0 }}" class="bag"></a></div>
             {% else %}
             <li><a href="{{ nav_account.login.0 }}">{{ nav_account.login.1 }}</a></li>
             <!-- <li><a href="{{ nav_account.cart.0 }}">{{ nav_account.cart.1 }}</a></li> -->
-            <li><a href="{{ nav_account.cart.0 }}" class="material-symbols-outlined size-30">shopping_cart</a></li>
+            <div><a href="{{ nav_account.cart.0 }}" class="material-symbols-outlined size-30">shopping_cart</a></div>
             {% endif %}
             <!-- {% if user_account %}
             <div><a href="{{ nav_account.login.0 }}" title="login" class="material-symbols-outlined size-30">account_circle</a></div>
@@ -40,7 +39,6 @@
             <div><a href="{{ nav_account.myAccount.0 }}" class="material-symbols-outlined size-30">account_circle</a></div>
             {% endif %} -->
             <!-- <div><a href="{{ nav_account.Cart.0 }}" class="material-symbols-outlined size-30">shopping_cart</a></div> -->
-            </ul>
         </div>
     </div>
 

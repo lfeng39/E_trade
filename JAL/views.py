@@ -50,7 +50,7 @@ _ip_ = '127.0.0.1'
 # csrftoken: T83BR0wnzOOGoGNuSw3mw9kOyQWif8Ns
 _port_ = ':8000'
 _app_ = '/JAL/'
-# base_url = http + _ip_ + _port_ + _app_
+base_url = http + _ip_ + _port_ + _app_
 '''
 server test url
 '''
@@ -58,7 +58,7 @@ server test url
 # _ip_ = '822u770q09.zicp.fun:44088'
 # ngrok
 _ip_ = '4510-240e-36f-425-9830-5b1b-be7d-67ea-34e0.ngrok-free.app'
-base_url = 'https://' + _ip_ + '/JAL/'
+# base_url = 'https://' + _ip_ + '/JAL/'
 '''
 Vultr server url
 '''
@@ -840,10 +840,10 @@ class UserAccount:
             save the data that has been changed from edit.html to DB
             '''
             db_table_useraccount = models.UserAccount.objects.get(email=user_email)
-            db_table_useraccount.user_name = get_account_info['user_name']
-            db_table_useraccount.password = get_account_info['password']
-            db_table_useraccount.first_name = get_account_info['first_name']
-            db_table_useraccount.last_name = get_account_info['last_name']
+            # db_table_useraccount.user_name = get_account_info['user_name']
+            # db_table_useraccount.password = get_account_info['password']
+            # db_table_useraccount.first_name = get_account_info['first_name']
+            # db_table_useraccount.last_name = get_account_info['last_name']
             db_table_useraccount.address = get_account_info['address']
             db_table_useraccount.street = get_account_info['street']
             db_table_useraccount.city = get_account_info['city']
@@ -851,6 +851,39 @@ class UserAccount:
             db_table_useraccount.code = get_account_info['code']
             db_table_useraccount.save()
             return 'Account Save done'
+        except:
+            error = str(user_email) + ' please try again...'
+            return error
+    '''
+    save data after edit account
+    '''
+    def saveAccount(request, user_email, module):
+        get_account_info = forms.getAccountInfo(request)
+        try:
+            if module == 'shipping':
+                '''
+                save the data that has been changed from edit.html to DB
+                '''
+                db_table_useraccount = models.UserAccount.objects.get(email=user_email)
+                db_table_useraccount.first_name = get_account_info['first_name']
+                db_table_useraccount.last_name = get_account_info['last_name']
+                db_table_useraccount.address = get_account_info['address']
+                db_table_useraccount.street = get_account_info['street']
+                db_table_useraccount.city = get_account_info['city']
+                db_table_useraccount.country = get_account_info['country']
+                db_table_useraccount.code = get_account_info['code']
+                db_table_useraccount.save()
+                return 'Shipping info save done'
+            if module == 'id':
+                '''
+                save the data that has been changed from edit.html to DB
+                '''
+                db_table_useraccount = models.UserAccount.objects.get(email=user_email)
+                db_table_useraccount.user_name = get_account_info['user_name']
+                db_table_useraccount.password = get_account_info['password']
+
+                db_table_useraccount.save()
+                return 'Account ID Save done'
         except:
             error = str(user_email) + ' please try again...'
             return error
@@ -1147,6 +1180,7 @@ def myAccount(request):
             'user_name': user_account['user_name'],
 
             'user_account': user_account,
+            'bag': False,
 
             # '''
             # footer
@@ -1360,7 +1394,7 @@ def editAccount(request):
             # 'tag': 'Your acount update  ',
             # 'status': DataForm.getIndexData(request),
             'tip': UserAccount.saveUserAccount(request, user_email),
-            'view': nav()['_index_']['index'],
+            'back': nav()['_account_']['account'][0],
             # 'again': nav()['_admin_']['EditPromote'],
             'img': '/static/image/yeah/yeah.jpg',
 
@@ -1370,7 +1404,55 @@ def editAccount(request):
             'timezone': spider.time_zone,
         }
         return render(request, 'done.html', htmlApi)
+@csrf_protect
+@csrf_exempt
+@requires_csrf_token
+def editMyAccount(request, module):
+    '''
+    get session
+    '''
+    user_status = request.session.get('user_status')
+    user_email = request.session.get('user_email')
+    
+    '''
+    user not online, redirect 'Login'
+    '''
+    if not user_status:
+        user_name = 'Login'
+    else:
+        user_name = models.UserAccount.objects.filter(email=user_email).values()[0]['user_name']
 
+    htmlApi = {
+        'page_id': 'createAccountDone',
+        'account_edit': True,
+
+        # '''
+        # nav module
+        # '''
+        'nav_index': nav()['_index_'],
+        'nav_nav': nav()['_nav_'],
+        'nav_account': nav()['_account_'],
+        
+        # '''
+        # account module
+        # '''
+        'user_status': user_status,
+        'user_account': user_email,
+        'user_name': user_name,
+
+        # 'tag': 'Your acount update  ',
+        # 'status': DataForm.getIndexData(request),
+        'tip': UserAccount.saveAccount(request, user_email, module),
+        'back': nav()['_account_']['account'][0],
+        # 'again': nav()['_admin_']['EditPromote'],
+        'img': '/static/image/yeah/yeah.jpg',
+
+        # '''
+        # footer
+        # '''
+        'timezone': spider.time_zone,
+    }
+    return render(request, 'done.html', htmlApi)
 
 
 def myCart(request):
