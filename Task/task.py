@@ -15,7 +15,9 @@ def sendMail():
     '''
     subject = 'Coupon from ME AND MR.LEO Promote'
     body = 'Coupon Code: DJ923IR0DFJ92'
-    from_email = 'me.and.mr.leo.promote@gmail.com'
+    # from_email = 'sandianjiuke@163.com'
+    # from_email = 'me.and.mr.leo.promote@gmail.com'
+    from_email = 'me.and.mr.leo.s@gmail.com'
     # from_email = settings.EMAIL_HOST_USER
     to_email = [
         'lfeng39@163.com',
@@ -57,10 +59,13 @@ def sendMail():
         #     ['lfeng39@163.com'],
         # )
         # send_mass_mail((message1, message2), fail_silently=False, html_message=views.htmlMsg())
-
+        print('01')
         msg = EmailMessage(subject, views.htmlMsg(), from_email, to_email)
+        print('02')
         msg.content_subtype = 'html'
+        print('03')
         msg.send()
+        print('04')
         timenow = datetime.datetime.now(tz=pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S %Z %z')
         print('Email sent successfully!')
         print(timenow)

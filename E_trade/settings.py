@@ -158,32 +158,32 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_SSL = True
 EMAIL_PORT = 465
-# EMAIL_USE_TLS = True
-# EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
 EMAIL_HOST_USER = 'me.and.mr.leo.s@gmail.com'
 EMAIL_HOST_PASSWORD = 'ncjg laji euxl fyso' # 发送邮件的邮箱密码或授权码
 EMAIL_CA_CERTS = ''  # 将这行添加并设置为空字符串
 '''
 me.and.mr.leo.promote@gmail.com
 '''
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_SSL = True
-EMAIL_PORT = 465
-# EMAIL_USE_TLS = True
-# EMAIL_PORT = 587
-EMAIL_HOST_USER = 'me.and.mr.leo.promote@gmail.com'
-EMAIL_HOST_PASSWORD = 'mlwr rqsl yviw jqyp' # 发送邮件的邮箱密码或授权码
-EMAIL_CA_CERTS = ''  # 将这行添加并设置为空字符串
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_SSL = True
+# EMAIL_PORT = 465
+# # EMAIL_USE_TLS = True
+# # EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'me.and.mr.leo.promote@gmail.com'
+# EMAIL_HOST_PASSWORD = 'mlwr rqsl yviw jqyp' # 发送邮件的邮箱密码或授权码
+# EMAIL_CA_CERTS = ''  # 将这行添加并设置为空字符串
 '''
 sandianjiuke@163.com
 '''
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.163.com' # 修改为你的 SMTP 服务器
-EMAIL_PORT = 465 # SMTP 端口
-EMAIL_USE_SSL = True
-# EMAIL_USE_TLS = True # 使用 TLS 安全连接
-EMAIL_HOST_USER = 'sandianjiuke@163.com' # 发送邮件的邮箱地址
-EMAIL_HOST_PASSWORD = 'NINLXTRXBRQHEUOC' # 发送邮件的邮箱密码或授权码
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.163.com' # 修改为你的 SMTP 服务器
+# EMAIL_PORT = 465 # SMTP 端口
+# EMAIL_USE_SSL = True
+# # EMAIL_USE_TLS = True # 使用 TLS 安全连接
+# EMAIL_HOST_USER = 'sandianjiuke@163.com' # 发送邮件的邮箱地址
+# EMAIL_HOST_PASSWORD = 'NINLXTRXBRQHEUOC' # 发送邮件的邮箱密码或授权码
 
 
