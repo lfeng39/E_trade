@@ -50,7 +50,7 @@ _ip_ = '127.0.0.1'
 # csrftoken: T83BR0wnzOOGoGNuSw3mw9kOyQWif8Ns
 _port_ = ':8000'
 _app_ = '/JAL/'
-# base_url = http + _ip_ + _port_ + _app_
+base_url = http + _ip_ + _port_ + _app_
 '''
 server test url
 '''
@@ -58,7 +58,7 @@ server test url
 # _ip_ = '822u770q09.zicp.fun:44088'
 # ngrok
 _ip_ = '6c7d-103-84-219-16.ngrok-free.app'
-base_url = 'https://' + _ip_ + '/JAL/'
+# base_url = 'https://' + _ip_ + '/JAL/'
 '''
 Vultr server url
 '''
@@ -1181,6 +1181,7 @@ def myAccount(request):
 
             'user_account': user_account,
             'bag': False,
+            'user_coupon': models.Coupon.objects.filter(type_status='01').values(),
 
             # '''
             # footer
@@ -1188,6 +1189,8 @@ def myAccount(request):
             'timezone': spider.time_zone,
         }
         return render(request, 'account.html', htmlApi)
+
+
 @csrf_protect
 @csrf_exempt
 @requires_csrf_token

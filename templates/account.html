@@ -40,11 +40,23 @@
             <h1>Your Coupon</h1>
             <!-- <div class="flex-container" style="margin-top: 3%; justify-content: space-between;"> -->
             <div class="flex-container" style="margin-top: 3%;">
-                <div style="margin-right: 2%; width: 18%; border-radius: 8px; background:rgb(57, 157, 244, 0.2); font-size: 50px; text-align: center; position: relative;">20%<span style="width: 50px; height: 50px; position: absolute; top: 0px; right: 5px; font-size: 22px;">off</span></div>
-                <div style="margin-right: 2%; width: 18%; border-radius: 8px; background:rgba(255, 145, 0, 0.2); font-size: 50px; text-align: center; position: relative;">$ 5.00<span style="width: 50px; height: 50px; position: absolute; top: 0px; right: 5px; font-size: 22px;">off</span></div>
+                {% for coupon in user_coupon %}
+                <div style="margin-right: 2%; width: 18%; border-radius: 8px; background:rgb(57, 157, 244, 0.2); font-size: 50px; text-align: center; position: relative;">
+                    {% if coupon.type_cash %}
+                    ${{ coupon.type_cash }}
+                    {% else %}
+                    {% widthratio coupon.type_percentage 1 100 %}%
+                    {% endif %}
+                    <span style="width: 50px; height: 50px; position: absolute; top: 0px; right: 5px; font-size: 22px;">off</span>
+                </div>
+                {% endfor %}
+                <!-- <div style="margin-right: 2%; width: 18%; border-radius: 8px; background:rgba(255, 145, 0, 0.2); font-size: 50px; text-align: center; position: relative;">
+                    {{ user_coupon.1.type_percentage }}
+                    <span style="width: 50px; height: 50px; position: absolute; top: 0px; right: 5px; font-size: 22px;">off</span>
+                </div>
                 <div style="margin-right: 2%; width: 18%; border-radius: 8px; background:rgba(255, 0, 251, 0.2); font-size: 50px; text-align: center; position: relative;">20%<span style="width: 50px; height: 50px; position: absolute; top: 0px; right: 5px; font-size: 22px;">off</span></div>
                 <div style="margin-right: 2%; width: 18%; border-radius: 8px; background:rgba(174, 255, 175, 0.2); font-size: 50px; text-align: center; position: relative;">20%<span style="width: 50px; height: 50px; position: absolute; top: 0px; right: 5px; font-size: 22px;">off</span></div>
-                <div style="width: 18%; border-radius: 8px; background:rgba(179, 169, 238, 0.2); font-size: 50px; text-align: center; position: relative;">20%<span style="width: 50px; height: 50px; position: absolute; top: 0px; right: 5px; font-size: 22px;">off</span></div>
+                <div style="width: 18%; border-radius: 8px; background:rgba(179, 169, 238, 0.2); font-size: 50px; text-align: center; position: relative;">20%<span style="width: 50px; height: 50px; position: absolute; top: 0px; right: 5px; font-size: 22px;">off</span></div> -->
             </div>
             <div class="flex-container" style="margin-top: 3%;">
                 <p>Coupon Code should be pushed to your account, in every Month. If your coupon code is invalid, please tell us by [ me.and.mr.leo.promote@gmail.com ]. We will resend the new coupon code to your account and email.</p>
