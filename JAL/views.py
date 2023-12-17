@@ -50,15 +50,15 @@ _ip_ = '127.0.0.1'
 # csrftoken: T83BR0wnzOOGoGNuSw3mw9kOyQWif8Ns
 _port_ = ':8000'
 _app_ = '/JAL/'
-base_url = http + _ip_ + _port_ + _app_
+# base_url = http + _ip_ + _port_ + _app_
 '''
 server test url
 '''
 # huashengke
 # _ip_ = '822u770q09.zicp.fun:44088'
 # ngrok
-_ip_ = '4510-240e-36f-425-9830-5b1b-be7d-67ea-34e0.ngrok-free.app'
-# base_url = 'https://' + _ip_ + '/JAL/'
+_ip_ = '6c7d-103-84-219-16.ngrok-free.app'
+base_url = 'https://' + _ip_ + '/JAL/'
 '''
 Vultr server url
 '''
