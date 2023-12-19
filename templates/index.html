@@ -8,67 +8,88 @@
 <body page_id="{{ page_id }}" onload="setBanner()">
     
     {% include "nav.html" %}
+    <!-------- promote-banner --------->
+    <!-- <div id="banner" style="height:680px; overflow: hidden; position: relative;">
+        <div id="banner-container" style="display: flex; position: relative; left: 0px; background-color: #fff000;">
+            {% for promote_info in promote_info %}
+            <div name="B0C1MVT741" style="height:680px; background: url('{{ promote_info.img }}') no-repeat 50% 50%; background-size: cover;">
+                <div id="leo" class="banner-tip" style="display: none;">
+                    <div>
+                        <h1 class="stronger">{{ promote_info.bullet_point_01 }}</h1>
+                    </div>
+                    <div>
+                        <span>{{ promote_info.bullet_point_02 }}</span>
+                        <h2>{{ promote_info.bullet_point_03 }}</h2>
+                    </div>
+                    <div>
+                        <h3><a href="{{ promote_info.promote_url }}" class="learnMore">Learn more</a></h3>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div> -->
 
     <!-------- promote-banner --------->
     <div id="banner" style="height:680px; overflow: hidden; position: relative;">
         <div id="banner-container" style="display: flex; position: relative; left: 0px; background-color: #fff000;">
-            <div name="B0BZ3MGYXL" style="width: 100%; height:680px; background: url('/static/image/show/B0BZ3MGYXL/2-A+-970.jpg') no-repeat 50% 50%; background-size: cover;">
+            <div name="B0BZ3MGYXL" style="width: 100%; height:680px; background: url('{{ promote_info.0.img }}') no-repeat 50% 50%; background-size: cover;">
                 <div id="leo" class="banner-tip">
                     <div>
-                        <h1 class="stronger">{{ promote_info.bullet_point_01 }}</h1>
+                        <h1 class="stronger">{{ promote_info.0.bullet_point_01 }}</h1>
                     </div>
                     <div>
-                        <span>{{ promote_info.bullet_point_02 }}</span>
-                        <h2>{{ promote_info.bullet_point_02 }}</h2>
+                        <span>{{ promote_info.0.bullet_point_02 }}</span>
+                        <h2>{{ promote_info.0.bullet_point_03 }}</h2>
                     </div>
                     <div>
                         <!-- <h3><a onclick="moveImg()" class="learnMore auto-margin">Learn more</a></h3> -->
-                        <h3><a href="{{ promote_info.promote_url }}" class="learnMore">Learn more</a></h3>
+                        <h3><a href="{{ promote_info.0.url }}" class="learnMore">Learn more</a></h3>
                     </div>
                 </div>
             </div>
-            <div name="B0C6F3CK4F" style="height:680px; background: url('/static/image/show/B0C6F3CK4F/2-A+-970.jpg') no-repeat 50% 50%; background-size: cover;">
+            <div name="B0C6F3CK4F" style="height:680px; background: url('{{ promote_info.1.img }}') no-repeat 50% 50%; background-size: cover;">
                 <div id="2" class="banner-tip" style="display: none;">
                     <div>
-                        <h1 class="stronger">{{ promote_info.bullet_point_01 }}</h1>
+                        <h1 class="stronger">{{ promote_info.1.bullet_point_01 }}</h1>
                     </div>
                     <div>
-                        <span>{{ promote_info.bullet_point_02 }}</span>
-                        <h2>{{ promote_info.bullet_point_02 }}</h2>
+                        <span>{{ promote_info.1.bullet_point_02 }}</span>
+                        <h2>{{ promote_info.1.bullet_point_03 }}</h2>
                     </div>
                     <div>
                         <!-- <h3><a onclick="moveImg()" class="learnMore auto-margin">Learn more</a></h3> -->
-                        <h3><a href="{{ promote_info.promote_url }}" class="learnMore">Learn more</a></h3>
+                        <h3><a href="{{ promote_info.1.url }}" class="learnMore">Learn more</a></h3>
                     </div>
                 </div>
             </div>
-            <div name="B0BTWT5GL8" style="height:680px; background: url('/static/image/show/B0BTWT5GL8/2-A+-970.jpg') no-repeat 50% 50%; background-size: cover;">
+            <div name="B0BTWT5GL8" style="height:680px; background: url('{{ promote_info.2.img }}') no-repeat 50% 50%; background-size: cover;">
                 <div id="3" class="banner-tip" style="display: none;">
                     <div>
-                        <h1 class="stronger">{{ promote_info.bullet_point_01 }}</h1>
+                        <h1 class="stronger">{{ promote_info.2.bullet_point_01 }}</h1>
                     </div>
                     <div>
-                        <span>{{ promote_info.bullet_point_02 }}</span>
-                        <h2>{{ promote_info.bullet_point_02 }}</h2>
+                        <span>{{ promote_info.2.bullet_point_02 }}</span>
+                        <h2>{{ promote_info.2.bullet_point_03 }}</h2>
                     </div>
                     <div>
                         <!-- <h3><a onclick="moveImg()" class="learnMore auto-margin">Learn more</a></h3> -->
-                        <h3><a href="{{ promote_info.promote_url }}" class="learnMore">Learn more</a></h3>
+                        <h3><a href="{{ promote_info.2.url }}" class="learnMore">Learn more</a></h3>
                     </div>
                 </div>
             </div>
-            <div name="B0C1MVT741" style="height:680px; background: url('/static/image/show/B0C1MVT741/1-A+-970.jpg') no-repeat 50% 50%; background-size: cover;">
+            <div name="B0C1MVT741" style="height:680px; background: url('{{ promote_info.3.img }}') no-repeat 50% 50%; background-size: cover;">
                 <div id="4" class="banner-tip" style="display: none;">
                     <div>
-                        <h1 class="stronger">{{ promote_info.bullet_point_01 }}</h1>
+                        <h1 class="stronger">{{ promote_info.3.bullet_point_01 }}</h1>
                     </div>
                     <div>
-                        <span>{{ promote_info.bullet_point_02 }}</span>
-                        <h2>{{ promote_info.bullet_point_02 }}</h2>
+                        <span>{{ promote_info.3.bullet_point_02 }}</span>
+                        <h2>{{ promote_info.3.bullet_point_03 }}</h2>
                     </div>
                     <div>
                         <!-- <h3><a onclick="moveImg()" class="learnMore auto-margin">Learn more</a></h3> -->
-                        <h3><a href="{{ promote_info.promote_url }}" class="learnMore">Learn more</a></h3>
+                        <h3><a href="{{ promote_info.3.url }}" class="learnMore">Learn more</a></h3>
                     </div>
                 </div>
             </div>
@@ -100,7 +121,7 @@
                         <span class="price-float"></span>
                     </span>
                 </div>
-                <div style="margin-bottom: 3%;"><a href="http://www.amazon.com/dp/{{ product_info.6.asin }}" class="learnMore" target="_blank">Buy on Amazon</a></div>
+                <div style="margin-bottom: 3%;"><a href="http://www.amazon.com/dp/{{ product_info.6.asin }}" target="_blank" style="color: cornflowerblue; font-size: 22px;">Buy on Amazon >>></a></div>
             </div>
         </div>
     </div>

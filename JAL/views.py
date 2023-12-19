@@ -50,15 +50,15 @@ _ip_ = '127.0.0.1'
 # csrftoken: T83BR0wnzOOGoGNuSw3mw9kOyQWif8Ns
 _port_ = ':8000'
 _app_ = '/JAL/'
-base_url = http + _ip_ + _port_ + _app_
+# base_url = http + _ip_ + _port_ + _app_
 '''
 server test url
 '''
 # huashengke
 # _ip_ = '822u770q09.zicp.fun:44088'
 # ngrok
-_ip_ = '6c7d-103-84-219-16.ngrok-free.app'
-# base_url = 'https://' + _ip_ + '/JAL/'
+_ip_ = 'b19d-103-84-219-16.ngrok-free.app'
+base_url = 'https://' + _ip_ + '/JAL/'
 '''
 Vultr server url
 '''
@@ -387,6 +387,7 @@ class Promote:
     '''
     index
     '''
+    print('promote: ', models.Promote.objects.filter(channel='banner').values())
     def _index_(request):
         # '''
         # get cookies
@@ -441,7 +442,7 @@ class Promote:
             # '''
             # promote-banner
             # '''
-            'promote_info': promote_info,
+            'promote_info': models.Promote.objects.filter(channel='banner').values(),
 
             # '''
             # promote-sku
@@ -645,7 +646,7 @@ class Promote:
             # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
 
             # promote_info = models.Promote.objects.all().values()
-            promote_info = models.Promote.objects.filter(promote_code=code).values()
+            promote_info = models.Promote.objects.filter(code=code).values()
 
             htmlApi = {
                 'page_id': 'editIndex',
@@ -676,11 +677,11 @@ class Promote:
             '''
             save
             '''
-            db_table_promote = models.Promote.objects.get(promote_code=get_index_data['promote_code'])
+            db_table_promote = models.Promote.objects.get(code=get_index_data['promote_code'])
             # db_table_promote.promote_type = aaa
-            db_table_promote.promote_img = get_index_data['promote_img']
-            db_table_promote.promote_url = get_index_data['promote_url']
-            db_table_promote.promote_channel = get_index_data['promote_channel']
+            db_table_promote.img = get_index_data['promote_img']
+            db_table_promote.url = get_index_data['promote_url']
+            db_table_promote.channel = get_index_data['promote_channel']
             db_table_promote.bullet_point_01 = get_index_data['bullet_point_01']
             db_table_promote.bullet_point_02 = get_index_data['bullet_point_02']
             db_table_promote.bullet_point_03 = get_index_data['bullet_point_03']

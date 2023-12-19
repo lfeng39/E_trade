@@ -24,11 +24,11 @@
         <div class="container">
             {% for promote_info in promote_info %}
             <br>
-            <a href="{{ nav_admin.Promote }}={{ promote_info.promote_code }}-edit">
+            <a href="{{ nav_admin.Promote }}={{ promote_info.code }}-edit">
                 <fieldset>
-                    <legend>Promote Type: {{ promote_info.promote_type }}</legend>
-                    <div class="asin">Code: {{ promote_info.promote_code }}</div>
-                    <div><img src="{{ promote_info.promote_img }}" alt="" style="height: 50px; width: 50px;"></div>
+                    <legend>Promote Type: {{ promote_info.type }}</legend>
+                    <div class="asin">Code: {{ promote_info.code }}</div>
+                    <div><img src="{{ promote_info.img }}" alt="" style="height: 50px; width: 50px;"></div>
                 </fieldset>
             </a>
             {% endfor %}
