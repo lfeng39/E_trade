@@ -50,7 +50,7 @@ _ip_ = '127.0.0.1'
 # csrftoken: T83BR0wnzOOGoGNuSw3mw9kOyQWif8Ns
 _port_ = ':8000'
 _app_ = '/JAL/'
-# base_url = http + _ip_ + _port_ + _app_
+base_url = http + _ip_ + _port_ + _app_
 '''
 server test url
 '''
@@ -58,7 +58,7 @@ server test url
 # _ip_ = '822u770q09.zicp.fun:44088'
 # ngrok
 _ip_ = '6c7d-103-84-219-16.ngrok-free.app'
-base_url = 'https://' + _ip_ + '/JAL/'
+# base_url = 'https://' + _ip_ + '/JAL/'
 '''
 Vultr server url
 '''
@@ -597,11 +597,11 @@ class Promote:
             if False, create it
             '''
             models.Promote.objects.create(
-                promote_type = get_index_data['promote_type'],
-                promote_code = get_index_data['promote_code'],
-                promote_img = get_index_data['promote_img'],
-                promote_url = get_index_data['promote_url'],
-                promote_channel = get_index_data['promote_channel'],
+                type = get_index_data['promote_type'],
+                code = get_index_data['promote_code'],
+                img = get_index_data['promote_img'],
+                url = get_index_data['promote_url'],
+                channel = get_index_data['promote_channel'],
                 bullet_point_01 = get_index_data['bullet_point_01'],
                 bullet_point_02 = get_index_data['bullet_point_02'],
                 bullet_point_03 = get_index_data['bullet_point_03'],
@@ -781,7 +781,7 @@ class Promote:
                 # type_percentage = float(get_coupon_info['percentage'])/100,
                 start_at = spider.time_zone,
                 end_at = spider.time_zone,
-                type_status = '01',
+                status = '01',
             )
             htmlApi = {
                 'page_id': 'editListingDone',
@@ -1181,7 +1181,7 @@ def myAccount(request):
 
             'user_account': user_account,
             'bag': False,
-            'user_coupon': models.Coupon.objects.filter(type_status='01').values(),
+            'user_coupon': models.Coupon.objects.filter(status='01').values(),
 
             # '''
             # footer
