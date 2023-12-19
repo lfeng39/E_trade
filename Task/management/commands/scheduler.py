@@ -18,7 +18,7 @@ class Command(BaseCommand):
         def job():
             # # 获取当前时间
             current_time = datetime.datetime.now(tz=spider._shanghai_).strftime(spider._format_)
-            print('SHA: ',current_time)
+            print('Start at SHA: ',current_time)
             task.sendMail()
 
         '''

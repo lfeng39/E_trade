@@ -16,8 +16,8 @@ def sendMail():
     subject = 'Coupon from ME AND MR.LEO Promote'
     body = 'Coupon Code: DJ923IR0DFJ92'
     # from_email = 'sandianjiuke@163.com'
-    # from_email = 'me.and.mr.leo.promote@gmail.com'
-    from_email = 'me.and.mr.leo.s@gmail.com'
+    from_email = 'me.and.mr.leo.promote@gmail.com'
+    # from_email = 'me.and.mr.leo.s@gmail.com'
     # from_email = settings.EMAIL_HOST_USER
     to_email = [
         'lfeng39@163.com',
