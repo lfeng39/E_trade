@@ -18,32 +18,32 @@ from JAL import models
 
 
 
-# '''
-# Get the DATA from DB
-# '''
-# class AsinDB:
-#     '''
-#     get asin from MySql DB
-#     type data from DB is <class 'django.db.models.query.QuerySet'>
-#     return Dict
-#     '''
-#     asin_db = models.AsinInfo.objects.all().values('asin')
+'''
+Get the DATA from DB
+'''
+class AsinDB:
+    '''
+    get asin from MySql DB
+    type data from DB is <class 'django.db.models.query.QuerySet'>
+    return Dict
+    '''
+    asin_db = models.AsinInfo.objects.all().values('asin')
 
-#     '''
-#     from DB table AsinInfo
-#     return data type <class 'list'>
-#     '''
-#     def asinList():
-#         asin_db_list = []
-#         for asin_dict in AsinDB.asin_db:
-#             # print('ooooooo',asin_dict['asin'])
-#             asin_db_list.append(asin_dict['asin'])
+    '''
+    from DB table AsinInfo
+    return data type <class 'list'>
+    '''
+    def asinList():
+        asin_db_list = []
+        for asin_dict in AsinDB.asin_db:
+            # print('ooooooo',asin_dict['asin'])
+            asin_db_list.append(asin_dict['asin'])
 
-#         return asin_db_list
-#     '''
-#     check asin between DB table and table, if different, syn them
-#     coming soon...
-#     '''
+        return asin_db_list
+    '''
+    check asin between DB table and table, if different, syn them
+    coming soon...
+    '''
  
         
 

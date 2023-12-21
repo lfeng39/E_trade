@@ -387,7 +387,7 @@ class Promote:
     '''
     index
     '''
-    # print('promote: ', models.Promote.objects.filter(channel='banner').values())
+    print('promote: ', models.Promote.objects.filter(channel='banner').values())
     def _index_(request):
         # '''
         # get cookies
@@ -1617,111 +1617,111 @@ def _admin_(request):
 
 
 
-# '''
-# ==============================================================================
-# |   Part: save data                                                          |
-# |   check Asin between AsinInfo DB and CSV, if new, update table AsinInfo    |
-# ==============================================================================
-# '''
-# asin_csv_list = spider.DataCSV.asinList()
-# asin_db_list = spider.AsinDB.asinList()
-# print('oooooo Part: save data >>> from DB, length:', len(asin_db_list), '\n', asin_db_list, '\n')
-# if len(asin_csv_list) == len(asin_db_list):
-#     '''
-#     the same csv and mySql_db, return None
-#     '''
-#     print('oooooo Part: save data >>> no new asin', '\n')
+'''
+==============================================================================
+|   Part: save data                                                          |
+|   check Asin between AsinInfo DB and CSV, if new, update table AsinInfo    |
+==============================================================================
+'''
+asin_csv_list = spider.DataCSV.asinList()
+asin_db_list = spider.AsinDB.asinList()
+print('oooooo Part: save data >>> from DB, length:', len(asin_db_list), '\n', asin_db_list, '\n')
+if len(asin_csv_list) == len(asin_db_list):
+    '''
+    the same csv and mySql_db, return None
+    '''
+    print('oooooo Part: save data >>> no new asin', '\n')
 
-# elif len(asin_csv_list) > len(asin_db_list):
-#     '''
-#     more csv, return new asin from csv
-#     '''
-#     # new_asin_list = []
-#     for asin in asin_csv_list:
-#         if asin in asin_db_list:
-#             pass
-#         else:
-#             # new_asin_list.append(asin)
-#             Product.addAsin(asin)
-#             Product.addListing(asin)
-#     print('oooooo Part: save data >>> have new asin... ', asin, 'saving...', '\n')
-#     # return new_asin_list
+elif len(asin_csv_list) > len(asin_db_list):
+    '''
+    more csv, return new asin from csv
+    '''
+    # new_asin_list = []
+    for asin in asin_csv_list:
+        if asin in asin_db_list:
+            pass
+        else:
+            # new_asin_list.append(asin)
+            Product.addAsin(asin)
+            Product.addListing(asin)
+    print('oooooo Part: save data >>> have new asin... ', asin, 'saving...', '\n')
+    # return new_asin_list
 
-# elif len(asin_csv_list) < len(asin_db_list):
-#     '''
-#     more mySql_db, delete different asin, and return asin list from mySql DB
-#     '''
-#     print('oooooo Part: save data >>> asin_csv_list less than asin_db_list, Check it!')
-# else:
-#     print('oooooo Part: save data >>> error..., Check Please!')
-
-
-
-# '''
-# check Listing from DB, if False, create it
-# '''
-# if models.Listing.objects.all():
-#     print('Table Listing is',True)
-# else:
-#     print('Table Listing is',False)
-#     for asin in asin_db_list:
-#         Product.addListing(asin)
+elif len(asin_csv_list) < len(asin_db_list):
+    '''
+    more mySql_db, delete different asin, and return asin list from mySql DB
+    '''
+    print('oooooo Part: save data >>> asin_csv_list less than asin_db_list, Check it!')
+else:
+    print('oooooo Part: save data >>> error..., Check Please!')
 
 
 
-# # '''
-# # save data after edit index
-# # check ProductDescription from DB, if False, create it
-# # '''
-# # def saveIndexData(request):
-# #     get_index_data = forms.getIndexData(request)
-# #     try:
-# #         '''
-# #         save
-# #         '''
-# #         db_table_index = models.Promote.objects.get(id=get_index_data['id'])
-# #         db_table_index.asin = get_index_data['asin']
-# #         db_table_index.bullet_point_01 = get_index_data['bullet_point_01']
-# #         db_table_index.bullet_point_02 = get_index_data['bullet_point_02']
-# #         db_table_index.bullet_point_03 = get_index_data['bullet_point_03']
-# #         db_table_index.url = get_index_data['url']
-# #         db_table_index.save()
-# #         # print('00000000',db_table_index)
-# #         return 'Yeah, Save success!'
-# #     except:
-# #         '''
-# #         if False, create it
-# #         '''
-# #         models.Promote.objects.create(
-# #             id = get_index_data['id'],
-# #             promote_code = get_index_data['promote_code'],
-# #             bullet_point_01 = get_index_data['bullet_point_01'],
-# #             bullet_point_02 = get_index_data['bullet_point_02'],
-# #             bullet_point_03 = get_index_data['bullet_point_03'],
-# #             promote_url = get_index_data['promote_url']
-# #         )
-# #         return 'Create it done!'
-
+'''
+check Listing from DB, if False, create it
+'''
+if models.Listing.objects.all():
+    print('Table Listing is',True)
+else:
+    print('Table Listing is',False)
+    for asin in asin_db_list:
+        Product.addListing(asin)
 
 
 
 # '''
-# Global Variable
+# save data after edit index
+# check ProductDescription from DB, if False, create it
 # '''
-# page_id = ['index', 'about', 'products', 'myCart', 'login', 'signUp', 'order', 'account', 'myAccount', asin_db_list]
-# # print('look:>>>>>>',page_id[6])
+# def saveIndexData(request):
+#     get_index_data = forms.getIndexData(request)
+#     try:
+#         '''
+#         save
+#         '''
+#         db_table_index = models.Promote.objects.get(id=get_index_data['id'])
+#         db_table_index.asin = get_index_data['asin']
+#         db_table_index.bullet_point_01 = get_index_data['bullet_point_01']
+#         db_table_index.bullet_point_02 = get_index_data['bullet_point_02']
+#         db_table_index.bullet_point_03 = get_index_data['bullet_point_03']
+#         db_table_index.url = get_index_data['url']
+#         db_table_index.save()
+#         # print('00000000',db_table_index)
+#         return 'Yeah, Save success!'
+#     except:
+#         '''
+#         if False, create it
+#         '''
+#         models.Promote.objects.create(
+#             id = get_index_data['id'],
+#             promote_code = get_index_data['promote_code'],
+#             bullet_point_01 = get_index_data['bullet_point_01'],
+#             bullet_point_02 = get_index_data['bullet_point_02'],
+#             bullet_point_03 = get_index_data['bullet_point_03'],
+#             promote_url = get_index_data['promote_url']
+#         )
+#         return 'Create it done!'
 
 
 
-# def detailImg(asin):
 
-#     detail_img = {
-#         'img_7_url': images.urlAsinImg()[asin]['7'], 
-#         'img_970_url': images.urlAsinImg()[asin]['970'],
-#         'img_300_url': images.urlAsinImg()[asin]['300'],
-#     }
+'''
+Global Variable
+'''
+page_id = ['index', 'about', 'products', 'myCart', 'login', 'signUp', 'order', 'account', 'myAccount', asin_db_list]
+# print('look:>>>>>>',page_id[6])
 
-#     return detail_img
+
+
+def detailImg(asin):
+
+    detail_img = {
+        'img_7_url': images.urlAsinImg()[asin]['7'], 
+        'img_970_url': images.urlAsinImg()[asin]['970'],
+        'img_300_url': images.urlAsinImg()[asin]['300'],
+    }
+
+    return detail_img
 
 
 
