@@ -387,7 +387,7 @@ class Promote:
     '''
     index
     '''
-    print('promote: ', models.Promote.objects.filter(channel='banner').values())
+    # print('promote: ', models.Promote.objects.filter(channel='banner').values())
     def _index_(request):
         # '''
         # get cookies
