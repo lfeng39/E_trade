@@ -41,12 +41,18 @@ print('==============================================')
 =======================
 '''
 '''
+Vultr server url
+'''
+# _ip_ = '140.82.22.68'
+# _ip_ = '192.168.39.84'
+_ip_ = '108.61.222.8'
+'''
 local test url
 '''
 http = 'http://'
 # _ip_ = '127.0.0.1'
 # csrftoken: Eoa1iSdBOEbaTTdopOt49k05uczyAPvv
-_ip_ = '0.0.0.0'
+# _ip_ = '0.0.0.0'
 # csrftoken: T83BR0wnzOOGoGNuSw3mw9kOyQWif8Ns
 _port_ = ':8000'
 _app_ = '/JAL/'
@@ -59,12 +65,7 @@ server test url
 # ngrok
 _ip_ = 'b19d-103-84-219-16.ngrok-free.app'
 # base_url = 'https://' + _ip_ + '/JAL/'
-'''
-Vultr server url
-'''
-# _ip_ = '140.82.22.68'
-# _ip_ = '192.168.39.84'
-_ip_ = ''
+
 # base_url = 'https://' + _ip_ + '/JAL/'
 print('oooooo Part: test url >>> url_now')
 print('oooooo', base_url, '\n')
