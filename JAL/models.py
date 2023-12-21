@@ -31,8 +31,7 @@ class AsinInfo(models.Model):
     asin = models.CharField(max_length=20, blank=True)
     sku = models.CharField(max_length=30, blank=True)
     sku_sn = models.CharField(max_length=50, blank=True)
-    # def __str__(self):
-    #     return self.asin
+
 
 class Listing(models.Model):
     asin = models.CharField(max_length=20, blank=True)
@@ -47,9 +46,7 @@ class Listing(models.Model):
     status = models.CharField(max_length=2, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    # date = models.DateTimeField()
-    # def __str__(self):
-    #     return self.asin + ' *** ' + self.title
+
 
 class ProductInfo(models.Model):
     asin = models.CharField(max_length=20, blank=True)
@@ -61,8 +58,7 @@ class ProductInfo(models.Model):
     description = models.TextField(max_length=500, blank=True)
     first_img = models.CharField(max_length=300, blank=True)
     status = models.CharField(max_length=2, blank=True)
-    # def __str__(self):
-    #     return self.asin + ' *** ' + self.title
+
 
 class Image(models.Model):
     asin = models.CharField(max_length=20, blank=True)
@@ -94,7 +90,7 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-# class ProductDescription(models.Model):
+    
 class Promote(models.Model):
     # id = models.CharField(max_length=20, primary_key=True)
     type = models.CharField(max_length=20, blank=True)

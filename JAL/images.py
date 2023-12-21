@@ -9,8 +9,8 @@ from JAL import models, spider
 
 
 # data列表
-# _asin_ = ['B09KG4R3YR', 'B09YLKWBMV', 'B09YLLXKDT', 'B0BFHQTG6R']
-asin_list = spider.AsinDB.asinList()
+asin_list = ['B09KG4R3YR', 'B09YLKWBMV', 'B09YLLXKDT', 'B0BFHQTG6R']
+# asin_list = spider.AsinDB.asinList()
 _version_ = ['v1.00', 'v1.01', 'v1.02']
 _folder_ = ['7', '970', '300']
 # print(_asin_)
@@ -151,7 +151,7 @@ class Img:
 '''
 test print 
 '''
-print(Img.imgUrl('B0BTXB89PG', '7'))
+# print(Img.imgUrl('B0BTXB89PG', '7'))
 
 # for file in os.listdir(Img.imgPath('B0BGHBW13S', '7')):
 #     print(file)
