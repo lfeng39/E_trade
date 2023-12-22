@@ -45,7 +45,8 @@ Vultr server url
 '''
 # _ip_ = '140.82.22.68'
 # _ip_ = '192.168.39.84'
-_ip_ = '108.61.222.8'
+# _ip_ = '108.61.222.8'
+_ip_ = 'www.meandmrleo.com'
 '''
 local test url
 '''
