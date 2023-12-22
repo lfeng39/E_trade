@@ -59,7 +59,7 @@ _port_ = ':8000'
 _app_ = '/JAL/'
 # base_url = http + _ip_ + _port_ + _app_
 
-base_url = 'www.meandmrleo.com' + _app_
+base_url = ''
 '''
 server test url
 '''
