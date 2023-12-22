@@ -54,10 +54,12 @@ http = 'http://'
 # _ip_ = '127.0.0.1'
 # csrftoken: Eoa1iSdBOEbaTTdopOt49k05uczyAPvv
 # _ip_ = '0.0.0.0'
-# csrftoken: T83BR0wnzOOGoGNuSw3mw9kOyQWif8Ns
+# csrftoken: T83BR0wnzOOGoGNuSw3mw9kOyQWif
 _port_ = ':8000'
 _app_ = '/JAL/'
-base_url = http + _ip_ + _port_ + _app_
+# base_url = http + _ip_ + _port_ + _app_
+
+base_url = 'www.meandmrleo.com' + _app_
 '''
 server test url
 '''
