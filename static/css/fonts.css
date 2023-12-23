@@ -69,7 +69,33 @@ h4
   font-size: 56px;
   line-height: 60px;
 }
+.price > span
+{
+  font-size: 12px;
+  color: #333;
+  padding-left: 0.5%;
+  /* padding-right: 0.5%; */
+}
+.price > span.price-int
+{
+  font-size: 24px;
+  font-weight: 600;
+}
 
+.price > span.price-symbol,.price > span:last-child
+{
+  padding-top: 6px;
+}
+/* .price-float{  */
+  /* color: rgb(110, 180, 125); */
+  /* color: rgb(80, 175, 219) */
+  /* color: #333; */
+  /* font-size: 12px; */
+/* } */
+.coupon{
+  color: rgb(110, 180, 125);
+  /* color: rgb(80, 175, 219); */
+}
 @font-face
 {
   font-family: 'Eras Bold ITC';
@@ -96,6 +122,32 @@ h4
     line-height: 60px;
     font-weight: normal;
   }
+  .price > span
+  {
+    font-size: 36px;
+    color: #333;
+    margin-top: 3%;
+  }
+  .price > span.price-int
+  {
+    font-size: 66px;
+    font-weight: 600;
+    padding-top: 1.5%;
+  }
+  .price > span.price-symbol,.price > span:last-child
+  {
+    padding-top: 0;
+  }
+  /* .price-float{  */
+    /* color: rgb(110, 180, 125); */
+    /* color: rgb(80, 175, 219) */
+    /* color: #333; */
+    /* font-size: 12px; */
+  /* } */
+  .coupon{
+    color: rgb(110, 180, 125);
+    /* color: rgb(80, 175, 219); */
+  }
 }
 
 /* 大于981 */
@@ -109,23 +161,4 @@ h4
   }
 } */
 
-.price > span
-{
-  font-size: 12px;
-  color: #333;
-}
-.price > span.price-int
-{
-  font-size: 24px;
-  font-weight: 600;
-}
-/* .price-float{  */
-  /* color: rgb(110, 180, 125); */
-  /* color: rgb(80, 175, 219) */
-  /* color: #333; */
-  /* font-size: 12px; */
-/* } */
-.coupon{
-  color: rgb(110, 180, 125);
-  /* color: rgb(80, 175, 219); */
-}
+

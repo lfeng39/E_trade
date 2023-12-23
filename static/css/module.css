@@ -195,6 +195,20 @@ my-cart card --end
   background-color: #fcfcfc;
 }
 
+.promote-sku
+{
+  padding: 10% 0;
+}
+.promote-sku > div:last-child > div
+{
+  margin-bottom: 5%;
+}
+.buyOnAmazon
+{
+  font-size: 22px;
+  color: #000fff;
+  text-decoration: underline;
+}
 /*************************************************LINE*************************************************/
 /*************************************************
 Screen: for mobile, width under 980px
@@ -249,7 +263,20 @@ Screen: for mobile, width under 980px
     line-height: 50px;
     border-radius: 30px;
   }
- 
+  .promote-sku
+  {
+    padding: 10% 0;
+  }
+  .promote-sku > div:last-child > div
+  {
+    margin-bottom: 5%;
+  }
+  .buyOnAmazon
+  {
+    font-size: 42px;
+    color: #000fff;
+    text-decoration: underline;
+  }
   .product-info > div > h1
   {
     font-size: 52px;
