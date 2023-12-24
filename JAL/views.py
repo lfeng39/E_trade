@@ -332,7 +332,7 @@ class Product:
                 # 'status': spider.DataForm.editListing(request, asin),
                 'tip': Product.saveListing(request, asin),
                 'view': 'products&asin=' + asin,
-                'again': nav()['_admin_']['Listing'] + '=' + asin,
+                'again': nav()['_admin_']['Listing'] + '=' + asin + '-edit',
                 'back': nav()['_admin_']['Listing'],
                 'img': '/static/image/yeah/ok.jpg',
                 
