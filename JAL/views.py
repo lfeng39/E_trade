@@ -455,7 +455,7 @@ class Promote:
             'includ_user_id_url': nav()['_index_']['includ_user_id_url'],
             # 6 is B0BRHWQ27R
             'product_info': models.Listing.objects.all().values(),
-            'product_info_title': models.Listing.objects.all().values()[6]['title'].split('-'),
+            'product_info_title': models.Listing.objects.all().values()[10]['title'].split('-'),
 
             'img_name': img_show_dict,
             'product_bullet_point': eval(models.Listing.objects.filter(asin='B0BRHWQ27R').values()[0]['bullet_point']),
