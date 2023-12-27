@@ -95,25 +95,14 @@
             </div>
         </div>
     </div>
-    <!-------- promote-banner --------->
-    <!-- <div style="height:680px; background: url('/static/image/show/B0BZ3MGYXL/2-A+-970.jpg') no-repeat 50% 50%; background-size: cover;">
-        <div id="leo" class="banner-tip">
-            test
-        </div>
-    </div> -->
-
-
 
     <!---------- promote-sku ---------->
     <div class="wrap">
         <div class="container flex-container promote-sku">
-            <div style="height: 500px; text-align: center;"><img src="{{ product_info.10.first_img }}" style="width: auto; height: 100%;" alt=""></div>
-            <div style="height: 100%;">
+            <div><img src="{{ product_info.10.first_img }}" style="width: auto; height: 100%;" alt=""></div>
+            <div>
                 <div><h1>{{ product_info_title.0 }}</h1></div>
-                <div><h3>{{ product_info_title.1 }}</h3></div>
-                <div><h3>{{ product_info_title.2 }}</h3></div>
-                <div><h3>{{ product_info_title.3 }}</h3></div>
-                <!-- <div style="margin-bottom: 9%;"><h4>{{ product_info_title }}</h4></div> -->
+                <div><p>{{ product_info_title.1 }}</p></div>
                 <div>
                     <span class="flex-container price">
                         <span class="price-symbol">$</span>
@@ -129,8 +118,8 @@
     <main>
         <div class="container grid-container products">
             <div>
-                <div><a href="products&asin={{ product_info.2.asin }}{{ includ_user_id_url }}"><img src="{{ product_info.0.first_img }}" alt=""></a></div>
-                <div><a href="products&asin={{ product_info.2.asin }}{{ includ_user_id_url }}" title="{{ product_info.2.title }}" class="display-row-3">{{ product_info.0.title }}</a></div>
+                <div><a href="products&asin={{ product_info.5.asin }}{{ includ_user_id_url }}"><img src="{{ product_info.5.first_img }}" alt=""></a></div>
+                <div><a href="products&asin={{ product_info.5.asin }}{{ includ_user_id_url }}" title="{{ product_info.5.title }}" class="display-row-3">{{ product_info.0.title }}</a></div>
                 <div>
                     <span class="flex-container price">
                         <span class="price-symbol">$</span>

@@ -39,3 +39,8 @@ else
     console.log('price_obj_???', price_obj.length, price_obj)
 }
 
+
+
+
+
+

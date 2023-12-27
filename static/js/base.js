@@ -35,7 +35,7 @@ var hei = document.getElementById('hei')
 var clientHei = document.documentElement.clientHeight
 var bodyHei = document.body.clientHeight
 console.log('clientHei:', clientHei)
-// hei.textContent = 'clientHei: '+clientHei+' | '+'bodyHei: '+bodyHei  
+// hei.textContent = 'clientHei: '+clientHei+' | '+'bodyHei: '+bodyHei+ '| w: '+document.body.clientWidth
 var footerTag = document.getElementsByTagName('footer')[0]
 var footerHeight = window.getComputedStyle(footerTag,null).height
 console.log('footerHeight:', footerHeight)
@@ -53,45 +53,91 @@ console.log('\n')
 // ================ //
 if(page_id == 'index')
 {
-    window.addEventListener('load', function load()
-    {
-        // create new tag after onload the page, promise the first image onload width 100%, not display more than two
-        var insertTag = document.createElement('div')
-        insertTag.style = banner_child[0].getAttribute('style')
-        banner_container.appendChild(insertTag)
-        console.log('created a new div after load the page done, now the banner_child_count:',banner_child.length)
+    window.addEventListener
+    (
+        'load', 
+        function load()
+        {
+            // create new tag after onload the page, promise the first image onload width 100%, not display more than two
+            var insertTag = document.createElement('div')
+            insertTag.style = banner_child[0].getAttribute('style')
+            banner_container.appendChild(insertTag)
+            console.log('created a new div after load the page done, now the banner_child_count:',banner_child.length)
 
-        clon_first = document.getElementById('leo').cloneNode(true)
-        banner_container.lastChild.appendChild(clon_first)
+            clon_first = document.getElementById('leo').cloneNode(true)
+            banner_container.lastChild.appendChild(clon_first)
 
-        if(banner_child.length == 2)
-        {
-            clearInterval(tempo)
-            console.log('banner_child_count less than', banner_child.length, ', can not moveImg')
+            if(banner_child.length == 2)
+            {
+                clearInterval(tempo)
+                console.log('banner_child_count less than', banner_child.length, ', can not moveImg')
+            }
+            console.log('in load, done \n')
         }
-        console.log('in load, done \n')
-    })
-    window.addEventListener('resize', function resize()
-    {
-        // clearInterval(tempo)
-        setBanner()
-        console.log('resize')
-        new_position = document.body.clientWidth * -(nth_img-1)
-        document.getElementById('banner-container').style.left = new_position + 'px'
-    })
-    window.addEventListener('visibilitychange', function visibilitychange()
-    {
-        if(document.visibilityState == 'visible')
+    )
+    window.addEventListener
+    (
+        'resize', 
+        function resize()
         {
-            tempo = setInterval(moveImg, 6000)
-            console.log('visible, start tempo')
+            // clearInterval(tempo)
+            setBanner()
+            console.log('resize')
+            new_position = document.body.clientWidth * -(nth_img-1)
+            document.getElementById('banner-container').style.left = new_position + 'px'
         }
-        if(document.visibilityState == 'hidden')
+    )
+    window.addEventListener
+    (
+        'visibilitychange', 
+        function visibilitychange()
         {
-            clearInterval(tempo)
-            console.log('hidden, stop tempo')
+            if(document.visibilityState == 'visible')
+            {
+                tempo = setInterval(moveImg, 6000)
+                console.log('visible, start tempo')
+            }
+            if(document.visibilityState == 'hidden')
+            {
+                clearInterval(tempo)
+                console.log('hidden, stop tempo')
+            }
         }
-    })
+    )
+    document.getElementById('banner').addEventListener
+    (
+        'touchstart',
+        function touchStart(start)
+        {   
+            s = start.touches[0].pageX
+            // console.log('aaa:' + aaa.touches[0].pageX)
+            // return s
+        }
+    )
+    document.getElementById('banner').addEventListener
+    (
+        'touchend', 
+        function touchEnd(end)
+        {
+            e = end.changedTouches[0].pageX
+            // console.log('bbb:' + bbb.changedTouches[0].pageX)
+            // return e
+            n = s - e
+            if(n>0)
+            {
+                console.log('to the left')
+                // return x+y;
+                move = moveImg()
+                move('-')
+            }
+            if(n<0)
+            {
+                console.log('to the right')
+                move = moveImg()
+                move('+')
+            }
+        }
+    )
 
     console.log('/=== set banner img ===/')
     // get banner object
@@ -157,7 +203,7 @@ if(page_id == 'index')
     var nth_img = 1
     function moveImg()
     {
-        var velocity = setInterval(move, 10);
+        var velocity = setInterval(move, 10, '-');
 
         function moveStep()
         {
@@ -171,61 +217,53 @@ if(page_id == 'index')
             }
         }
 
-        
-
         var speed = 1
-        function move()
+        function move(test)
         {
             // must be in real time to get img_7_object.style.left value
             var banner_move_range = (banner_child.length-1) * -document.body.clientWidth
             var position = banner_container.style.left
-            console.log('speed: ',speed, '/', 'banner_wid: ', document.body.clientWidth, '/', 'range: ', banner_move_range)
-            console.log('banner_container.position: ', position)
+            // console.log('speed: ',speed, '/', 'banner_wid: ', document.body.clientWidth, '/', 'range: ', banner_move_range)
+            // console.log('banner_container.position: ', position)
 
             if(parseInt(banner_container.style.left) > banner_move_range)
             {
-                banner_container.style.left = parseInt(banner_container.style.left) - speed + 'px'
-                console.log('after_move: ', banner_container.style.left)
+                banner_container.style.left = eval(parseInt(banner_container.style.left) +test+ speed) + 'px'
+                // console.log('after_move: ', banner_container.style.left)
                 // var less = document.body.clientWidth - -parseInt(banner_container.style.left)
                 if(speed == moveStep())
                 {
                     var less = document.body.clientWidth - (1 + moveStep()) * moveStep()/2
-                    console.log('less: ', less)
-                    banner_container.style.left = parseInt(banner_container.style.left) - less + 'px'
+                    // console.log('less: ', less)
+                    banner_container.style.left = eval(parseInt(banner_container.style.left) +test+ less) + 'px'
                     window.clearInterval(velocity)
                     if(nth_img>banner_child.length-1)
                     {
                         nth_img = banner_child.length-(banner_child.length-1)
-                        console.log('current the', nth_img, 'th img vs', banner_child.length)
+                        // console.log('current the', nth_img, 'th img vs', banner_child.length)
                         dis = document.querySelectorAll('.banner-tip')[nth_img-1].style.display = ''
-                        console.log('dis',dis)
+                        // console.log('dis',dis)
                     }else{
-                        console.log('current the', nth_img +'th img')
+                        // console.log('current the', nth_img +'th img')
                         dis = document.getElementsByClassName('banner-tip')[nth_img-1].style.display = ''
-                        console.log('dis',dis)
+                        // console.log('dis',dis)
                     }
-                    
-                    console.log('banner_container.style.left: ',banner_container.style.left)
-                    console.log('run the ', nth_run +'th')
+                    // console.log('banner_container.style.left: ',banner_container.style.left)
+                    // console.log('run the ', nth_run +'th')
                 }
             }else{
-            // if(parseInt(banner_container.style.left) == banner_move_range)
-            // {
                 clearInterval(velocity)
                 // clearInterval(tempo)
                 banner_container.style.left = 0 + 'px'
                 nth_img = 1
                 console.log('out range, stop velocity, but tempo running also')
             }
-            // if(parseInt(banner_container.style.left) < banner_move_range)
-            // {
-            //     clearInterval(velocity)
-            // }
             speed ++
             console.log('\n')
         }
         nth_run++
         nth_img++
+        return move
     }
 
     // function flipImg()
@@ -315,8 +353,6 @@ if(page_id == 'listing')
 
 
 
-
-
 var come_soon = document.getElementById('come_soon')
 if(come_soon == true)
 {
@@ -326,10 +362,58 @@ if(come_soon == true)
 
 
 
-
-
-
-
+// =================== //
+// touchScreen Module  //
+// =================== //
+// function touchScreen(jj)
+// {
+    
+//     var s, e
+//     document.getElementById('banner').addEventListener
+//     (
+//         'touchstart',
+//         function touchStart(start)
+//         {   
+//             s = start.touches[0].pageX
+//             // console.log('aaa:' + aaa.touches[0].pageX)
+//             // return s
+//         }
+//     )
+//     document.getElementById('banner').addEventListener
+//     (
+//         'touchend', 
+//         function touchEnd(end)
+//         {
+//             e = end.changedTouches[0].pageX
+//             // console.log('bbb:' + bbb.changedTouches[0].pageX)
+//             // return e
+//             n = s - e
+//             if(n>0)
+//             {
+//                 console.log('to the left',eval(5+jj+3))
+//                 // return x+y;
+//                 move('-')
+//             }
+//             if(n<0)
+//             {
+//                 console.log('to the right',eval(6+jj+3))
+//                 move('+')
+//             }
+//         }
+//     )
+    
+// }
+// touchScreen('-')
+// function aaa()
+// {
+//     function bbb(x,y)
+//     {
+//         console.log('>>> jessie <<<', x*y)
+//     }
+//     return bbb
+// }
+// je = aaa()
+// je(2,5)
 
 
 

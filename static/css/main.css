@@ -126,13 +126,7 @@ div.account > div
   margin-left: 15%;
   text-align: right;
 }
-.bag
-{
-  background: url('/static/image/ico/shpping-bag.png') no-repeat 0 12px;
-  display: block;
-  width: 25px;
-  height: 55px;
-}
+
 /*************************************************LINE*************************************************/
 ul
 {
