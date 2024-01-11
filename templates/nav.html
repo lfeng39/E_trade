@@ -7,7 +7,7 @@
         <div>
             <a class="brand-plus" href="{{ nav_index.index }}" id="width"></a>
         </div>
-        <div class="flex-container">
+        <div class="flex-container" style="justify-content: flex-end;">
             <ul id="app_list" class="nav-app-list flex-container">
                 {% for key, value in nav_nav.items %}
                 <li><a href="{{ value }}">{{ key }}</a></li>
@@ -16,31 +16,68 @@
             <!-- test client & body width/height -->
             <!-- <div id="hei" style="line-height: 55px;"></div> -->
         </div>
-        <div class="account flex-container">
+        <div class="account">
             {% if user_status %}
-            <div id="user_name"><a href="{{ nav_account.account.0 }}">{{ user_name }}</a></div>
-            <!-- <div><a href="{{ nav_account.cart.0 }}">{{ nav_account.cart.1 }}</a></div> -->
-            <div><a href="{{ nav_account.cart.0 }}" class="bag"></a></div>
+            <a href="{{ nav_account.cart.0 }}" class="bag" onmouseenter="navCol('enter')" onmouseleave="navCol('leave')"></a>
+            <div id="account-list" class="account-list" onmouseenter="navCol('enter')" onmouseleave="navCol('leave')">
+                <div class="account-online">
+                    <span>Hi, {{ user_name }}.</span>
+                    <div>
+                        <a href="{{ nav_account.account.0 }}">Account</a>
+                        <!-- <a href="{{ nav_account.account.0 }}">Bag</a> -->
+                        <!-- <a href="{{ nav_account.account.0 }}">Orders</a> -->
+                        <a href="logout">Sign out</a>
+                    </div>
+                </div>
+            </div>
             {% else %}
-            <li><a href="{{ nav_account.login.0 }}">{{ nav_account.login.1 }}</a></li>
-            <!-- <li><a href="{{ nav_account.cart.0 }}">{{ nav_account.cart.1 }}</a></li> -->
-            <!-- <div><a href="{{ nav_account.cart.0 }}" class="material-symbols-outlined size-30">shopping_cart</a></div> -->
-            <div><a href="{{ nav_account.cart.0 }}" class="bag"></a></div>
+            <a href="{{ nav_account.cart.0 }}" class="bag" onmouseenter="navCol('enter')" onmouseleave="navCol('leave')"></a>
+            <div id="account-list" class="account-list" onmouseenter="navCol('enter')" onmouseleave="navCol('leave')">
+                <div>
+                    <a class="login-btn" href="{{ nav_account.login.0 }}">Login</a>
+                    <a class="createaccount-btn" href="{{ nav_account.createAccount.0 }}">Create Account</a>
+                    <div>List</div>
+                </div>
+            </div>
             {% endif %}
         </div>
+        
     </div>
 
     <div class="nav-mini container">
         <ul class="no-padding no-margin no-list-style">
-            <li><a href="{{ nav_nav.Products }}" class="material-symbols-outlined size-48">menu</a></li>
+            <li><a class="material-symbols-outlined size-48" onclick="mobNavCol('nav')">menu</a></li>
             <li><a class="brand-mini" href="{{ nav_index.index }}" id="width-mini"></a></li>
-            <!-- <div id="hei" style="line-height: 55px;"></div> -->
-            {% if user_status %}
-            <li><a href="{{ nav_account.cart.0 }}" class="bag"></a></li>
+            <li><a class="bag" onclick="mobNavCol('account')"></a></li>
+
+            <!-- {% if user_status %}
+            <li>
+                <a href="{{ nav_account.cart.0 }}" class="bag"></a>
+            </li>
             {% else %}
-            <li><a href="{{ nav_account.login.0 }}" class="bag"></a></li>
-            {% endif %}
+            <li><a href="{{ nav_account.login.0 }}" class="bag" onmouseenter="display('over')" onmouseleave="display('out')"></a></li>
+            {% endif %} -->
         </ul>
+        <div id="nav-app-mini-list" class="nav-app-list">
+            <a onclick="mobNavCol('nav')">X</a>
+            <a href="{{ nav_nav.Brand }}">Brand</a>
+            <a href="{{ nav_nav.Products }}">Products</a>
+        </div>
+        <div id="account-mini-list" class="account-list">
+            {% if user_status %}
+            <span>Hi, {{ user_name }}.</span>
+            <div class="account-online">
+                <a href="{{ nav_account.account.0 }}">Account</a>
+                <!-- <a href="{{ nav_account.account.0 }}">Bag</a> -->
+                <!-- <a href="{{ nav_account.account.0 }}">Orders</a> -->
+                <a href="logout">Sign out</a>
+            </div>
+            {% else %}
+            <a href="{{ nav_account.login.0 }}">Login</a>
+            <a href="{{ nav_account.createAccount.0 }}">Create Account</a>
+            <!-- <div>List</div> -->
+            {% endif %}
+        </div>
     </div>
 </nav>
 <!-- admin nav -->

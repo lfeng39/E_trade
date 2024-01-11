@@ -33,11 +33,6 @@ body
   flex-direction: column;
   /* position: relative; */
 }
-body > main
-{
-  margin-bottom: 1%;
-}
-/*************************************************LINE*************************************************/
 /*************************************************
  NAV
  *************************************************/
@@ -50,87 +45,27 @@ nav
   top: 0;
   z-index: 1; */
 }
-nav > .nav-plus
-{
-  height: 55px;
-  margin: 0 auto;
-  /* logo:200px nav:1fr account:70px */
-  /* grid-template-columns: 200px 1fr 70px; */
-  grid-template-columns: 200px 1fr 200px;
-}
-nav > .nav-mini
-{
-  height: 150px;
-  margin: 0 auto;
-}
-nav > .nav-mini > ul
-{
-  display: grid;
-  grid-template-columns: 150px 1fr 150px;
-}
-nav > .nav-mini > ul *
-{
-  text-align: center;
-  margin: auto;
-  line-height: 150px;
-}
+
 
 main
 {
   width: 100%;
   /* padding-top: 1%; */
   margin-top: 1%;
-}
-main > div.container
-{
   margin-bottom: 1%;
 }
+/* main > div.container
+{
+  margin-bottom: 1%;
+} */
 
-ul.nav-app-list
-{
-  /* width: 50%; */
-  /* margin: auto; */
-  width: 30%;
-  /* width: max-content; */
-  margin-left: 10%;
-}
-ul.nav-app-list > li{
-  width: 35%;
-}
-ul.nav-app-list *
-{
-  text-align: center;
-  line-height: 55px;
-  margin: 0;
-}
-
-ul.nav-app-list > li  > a
-{
-  color: rgb(95, 147, 112);
-}
-ul.nav-app-list > li > a:hover
-{
-  /* color: #ff6666; */
-  color: rgb(51, 95, 66);
-  font-size: large;
-}
-div.account
-{
-  justify-content: flex-end;
-  /* width: 70%; */
-  /* margin-left: 30%; */
-}
-div.account > div
-{
-  /* width: 50%; */
-  margin-left: 15%;
-  text-align: right;
-}
-
-/*************************************************LINE*************************************************/
 ul
 {
   padding: 0;
+}
+li
+{
+  list-style: none;
 }
 .nowrap-li > li
 {
@@ -147,10 +82,7 @@ p
   line-height: 20px;
   padding: 5px;
 }
-li
-{
-  list-style: none;
-}
+
 a
 {
   text-decoration: none;
@@ -175,7 +107,7 @@ a.size-48
     /* font-variation-settings: 'OPSZ' 48; */
     display: block;
 }
-/*************************************************LINE*************************************************/
+
 /*************************************************
  FOOTER 
  *************************************************/
@@ -197,54 +129,7 @@ footer *
 /*************************************************
  Margin Padding  
  *************************************************/
-/* .margin-t-b > div, .margin-t-b > li
-{
-  margin: 2% 0;
-}
-.margin-around > div, .margin-around > li
-{
-  margin: 0%;
-}
-.padding-t-b
-{
-  padding: 2% 0;
-}
-.margin-t
-{
-  margin-top: 2%;
-}
-.margin-b
-{
-  margin-bottom: 2%;
-}
-.padding-t
-{
-  padding-top: 2%;
-}
-.padding-b
-{
-  padding-bottom: 2%;
-}
-.auto-margin
-{
-  margin: 0 auto;
-}
-.margin-10
-{
-  margin: 1%;
-}
-.margin-20
-{
-  margin: 2%;
-}
-.padding-10
-{
-  padding: 1%;
-}
-.padding-20
-{
-  padding: 2%;
-} */
+
 
 .shipping > div > div > span, .id-information > div > div > span
 {

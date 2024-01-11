@@ -6,7 +6,10 @@ console.log('base.js has get page_id:', page_id)
 
 // after page load, start moveImg
 // setInterval(function, milliseconds, param1, param2, ...)
-var tempo = setInterval(move, 6000)
+if(page_id == 'index')
+{
+    tempo = setInterval(move, 6000)
+}
 var nth_img = 1
 function move()
 {
@@ -86,13 +89,6 @@ function showTip()
 }
 
 
-leo = '-'
-abc = '-3'
-function je()
-{
-    console.log('>>>>>>', leo + abc)
-}
-je()
 
 // var kris = document.getElementById('kris')
 // var jessie = document.getElementById('jessie')

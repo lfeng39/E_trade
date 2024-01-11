@@ -26,6 +26,64 @@ console.log('base.js has get page_id:', page_id)
 // }
 // 
 
+function navCol(event)
+{
+    if(event=='enter')
+    {
+        document.getElementById('account-list').style.display = 'block'
+        
+        // console.log('bbb is bbb',document.getElementById('account-list'))
+    }
+    if(event=='leave')
+    {
+        document.getElementById('account-list').style.display = 'none'
+    }
+}
+function mobNavCol(module)
+{
+    if(module == 'nav')
+    {
+        var nav_app_mini_list = document.getElementById('nav-app-mini-list')
+        var list_status = window.getComputedStyle(nav_app_mini_list).display
+        if(list_status == 'none')
+        {
+            document.getElementById('nav-app-mini-list').style.display = 'block'
+        }
+        else
+        {
+            document.getElementById('nav-app-mini-list').style.display = 'none'
+        }
+    }
+    if(module == 'account')
+    {
+        var account_mini_list = document.getElementById('account-mini-list')
+        var list_status = window.getComputedStyle(account_mini_list).display
+        if(list_status == 'none')
+        {
+            document.getElementById('account-mini-list').style.display = 'block'
+        }
+        else
+        {
+            document.getElementById('account-mini-list').style.display = 'none'
+        }
+    }
+}
+
+// document.getElementById('banner').addEventListener
+// (
+//     'touchend', 
+//     function touchEnd(end)
+//     {
+//         e = end.changedTouches[0].pageX
+//         // console.log('bbb:' + bbb.changedTouches[0].pageX)
+//         // return e
+//         n = s - e
+//         xxx = xxx - n
+//         console.log('end-postion:', xxx)
+//         // moveImg = move()
+//         // moveImg()
+//     }
+// )
 
 
 // ================ //
@@ -87,10 +145,10 @@ if(page_id == 'index')
             console.log('resize')
             new_position = document.body.clientWidth * -(nth_img-1)
             document.getElementById('banner-container').style.left = new_position + 'px'
-            if(document.body.clientWidth > 1280)
-            {
-                tempo = setInterval(move, 6000)
-            }
+            // if(document.body.clientWidth > 1280)
+            // {
+            //     tempo = setInterval(move, 6000)
+            // }
             if(document.body.clientWidth < 1280)
             {
                 clearInterval(tempo)
@@ -516,56 +574,94 @@ if(come_soon == true)
 // je(2,5)
 
 
-leo = '-'
-abc = '-3'
-function je()
-{
-    console.log('>>>>>>', leo + abc)
-}
-je()
+// test.html
 
-// var kris = document.getElementById('kris')
-// var jessie = document.getElementById('jessie')
-// var s
-// kris.addEventListener
-// (
-//     'touchstart',
-//     function touchStart(start)
-//     {   
-//         s = start.touches[0].clientX
-//         console.log('now',jessie.style.left)
-//     }
-// )
-// var xxx = 0
+var kris = document.getElementById('kris')
+var jessie = document.getElementById('jessie')
+jessie.style.left = -document.body.clientWidth + 'px'
 
-// kris.addEventListener
-// (
-//     'touchmove', 
-//     function touchMove(move)
-//     {
-//         m = move.touches[0].clientX
-//         n = s - m
-//         // console.log('>>>:',jessie.style.left ,'-', n)
-//         var tempX = xxx - n
-//         jessie.style.left = tempX + 'px'
-//     }
-// )
+var insertTag00 = document.createElement('div')
+insertTag00.id = '0'
+jessie.insertBefore(insertTag00, document.getElementById('1'))
+var insertTag01 = document.createElement('div')
+insertTag01.id = '3'
+jessie.appendChild(insertTag01)
+var insertTag02 = document.createElement('div')
+insertTag02.id = '4'
+jessie.appendChild(insertTag02)
 
-// kris.addEventListener
-// (
-//     'touchend',
-//     function touchEnd(end)
-//     {   
-//         // var bodyWid = document.body.clientWidth
-//         e = end.changedTouches[0].pageX
-//         n = s - e
-//         xxx = xxx - n
-//         console.log('end-postion:', xxx)
+clon_0 = document.getElementById('2').children[0].cloneNode(true)
+document.getElementById('0').appendChild(clon_0)
+clon_a = document.getElementById('1').children[0].cloneNode(true)
+document.getElementById('3').appendChild(clon_a)
+clon_b = document.getElementById('2').children[0].cloneNode(true)
+document.getElementById('4').appendChild(clon_b)
 
-//         if(n>30)
-//         {
-//             moveImg = move()
-//             moveImg('-')
-//         }
-//     }
-// )
+
+
+var s
+kris.addEventListener
+(
+    'touchstart',
+    function touchStart(start)
+    {   
+        s = start.touches[0].clientX
+        // console.log('now',jessie.style.left)
+    }
+)
+var xxx = 0
+var nnn = 1
+console.log('current', nnn)
+nnn = 2
+kris.addEventListener
+(
+    'touchmove', 
+    function touchMove(move)
+    {
+        m = move.changedTouches[0].clientX
+        n = s - m
+        // console.log('>>>:',jessie.style.left ,'-', n)
+        var tempX = xxx - n - document.body.clientWidth
+        jessie.style.left = tempX + 'px'
+        // console.log('current img', n)
+        
+        if(n < 0)
+        {
+            console.log('>>>')
+            if(Math.abs(xxx) > document.body.clientWidth*nnn)
+            {
+                console.log('current', nnn)
+                nnn -= 1
+            }
+        }
+        if(n > 0)
+        {
+            console.log('<<<')
+            if(Math.abs(tempX) > document.body.clientWidth*nnn)
+            {
+                console.log('current', nnn)
+                nnn += 1
+            }
+        }
+        // if(Math.abs(tempX) > document.body.clientWidth*nnn)
+        // {
+        //     console.log('current', nnn)
+        //     nnn += 1
+        // }
+        
+    }
+)
+
+kris.addEventListener
+(
+    'touchend',
+    function touchEnd(end)
+    {   
+        // var bodyWid = document.body.clientWidth
+        e = end.changedTouches[0].pageX
+        n = s - e
+        xxx = xxx - n
+        // console.log('end-postion:', xxx)
+
+    }
+)

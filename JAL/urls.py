@@ -26,6 +26,7 @@ urlpatterns = [
     path('brand',views.Brand._about_, name=''),
     path('products',views.Product._shelf_, name=''),
     path('products&asin=<asin>',views.Product._listing_, name=''),
+    path('addtobag=<asin>',views.Product._listing_, name=''),
     
 
     path('login',views._login_, name=''),
@@ -33,7 +34,7 @@ urlpatterns = [
     path('account=login',views.verifyAccountDone, name=''),
     path('createAccount',views.createAccount, name=''),
     path('account=createAccount',views.createAccount, name=''),
-    path('cart',views.myCart, name=''),
+    path('bag',views.myCart, name=''),
     path('order',views._order_, name=''),
     path('account',views.myAccount, name=''),
     path('myAccount&=edit',views.editAccount, name=''),

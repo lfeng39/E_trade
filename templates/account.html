@@ -25,12 +25,20 @@
 
     <div class="wrap">
         {% if bag %}
-        <div class="container flex-container" style="margin-bottom: 5%;">
+        <div class="container" style="margin-bottom: 5%;">
             <h1>Your Shopping Bag</h1>
+            <div class="flex-container" style=" margin-top: 5%;">
+                {% for product_info in product_info %}
+                <div style="height: 200px; width: 200px; margin: 1%; padding: 1%;">
+                    <a href=""><img src="{{ product_info.first_img }}" /></a>
+                </div>
+                {% endfor %}
+            </div>
+            
         </div>
         {% else %}
         <div class="container flex-container" style="margin-bottom: 5%;">
-            <p style="padding-top: 10px;">Your bag is empty. </p>&nbsp;&nbsp;&nbsp;<a style="color: cornflowerblue; text-decoration-line: underline;" href="/JAL/products"><h2>Shopping Now</h2></a>
+            <p style="padding-top: 10px;">Your bag is empty. </p>&nbsp;&nbsp;&nbsp;<a style="color: cornflowerblue; text-decoration-line: underline;" href="/products"><h2>Shopping Now</h2></a>
         </div>
         {% endif %}
     </div>

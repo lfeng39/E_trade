@@ -50,17 +50,199 @@ wrap > container > grid
   margin-bottom: 5%;
 }
 /* products-shelf & product-info end */
-
-.account *
+.nav-plus
+{
+  display: grid;
+}
+.nav-plus
+{
+  height: 55px;
+  margin: 0 auto;
+  /* logo:200px nav:1fr account:70px */
+  /* grid-template-columns: 200px 1fr 70px; */
+  grid-template-columns: auto 1fr auto;
+}
+.nav-mini
+{
+  height: 150px;
+  margin: 0 auto;
+  position: relative;
+}
+.nav-mini > ul
+{
+  display: grid;
+  grid-template-columns: 150px 1fr 150px;
+}
+.nav-mini > ul *
 {
   text-align: center;
-  line-height: 50px;
+  margin: auto;
+  line-height: 150px;
 }
-.account * > a:hover
+.nav-mini
 {
-  color: rgb(0,0,0);
+  display: none;
 }
 
+ul.nav-app-list
+{
+  width: 100%;
+  justify-content: flex-end;
+  margin-right: 3%;
+}
+ul.nav-app-list > li{
+  width: 10%;
+  
+}
+ul.nav-app-list *
+{
+  text-align: center;
+  line-height: 55px;
+  margin: 0;
+}
+
+ul.nav-app-list > li  > a
+{
+  color: rgb(95, 147, 112);
+}
+ul.nav-app-list > li > a:hover
+{
+  /* color: #ff6666; */
+  color: rgb(51, 95, 66);
+  font-size: large;
+}
+.account
+{
+  line-height: 55px;
+  position: relative;
+}
+.account > .account-list
+{
+  width: 300px;
+  z-index: 1;
+  position: absolute;
+  top: 35px;
+  right: 0;
+  /* display: none; */
+}
+.account > .account-list > div
+{
+  border-radius: 6px;
+  text-align: center;
+  background-color: #fafafa;
+  padding: 1% 0;
+  margin-top: 10%;
+}
+.account > .account-list > div > div
+{
+  background-color: #fff;
+  margin: 3%;
+  padding: 2%;
+}
+.account > .account-list > div > span, .account > .account-list > div > div > a
+{
+  display: block;
+  /* border-bottom: 1px solid #ccc; */
+}
+.account > .account-list > div > div > a
+{
+  text-align: left;
+  padding-left: 6%;
+  
+}
+.account > .account-list > div > div > a:hover
+{
+  background-color: #fefefe;
+  color: #000;
+  text-decoration-line: underline;
+}
+.account > .account-list > .account-online > span, .account > .account-list > .account-online > div > a
+{
+  height: 30px;
+  line-height: 30px;
+}
+.account > .account-list > .account-online > div > a
+{
+  font-size: 14px;
+}
+.nav-mini > .nav-app-list
+{
+  position: absolute;
+  z-index: 1;
+  top: 0px;
+  right: 0;
+  width: 100%;
+  padding-bottom: 8%;
+  background-color: rgb(126, 197, 149, 0.95);
+  display: none;
+}
+.nav-mini > .nav-app-list > a
+{
+  display: block;
+  width: 65%;
+  height: 150px;
+  line-height: 150px;
+  font-size: 56px;
+  margin: 0 15%;
+}
+.nav-mini > .nav-app-list > a:first-child
+{
+  width: 150px;
+  margin: 0;
+  text-align: center;
+}
+.nav-mini > .account-list
+{
+  position: absolute;
+  z-index: 1;
+  top: 160px;
+  right: 1%;
+  width: 50%;
+  border-radius: 10px;
+  padding: 2%;
+  background-color: rgba(239, 239, 239, 1);
+  display: none;
+}
+.nav-mini > .account-list > a, .nav-mini > .account-list > .account-online > a
+{
+  display: block;
+  width: 95%;
+  height: 100px;
+  line-height: 100px;
+  font-size: 48px;
+  padding-left: 5%;
+}
+.nav-mini > .account-list > div
+{
+  background-color: #fff;
+  border-radius: 10px;
+  margin-top: 5%;
+  padding: 3%;
+}
+.nav-mini > .account-list > span
+{
+  display: block;
+  text-align: center;
+  margin-bottom: 5%;
+  font-size: 48px;
+}
+
+.login-btn, .createaccount-btn
+{
+  display: block;
+  width: 90%;
+  height: 35px;
+  line-height: 35px;
+  border-radius: 6px;
+  background-color: rgb(126, 197, 149, 0.9);
+  margin: 5%;
+  color: #fff;
+}
+.login-btn:hover, .createaccount-btn:hover
+{
+  background-color: rgb(126, 197, 149, 0.6);
+  color: #fff;
+}
 .-focus-
 {
   /* border-bottom: 3px solid #ff6666; */
@@ -97,57 +279,29 @@ widget
 {
   padding-top: 2%;
 }
-.learnMore
-{
-  display: block;
-  /* width: 130px; */
-  width: 30%;
-  height: 39px;
-  line-height: 39px;
-  border-radius: 18px;
-  background-color: rgba(126, 197, 149, 0.8);
-  font-size: 20px;
-  font-weight: 350;
-  color: #fff;
-  text-align: center;
-  margin: 0 auto;
-}
+
 /*************************************************LINE*************************************************/
 /*************************************************
 Widget: btn | input | checkbox | text | alert | form
  *************************************************/
-.widget-btn
+
+.-btn-
 {
   display: block;
-  width: 200px;
+  /* width: 200px; */
   height: 55px;
-  line-height: 50px;
-  border-radius: 8px;
+  line-height: 55px;
+  border-radius: 6px;
+  border: none;
   background-color: rgba(126, 197, 149, 0.6);
   color: #fff;
   text-align: center;
-  
-  /* float: right; */
+  cursor: pointer;
 }
-a.widget-btn
-{
-  font-size: 22px;
-}
-.learnMore:hover, .widget-btn:hover, .btn:hover
+.learnMore:hover, .-btn-:hover, .-btn-:hover
 {
   background-color: rgb(126, 197, 149, 0.9);
   color: #fff;
-}
-a.btn
-{
-  display: block;
-  width: 99%;
-  height: 39px;
-  line-height: 39px;
-  border-radius: 6px;
-  background-color: rgba(126, 197, 149, 0.6);
-  color: #fff;
-  text-align: center;
 }
 /* 
 form-login-signUp
@@ -175,25 +329,52 @@ form-login-signUp
 }
 .bag
 {
-  background: url('/static/image/ico/shpping-bag.png') no-repeat 0 12px;
+  background: url('/static/image/ico/shpping-bag.png') no-repeat 5px 15px;
   display: block;
-  width: 25px;
+  width: 35px;
   height: 55px;
+  margin: 0 10px;
+  /* float: right; */
+}
+/* .bag:hover+.account-list
+{
+  display: block;
+} */
+.learnMore
+{
+  display: block;
+  /* width: 130px; */
+  width: 30%;
+  height: 39px;
+  line-height: 39px;
+  border-radius: 18px;
+  background-color: rgba(126, 197, 149, 0.8);
+  font-size: 20px;
+  font-weight: 350;
+  color: #fff;
+  text-align: center;
+  margin: 0 auto;
 }
 /* 
 my-cart card --start
 */
+.-select-
+{
+  border: 1px solid rgb(239, 239, 239);
+  border-radius: 6px;
+}
 .-select-:hover, .-select-:visited
 {
   /* max-width: 100%; */
-  /* border-radius: 8px; */
+  border-radius: 6px;
   border: 1px solid rgb(122, 158, 125);
   /* background-color: #fcfcfc; */
+  cursor: pointer;
 }
 /* 
 my-cart card --end
 */
-.radius-style, .radius-div > div
+.radius-style > div
 {
   border-radius: 8px;
   border: 1px solid rgb(239, 239, 239);
@@ -398,6 +579,15 @@ Screen: for mobile, width under 980px
     background-color: rgb(126, 197, 149, 0.6);
     color: #fff;
     cursor: pointer;
+  }
+
+  .nav-plus
+  {
+    display: none;
+  }
+  .nav-mini
+  {
+    display: block;
   }
 }
 

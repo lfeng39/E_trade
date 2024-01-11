@@ -59,7 +59,7 @@ _port_ = ':8000'
 _app_ = '/JAL/'
 # base_url = http + _ip_ + _port_ + _app_
 
-base_url = ''
+base_url = '/'
 '''
 server test url
 '''
@@ -89,7 +89,7 @@ def nav():
 
         '_account_' : 
         {
-            'cart': [base_url + 'cart', 'Cart'],
+            'cart': [base_url + 'bag', 'Bag'],
             'login': [base_url + 'login', 'Login'],
             'createAccount': [base_url + 'createAccount', 'Create Account'],
             'order': [base_url + 'order', 'Order'],
@@ -187,53 +187,114 @@ class Product:
     '''
     veiws listing
     '''
+    @csrf_protect
+    @csrf_exempt
+    @requires_csrf_token
     def _listing_(request, asin):
         '''
         get session
         '''
         user_status = request.session.get('user_status')
         user_email = request.session.get('user_email')
-        
-        if not user_status:
-            user_name = 'Login'
-        else:
-            user_name = models.UserAccount.objects.filter(email=user_email).values()[0]['user_name']
+        if request.method == 'GET':            
+            if not user_status:
+                user_name = 'Login'
+            else:
+                user_name = models.UserAccount.objects.filter(email=user_email).values()[0]['user_name']
 
-        htmlApi = {
-            'page_id': asin,
+            htmlApi = {
+                'page_id': asin,
 
-            # '''
-            # nav module
-            # '''
-            'nav_index': nav()['_index_'],
-            'nav_nav': nav()['_nav_'],
-            'nav_account': nav()['_account_'],
-            # 'csrftoken': csrftoken,
+                # '''
+                # nav module
+                # '''
+                'nav_index': nav()['_index_'],
+                'nav_nav': nav()['_nav_'],
+                'nav_account': nav()['_account_'],
+                # 'csrftoken': csrftoken,
 
-            # '''
-            # account module
-            # '''
-            'user_status': user_status,
-            'user_account': user_email,
-            'user_name': user_name,
+                # '''
+                # account module
+                # '''
+                'user_status': user_status,
+                'user_account': user_email,
+                'user_name': user_name,
 
-            'img_7': images.Img.imgUrl(asin, '7'),
-            'product_img': detailImg(asin),
-            'product_info': models.Listing.objects.filter(asin=asin).values()[0],
-            ### the data tpye is 'str' that got from DB
-            ### method eval() can changed 'str' to 'list' or 'dict'
-            'product_bullet_point': eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']),
-            'product_description': models.Listing.objects.filter(asin=asin).values()[0],
-            'sales_status': '',
-            'cupon': '',
-            'amazon': 'https://www.amazon.com/dp/' + asin,
+                'img_7': images.Img.imgUrl(asin, '7'),
+                'product_img': detailImg(asin),
+                'product_info': models.Listing.objects.filter(asin=asin).values()[0],
+                ### the data tpye is 'str' that got from DB
+                ### method eval() can changed 'str' to 'list' or 'dict'
+                'product_bullet_point': eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']),
+                'product_description': models.Listing.objects.filter(asin=asin).values()[0],
+                'sales_status': '',
+                'cupon': '',
+                'amazon': 'https://www.amazon.com/dp/' + asin,
 
-            # '''
-            # footer-timezone
-            # '''
-            'timezone': spider.time_zone,
-        }
-        return render(request, 'listing.html', htmlApi)
+                # '''
+                # footer-timezone
+                # '''
+                'timezone': spider.time_zone,
+            }
+            return render(request, 'listing.html', htmlApi)
+        if request.method == 'POST':
+            if not user_status:
+                _url_ = nav()['_account_']['login'][0]
+                return redirect(_url_)
+            else:
+                user_id = models.UserAccount.objects.filter(email=user_email).values()[0]['user_id']
+                user_name = models.UserAccount.objects.filter(email=user_email).values()[0]['user_name']
+
+            _cart_ = models.Cart.objects.filter(email=user_email)
+                        
+            if _cart_:
+                _product_ = eval(models.Cart.objects.filter(email=user_email).values()[0]['product'])
+                _product_[asin] = spider.time_zone.strftime('%Y-%m-%d %H:%M:%S %Z %z')
+                data_table_cart = models.Cart.objects.get(email=user_email)
+                data_table_cart.product = _product_
+                data_table_cart.save()
+            else:
+                models.Cart.objects.create(
+                    user_id = user_id,
+                    email = user_email,
+                    product = {asin : spider.time_zone.strftime('%Y-%m-%d %H:%M:%S %Z %z')},
+                )
+                
+            htmlApi = {
+                'page_id': asin,
+
+                # '''
+                # nav module
+                # '''
+                'nav_index': nav()['_index_'],
+                'nav_nav': nav()['_nav_'],
+                'nav_account': nav()['_account_'],
+                # 'csrftoken': csrftoken,
+
+                # '''
+                # account module
+                # '''
+                'user_status': user_status,
+                'user_account': user_email,
+                'user_name': user_name,
+
+                'img_7': images.Img.imgUrl(asin, '7'),
+                'product_img': detailImg(asin),
+                'product_info': models.Listing.objects.filter(asin=asin).values()[0],
+                ### the data tpye is 'str' that got from DB
+                ### method eval() can changed 'str' to 'list' or 'dict'
+                'product_bullet_point': eval(models.Listing.objects.filter(asin=asin).values()[0]['bullet_point']),
+                'product_description': models.Listing.objects.filter(asin=asin).values()[0],
+                'sales_status': '',
+                'cupon': '',
+                'amazon': 'https://www.amazon.com/dp/' + asin,
+
+                # '''
+                # footer-timezone
+                # '''
+                'timezone': spider.time_zone,
+            }
+            return render(request, 'listing.html', htmlApi)
     '''
     manage listing
     '''
@@ -997,7 +1058,8 @@ def _logout_(request):
     '''
     # del request.session["key"]
     request.session.flush()
-    return redirect('/JAL/login')
+    _login_ = nav()['_account_']['login'][0]
+    return redirect(_login_)
 
 
 
@@ -1160,12 +1222,20 @@ def myAccount(request):
     user not online, redirect 'Login'
     '''
     if not user_status:
-        user_name = 'Login'
-        urls_index = nav()['_account_']['login'][0]
-        rep = redirect(urls_index)
+        urls_login = nav()['_account_']['login'][0]
         # rep.set_cookie("is_login", True)
-        return rep
+        return redirect(urls_login)
     else:
+        try:
+            _cart_ = list(eval(models.Cart.objects.filter(email=user_email).values()[0]['product']).keys())
+            _bag_ = True
+            _product_ = []
+            for asin in _cart_:
+                _product_.append(models.Listing.objects.filter(asin=asin).values()[0])
+        except:
+            _bag_ = False
+            _product_ = False
+
         user_account = models.UserAccount.objects.filter(email=user_email).values()[0]
         htmlApi = {
             'page_id': 'account',
@@ -1185,8 +1255,9 @@ def myAccount(request):
             'user_name': user_account['user_name'],
 
             'user_account': user_account,
-            'bag': False,
+            'bag': _bag_,
             'user_coupon': models.Coupon.objects.filter(status='01').values(),
+            'product_info': _product_,
 
             # '''
             # footer
@@ -1477,6 +1548,11 @@ def myCart(request):
         # rep.set_cookie("is_login", True)
         return rep
     else:
+        _cart_ = list(eval(models.Cart.objects.filter(email=user_email).values()[0]['product']).keys())
+        _product_ = []
+        for i in range(len(_cart_)):
+            _product_.append(models.Listing.objects.filter(asin=_cart_[i]).values()[0])
+
         user_name = models.UserAccount.objects.filter(email=user_email).values()[0]['user_name']
         htmlApi = {
             'page_id': 'myCart',
@@ -1496,7 +1572,7 @@ def myCart(request):
             'user_account': user_email,
             'user_name': user_name,
 
-            'product_info': models.Listing.objects.filter(asin='B0BTXB89PG').values()[0],
+            'product_info': _product_,
             'asin': detailImg('B0BTXB89PG'),
             'url_page_id_order': page_id[6],
 

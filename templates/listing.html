@@ -12,7 +12,6 @@
     
     
     <main id="{{ page_id }}">
-        <!-- 产品图片及价格信息 -->
         <div class="container grid-listing">
             <!-- <div>
                 <img src="{{ product_img.img_7_url.0 }}" alt="" />
@@ -49,7 +48,12 @@
                         <span class="price-float"></span>
                     </span>
                 </div>
-                <div><a href="{{ amazon }}" target="_blank" class="widget-btn">Buy on Amazon</a></div>
+                
+                <form action="/addtobag={{ product_info.asin }}" method="post" class="flex-container">
+                    {%csrf_token%}
+                    <button type="submit" class="-btn-" style="width: 200px; font-size: 24px; margin-bottom: 5%; margin-right: 5%;">Add to Bag</button>
+                    <div><a href="{{ amazon }}" target="_blank" class="-btn-" style="width: 200px; font-size: 24px;">Buy on Amazon</a></div>
+                </form>
                 <!-- <div>
                     <span class="coupon">Coupon: 20% off | {{ product_info.asin }} | {{ product_info.status }}</span>
                 </div> -->
