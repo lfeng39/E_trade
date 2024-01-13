@@ -126,14 +126,14 @@ if(page_id == 'login' || page_id =='createAccount')
 
 if(page_id == 'account')
 {
-    document.getElementById('user_name').style.display = 'none'
+    // document.getElementById('user_name').style.display = 'none'
     // console.log('page_id:',document.getElementById('user_name').textContent)
     // login input control
     function widget(active)
     {
         if(active == 'editShipping')
         {
-            document.getElementById('edit-shipping').style.display = ''
+            document.getElementById('edit-shipping').style.display = 'block'
             document.getElementById('edit-ID').style.display = 'none'
         }
         if(active == 'close')

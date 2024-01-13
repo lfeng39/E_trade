@@ -64,11 +64,11 @@ h4
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.stronger
+/* .stronger
 {
   font-size: 56px;
   line-height: 60px;
-}
+} */
 .price > span
 {
   font-size: 12px;
@@ -118,7 +118,7 @@ h4
   }
   h1
   {
-    font-size: 48px;
+    font-size: 58px;
     line-height: 60px;
     font-weight: normal;
   }

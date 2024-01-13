@@ -14,7 +14,9 @@ wrap > container > grid
 */
 
 
-
+/**************************************************/
+/* module: nav       */
+/**************************************************/
 .brand-plus
 {
   width: 200px;
@@ -37,18 +39,7 @@ wrap > container > grid
   background: url('../image/ico/mamleo-200-35-01.png') no-repeat;
 }
 
-.product-info
-{
-  background-color: #fafafa;
-  border-radius: 6px;
-  margin: 0 15px;
-  padding: 3%;
-}
-/* products-shelf & product-info start */
-.product-info > div, .product-info > h1, div > p
-{
-  margin-bottom: 5%;
-}
+
 /* products-shelf & product-info end */
 .nav-plus
 {
@@ -111,12 +102,39 @@ ul.nav-app-list > li > a:hover
   color: rgb(51, 95, 66);
   font-size: large;
 }
-.account
+.nav-account
 {
   line-height: 55px;
   position: relative;
 }
-.account > .account-list
+.nav-account > .character
+{
+  background: url('/static/image/ico/shpping-bag.png') no-repeat 5px 15px;
+  display: block;
+  width: 35px;
+  height: 55px;
+  margin: 0 10px;
+  /* float: right; */
+}
+.nav-account > .bag
+{
+  background: url('/static/image/ico/shpping-bag.png') no-repeat 5px 15px;
+  display: block;
+  width: 35px;
+  height: 55px;
+  margin: 0 10px;
+  /* float: right; */
+}
+.nav-account > .cart
+{
+  background: url('/static/image/ico/shpping-bag.png') no-repeat 5px 15px;
+  display: block;
+  width: 35px;
+  height: 55px;
+  margin: 0 10px;
+  /* float: right; */
+}
+.nav-account > .nav-account-list
 {
   width: 300px;
   z-index: 1;
@@ -125,7 +143,7 @@ ul.nav-app-list > li > a:hover
   right: 0;
   display: none;
 }
-.account > .account-list > div
+.nav-account > .nav-account-list > div
 {
   border-radius: 6px;
   text-align: center;
@@ -133,35 +151,35 @@ ul.nav-app-list > li > a:hover
   padding: 1% 0;
   margin-top: 10%;
 }
-.account > .account-list > div > div
+.nav-account > .nav-account-list > div > div
 {
   background-color: #fff;
   margin: 3%;
   padding: 2%;
 }
-.account > .account-list > div > span, .account > .account-list > div > div > a
+.nav-account > .nav-account-list > div > span, .nav-account > .nav-account-list > div > div > a
 {
   display: block;
   /* border-bottom: 1px solid #ccc; */
 }
-.account > .account-list > div > div > a
+.nav-account > .nav-account-list > div > div > a
 {
   text-align: left;
   padding-left: 6%;
   
 }
-.account > .account-list > div > div > a:hover
+.nav-account > .nav-account-list > div > div > a:hover
 {
   background-color: #fefefe;
   color: #000;
   text-decoration-line: underline;
 }
-.account > .account-list > .account-online > span, .account > .account-list > .account-online > div > a
+.nav-account > .nav-account-list > .nav-account-online > span, .nav-account > .nav-account-list > .nav-account-online > div > a
 {
   height: 30px;
   line-height: 30px;
 }
-.account > .account-list > .account-online > div > a
+.nav-account > .nav-account-list > .nav-account-online > div > a
 {
   font-size: 14px;
 }
@@ -191,7 +209,7 @@ ul.nav-app-list > li > a:hover
   margin: 0;
   text-align: center;
 }
-.nav-mini > .account-list
+.nav-mini > .nav-account-list
 {
   position: absolute;
   z-index: 1;
@@ -203,7 +221,7 @@ ul.nav-app-list > li > a:hover
   background-color: rgba(239, 239, 239, 1);
   display: none;
 }
-.nav-mini > .account-list > a, .nav-mini > .account-list > .account-online > a
+.nav-mini > .nav-account-list > a, .nav-mini > .nav-account-list > .nav-account-online > a
 {
   display: block;
   width: 95%;
@@ -212,14 +230,14 @@ ul.nav-app-list > li > a:hover
   font-size: 48px;
   padding-left: 5%;
 }
-.nav-mini > .account-list > div
+.nav-mini > .nav-account-list > div
 {
   background-color: #fff;
   border-radius: 10px;
   margin-top: 5%;
   padding: 3%;
 }
-.nav-mini > .account-list > span
+.nav-mini > .nav-account-list > span
 {
   display: block;
   text-align: center;
@@ -227,22 +245,7 @@ ul.nav-app-list > li > a:hover
   font-size: 48px;
 }
 
-.login-btn, .createaccount-btn
-{
-  display: block;
-  width: 90%;
-  height: 35px;
-  line-height: 35px;
-  border-radius: 6px;
-  background-color: rgb(126, 197, 149, 0.9);
-  margin: 5%;
-  color: #fff;
-}
-.login-btn:hover, .createaccount-btn:hover
-{
-  background-color: rgb(126, 197, 149, 0.6);
-  color: #fff;
-}
+
 .-focus-
 {
   /* border-bottom: 3px solid #ff6666; */
@@ -255,9 +258,9 @@ ul.nav-app-list > li > a:hover
   display: block;
 }
 
-/* 
-widget
-*/
+/**************************************************/
+/* module: banner |      */
+/**************************************************/
 .banner-tip
 {
   position: relative; 
@@ -279,39 +282,194 @@ widget
 {
   padding-top: 2%;
 }
+.product-info
+{
+  background-color: #fafafa;
+  border-radius: 6px;
+  margin: 0 15px;
+  padding: 3%;
+}
+/* products-shelf & product-info start */
+.product-info > div, .product-info > h1, .product-info > form
+{
+  margin-bottom: 5%;
+}
+.product-info > form
+{
+  /* background-color: #fff; */
+  padding: 2% 0;
+}
+.product-info > form > div
+{
+  width: 45%;
+  padding: 2% 0;
+}
+.product-info > form *
+{
+  width: 90%;
+  line-height: 55px;
+  font-size: 20px;
+}
 
-/*************************************************LINE*************************************************/
-/*************************************************
-Widget: btn | input | checkbox | text | alert | form
- *************************************************/
+/**************************************************/
+/* module: login | create account | account       */
+/**************************************************/
+/* .account-login, .account-signup
+{
+  width: 100%;
+  min-height: 60%;
+  margin: 0 auto;
+} */
+.account-login > ul, .account-signup > ul
+{
+  padding: 5% 0;
+  background: rgb(252, 252, 252);
+  border-radius: 6px;
+}
+.account-login > ul > li, .account-signup > ul > li
+{
+  width: 30%;
+  margin: 1% auto;
+  /* border: 1px solid #ff0000; */
+}
+.account-login > ul > li > input[type="text"], .account-signup > ul > li > input[type="text"]
+{
+  width: 96%;
+  height: 39px; 
+  background-color: #fff;
+  border: 1px solid #ccc; 
+  color: #aaa; 
+  margin: auto;
+  padding-left: 3%;
+}
+.account-login > ul > li > input[type="text"]:focus, .account-signup > ul > li > input[type="text"]:focus
+{
+  /* width:95%;  */
+  height: 39px;
+  background-color: #fff;
+  border: 1px solid  rgb(254, 252, 252);
+  border-bottom: 1px solid #ccc;
+  outline: none;
+  color: #333;
+  padding-left: 3%;
+}
 
+button[id="login"],  button[id="createAccount"]
+{
+  display: block;
+  width: 100%;
+  height: 39px;
+  border: 1px solid rgb(126, 197, 149, 0.6);
+  border-radius: 6px;
+  background-color: rgb(126, 197, 149, 0.6);
+  color: #fff;
+  cursor: pointer;
+}
+.login-btn, .createaccount-btn
+{
+  display: block;
+  width: 90%;
+  height: 35px;
+  line-height: 35px;
+  border-radius: 6px;
+  background-color: rgb(126, 197, 149, 0.9);
+  margin: 5%;
+  color: #fff;
+}
+.login-btn:hover, .createaccount-btn:hover
+{
+  background-color: rgb(126, 197, 149, 0.6);
+  color: #fff;
+}
+.account-coupon
+{
+  background-color: #fafafa;
+  padding: 2% 0;
+}
+.account-coupon > div > div
+{
+  margin-top: 3%;
+}
+.account-coupon > div > div:nth-child(3) > div
+{
+  width: 50%;
+  /* margin-right: 5%; */
+}
+.account-coupon > div > div:nth-child(3) > div > .-btn-
+{
+  width: 50%;
+  margin: 1% auto;
+}
+
+.account-coupon-card
+{
+  margin-right: 2%;
+  width: 18%;
+  border-radius: 8px;
+  background:rgb(57, 157, 244, 0.2); 
+  
+  text-align: center;
+  position: relative;
+}
+.account-coupon-card > div:first-child
+{
+  height: 50px;
+  line-height: 50px;
+  font-size: 50px;
+  /* margin-top: 5%; */
+}
+.account-coupon-card > div:last-child
+{
+  margin: 3% 0;
+  /* margin-top: 5%; */
+}
+.account-coupon-card > span
+{
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  font-size: 22px;
+}
+/*********************************************************/
+/* Widget: btn | input | checkbox | text | alert | form  */
+/*********************************************************/
 .-btn-
 {
   display: block;
-  /* width: 200px; */
-  height: 55px;
-  line-height: 55px;
+  /* min-width: 100px; */
+  min-height: 50px;
+  line-height: 50px;
+  padding: 1%;
   border-radius: 6px;
   border: none;
   background-color: rgba(126, 197, 149, 0.6);
   color: #fff;
   text-align: center;
   cursor: pointer;
+  white-space: nowrap;
 }
-.learnMore:hover, .-btn-:hover, .-btn-:hover
+.-btn-:hover, .-btn-:hover
 {
   background-color: rgb(126, 197, 149, 0.9);
   color: #fff;
 }
+/* a.-btn-
+{
+  display: block;
+  width: 99%;
+  height: 100px;
+  line-height: 100px;
+  border-radius: 6px;
+  background-color: rgba(126, 197, 149, 0.6);
+  color: #fff;
+  text-align: center;
+} */
 /* 
 form-login-signUp
 */
-.account_login, .account_signup
-{
-  width: 100%;
-  min-height: 60%;
-  margin: 0 auto;
-}
+
 /* txt */
 /* .article
 {
@@ -327,14 +485,10 @@ form-login-signUp
   line-clamp: 3; 
   padding: 2px 0;
 }
-.bag
+
+.cart-list > div:last-child
 {
-  background: url('/static/image/ico/shpping-bag.png') no-repeat 5px 15px;
-  display: block;
-  width: 35px;
-  height: 55px;
-  margin: 0 10px;
-  /* float: right; */
+  margin: 5% 0;
 }
 /* .bag:hover+.account-list
 {
@@ -371,6 +525,30 @@ my-cart card --start
   /* background-color: #fcfcfc; */
   cursor: pointer;
 }
+.shipping
+{
+  margin: 3% 0;
+}
+.shipping > div, .id-information > div, #edit-shipping > div > div
+{
+  width: 25%;
+  /* height: 200px;  */
+  padding-bottom: 2%;
+}
+.shipping > div > div > span, .id-information > div > div > span
+{
+  display: block;
+  margin-top: 2%;
+  font-size: 18px;
+}
+#edit-shipping > div > div:last-child
+{
+  height: 300px;
+  text-align: end;
+  font-size:25px;
+  cursor: pointer;
+}
+
 /* 
 my-cart card --end
 */
@@ -414,12 +592,37 @@ my-cart card --end
   border-radius: 6px;
   padding: 3%;
 } */
-/*************************************************LINE*************************************************/
-/*************************************************
-Screen: for mobile, width under 980px
- *************************************************/
+button:hover
+{
+  background-color: rgb(126, 197, 149, 0.9);
+}
+
+footer > div > div
+{
+  margin: 1% 0;
+}
+footer > div > div > div
+{
+  margin-right: 5%;
+}
+
+
+
+
+
+/***************************************************/
+/* Screen: for mobile, width under 980px           */
+/***************************************************/
 @media screen and (max-width:980px)
 {
+  .nav-plus
+  {
+    display: none;
+  }
+  .nav-mini
+  {
+    display: block;
+  }
   .banner-tip
   {
     position: relative; 
@@ -445,28 +648,7 @@ Screen: for mobile, width under 980px
     width: 150px;
     height: 150px;
   }
-  .widget-btn
-  {
-    display: block;
-    width: 98%;
-    height: 100px;
-    line-height: 100px;
-    border-radius: 16px;
-    background-color: rgba(126, 197, 149, 0.8);
-    color: #fff;
-    text-align: center;
-  }
-  a.btn
-  {
-    display: block;
-    width: 99%;
-    height: 100px;
-    line-height: 100px;
-    border-radius: 6px;
-    background-color: rgba(126, 197, 149, 0.6);
-    color: #fff;
-    text-align: center;
-  }
+
   /* index.html */
   .learnMore
   {
@@ -530,6 +712,38 @@ Screen: for mobile, width under 980px
     font-weight: bold;
     line-height: 52px;
   }
+  .product-info > .buy
+  {
+    justify-content: space-between;
+  }
+  .product-info > div
+  {
+    min-height: 100px;
+  }
+  .product-info > .buy > div
+  {
+    width: 49%;
+  }
+  .product-info > div.buy > div > form > button, .product-info > div.buy > div > a
+  {
+    font-size: 56px;
+    font-weight: 300;
+    width: 100%;
+  }
+  .product-info > div:last-child > ul.bullet-point > li
+  {
+    margin: 2% 0;
+  }
+  .product-info > div:last-child > ul.bullet-point *, .description > p
+  {
+    font-size: 39px;
+    line-height: 39px;
+  }
+  .description
+  {
+    padding: 2%;
+  }
+
   /* products start */
   .products-shelf h3
   {
@@ -537,43 +751,45 @@ Screen: for mobile, width under 980px
     line-height: 36px;
   }
   /* products end */
-  .account_login > ul, .account_signup > ul
+
+  .account-login > ul, .account-signup > ul
   {
-    width:80%;
-    margin: 10px 10%;
-    padding: 10px 0;
+    /* width:90%; */
+    margin: 5% 2%;
+    /* border: #000 solid 1px; */
   }
-  .account_login > ul > li
+  .account-login > ul > li,  .account-signup > ul > li
   {
-    margin: 5% 0;
+    width: 80%;
+    margin: 5% auto;
+    /* border: #000 solid 1px; */
   }
-  .account_login > ul > li > input[type="text"], .account_signup > ul > li > input[type="text"]
+  .account-login > ul > li > *,  .account-signup > ul > li > *
   {
-    width:96%; 
-    height: 100px;
+    font-size: 56px;
+  }
+  .account-login > ul > li > input[type="text"], .account-signup > ul > li > input[type="text"]
+  {
+    width: 93%;
+    height: 150px;
     background-color: #fff;
     border: 1px solid #ccc; 
     color: #aaa; 
-    padding-left: 3%;
-    /* margin: 0 2.5%; */
   }
-  .account_login > ul > li > input[type="text"]:focus, .account_signup > ul > li > input[type="text"]:focus
+  .account-login > ul > li > input[type="text"]:focus, .account-signup > ul > li > input[type="text"]:focus
   {
-    background-color: #f5f5f5;
+    height: 150px;
+    background-color: #fff;
     border-bottom: 1px solid #ccc; 
-    border-top: none; 
-    border-left: none; 
-    border-right: none; 
     outline: none;
     color: #333;
-    padding-left: 3%;
   }
-  button[id="login"]
+  button[id="login"],  button[id="createAccount"]
   {
     display: block;
     width: 100%;
-    height: 100px;
-    line-height: 100px;
+    height: 150px;
+    line-height: 150px;
     border: 1px solid rgb(126, 197, 149, 0.6);
     border-radius: 6px;
     background-color: rgb(126, 197, 149, 0.6);
@@ -581,13 +797,128 @@ Screen: for mobile, width under 980px
     cursor: pointer;
   }
 
-  .nav-plus
+  .account-coupon > div > div
   {
-    display: none;
+    line-height: 66px;
+    font-size: 56px;
+    margin-top: 5%;
   }
-  .nav-mini
+  .account-coupon > div > div:nth-child(3) > div
+  {
+    width: 100%;
+    padding: 1%;
+  }
+  .account-coupon > div > div:nth-child(3) > div > p
+  {
+    line-height: 39px;
+    font-size: 39px;
+  }
+  .account-coupon > div > div:nth-child(3) > div > a
+  {
+    font-size: 39px;
+  }
+  .account-coupon-card
+  {
+    padding: 1% 5%;
+    margin: 2%;
+    width: 36%;
+    border-radius: 8px;
+    background:rgb(57, 157, 244, 0.2); 
+    text-align: center;
+    position: relative;
+  }
+  .account-coupon-card > div:nth-child(1)
+  {
+    height: 88px;
+    line-height: 88px;
+    font-size: 88px;
+    /* margin-top: 5%; */
+  }
+  .account-coupon-card > div:nth-child(2)
+  {
+    margin: 2% 0;
+    /* margin-top: 5%; */
+  }
+  .account-coupon-card > span
+  {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 0px;
+    right: 3%;
+    font-size: 42px;
+  }
+  .-btn-
   {
     display: block;
+    /* min-width: 100px; */
+    min-height: 100px;
+    line-height: 100px;
+    padding: 1%;
+    border-radius: 6px;
+    border: none;
+    background-color: rgba(126, 197, 149, 0.6);
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .-btn-:hover, .-btn-:hover
+  {
+    background-color: rgb(126, 197, 149, 0.9);
+    color: #fff;
+  }
+  .shipping
+  {
+    margin: 5% 0;
+  }
+  .shipping > div, .id-information > div
+  {
+    width: 30%;
+    /* height: 200px;  */
+    padding-bottom: 2%;
+  }
+  .shipping > div > div > span, .id-information > div > div > span
+  {
+    display: block;
+    margin-top: 2%;
+    font-size: 36px;
+  }
+  #edit-shpping > div:nth-child(1)
+  {
+    flex-direction: row-reverse;
+  }
+  #edit-shipping > div > div:first-child *, #edit-ID > div > div:first-child *
+  {
+    width: 50%;
+    line-height: 100px;
+  }
+  #edit-shipping > div > div,   #edit-ID > div > div
+  {
+    width: 100%;
+    margin: 3% 0;
+  }
+  #edit-shipping > div > div:last-child, #edit-ID > div > div:last-child
+  {
+    height: 300px;
+    text-align: end;
+    font-size: 55px;
+    cursor: pointer;
+  }
+  #edit-shipping > div > div > div > input, #edit-ID > div > div > div > input
+  {
+    width: 90%;
+    height: 100px;
+  }
+
+  footer > div > div
+  {
+    margin: 5% 0;
+    flex-direction: column
+  }
+  footer > div > div > div
+  {
+    margin-bottom: 5%;
   }
 }
 
@@ -598,61 +929,11 @@ Screen: for PC, width above 980px
  *************************************************/
 @media screen and (min-width:981px)
 {
-  .account_login > ul,.account_signup > ul
-  {
-    width:80%;
-    margin: 10px 10%;
-    padding: 60px 0;
-    background: rgb(252, 252, 252);
-    border-radius: 6px;
-  }
-  .account_login > ul > li, .account_signup > ul > li
-  {
-    margin: 10px 30%;
-  }
-  .account_login > ul > li > input[type="text"], .account_signup > ul > li > input[type="text"]
-  {
-    width:95%; 
-    height: 35px; 
-    background-color: #fff;
-    border: 1px solid #ccc; 
-    color: #aaa; 
-    /* font-size: 18px; */
-    padding-left: 3%;
-  }
-  .account_login > ul > li > input[type="text"]:focus, .account_signup > ul > li > input[type="text"]:focus
-  {
-    width:95%; 
-    height: 35px; 
-    background-color: #f5f5f5;
-    border-bottom: 1px solid #ccc; 
-    border-top: none; 
-    border-left: none; 
-    border-right: none; 
-    outline: none;
-    color: #333;
-    /* font-size: 18px; */
-    padding-left: 3%;
-  }
-  button[id="login"],  button[id="createAccount"]
-  {
-    display: block;
-    width: 99%;
-    height: 39px;
-    /* line-height: 38px; */
-    border: 1px solid rgb(126, 197, 149, 0.6);
-    border-radius: 6px;
-    background-color: rgb(126, 197, 149, 0.6);
-    color: #fff;
-    cursor: pointer;
-  }
+
 }
 /*************************************************LINE*************************************************/
 
 
 
-button:hover
-{
-  background-color: rgb(126, 197, 149, 0.9);
-}
+
 

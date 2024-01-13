@@ -12,10 +12,10 @@ Create MySQL DB Table
 '''
 class UserAccount(models.Model):
     user_id = models.CharField(max_length = 20, blank=True)
-    user_name = models.CharField(max_length = 20, blank=True)
-    email = models.EmailField(max_length = 30, blank=True) # false：必填
+    user_name = models.CharField(max_length = 50, blank=True)
+    email = models.EmailField(max_length = 80, blank=True) # false：必填
     password = models.CharField(max_length = 20, blank=True)
-    email_platform = models.EmailField(max_length = 30, blank=True)
+    email_platform = models.EmailField(max_length = 50, blank=True)
     first_name = models.CharField(max_length = 20, blank=True)
     last_name = models.CharField(max_length = 20, blank=True)
     address = models.CharField(max_length = 300, blank=True)
@@ -75,7 +75,7 @@ class SalesStatus(models.Model):
 
 class Cart(models.Model):
     user_id = models.CharField(max_length = 20, blank=True)
-    email = models.EmailField(max_length = 30, blank=True) # false：必填
+    email = models.EmailField(max_length = 80, blank=True) # false：必填
     product = models.CharField(max_length=3000, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -83,7 +83,7 @@ class Cart(models.Model):
 class Order(models.Model):
     order_id = models.CharField(max_length = 20, blank=True)
     user_id = models.CharField(max_length = 20, blank=True)
-    email = models.EmailField(max_length = 30, blank=True) # false：必填
+    email = models.EmailField(max_length = 80, blank=True) # false：必填
     product = models.CharField(max_length=3000, blank=True)
     user_shipping = models.CharField(max_length=3000, blank=True)
     status = models.CharField(max_length=20, blank=True)

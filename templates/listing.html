@@ -48,13 +48,18 @@
                         <span class="price-float"></span>
                     </span>
                 </div>
-                
-                <form action="/addtobag={{ product_info.asin }}" method="post" class="flex-container">
-                    {%csrf_token%}
-                    <button type="submit" class="-btn-" style="width: 200px; font-size: 24px; margin-bottom: 5%; margin-right: 5%;">Add to Bag</button>
-                    <div><a href="{{ amazon }}" target="_blank" class="-btn-" style="width: 200px; font-size: 24px;">Buy on Amazon</a></div>
-                </form>
+                <div class="buy flex-container">
+                    <div>
+                        <form action="/addtobag={{ product_info.asin }}" method="post">
+                            {%csrf_token%}
+                            <button type="submit" class="-btn-">Add to Bag</button>
+                        </form>
+                    </div>
+                    <div><a href="{{ amazon }}" target="_blank" class="-btn-">Buy on Amazon</a></div>
+                </div>
                 <!-- <div>
+                     style="width: 200px; font-size: 24px; margin-bottom: 5%; margin-right: 5%;"
+                      style="width: 200px; font-size: 24px;"
                     <span class="coupon">Coupon: 20% off | {{ product_info.asin }} | {{ product_info.status }}</span>
                 </div> -->
                 <div>
@@ -66,7 +71,7 @@
                 </div>
             </div>
         </div>
-        <div class="container"><p>{{ product_description.description }}</p></div>
+        <div class="container description"><p>{{ product_description.description }}</p></div>
     </main>
 
 

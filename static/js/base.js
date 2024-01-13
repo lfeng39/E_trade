@@ -30,13 +30,13 @@ function navCol(event)
 {
     if(event=='enter')
     {
-        document.getElementById('account-list').style.display = 'block'
+        document.getElementById('nav-account-list').style.display = 'block'
         
         // console.log('bbb is bbb',document.getElementById('account-list'))
     }
     if(event=='leave')
     {
-        document.getElementById('account-list').style.display = 'none'
+        document.getElementById('nav-account-list').style.display = 'none'
     }
 }
 function mobNavCol(module)
@@ -48,6 +48,7 @@ function mobNavCol(module)
         if(list_status == 'none')
         {
             document.getElementById('nav-app-mini-list').style.display = 'block'
+            document.getElementById('nav-account-mini-list').style.display = 'none'
         }
         else
         {
@@ -56,15 +57,16 @@ function mobNavCol(module)
     }
     if(module == 'account')
     {
-        var account_mini_list = document.getElementById('account-mini-list')
+        var account_mini_list = document.getElementById('nav-account-mini-list')
         var list_status = window.getComputedStyle(account_mini_list).display
         if(list_status == 'none')
         {
-            document.getElementById('account-mini-list').style.display = 'block'
+            document.getElementById('nav-account-mini-list').style.display = 'block'
+            document.getElementById('nav-app-mini-list').style.display = 'none'
         }
         else
         {
-            document.getElementById('account-mini-list').style.display = 'none'
+            document.getElementById('nav-account-mini-list').style.display = 'none'
         }
     }
 }

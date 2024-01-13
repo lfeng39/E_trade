@@ -9,10 +9,11 @@
     
     {% include "nav.html" %}
     
-    <div id="" class="wrap">
+    <div class="wrap">
     
-        <div class="container">
+        <div class="container cart-list">
             <!---------------------unit--------------------->
+            {% if product_info %}
             {% for product_info in product_info %}
             <div class="grid-cart -select-">
                 <div>
@@ -34,19 +35,18 @@
             </div>
             {% endfor %}
             <!---------------------unit--------------------->
-
-        </div>
-
-        <div class="container">
             <!---------------------sumbit--------------------->
-            <div style="height:160px; line-height:160px; text-align: right;">
-                Total: $<span><b>{{ product_info.price }}</b></span>
+            <div class="total-amount" style="height:160px; line-height:160px; text-align: right;">
+                Total: $<span><b>139.99</b></span>
             </div>
             <div style="height:160px; line-height:160px; text-align: right;">
                 <!-- <a href="{{ url_page_id_order }}" type="sumbit" class="widget-btn float-right">Commit Order</a> -->
-                <button id="cart" type="submit" class="widget-btn float-right"><h3>Commit Order</h3></button>
+                <button id="cart" type="submit" class="-btn- float-right"><h3>Commit Order</h3></button>
             </div>
             <!---------------------sumbit--------------------->
+            {% else %}
+            <div><h1>Your Bag empty</h1></div>
+            {% endif %}
         </div>
 
     </div>

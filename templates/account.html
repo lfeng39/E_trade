@@ -18,16 +18,16 @@
     </main>
 
     <div class="wrap">
-        <div class="container flex-container" style="height: 100px; border-radius: 6px;">
+        <div class="container flex-container">
             <h1>Hi, {{ user_name }}.</h1>
         </div>
     </div>
 
     <div class="wrap">
         {% if bag %}
-        <div class="container" style="margin-bottom: 5%;">
+        <div class="container">
             <h1>Your Shopping Bag</h1>
-            <div class="flex-container" style=" margin-top: 5%;">
+            <div class="flex-container" style="margin-top: 5%;">
                 {% for product_info in product_info %}
                 <div style="height: 200px; width: 200px; margin: 1%; padding: 1%;">
                     <a href=""><img src="{{ product_info.first_img }}" /></a>
@@ -37,61 +37,50 @@
             
         </div>
         {% else %}
-        <div class="container flex-container" style="margin-bottom: 5%;">
+        <div class="container flex-container">
             <p style="padding-top: 10px;">Your bag is empty. </p>&nbsp;&nbsp;&nbsp;<a style="color: cornflowerblue; text-decoration-line: underline;" href="/products"><h2>Shopping Now</h2></a>
         </div>
         {% endif %}
     </div>
 
-    <div class="wrap" style="background: #fafafa; padding: 2% 0; margin-bottom: 2%;">
+    <div class="wrap account-coupon">
         <div class="container">
             <h1>Your Coupon</h1>
             <!-- <div class="flex-container" style="margin-top: 3%; justify-content: space-between;"> -->
-            <div class="flex-container" style="margin-top: 3%;">
+            <div class="flex-container">
                 {% for coupon in user_coupon %}
-                <div style="margin-right: 2%; width: 18%; border-radius: 8px; background:rgb(57, 157, 244, 0.2); font-size: 50px; text-align: center; position: relative;">
-                    {% if coupon.type_cash %}
-                    ${{ coupon.type_cash }}
-                    {% else %}
-                    {% widthratio coupon.type_percentage 1 100 %}%
-                    {% endif %}
-                    <div style="margin: 3% 0;">Coupon Code: {{ coupon.coupon_code }}</div>
-                    <span style="width: 50px; height: 50px; position: absolute; top: 0px; right: 5px; font-size: 22px;">off</span>
+                <div class="account-coupon-card">
+                    <div>
+                        {% if coupon.type_cash %}
+                        ${{ coupon.type_cash }}
+                        {% else %}
+                        {% widthratio coupon.type_percentage 1 100 %}%
+                        {% endif %}
+                    </div>
+                    <div>{{ coupon.coupon_code }}</div>
+                    <span>off</span>
                 </div>
                 {% endfor %}
-                <!-- <div style="margin-right: 2%; width: 18%; border-radius: 8px; background:rgba(255, 145, 0, 0.2); font-size: 50px; text-align: center; position: relative;">
-                    {{ user_coupon.1.type_percentage }}
-                    <span style="width: 50px; height: 50px; position: absolute; top: 0px; right: 5px; font-size: 22px;">off</span>
+            </div>
+            <!-- <div class="flex-container">
+                <div>
+                    <p>Coupon Code should be pushed to your account, in every Month. If your coupon code is invalid, please tell us by Email. We will resend the new coupon code to your account and email.</p>
                 </div>
-                <div style="margin-right: 2%; width: 18%; border-radius: 8px; background:rgba(255, 0, 251, 0.2); font-size: 50px; text-align: center; position: relative;">20%<span style="width: 50px; height: 50px; position: absolute; top: 0px; right: 5px; font-size: 22px;">off</span></div>
-                <div style="margin-right: 2%; width: 18%; border-radius: 8px; background:rgba(174, 255, 175, 0.2); font-size: 50px; text-align: center; position: relative;">20%<span style="width: 50px; height: 50px; position: absolute; top: 0px; right: 5px; font-size: 22px;">off</span></div>
-                <div style="width: 18%; border-radius: 8px; background:rgba(179, 169, 238, 0.2); font-size: 50px; text-align: center; position: relative;">20%<span style="width: 50px; height: 50px; position: absolute; top: 0px; right: 5px; font-size: 22px;">off</span></div> -->
-            </div>
-            <div class="flex-container" style="margin-top: 3%;">
-                <p>Coupon Code should be pushed to your account, in every Month. If your coupon code is invalid, please tell us by [ me.and.mr.leo.promote@gmail.com ]. We will resend the new coupon code to your account and email.</p>
-            </div>
+                <div><a href="" class="-btn-">Send Email to Us</a></div>
+            </div> -->
         </div>
     </div>
-    <!-- <div class="wrap" style="height: 200px; background: #fafafa; padding: 2% 0; margin: 2% 0;">
-        <div class="container">
-            <fieldset>
-                <legend>YourCoupon</legend>
-                <div style="float: left; margin-left: 1%;">Title: Ceramic Hamsa Hand Incense Holder Ceramic Hamsa Hand Incense Holder Ceramic Hamsa</div>
-                <div style="float: left; margin-left: 1%;">Code: E3QFVDAG3RFWR3FA</div>
-            </fieldset>
-        </div>
-    </div> -->
 
     <div class="wrap">
         <div class="container">
             <h1>Account Settings</h1>
-            <div class="shipping flex-container" style="margin: 3% 0;">
-                <div style="height: 200px; width: 25%;">
+            <div class="shipping flex-container">
+                <div>
                     <h2>Shipping</h2>
                     <a onclick="widget('editShipping')" style="color: cornflowerblue; text-decoration-line: underline; cursor: pointer;">Edit</a>
                     <!-- <a href="myAccount&=edit" style="color: cornflowerblue; text-decoration-line: underline;">Edit</a> -->
                 </div>
-                <div style="height: 200px; width: 25%; padding-top: 5px;">
+                <div>
                     <h3>Shipping address</h3>
                     {% if user_account.first_name %}
                     <div><span>{{ user_account.first_name }} {{ user_account.last_name }}</span></div>
@@ -124,7 +113,7 @@
                     <div><span style="color: #ccc;">Phone Number</span></div>
                     {% endif %}
                 </div>
-                <div style="height: 200px; width: 25%; padding-top: 5px;">
+                <div>
                     <h3>Contact information</h3>
                     <div><span>{{ user_account.email }}</span></div>
                     {% if user_account.phone %}
@@ -138,11 +127,11 @@
             <!-- <form class="login" action="/JAL/myAccount&=edit-done" method="post"> -->
                 {%csrf_token%}
                 <div class="flex-container" style="background: #fafafa; padding: 2%; margin-bottom: 5%; border-radius: 6px;">
-                    <div style="width: 25%;">
+                    <div class="flex-container">
                         <h2>Shipping</h2>
-                        <button id="" type="submit"><h3>Commit</h3></button>
+                        <button class="-btn-" type="submit">Commit</button>
                     </div>
-                    <div style="width: 25%;">
+                    <div>
                         <h3>Shipping address</h3>
                         <div>FirstName</div>
                         <div><input id="" type="text" name="first_name" value="{{ user_account.first_name }}"></div>
@@ -153,17 +142,19 @@
                         <div>Street</div>
                         <div><input id="" type="text" name="street" value="{{ user_account.street }}"></div>
                         <div>City</div>
-                        <div><input id="" type="text" name="city" value="{{ user_account.city }}"><input id="" type="text" name="code" value="{{ user_account.code }}"></div>
+                        <div><input id="" type="text" name="city" value="{{ user_account.city }}"></div>
+                        <div>Code</div>
+                        <div><input id="" type="text" name="code" value="{{ user_account.code }}"></div>
                         <div>Country</div>
                         <div><input id="" type="text" name="country" value="{{ user_account.country }}"></div>
                     </div>
-                    <div style="width: 25%;">
+                    <div>
                         <h3>Contact information</h3>
                         <div>{{ user_account.email }}</div>
                         <div>Phone Number</div>
                         <div><input id="" type="text" name="phone" value="{{ user_account.phone }}"></div>
                     </div>
-                    <div style="height: 300px; width: 25%; text-align: end; font-size:25px; cursor: pointer;" onclick="widget('close')">X</div>
+                    <div onclick="widget('close')">X</div>
                 </div>
             </form>
             <!-- <div class="flex-container">
@@ -174,12 +165,12 @@
                 COMMING SOON...
                 </div>
             </div> -->
-            <div class="flex-container id-information" style="margin: 3% 0;">
-                <div style="height: 200px; width: 25%;">
+            <div class="flex-container id-information">
+                <div>
                     <h2>ID Information</h2>
                     <a onclick="widget('editID')" style="color: cornflowerblue; text-decoration-line: underline; cursor: pointer;">Edit</a>
                 </div>
-                <div style="height: 200px; width: 25%; padding-top: 5px;">
+                <div>
                     <div><span>{{ user_name }}</span></div>
                     <div><span>{{ user_account.email }}</span></div>
                 </div>
@@ -188,11 +179,11 @@
             <!-- <form class="login" action="/JAL/myAccount&=edit-done" method="post"> -->
                 {%csrf_token%}
                 <div class="flex-container" style="background: #fafafa; padding: 2%; margin-bottom: 5%; border-radius: 6px;">
-                    <div style="height: 200px; width: 25%;">
+                    <div class="flex-container">
                         <h2>ID Information</h2>
-                        <button id="" type="submit"><h3>Commit</h3></button>
+                        <button class="-btn-" type="submit">Commit</button>
                     </div>
-                    <div style="height: 300px; width: 25%;">
+                    <div>
                         <h3>Sign ID</h3>
                         <div>{{ user_account.email }}</div>
                         <div>Password</div>
@@ -200,62 +191,11 @@
                         <div>UserName</div>
                         <div><input id="" type="text" name="user_name" value="{{ user_account.user_name }}"></div>
                     </div>
-                    <div style="height: 300px; width: 25%; text-align: end; font-size:25px; cursor: pointer;" onclick="widget('close')">X</div>
+                    <div onclick="widget('close')">X</div>
                 </div>
             </form>
         </div>
     </div>
-
-    <!-- <div class="wrap">
-        <div class="container flex-container">
-            <div class="account-info" style="margin-right: 2%;">
-                <p>Hi {{ user_name }}, Welcome to ME AND MR. LEO</p>
-                <fieldset>
-                    <legend>MyAccount</legend>
-                    <br>
-                    <div>Email: {{ user_account.email }}</div>
-                    <div>UserName: {{ user_account.user_name }}</div>
-                    <div>FirstName: {{ user_account.first_name }}</div>
-                    <div>LastName: {{ user_account.last_name }}</div>
-                    <div>Address: {{ user_account.address }}</div>
-                    <div>Street: {{ user_account.street }}</div>
-                    <div>City: {{ user_account.city }}</div>
-                    <div>Country: {{ user_account.country }}</div>
-                    <div>Code: {{ user_account.code }}</div>
-                    <br>
-                    <div><a href="myAccount&=edit">[Edit Account]</a><a href="logout">[Logout]</a></div>
-                </fieldset>
-            </div>
-            <div class="order-info">
-                <fieldset>
-                    <legend>MyCoupon</legend>
-                    <div style="float: left; margin-left: 1%;">Title: Ceramic Hamsa Hand Incense Holder Ceramic Hamsa Hand Incense Holder Ceramic Hamsa</div>
-                    <div style="float: left; margin-left: 1%;">Code: E3QFVDAG3RFWR3FA</div>
-
-                </fieldset>
-                <fieldset>
-                    <legend>MyOrder</legend>
-                    <br>
-                    <div>Email: {{ user_account.email }}</div>
-                    <div>UserName: {{ user_account.user_name }}</div>
-                    <div>FirstName: {{ user_account.first_name }}</div>
-                    <div>LastName: {{ user_account.last_name }}</div>
-                    <div>Address: {{ user_account.address }}</div>
-                    <div>Street: {{ user_account.street }}</div>
-                    <div>City: {{ user_account.city }}</div>
-                    <div>Country: {{ user_account.country }}</div>
-                    <div>Code: {{ user_account.code }}</div>
-                    <br>
-                    <div><a href="myAccount&=edit">[Edit Account]</a><a href="logout">[Logout]</a></div>
-                </fieldset>
-            </div>
-        </div>
-
-
-        
-    </div> -->
-    
-
 
     {% include "footer.html" %}
     

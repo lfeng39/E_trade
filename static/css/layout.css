@@ -17,7 +17,7 @@ wrap > container > grid
 
 .wrap
 {
-  width: 100%;
+  width: auto;
   /* padding-top: 1%; */
   /* position: relative; */
 }

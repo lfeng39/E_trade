@@ -1302,7 +1302,7 @@ def createAccount(request):
             # '''
             'timezone': spider.time_zone,
         }
-        return render(request, 'create-account.html', htmlApi)
+        return render(request, 'login.html', htmlApi)
     if request.method == 'POST':
         '''
         verify account valid
@@ -1344,7 +1344,7 @@ def createAccount(request):
                     # '''
                     'timezone': spider.time_zone,
                 }
-                return render(request, 'create-account.html', htmlApi)
+                return render(request, 'login.html', htmlApi)
             '''
             account is not exist, create it
             '''
@@ -1405,7 +1405,7 @@ def createAccount(request):
                 # '''
                 'timezone': spider.time_zone,
             }
-            return render(request, 'create-account.html', htmlApi)
+            return render(request, 'login.html', htmlApi)
 @csrf_protect
 @csrf_exempt
 @requires_csrf_token
@@ -1544,15 +1544,19 @@ def myCart(request):
 
     if not user_status:
         _url_ = nav()['_account_']['login'][0]
-        rep = redirect(_url_)
         # rep.set_cookie("is_login", True)
-        return rep
+        return redirect(_url_)
     else:
-        _cart_ = list(eval(models.Cart.objects.filter(email=user_email).values()[0]['product']).keys())
-        _product_ = []
-        for i in range(len(_cart_)):
-            _product_.append(models.Listing.objects.filter(asin=_cart_[i]).values()[0])
-
+        try:
+            _cart_ = eval(models.Cart.objects.filter(email=user_email).values()[0]['product']).keys()
+            print('cart', _cart_)
+            _product_ = []
+            for i in range(len(_cart_)):
+                _product_.append(models.Listing.objects.filter(asin=list(_cart_)[i]).values()[0])
+        except:
+            _url_ = nav()['_account_']['account'][0]
+            return redirect(_url_)
+            
         user_name = models.UserAccount.objects.filter(email=user_email).values()[0]['user_name']
         htmlApi = {
             'page_id': 'myCart',

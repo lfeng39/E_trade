@@ -13,12 +13,13 @@
     <div class="wrap">
 
         <div class="container">
-            <form class="account_login" action="account=login" method="post">
+            {% if page_id == 'login' %}
+            <form class="account-login" action="account=login" method="post">
                 {%csrf_token%}
                 <!-- {{ form }} -->
-                <div style="text-align: center; height: 60px; padding-top: 30px;">
+                <!-- <div style="text-align: center; height: 60px; padding-top: 30px;">
                     <h1>{{ nav_account.login.1 }}</h1>
-                </div>
+                </div> -->
                 <ul>
                     <!-- <label for="test">Your name: </label> -->
                     <li>
@@ -37,15 +38,47 @@
                         <!-- <button id="login" type="submit"><h3>{{ nav_account.Login.1 }}</h3></button> -->
                         <button id="login" type="submit">{{ nav_account.login.1 }}</button>
                     </li>
-                    <li style="text-align: center;">
+                    <!-- <li style="text-align: center;">
                         --or--
-                    </li>
+                    </li> -->
                     <li style="text-align: center;">
                         <a href="{{ nav_account.createAccount.0 }}" class="btn">{{ nav_account.createAccount.1 }}</a>
                     </li>
                 </ul>
             </form>
-
+            {% elif page_id == 'createAccount' %}
+            <form class="account-signup" action="account=createAccount" method="post">
+                {%csrf_token%}
+                <!-- {{ form }} -->
+                <!-- <div style="text-align: center; height: 60px; padding-top: 30px;">
+                    <h1>{{ nav_account.createAccount.1 }}</h1>
+                </div> -->
+                <ul>
+                    <!-- <label for="test">Your name: </label> -->
+                    <li>
+                        <input label="email" id="email" type="text" name="email" value="{{ account_email.email }}" onclick="verifyAccountInfo('accountClick')" onblur="verifyAccountInfo('accountOnblur')">
+                        <!-- <span id="email_tips">{{ tips }}</span> -->
+                        <span id="email_valid" style="display:none">Email is not valid</span>
+                        {{ msg.email.0 }}
+                    </li>
+                    <li>
+                        <input label="password" id="password" type="text" name="password" value="Password" onclick="verifyAccountInfo('passWordClick')" onblur="verifyAccountInfo('passWordOnblur')">
+                        <span id="password_error">{{ tip }}</span>
+                        <!-- <span id="password_tip" class="password_tip" style="display:none">email error</span> -->
+                        {{ msg.password.0 }}
+                    </li>
+                    <li>
+                        <button id="createAccount" type="submit">{{ nav_account.createAccount.1 }}</button>
+                    </li>
+                    <!-- <li style="text-align: center;">
+                        --or--
+                    </li> -->
+                    <li style="text-align: center;">
+                        <a href="{{ nav_account.login.0 }}" class="btn">{{ nav_account.login.1 }}</a>
+                    </li>
+                </ul>
+            </form>
+            {% endif %}
         </div>
 
 

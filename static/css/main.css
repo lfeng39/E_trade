@@ -33,6 +33,10 @@ body
   flex-direction: column;
   /* position: relative; */
 }
+body[page_id = 'account'] > .wrap
+{
+  margin: 3% 0;
+}
 /*************************************************
  NAV
  *************************************************/
@@ -49,7 +53,7 @@ nav
 
 main
 {
-  width: 100%;
+  width: auto;
   /* padding-top: 1%; */
   margin-top: 1%;
   margin-bottom: 1%;
@@ -120,23 +124,21 @@ footer
   margin-top: auto;
   /* position: absolute;
   bottom: -300px; */
+  /* padding-top: 2%; */
+  padding-bottom: 10%;
 }
 footer *
 {
   line-height: 36px;
 }
+
 /*************************************************LINE*************************************************/
 /*************************************************
  Margin Padding  
  *************************************************/
 
 
-.shipping > div > div > span, .id-information > div > div > span
-{
-  display: block;
-  margin-top: 2%;
-  font-size: 18px;
-}
+
 /*************************************************LINE*************************************************/
 
 .float-right
@@ -154,4 +156,27 @@ footer *
 .three-line{
   line-clamp: 3;
   -webkit-line-clamp: 3;
+}
+
+
+@media screen and (max-width:980px)
+{
+  body[page_id = 'account'] > .wrap
+  {
+    margin: 3% 0;
+    padding: 5% 5%;
+  }
+  body[page_id = 'account'] > main
+  {
+    display: none;
+  }
+  footer
+  {
+    width: 90%;
+    padding: 0 5%;
+  }
+  footer *
+  {
+    line-height: 56px;
+  }
 }
