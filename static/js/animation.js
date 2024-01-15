@@ -1,7 +1,7 @@
-console.log('/=== base set ===/')
-// get page_id
-var page_id = document.getElementsByTagName('body')[0].getAttribute('page_id')
-console.log('base.js has get page_id:', page_id)
+// console.log('/=== base set ===/')
+// // get page_id
+// var page_id = document.getElementsByTagName('body')[0].getAttribute('page_id')
+// console.log('base.js has get page_id:', page_id)
 
 
 // after page load, start moveImg
@@ -88,50 +88,3 @@ function showTip()
     }
 }
 
-
-
-// var kris = document.getElementById('kris')
-// var jessie = document.getElementById('jessie')
-// var s
-// kris.addEventListener
-// (
-//     'touchstart',
-//     function touchStart(start)
-//     {   
-//         s = start.touches[0].clientX
-//         console.log('now',jessie.style.left)
-//     }
-// )
-// var xxx = 0
-
-// kris.addEventListener
-// (
-//     'touchmove', 
-//     function touchMove(move)
-//     {
-//         m = move.touches[0].clientX
-//         n = s - m
-//         // console.log('>>>:',jessie.style.left ,'-', n)
-//         var tempX = xxx - n
-//         jessie.style.left = tempX + 'px'
-//     }
-// )
-
-// kris.addEventListener
-// (
-//     'touchend',
-//     function touchEnd(end)
-//     {   
-//         // var bodyWid = document.body.clientWidth
-//         e = end.changedTouches[0].pageX
-//         n = s - e
-//         xxx = xxx - n
-//         console.log('end-postion:', xxx)
-
-//         if(n>30)
-//         {
-//             moveImg = move()
-//             moveImg('-')
-//         }
-//     }
-// )

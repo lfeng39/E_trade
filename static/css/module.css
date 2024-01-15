@@ -201,6 +201,7 @@ ul.nav-app-list > li > a:hover
   height: 150px;
   line-height: 150px;
   font-size: 56px;
+  color: #fff;
   margin: 0 15%;
 }
 .nav-mini > .nav-app-list > a:first-child
@@ -267,21 +268,23 @@ ul.nav-app-list > li > a:hover
   top: 25%; 
   left: 25%; 
   width: 50%; 
-  height: 50%; 
-  background: rgb(0, 0, 0, 0.2);
-  border-radius: 10px;
+  /* height: 50%;  */
+  /* background: rgb(0, 0, 0, 0.2);
+  border-radius: 10px; */
   color: #fff;
 }
 .banner-tip > div
 {
   /* min-height: 60px; */
-  margin-bottom: 3%;
+  /* margin-bottom: 3%; */
   text-align: center;
 }
-.banner-tip > div:first-child
+.banner-tip > div > a
 {
-  padding-top: 2%;
+  width: 100%;
+  color: #fff;
 }
+
 .product-info
 {
   background-color: #fafafa;
@@ -560,12 +563,16 @@ my-cart card --end
 }
 .promote-sku
 {
-  padding: 10% 0;
+  padding: 5% 0;
 }
 .promote-sku > div
 {
   width: 50%;
   height: 500px;
+}
+.promote-sku > div > img
+{
+  width: 60%;
 }
 .promote-sku > div:first-child
 {
@@ -597,10 +604,10 @@ button:hover
   background-color: rgb(126, 197, 149, 0.9);
 }
 
-footer > div > div
+/* footer > div > div
 {
   margin: 1% 0;
-}
+} */
 footer > div > div > div
 {
   margin-right: 5%;
@@ -623,24 +630,6 @@ footer > div > div > div
   {
     display: block;
   }
-  .banner-tip
-  {
-    position: relative; 
-    top: 25%; 
-    left: 13%; 
-    width: 70%; 
-    height: 30%; 
-    padding: 30px;
-    background: rgb(0, 0, 0, 0.2);
-    border-radius: 10px;
-    color: #fff;
-  }
-  .banner-tip > div
-  {
-    /* min-height: 60px; */
-    padding: 10px;
-    text-align: center;
-  }
   .bag
   {
     background: url('/static/image/ico/cartbag.png') no-repeat 45px 45px;
@@ -648,29 +637,76 @@ footer > div > div > div
     width: 150px;
     height: 150px;
   }
+  /* .nav-account > .character
+  {
+    background: url('/static/image/ico/shpping-bag.png') no-repeat 5px 15px;
+    display: block;
+    width: 35px;
+    height: 55px;
+    margin: 0 10px;
+  }
+  .nav-account > .bag
+  {
+    background: url('/static/image/ico/shpping-bag.png') no-repeat 5px 15px;
+    display: block;
+    width: 35px;
+    height: 55px;
+    margin: 0 10px;
+  }
+  .nav-account > .cart
+  {
+    background: url('/static/image/ico/shpping-bag.png') no-repeat 5px 15px;
+    display: block;
+    width: 35px;
+    height: 55px;
+    margin: 0 10px;
+  } */
 
-  /* index.html */
+
+  .banner-tip
+  {
+    position: relative; 
+    top: 15%; 
+    left: 12%; 
+    width: 70%; 
+    height: 30%; 
+    padding: 3%;
+    /* background: rgb(0, 0, 0, 0.2);
+    border-radius: 10px; */
+    color: #fff;
+  }
+  .banner-tip > div
+  {
+    min-height: 60px;
+    margin-bottom: 5%;
+    text-align: center;
+  }
   .learnMore
   {
-    width: 36%;
-    height: 60px;
-    line-height: 50px;
+    width: 50%;
+    height: 100px;
+    font-size: 56px;
+    line-height: 100px;
     border-radius: 30px;
   }
-  .promote-sku
+  /* .promote-skuproducts
   {
     height: 500px;
     padding: 10% 0;
-  }
+  } */
   .promote-sku > div
   {
     width: 50%;
     /* margin: 5%; */
-    height: 400px;
+    /* height: 400px; */
+  }
+  .promote-sku > div > img
+  {
+    width: 90%;
   }
   .promote-sku > div:last-child > div
   {
-    margin-bottom: 10%;
+    min-height: 100px;
   }
   .buyOnAmazon
   {
@@ -680,7 +716,7 @@ footer > div > div > div
   }
   .products
   {
-    background-color: #f5f5f5;
+    background-color: #fafafa;
     padding: 3%;
     /* border-radius: 16px; */
   }
@@ -688,7 +724,11 @@ footer > div > div > div
   {
     background-color: #fff;
     border-radius: 16px;
-    padding: 5% 5% 15% 5%;
+    padding: 5%;
+  }
+  .products > div > div
+  {
+    min-height: 100px;
   }
   .products > div > div > a
   {
@@ -913,7 +953,7 @@ footer > div > div > div
 
   footer > div > div
   {
-    margin: 5% 0;
+    margin-bottom: 5%;
     flex-direction: column
   }
   footer > div > div > div

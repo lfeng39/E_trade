@@ -482,7 +482,7 @@ class Promote:
                 img_show_dict[asin_db_list[i]] = img_show_dict[asin_db_list[i]][k].replace('.jpg', '')
 
         try:
-            promote_info = models.Promote.objects.all().values()[0]
+            promote_info = models.Promote.objects.filter(channel='banner').values()
         except:
             promote_info = ''
         # print(promote_info)
@@ -507,7 +507,7 @@ class Promote:
             # '''
             # promote-banner
             # '''
-            'promote_info': models.Promote.objects.filter(channel='banner').values(),
+            'promote_info': promote_info,
 
             # '''
             # promote-sku
@@ -537,7 +537,7 @@ class Promote:
         # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
 
         promote_info = models.Promote.objects.all().values()
-        print(promote_info)
+        # print(promote_info)
         htmlApi = {
             'page_id': 'editIndex',
 
