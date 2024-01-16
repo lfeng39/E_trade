@@ -105,11 +105,10 @@ def getCouponData(request):
         'asin' : request.POST.get('asin'),
         'code' : request.POST.get('code'),
         'cash' : request.POST.get('cash'),
-
         # 'percentage' : request.POST.get('percentage'),
         # 'start_at' : request.POST.get('start_at'),
         # 'end_at' : request.POST.get('end_at'),
-        # 'status' : request.POST.get('status'),
+        'status' : request.POST.get('status'),
     }
     return get_coupon_dict
 

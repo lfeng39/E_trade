@@ -11,12 +11,14 @@
             <ul id="app_list" class="nav-app-list flex-container">
                 {% for key, value in nav_nav.items %}
                 <li><a href="{{ value }}">{{ key }}</a></li>
+                <!-- <li><h3><a href="{{ value }}">{{ key }}</a></h3></li> -->
+                <!-- <li><a href="{{ value }}"><h3>{{ key }}</h3></a></li> -->
                 {% endfor %}
             </ul>
             <!-- test client & body width/height -->
             <!-- <div id="hei" style="line-height: 55px;"></div> -->
         </div>
-        <div class="nav-account">
+        <div class="nav-account flex-container">
             {% if user_status %}
             <a href="{{ nav_account.cart.0 }}" class="bag" onmouseenter="navCol('enter')" onmouseleave="navCol('leave')"></a>
             <div id="nav-account-list" class="nav-account-list" onmouseenter="navCol('enter')" onmouseleave="navCol('leave')">
@@ -32,7 +34,9 @@
             </div>
             {% else %}
             <!-- <a href="{{ nav_account.cart.0 }}" class="bag" onmouseenter="navCol('enter')" onmouseleave="navCol('leave')"></a> -->
-            <a href="{{ nav_account.cart.0 }}" class="bag" onmouseenter="navCol('enter')" onmouseleave="navCol('leave')"></a>
+            <a href="{{ nav_account.cart.0 }}" class="character" onmouseenter="navCol('enter')" onmouseleave="navCol('leave')"></a>
+            <!-- <a href="{{ nav_account.cart.0 }}" class="bag" onmouseenter="navCol('enter')" onmouseleave="navCol('leave')"></a> -->
+            <!-- <a href="{{ nav_account.cart.0 }}" class="cart" onmouseenter="navCol('enter')" onmouseleave="navCol('leave')"></a> -->
             <div id="nav-account-list" class="nav-account-list" onmouseenter="navCol('enter')" onmouseleave="navCol('leave')">
                 <div>
                     <a class="login-btn" href="{{ nav_account.login.0 }}">Log in</a>
@@ -46,10 +50,10 @@
     </div>
 
     <div class="nav-mini container">
-        <ul class="no-padding no-margin no-list-style">
+        <ul>
             <li><a class="material-symbols-outlined size-48" onclick="mobNavCol('nav')">menu</a></li>
             <li><a class="brand-mini" href="{{ nav_index.index }}" id="width-mini"></a></li>
-            <li><a class="bag" onclick="mobNavCol('account')"></a></li>
+            <li><a class="character" onclick="mobNavCol('account')"></a></li>
         </ul>
         <div id="nav-app-mini-list" class="nav-app-list">
             <a onclick="mobNavCol('nav')">X</a>

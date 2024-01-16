@@ -113,14 +113,19 @@ footer
 {
   width: 100%;
   min-height: 150px;
-  background: #f5f5f5;
+  background: #333;
   border-top: 1px solid #f5f5f5;
   margin-top: auto;
-  padding-bottom: 5%;
+  padding: 2% 0;
 }
 footer *
 {
   line-height: 36px;
+  color: #fff;
+}
+footer > div > div
+{
+  margin-bottom: 2%;
 }
 
 /*************************************************LINE*************************************************/

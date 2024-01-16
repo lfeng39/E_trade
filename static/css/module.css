@@ -79,7 +79,7 @@ ul.nav-app-list
 {
   width: 100%;
   justify-content: flex-end;
-  margin-right: 3%;
+  margin-right: 2%;
 }
 ul.nav-app-list > li{
   width: 10%;
@@ -92,8 +92,9 @@ ul.nav-app-list *
   margin: 0;
 }
 
-ul.nav-app-list > li  > a
+ul.nav-app-list > li > a
 {
+  /* font-family: 'Eras Medium ITC'; */
   color: rgb(95, 147, 112);
 }
 ul.nav-app-list > li > a:hover
@@ -109,12 +110,11 @@ ul.nav-app-list > li > a:hover
 }
 .nav-account > .character
 {
-  background: url('/static/image/ico/shpping-bag.png') no-repeat 5px 15px;
+  background: url('/static/image/ico/shpping-character.png') no-repeat 5px 15px;
   display: block;
   width: 35px;
   height: 55px;
   margin: 0 10px;
-  /* float: right; */
 }
 .nav-account > .bag
 {
@@ -123,16 +123,14 @@ ul.nav-app-list > li > a:hover
   width: 35px;
   height: 55px;
   margin: 0 10px;
-  /* float: right; */
 }
 .nav-account > .cart
 {
-  background: url('/static/image/ico/shpping-bag.png') no-repeat 5px 15px;
+  background: url('/static/image/ico/shpping-cart.png') no-repeat 5px 15px;
   display: block;
   width: 35px;
   height: 55px;
   margin: 0 10px;
-  /* float: right; */
 }
 .nav-account > .nav-account-list
 {
@@ -292,7 +290,20 @@ ul.nav-app-list > li > a:hover
   margin: 0 15px;
   padding: 3%;
 }
-/* products-shelf & product-info start */
+.product-info > div.buy
+{
+  justify-content: space-between;
+}
+.product-info > div.buy > div
+{
+  width: 50%;
+}
+.product-info > div.buy > div > form > button, .product-info > div.buy > div > a
+{
+  /* font-size: 56px;
+  font-weight: 300; */
+  width: 95%;
+}
 .product-info > div, .product-info > h1, .product-info > form
 {
   margin-bottom: 5%;
@@ -312,6 +323,14 @@ ul.nav-app-list > li > a:hover
   width: 90%;
   line-height: 55px;
   font-size: 20px;
+}
+.product-info > div:last-child > ul.bullet-point *, .description > p
+{
+  margin: 2% 0;
+}
+.description
+{
+  padding: 2% 0;
 }
 
 /**************************************************/
@@ -388,6 +407,10 @@ button[id="login"],  button[id="createAccount"]
 {
   background-color: #fafafa;
   padding: 2% 0;
+}
+.account-coupon > div
+{
+  min-height: 260px;
 }
 .account-coupon > div > div
 {
@@ -532,7 +555,7 @@ my-cart card --start
 {
   margin: 3% 0;
 }
-.shipping > div, .id-information > div, #edit-shipping > div > div
+.shipping > div, .id-information > div, #edit-shipping > div > div, #edit-ID > div > div
 {
   width: 25%;
   /* height: 200px;  */
@@ -544,11 +567,20 @@ my-cart card --start
   margin-top: 2%;
   font-size: 18px;
 }
-#edit-shipping > div > div:last-child
+#edit-shipping > div > div:first-child, #edit-ID > div > div:first-child
 {
-  height: 300px;
+  height: 100px;
+}
+#edit-shipping > div > div:first-child *, #edit-ID > div > div:first-child *
+{
+  display: block;
+  width: 80%;
+  height: 55px;
+}
+#edit-shipping > div > div[onclick="widget('close')"], #edit-ID > div > div[onclick="widget('close')"]
+{
   text-align: end;
-  font-size:25px;
+  font-size:35px;
   cursor: pointer;
 }
 
@@ -630,37 +662,34 @@ footer > div > div > div
   {
     display: block;
   }
-  .bag
+  /* .bag
   {
-    background: url('/static/image/ico/cartbag.png') no-repeat 45px 45px;
+    background: url('/static/image/ico/shpping-bag-mob.png') no-repeat 45px 45px;
+    display: block;
+    width: 150px;
+    height: 150px;
+  } */
+  .character
+  {
+    background: url('/static/image/ico/shpping-character-mob.png') no-repeat 45px 45px;
     display: block;
     width: 150px;
     height: 150px;
   }
-  /* .nav-account > .character
+  .bag
   {
-    background: url('/static/image/ico/shpping-bag.png') no-repeat 5px 15px;
+    background: url('/static/image/ico/shpping-bag-mob.png') no-repeat 45px 45px;
     display: block;
-    width: 35px;
-    height: 55px;
-    margin: 0 10px;
+    width: 150px;
+    height: 150px;
   }
-  .nav-account > .bag
+  .cart
   {
-    background: url('/static/image/ico/shpping-bag.png') no-repeat 5px 15px;
+    background: url('/static/image/ico/shpping-cart-mob.png') no-repeat 45px 45px;
     display: block;
-    width: 35px;
-    height: 55px;
-    margin: 0 10px;
+    width: 150px;
+    height: 150px;
   }
-  .nav-account > .cart
-  {
-    background: url('/static/image/ico/shpping-bag.png') no-repeat 5px 15px;
-    display: block;
-    width: 35px;
-    height: 55px;
-    margin: 0 10px;
-  } */
 
 
   .banner-tip

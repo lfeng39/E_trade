@@ -52,7 +52,8 @@
                     <div>
                         <form action="/addtobag={{ product_info.asin }}" method="post">
                             {%csrf_token%}
-                            <button type="submit" class="-btn-">Add to Bag</button>
+                            <button type="submit" class="-btn-">Add to WishList</button>
+                            <!-- <button type="submit" class="-btn-">Add to Bag</button> -->
                         </form>
                     </div>
                     <div><a href="{{ amazon }}" target="_blank" class="-btn-">Buy on Amazon</a></div>

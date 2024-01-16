@@ -711,7 +711,7 @@ class Promote:
             # user_name = re.findall(r'([a-zA-Z0-9_.+-]+)@', user_email)
 
             # promote_info = models.Promote.objects.all().values()
-            promote_info = models.Promote.objects.filter(code=code).values()
+            promote_info = models.Promote.objects.filter(code=code).values()[0]
 
             htmlApi = {
                 'page_id': 'editIndex',
@@ -861,6 +861,64 @@ class Promote:
                 'nav_account': nav()['_account_'],
 
                 'tip': 'Coupon Create done',
+                'back': nav()['_admin_']['CouponRelease'],
+                'img': '/static/image/yeah/ok.jpg',
+                
+                # '''
+                # footer
+                # '''
+                'timezone': spider.time_zone,
+            }
+            return render(request, 'done.html', htmlApi)
+    @csrf_protect
+    @csrf_exempt
+    @requires_csrf_token
+    def editCoupon(request, code):
+        if request.method == 'GET':
+
+            coupon_info = models.Coupon.objects.filter(coupon_code = code).values()[0]
+            htmlApi = {
+                'page_id': 'coupon',
+                'nav_index': nav()['_index_'],
+                'nav_nav': nav()['_nav_'],
+                'nav_admin': nav()['_admin_'],
+
+                'time_date': spider.cityTime('America/Los_Angeles').strftime('%Y-%m-%d'),
+                'coupon_info': coupon_info,
+
+                # '''
+                # footer
+                # '''
+                'timezone': spider.time_zone,
+            }
+            return render(request, 'edit-coupon.html', htmlApi)
+        if request.method == 'POST':
+            get_coupon_info = forms.getCouponData(request)
+            db_table_coupon = models.Coupon.objects.get(coupon_code = code)
+            # db_table_coupon.asin = 'ALL',
+            # db_table_coupon.sku = 'ALL',
+            # db_table_coupon.title = get_coupon_info['title'],
+            # db_table_coupon.coupon_code = get_coupon_info['code'],
+            # db_table_coupon.type_cash = coupon_info['cash'],
+            # db_table_coupon.type_percentage = float(0),
+            # type_percentage = float(get_coupon_info['percentage'])/100,
+            # db_table_coupon.start_at = spider.time_zone,
+            # db_table_coupon.end_at = spider.time_zone,
+            db_table_coupon.status = get_coupon_info['status']
+            db_table_coupon.save()
+
+            htmlApi = {
+                'page_id': 'editListingDone',
+                'counpon_create': True,
+
+                # '''
+                # nav module
+                # '''
+                'nav_index': nav()['_index_'],
+                'nav_nav': nav()['_nav_'],
+                'nav_account': nav()['_account_'],
+
+                'tip': 'Coupon Edit done',
                 'back': nav()['_admin_']['CouponRelease'],
                 'img': '/static/image/yeah/ok.jpg',
                 

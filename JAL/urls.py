@@ -57,6 +57,8 @@ urlpatterns = [
     path('adminjessie&coupon', views.Promote._coupon_, name=''),
     path('adminjessie&coupon=create', views.Promote.createCoupon, name=''),
     path('adminjessie&coupon=create-done', views.Promote.createCoupon, name=''),
+    path('adminjessie&coupon=<code>-edit', views.Promote.editCoupon, name=''),
+    path('adminjessie&coupon=<code>-edit-done', views.Promote.editCoupon, name=''),
     path('test', views.test, name=''),
 
 

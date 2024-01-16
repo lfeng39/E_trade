@@ -15,7 +15,7 @@
             <input type="text" value="{{ title_01.bullet_point_01 }}">
         </div> -->
         
-        <form class="login" action="/adminjessie&promote={{ promote_info.0.code }}-edit-done" method="post">
+        <form class="login" action="/adminjessie&promote={{ promote_info.code }}-edit-done" method="post">
             {%csrf_token%}
             <br>
             <div class="container" style="border: 1px dashed #ff8800; border-radius: 6px;">
@@ -31,20 +31,20 @@
             <br>
             <div class="container">
                 <!-- <b>id</b><h3><input style="font-size: 18px;" type="text" name="id" id="" value="{{ id.0.id }}" /></h3> -->
-                <b>promote_type</b><h3>{{ promote_info.0.type }}<input style="display: none; font-size: 18px;" type="text" name="promote_type" id="" value="{{ promote_info.0.type }}" /></h3>
-                <b>promote_code</b><h3>{{ promote_info.0.code }}<input style="display: none; font-size: 18px;" type="text" name="promote_code" id="" value="{{ promote_info.0.code }}" /></h3>
+                <b>promote_type</b><h3>{{ promote_info.type }}<input style="display: none; font-size: 18px;" type="text" name="promote_type" id="" value="{{ promote_info.type }}" /></h3>
+                <b>promote_code</b><h3>{{ promote_info.code }}<input style="display: none; font-size: 18px;" type="text" name="promote_code" id="" value="{{ promote_info.code }}" /></h3>
                 <h3>promote_img</h3>
-                <textarea style="font-size: 18px;" name="promote_img" id="" cols="130" rows="2">{{ promote_info.0.img }}</textarea>
+                <textarea style="font-size: 18px;" name="promote_img" id="" cols="130" rows="2">{{ promote_info.img }}</textarea>
                 <h3>promote_url</h3>
-                <textarea style="font-size: 18px;" name="promote_url" id="" cols="130" rows="2">{{ promote_info.0.url }}</textarea>
+                <textarea style="font-size: 18px;" name="promote_url" id="" cols="130" rows="2">{{ promote_info.url }}</textarea>
                 <h3><b>Title-01</b></h3>
-                <textarea style="font-size: 18px;" name="bullet_point_01" id="" cols="130" rows="2">{{ promote_info.0.bullet_point_01 }}</textarea>
+                <textarea style="font-size: 18px;" name="bullet_point_01" id="" cols="130" rows="2">{{ promote_info.bullet_point_01 }}</textarea>
                 <h3><b>Title-02</b></h3>
-                <textarea style="font-size: 18px;" name="bullet_point_02" id="" cols="130" rows="2">{{ promote_info.0.bullet_point_02 }}</textarea>
+                <textarea style="font-size: 18px;" name="bullet_point_02" id="" cols="130" rows="2">{{ promote_info.bullet_point_02 }}</textarea>
                 <h3><b>Title-03</b></h3>
-                <textarea style="font-size: 18px;" name="bullet_point_03" id="" cols="130" rows="2">{{ promote_info.0.bullet_point_03 }}</textarea>
+                <textarea style="font-size: 18px;" name="bullet_point_03" id="" cols="130" rows="2">{{ promote_info.bullet_point_03 }}</textarea>
                 <h3><b>ReleaseChannel</b></h3>
-                <textarea style="font-size: 18px;" name="promote_channel" id="" cols="130" rows="2">{{ promote_info.0.channel }}</textarea>
+                <textarea style="font-size: 18px;" name="promote_channel" id="" cols="130" rows="2">{{ promote_info.channel }}</textarea>
             </div>
             <!-- <br>
             <div class="container products-shelf">
