@@ -272,19 +272,52 @@ if(page_id == 'index')
 // ================ //
 if(page_id == 'listing')
 {
+    window.addEventListener
+    (
+        'load', 
+        function load()
+        {
+            var img_7_mini = document.getElementById('img_7_mini')
+            var img_7_1 = window.getComputedStyle(document.getElementById('7_1'))
+            console.log('img: ', img_7_1.width)
+            for(i=0; i<img_7_mini.children.length; i++)
+            {
+                img_7_mini.children[i].style.height = img_7_1.width
+                // document.getElementById('img_7').children[i].children[0].style.width = bbb
+                // document.getElementById('img_7').children[i].children[0].style.height = bbb
+            }
+        }
+    )
     // get external css
     // var get_listing_img_style = window.getComputedStyle(img_7,null).left
-    var img_7_object = document.getElementById('img_7')
-    var img_listing_width = parseInt(img_7_object.children[0].children[0].getAttribute('style').split(':')[1])
-    console.log('img: ', img_listing_width)
+    // var img_7_object = document.getElementById('img_7')
+    // var img_7_css = window.getComputedStyle(img_7_object)
+    // var img_listing_width = parseInt(img_7_object.children[0].children[0].getAttribute('style').split(':')[1])
+    // var img_listing_width = parseInt(img_7_css.width)
+    // console.log('img_pc_width: ', img_listing_width)
+
+    // set mob img_7
+    var img_7_mob = document.getElementsByClassName('img-7')[0].children[0]
+    var img_7_mob_width = window.getComputedStyle(img_7_mob).width
+    console.log('img-7: ', img_7_mob_width)
+    document.getElementsByClassName('img-7')[0].children[0].children[0].style.width = img_7_mob_width
+    document.getElementsByClassName('img-7')[0].children[0].children[0].style.height = img_7_mob_width
+    document.getElementById('img_7').style.width = img_7_mob_width
+    document.getElementById('img_7').style.height = img_7_mob_width
+    for(i=0; i<7; i++)
+    {
+        document.getElementById('img_7').children[i].children[0].style.width = img_7_mob_width
+        document.getElementById('img_7').children[i].children[0].style.height = img_7_mob_width
+    }
+    
     function nex()
     {
         // must be in real time to get img_7_object.style.left value
-        var img_7_move_range = (img_7_object.children.length-1) * -590
-        if(parseInt(img_7_object.style.left) > img_7_move_range)
+        var img_7_move_range = (img_7_object.children.length-1) * -img_listing_width
+        if(parseInt(img_7_css.left) > img_7_move_range)
         {
-            img_7_object.style.left = parseInt(img_7_object.style.left) - 590 + 'px'
-            console.log('position_nex: ', img_7_object.style.left)
+            img_7_object.style.left = parseInt(img_7_css.left) - img_listing_width + 'px'
+            console.log('position_nex: ', img_7_css.left)
         }
     }
     function pre()
@@ -292,19 +325,17 @@ if(page_id == 'listing')
         // must be in real time to get img_7_object.style.left value
         if(parseInt(img_7_object.style.left) < 0)
         {
-            img_7_object.style.left = parseInt(img_7_object.style.left) + 590 + 'px'
-            console.log('position_pre: ', img_7_object.style.left)
+            img_7_object.style.left = parseInt(img_7_css.left) + img_listing_width + 'px'
+            console.log('position_pre: ', img_7_css.left)
         }
     }
     function cho(num)
     {
         var num = parseInt(num)
-        var position = (num-1) * 590
-        img_7.style.left = -position + 'px'
+        var position = (num-1) * parseFloat(img_7_mob_width)
+        document.getElementById('img_7').style.left = -position + 'px'
         // document.getElementById('7-'+num).style.border = '2px solid #ff0000'
-        console.log('position_cho: ', img_7_object.style.left)
-
-        console.log('listing_img-', num, typeof('1'), parseInt('1'), typeof(Number('1')))
+        console.log('position_cho: ', position)
     }
 }
 

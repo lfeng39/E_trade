@@ -282,6 +282,62 @@ ul.nav-app-list > li > a:hover
   width: 100%;
   color: #fff;
 }
+.img-7 > div
+{
+  margin-bottom: 20px;
+}
+.img-7 > div:first-child
+{
+  justify-content: space-between;
+  height: 640px;
+  line-height: 640px;
+  position: relative;
+}
+.img-7 > div:first-child > div:first-child, .img-7 > div:first-child > div:last-child
+{
+  position: absolute;
+  z-index: 1;
+  width: 15%;
+  /* height: 640px; */
+  cursor: pointer;
+  display: block;
+  text-align: center;
+  /* line-height: 640px; */
+  /* background-color: #aaa; */
+}
+.img-7 > div:first-child > div:last-child
+{
+  right: 0;
+}
+.img-7 > div:last-child
+{
+  flex-wrap: wrap;
+}
+.img-7 > div:first-child > div
+{
+  /* width: 640px;
+  height: 640px; */
+  overflow: hidden;
+  border-radius: 6px;
+}
+.img-7 > div:first-child > div > div#img_7
+{
+  /* height: 640px; */
+  display: flex;
+  position: relative;
+  left: 0;
+}
+/* .img-7 > div:first-child > div > div#img_7 > div > img
+{
+  width: 640px;
+  height: 640px;
+} */
+.img-7 > div:last-child > div
+{
+  width: 25%;
+  cursor: pointer;
+}
+
 
 .product-info
 {
@@ -509,7 +565,6 @@ form-login-signUp
   display: -webkit-box;
   -webkit-box-orient: vertical;
   line-clamp: 3; 
-  padding: 2px 0;
 }
 
 .cart-list > div:last-child
@@ -631,6 +686,15 @@ my-cart card --end
   border-radius: 6px;
   padding: 3%;
 } */
+.products > div > div.title > a > h1
+{
+  font-size: 16px;
+  line-height: 20px;
+}
+.price > span.price-symbol, .price > span.price-float
+{
+  padding-top: 6px;
+}
 button:hover
 {
   background-color: rgb(126, 197, 149, 0.9);
@@ -755,41 +819,119 @@ footer > div > div > div
     border-radius: 16px;
     padding: 5%;
   }
+  .products > div > div.title > a > h1
+  {
+    font-size: 36px;
+    line-height: 46px;
+    font-weight: 600;
+  }
   .products > div > div
   {
-    min-height: 100px;
+    /* min-height: 100px; */
+    margin-bottom: 5%;
   }
   .products > div > div > a
   {
     display: block;
     height: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 3;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    line-clamp: 3; 
-    padding: 2px 0;
   }
   .products > div:last-child
   {
     display: none;
   }
+  .price > span.price-symbol, .price > span.price-float
+  {
+    padding-top: 0;
+  }
+  .img-7 > div:last-child
+  {
+    margin-bottom: 20px;
+  }
+  .img-7 > div:first-child
+  {
+    justify-content: space-between;
+    height: 940px;
+    line-height: 940px;
+    position: relative;
+  }
+  .img-7 > div:first-child > div:first-child, .img-7 > div:first-child > div:last-child
+  {
+    position: absolute;
+    z-index: 1;
+    width: 15%;
+    height: 940px;
+    cursor: pointer;
+    display: block;
+  }
+  .img-7 > div:first-child > div:last-child
+  {
+    right: 0;
+  }
+  .img-7 > div:last-child
+  {
+    flex-wrap: wrap;
+  }
+  .img-7 > div:first-child > div
+  {
+    /* width: 940px; */
+    /* height: 940px; */
+    overflow: hidden;
+    border-radius: 16px;
+  }
+  .img-7 > div:first-child > div > div#img_7
+  {
+    /* height: 940px; */
+    display: flex;
+    position: relative;
+    left: 0;
+  }
+  /* .img-7 > div:first-child > div:nth-child(2) > div#img_7 > div > img
+  {
+    width: 940px;
+    height: 940px;
+  } */
+  .img-7 > div:last-child > div
+  {
+    width: 25%;
+    cursor: pointer;
+  }
+
+  .product-info
+  {
+    margin: 0;
+    border-radius: 16px;
+  }
+  /* .product-info > div
+  {
+    min-height: 100px;
+  } */
   .product-info > div > h1
   {
     font-size: 52px;
     font-weight: bold;
     line-height: 52px;
   }
+  /* .product-info > div > span.price
+  {
+    display: block;
+    height: 100px;
+    border: #000 solid 1px;
+  }
+  .product-info > div > span.price > span
+  {
+    display: block;
+    height: 100px;
+    border: #000 solid 1px;
+  } */
+  /* .product-info > div > span.price > span.price-int
+  {
+    padding-top: 5%;
+  } */
   .product-info > .buy
   {
     justify-content: space-between;
   }
-  .product-info > div
-  {
-    min-height: 100px;
-  }
-  .product-info > .buy > div
+  .product-info > div.buy > div
   {
     width: 49%;
   }

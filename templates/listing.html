@@ -17,24 +17,24 @@
                 <img src="{{ product_img.img_7_url.0 }}" alt="" />
                 <img src="{{ product_info.first_img }}" alt="" />
             </div> -->
-            <div>
-                <div class="flex-container" style="justify-content: space-between;">
-                    <div><a onclick="pre()" style="width: 25px; line-height: 590px; font-size: 36px; cursor: pointer; display: block;"> &lt; </a></div>
-                    <div style="width: 590px; height: 590px; overflow: hidden; border-radius: 6px;">
-                        <div id="img_7" style="height: 590px; display: flex; position: relative; left: 0;">
+            <div class="img-7">
+                <div class="flex-container">
+                    <!-- <div><a onclick="pre()" style="display: block;"> &lt; </a></div> -->
+                    <div>
+                        <div id="img_7">
                             {% for img_7 in img_7 %}
-                            <div id="{{ forloop.counter }}" style="width: 590px; height: 590px;">
-                                <img style="width: 590px;" src="{{ img_7 }}" alt="">
+                            <div id="{{ forloop.counter }}">
+                                <img src="{{ img_7 }}" alt="">
                             </div>
                             {% endfor %}
                         </div>
                     </div>
-                    <div><a onclick="nex()" style="width: 25px; line-height: 590px; font-size: 36px; cursor: pointer; display: block;"> &gt; </a></div>
+                    <!-- <div><a onclick="nex()" style="display: block;"> &gt; </a></div> -->
                 </div>
-                <div class="flex-container" style="margin-top: 20px; justify-content: space-between;">
+                <div id="img_7_mini" class="flex-container">
                     {% for img_7 in img_7 %}
-                    <div id="7-{{ forloop.counter }}" onclick="cho('{{ forloop.counter }}')" style="width: 80px; height: 80px; cursor: pointer; border: 2px solid #f6f6f6;">
-                        <img style="width: 80px;" src="{{ img_7 }}" alt="">
+                    <div id="7_{{ forloop.counter }}" onclick="cho('{{ forloop.counter }}')">
+                        <img src="{{ img_7 }}" alt="">
                     </div>
                     {% endfor %}
                 </div>

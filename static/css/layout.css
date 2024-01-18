@@ -153,13 +153,13 @@ wrap > container > grid
   .grid-listing
   {
     display: grid;
-    column-gap: 2%;
-    grid-template-columns: repeat(1, 100%);
+    row-gap: 2em;
+    padding: 2%;
   }
   /* listing end*/
 
   /* cart star */
-  .grid-cart
+  /* .grid-cart
   {
     display: grid;
     grid-template-columns: 250px auto;
@@ -186,7 +186,7 @@ wrap > container > grid
   .grid-cart > div:last-child
   {
     grid-area: 2 / 2 / 3 / 3;
-  }
+  } */
 
 
 }

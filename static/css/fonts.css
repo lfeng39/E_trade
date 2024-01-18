@@ -67,7 +67,8 @@ h4
 {
   font-size: 12px;
   color: #333;
-  padding-left: 0.5%;
+  margin-right: 1%;
+  /* padding-left: 1%; */
   /* padding-right: 0.5%; */
 }
 .price > span.price-int
@@ -76,10 +77,7 @@ h4
   font-weight: 600;
 }
 
-.price > span.price-symbol,.price > span:last-child
-{
-  padding-top: 6px;
-}
+
 /* .price-float{  */
   /* color: rgb(110, 180, 125); */
   /* color: rgb(80, 175, 219) */
@@ -100,11 +98,6 @@ h4
     font-size: 36px;
     line-height: 36px;
   }
-  span
-  {
-    height: 50px;
-    line-height: 50px;
-  }
   h1
   {
     font-size: 56px;
@@ -116,18 +109,26 @@ h4
     font-size: 130px;
     line-height: 130px;
   }
+  /* span
+  {
+    height: 50px;
+    line-height: 50px;
+  } */
   .price > span
   {
     font-size: 36px;
+    /* height: 66px; */
     color: #333;
-    margin-top: 3%;
+    /* margin-top: 3%; */
   }
   .price > span.price-int
   {
     font-size: 66px;
+    height: 66px;
     font-weight: 600;
-    padding-top: 1.5%;
+    padding-top: 1%;
   }
+  
   .price > span.price-symbol,.price > span:last-child
   {
     padding-top: 0;
