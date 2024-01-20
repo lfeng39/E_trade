@@ -90,7 +90,7 @@ def nav():
         '_account_' : 
         {
             'cart': [base_url + 'bag', 'Bag'],
-            'login': [base_url + 'login', 'Login'],
+            'login': [base_url + 'login', 'Sign in'],
             'createAccount': [base_url + 'createAccount', 'Create Account'],
             'order': [base_url + 'order', 'Order'],
             'account': [base_url + 'account', 'Account'],
@@ -485,7 +485,9 @@ class Promote:
             promote_info = models.Promote.objects.filter(channel='banner').values()
         except:
             promote_info = ''
-        # print(promote_info)
+        
+        product_info = models.Listing.objects.filter(status='01')
+
         htmlApi = {
             'page_id': 'index',
 
@@ -515,7 +517,7 @@ class Promote:
             'asin_code': asin_db_list,
             'includ_user_id_url': nav()['_index_']['includ_user_id_url'],
             # 6 is B0BRHWQ27R
-            'product_info': models.Listing.objects.all().values(),
+            'product_info': product_info,
             'product_info_title': models.Listing.objects.all().values()[10]['title'].split('-'),
 
             'img_name': img_show_dict,

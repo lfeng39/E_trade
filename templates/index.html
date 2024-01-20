@@ -32,65 +32,39 @@
 
     <!-------- promote-banner --------->
     <div id="banner" style="height:680px; overflow: hidden; position: relative;">
+        <div class="banner-mini flex-container">
+            <div class="banner-mini-focus"></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
         <div id="banner-container" style="display: flex; position: relative; left: 0px; background-color: #fff000;">
-            <div name="B0BZ3MGYXL" style="width: 100%; height:680px; background: url('{{ promote_info.0.img }}') no-repeat 50% 50%; background-size: cover;">
-                <div id="leo" class="banner-tip">
+            <div id="banner_card" code="{{ promote_info.0.id }}" style="width: 100%; height:680px; background: url('{{ promote_info.0.img }}') no-repeat 50% 50%; background-size: cover;">
+                <div id="first_banner_tip" class="banner-tip">
                     <div>
                         <a href="{{ promote_info.0.url }}"><h1 class="stronger">{{ promote_info.0.bullet_point_01 }}</h1></a>
                     </div>
-                    <!-- <div>
-                        <span>{{ promote_info.0.bullet_point_02 }}</span>
-                        <h2>{{ promote_info.0.bullet_point_03 }}</h2>
-                    </div> -->
-                    <!-- <div>
-                        <h3><a onclick="moveImg()" class="learnMore auto-margin">Learn more</a></h3>
-                        <a href="{{ promote_info.0.url }}" class="learnMore">Learn more</a>
-                    </div> -->
                 </div>
             </div>
-            <div name="B0C6F3CK4F" style="height:680px; background: url('{{ promote_info.1.img }}') no-repeat 50% 50%; background-size: cover;">
+            <div code="{{ promote_info.1.id }}" style="height:680px; background: url('{{ promote_info.1.img }}') no-repeat 50% 50%; background-size: cover;">
                 <div id="2" class="banner-tip" style="display: none;">
                     <div>
                         <a href="{{ promote_info.1.url }}"><h1 class="stronger">{{ promote_info.1.bullet_point_01 }}</h1></a>
                     </div>
-                    <!-- <div>
-                        <span>{{ promote_info.1.bullet_point_02 }}</span>
-                        <h2>{{ promote_info.1.bullet_point_03 }}</h2>
-                    </div> -->
-                    <!-- <div>
-                        <h3><a onclick="moveImg()" class="learnMore auto-margin">Learn more</a></h3>
-                        <a href="{{ promote_info.1.url }}" class="learnMore">Learn more</a>
-                    </div> -->
                 </div>
             </div>
-            <div name="B0BTWT5GL8" style="height:680px; background: url('{{ promote_info.2.img }}') no-repeat 50% 50%; background-size: cover;">
+            <div code="{{ promote_info.2.id }}" style="height:680px; background: url('{{ promote_info.2.img }}') no-repeat 50% 50%; background-size: cover;">
                 <div id="3" class="banner-tip" style="display: none;">
                     <div>
                         <a href="{{ promote_info.2.url }}"><h1 class="stronger">{{ promote_info.2.bullet_point_01 }}</h1></a>
                     </div>
-                    <!-- <div>
-                        <span>{{ promote_info.2.bullet_point_02 }}</span>
-                        <h2>{{ promote_info.2.bullet_point_03 }}</h2>
-                    </div> -->
-                    <!-- <div>
-                        <h3><a onclick="moveImg()" class="learnMore auto-margin">Learn more</a></h3>
-                        <a href="{{ promote_info.2.url }}" class="learnMore">Learn more</a>
-                    </div> -->
                 </div>
             </div>
-            <div name="B0C1MVT741" style="height:680px; background: url('{{ promote_info.3.img }}') no-repeat 50% 50%; background-size: cover;">
+            <div code="{{ promote_info.3.id }}" style="height:680px; background: url('{{ promote_info.3.img }}') no-repeat 50% 50%; background-size: cover;">
                 <div id="4" class="banner-tip" style="display: none;">
                     <div>
                         <a href="{{ promote_info.3.url }}"><h1 class="stronger">{{ promote_info.3.bullet_point_01 }}</h1></a>
                     </div>
-                    <!-- <div>
-                        <span>{{ promote_info.3.bullet_point_02 }}</span>
-                        <h2>{{ promote_info.3.bullet_point_03 }}</h2>
-                    </div> -->
-                    <!-- <div>
-                        <h3><a onclick="moveImg()" class="learnMore auto-margin">Learn more</a></h3>
-                        <h3><a href="{{ promote_info.3.url }}" class="learnMore">Learn more</a></h3>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -119,7 +93,7 @@
         <div class="container grid-container products">
             <div>
                 <div><a href="products&asin={{ product_info.5.asin }}{{ includ_user_id_url }}"><img src="{{ product_info.5.first_img }}" alt=""></a></div>
-                <div class="title"><a href="products&asin={{ product_info.5.asin }}{{ includ_user_id_url }}" title="{{ product_info.5.title }}" class="display-row-3"><h1>{{ product_info.0.title }}</h1></a></div>
+                <div class="title"><a href="products&asin={{ product_info.5.asin }}{{ includ_user_id_url }}" title="{{ product_info.5.title }}"><h1 class="display-row-3">{{ product_info.0.title }}</h1></a></div>
                 <div>
                     <span class="flex-container price">
                         <span class="price-symbol">$</span>
@@ -133,7 +107,7 @@
             </div>
             <div>
                 <div><a href="products&asin={{ product_info.6.asin }}{{ includ_user_id_url }}"><img src="{{ product_info.6.first_img }}" alt=""></a></div>
-                <div class="title"><a href="products&asin={{ product_info.6.asin }}{{ includ_user_id_url }}" title="{{ product_info.6.title }}" class="display-row-3"><h1>{{ product_info.6.title }}</h1></a></div>
+                <div class="title"><a href="products&asin={{ product_info.6.asin }}{{ includ_user_id_url }}" title="{{ product_info.6.title }}"><h1 class="display-row-3">{{ product_info.6.title }}</h1></a></div>
                 <div>
                     <span class="flex-container price">
                         <span class="price-symbol">$</span>
@@ -144,7 +118,7 @@
             </div>
             <div>
                 <div><a href="products&asin={{ product_info.7.asin }}{{ includ_user_id_url }}"><img src="{{ product_info.7.first_img }}" alt=""></a></div>
-                <div class="title"><a href="products&asin={{ product_info.7.asin }}{{ includ_user_id_url }}" title="{{ product_info.7.title }}" class="display-row-3"><h1>{{ product_info.7.title }}</h1></a></div>
+                <div class="title"><a href="products&asin={{ product_info.7.asin }}{{ includ_user_id_url }}" title="{{ product_info.7.title }}"><h1 class="display-row-3">{{ product_info.7.title }}</h1></a></div>
                 <div>
                     <span class="flex-container price">
                         <span class="price-symbol">$</span>
@@ -158,7 +132,7 @@
             </div>
             <div>
                 <div><a href="products&asin={{ product_info.8.asin }}{{ includ_user_id_url }}"><img src="{{ product_info.8.first_img }}" alt=""></a></div>
-                <div class="title"><a href="products&asin={{ product_info.8.asin }}{{ includ_user_id_url }}" title="{{ product_info.8.title }}" class="display-row-3"><h1>{{ product_info.8.title }}</h1></a></div>
+                <div class="title"><a href="products&asin={{ product_info.8.asin }}{{ includ_user_id_url }}" title="{{ product_info.8.title }}"><h1 class="display-row-3">{{ product_info.8.title }}</h1></a></div>
                 <div>
                     <span class="flex-container price">
                         <span class="price-symbol">$</span>
@@ -169,7 +143,7 @@
             </div>
             <div>
                 <div><a href="products&asin={{ product_info.8.asin }}{{ includ_user_id_url }}"><img src="{{ product_info.9.first_img }}" alt=""></a></div>
-                <div class="title"><a href="products&asin={{ product_info.8.asin }}{{ includ_user_id_url }}" title="{{ product_info.8.title }}" class="display-row-3"><h1>{{ product_info.9.title }}</h1></a></div>
+                <div class="title"><a href="products&asin={{ product_info.8.asin }}{{ includ_user_id_url }}" title="{{ product_info.8.title }}"><h1 class="display-row-3">{{ product_info.9.title }}</h1></a></div>
                 <div>
                     <span class="flex-container price">
                         <span class="price-symbol">$</span>

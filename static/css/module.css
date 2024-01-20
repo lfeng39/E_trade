@@ -184,10 +184,11 @@ ul.nav-app-list > li > a:hover
 .nav-mini > .nav-app-list
 {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   top: 0px;
   right: 0;
   width: 100%;
+  /* min-height: 1080px; */
   padding-bottom: 8%;
   background-color: rgb(126, 197, 149, 0.95);
   display: none;
@@ -211,7 +212,7 @@ ul.nav-app-list > li > a:hover
 .nav-mini > .nav-account-list
 {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   top: 160px;
   right: 1%;
   width: 50%;
@@ -260,6 +261,31 @@ ul.nav-app-list > li > a:hover
 /**************************************************/
 /* module: banner |      */
 /**************************************************/
+.banner-mini
+{
+  position: absolute;
+  z-index: 1;
+  bottom: 5%;
+  left: 35%;
+  width: 30%;
+  justify-content: space-between;
+}
+.banner-mini > div
+{
+  background-color: rgb(255, 255, 255, 0.5);
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+}
+.banner-mini > div.banner-mini-focus
+{
+  /* border: rgb(51, 95, 66) solid 1px;
+  background-color: rgb(51, 95, 66); */
+  background-color: rgb(255, 255, 255);
+  width: 35px;
+  height: 35px;
+  border-radius: 35px;
+}
 .banner-tip
 {
   position: relative; 

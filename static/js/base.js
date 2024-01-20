@@ -108,7 +108,7 @@ if(page_id == 'index')
             banner_container.appendChild(insertTag)
             console.log('created a new div after load the page done, now the banner_child_count:',banner_child.length)
 
-            clon_first = document.getElementById('leo').cloneNode(true)
+            clon_first = document.getElementById('first_banner_tip').cloneNode(true)
             banner_container.lastChild.appendChild(clon_first)
 
             if(banner_child.length == 2)
@@ -159,59 +159,77 @@ if(page_id == 'index')
             }
         }
     )
-    document.getElementById('banner').addEventListener
-    (
-        'touchstart',
-        function touchStart(start)
-        {   
-            s = start.touches[0].pageX
-            clearInterval(tempo)
-        }
-    )
-    var xxx = 0
-    document.getElementById('banner').addEventListener
-    (
-        'touchmove', 
-        function touchMove(move)
-        {
-            clearInterval(tempo)
-            m = move.changedTouches[0].pageX
-            n = s - m
-            var tempX = xxx - n
-            document.getElementById('banner-container').style.left = tempX + 'px'
-            if(n < 0)
-            {
-                console.log('>>>')
-            }
-            if(n > 0)
-            {
-                console.log('<<<')
-                if(n > 300)
-                {
-                    console.log('300')
-                    // move = move()
-                    // move('-')
-                }
-            }
-        }
-    )
-    document.getElementById('banner').addEventListener
-    (
-        'touchend', 
-        function touchEnd(end)
-        {
-            e = end.changedTouches[0].pageX
-            // console.log('bbb:' + bbb.changedTouches[0].pageX)
-            // return e
-            n = s - e
-            xxx = xxx - n
-            console.log('end-postion:', xxx)
-            // moveImg = move()
-            // moveImg()
-        }
-    )
+    // document.getElementById('banner').addEventListener
+    // (
+    //     'touchstart',
+    //     function touchStart(start)
+    //     {   
+    //         s = start.touches[0].pageX
+    //         clearInterval(tempo)
+    //     }
+    // )
+    // var xxx = 0
+    // document.getElementById('banner').addEventListener
+    // (
+    //     'touchmove', 
+    //     function touchMove(move)
+    //     {
+    //         clearInterval(tempo)
+    //         m = move.changedTouches[0].pageX
+    //         n = s - m
+    //         var tempX = xxx - n
+    //         document.getElementById('banner-container').style.left = tempX + 'px'
+    //         if(n < 0)
+    //         {
+    //             console.log('>>>')
+    //         }
+    //         if(n > 0)
+    //         {
+    //             console.log('<<<')
+    //             if(n > 300)
+    //             {
+    //                 console.log('300')
+    //                 // move = move()
+    //                 // move('-')
+    //             }
+    //         }
+    //     }
+    // )
+    // document.getElementById('banner').addEventListener
+    // (
+    //     'touchend', 
+    //     function touchEnd(end)
+    //     {
+    //         e = end.changedTouches[0].pageX
+    //         // console.log('bbb:' + bbb.changedTouches[0].pageX)
+    //         // return e
+    //         n = s - e
+    //         xxx = xxx - n
+    //         console.log('end-postion:', xxx)
+    //         // moveImg = move()
+    //         // moveImg()
+    //     }
+    // )
 
+    // set banner-mini
+    // var insertTag00 = document.createElement('div')
+    // insertTag00.id = '0'
+    // jessie.insertBefore(insertTag00, document.getElementById('1'))
+    // var insertTag01 = document.createElement('div')
+    // insertTag01.id = '3'
+    // jessie.appendChild(insertTag01)
+    // var insertTag02 = document.createElement('div')
+    // insertTag02.id = '4'
+    // jessie.appendChild(insertTag02)
 
+    // clon_0 = document.getElementById('2').children[0].cloneNode(true)
+    // document.getElementById('0').appendChild(clon_0)
+    // clon_a = document.getElementById('1').children[0].cloneNode(true)
+    // document.getElementById('3').appendChild(clon_a)
+    // clon_b = document.getElementById('2').children[0].cloneNode(true)
+    // document.getElementById('4').appendChild(clon_b)
+
+    
     console.log('/=== set banner img ===/')
     // get banner object
     var banner = document.getElementById('banner')
@@ -221,6 +239,16 @@ if(page_id == 'index')
     console.log('banner_child_count: ', banner_child_count)
     console.log('bodyWid: ', document.body.clientWidth)
     console.log('/=== set banner img initialization done===/')
+
+    banner_code = banner_container.children[0]
+    var current_obj = [
+        banner_container.children[0].getAttribute('code'),
+        banner_container.children[1].getAttribute('code'),
+        banner_container.children[2].getAttribute('code'),
+        banner_container.children[3].getAttribute('code')
+    ]
+    console.log('current_obj', current_obj)
+
     function setBanner()
     {
         
@@ -283,19 +311,11 @@ if(page_id == 'listing')
             for(i=0; i<img_7_mini.children.length; i++)
             {
                 img_7_mini.children[i].style.height = img_7_1.width
-                // document.getElementById('img_7').children[i].children[0].style.width = bbb
-                // document.getElementById('img_7').children[i].children[0].style.height = bbb
             }
         }
     )
     // get external css
     // var get_listing_img_style = window.getComputedStyle(img_7,null).left
-    // var img_7_object = document.getElementById('img_7')
-    // var img_7_css = window.getComputedStyle(img_7_object)
-    // var img_listing_width = parseInt(img_7_object.children[0].children[0].getAttribute('style').split(':')[1])
-    // var img_listing_width = parseInt(img_7_css.width)
-    // console.log('img_pc_width: ', img_listing_width)
-
     // set mob img_7
     var img_7_mob = document.getElementsByClassName('img-7')[0].children[0]
     var img_7_mob_width = window.getComputedStyle(img_7_mob).width
@@ -333,8 +353,6 @@ if(page_id == 'listing')
     {
         var num = parseInt(num)
         var position = (num-1) * parseFloat(img_7_mob_width)
-        document.getElementById('img_7').style.left = -position + 'px'
-        // document.getElementById('7-'+num).style.border = '2px solid #ff0000'
         console.log('position_cho: ', position)
     }
 }
@@ -497,5 +515,28 @@ if(page_id == 'test')
 
         }
     )
+    // 定义三个图片元素
+    // const imgs = document.querySelectorAll("img");
+    // // const img2 = document.getElementById("img2");
+    // // const img3 = document.getElementById("img3");
+    // console.log('current', imgs)
+    // // 定义当前显示的图片索引
+    // let currentImageIndex = 0;
 
+    // // 定时器函数
+    // function timer() {
+    //   // 切换图片
+    //   currentImageIndex = (currentImageIndex + 1) % 3;
+
+    //   for (const img of imgs) {
+    //     img.style.display = "none";
+    //   }
+
+    //   imgs[currentImageIndex].style.display = "block";
+    // }
+
+    // // 启动定时器
+    // setInterval(timer, 5000);
 }
+
+

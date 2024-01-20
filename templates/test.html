@@ -1,133 +1,87 @@
 <!-- {%load static%} -->
 <!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="referrer" content="no-referrer">
-
-<!-- del temp-->
-<meta http-equiv="Expires" content="0">
-<meta http-equiv="Cache-Control" content="no-cache">
-<meta http-equiv="Pragma" content="no-cache">
-<script src="/static/js/base.js" defer="defer"></script>
-<!-- Google Fonts -->
-<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,200,0,0" /> -->
-
-<!-- Web Icon -->
-<link rel="icon" href="/static/image/ico/l&j.ico" type="image/x-icon" />
-<script defer="defer">
-window.onload = function()
-{  
-    num = Math.floor(Math.random()*10)
-    // console.log(num)
-
-    var a = document.getElementById('a')
-    var b = document.getElementById('b')
-    // console.log('a: ', a.left)
-    
-}
-function nex()
-{
-    // a.style.display = "none"
-    // b.style.display = ""
-    // a.style.transform = 'translateX(-1260px)'
-    // b.style.transform = 'translateX(-1260px)'
-    var a = document.getElementById('a')
-    var b = document.getElementById('b')
-    console.log('aaaaa: ', a.style.left)
-    a.style.left = parseInt(a.style.left) - 1260 + 'px'
-    b.style.left = parseInt(b.style.left) - 1260 + 'px'
-    console.log('BBB: ', a.style.left)
-}
-function pre()
-{
-    // a.style.transform = 'translateX(0)'
-    // b.style.transform = 'translateX(0)'
-    var a = document.getElementById('a')
-    var b = document.getElementById('b')
-    console.log('aaaaa: ', a.style.left)
-    a.style.left = parseInt(a.style.left) + 1260 + 'px'
-    b.style.left = parseInt(b.style.left) + 1260 + 'px'
-    console.log('AAAAA: ', a.style.left)
-}
-</script>
-
-<style>
-.container
-{
-    width: 98%;
-    margin: auto;
-}
-.grid-container
-{
-    display: grid;
-    /* grid-gap: 8% 2%; */
-    grid-gap: 10px;
-    grid-template-columns: repeat(auto-fit, minmax(200px, auto));
-    grid-template-rows: auto;
-    justify-content: space-around;
-}
-.flex-container
-{
-    display: flex;
-    overflow: hidden;
-}
-</style>
-
-
-<title></title>
-</head>
-<body style=" background-color: bisque; " page_id="test">
-
-    <nav style="min-height: 100px; background-color: #ff0000;">
-        <div class="container flex-container">
-            <div><span onclick="pre()"  style="font-size: 36px; color: #fff; cursor: pointer;"> &lt; </span></div>
-            <div class="flex-container">
-                <div id="a" style="height: 600px; padding-right: 290px; position: relative; left: 0;"><img style="height: 600px;" src="/static/image/products/B0BTXB89PG/v1.00/970/1-A+-970.jpg" alt=""></div>
-                <div id="b" style="height: 600px; padding-right: 290px; position: relative; left: 0;"><img style="height: 600px;" src="/static/image/products/B0BTXB89PG/v1.00/970/2-A+-970.jpg" alt=""></div>
-            </div>
-            <div><span onclick="nex()"  style="font-size: 36px; color: #fff; cursor: pointer;"> &gt; </span></div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+          .slider-container {
+            max-width: 600px;
+            margin: auto;
+            overflow: hidden;
+            position: relative;
+          }
+      
+          .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+          }
+      
+          .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+          }
+      
+          img {
+            width: 100%;
+            height: auto;
+          }
+      
+          .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            cursor: pointer;
+          }
+      
+          .prev {
+            left: 10px;
+          }
+      
+          .next {
+            right: 10px;
+          }
+        </style>
+      </head>
+      <body>
+      
+      <div class="slider-container">
+        <div class="slider">
+          <div class="slide"><img src="static/image/show/B0BTXB89PG/2-A+-970.jpg" alt="Image 1"></div>
+          <div class="slide"><img src="static/image/show/B0C1MVT741/1-A+-970.jpg" alt="Image 2"></div>
+          <div class="slide"><img src="static/image/show/B0BZ3MGYXL/2-A+-970.jpg" alt="Image 3"></div>
         </div>
-    </nav>
-    
-    <nav id="kris" class="flex-container" style="min-height: 500px; width: 100%; border: #ff0000 solid 2px; overflow: hidden; position: relative; margin: 5% 0;">
-        <div id="jessie" class="flex-container" style="position: absolute;">
-            <div id="1" style="height: 600px;"><img style="height: 600px;" src="/static/image/products/B0BTXB89PG/v1.00/970/1-A+-970.jpg" alt=""></div>
-            <div id="2" style="height: 600px;"><img style="height: 600px;" src="/static/image/products/B0BTXB89PG/v1.00/970/2-A+-970.jpg" alt=""></div>
-        </div>
-    </nav>
+        <div class="prev" onclick="prevSlide()">&#10094;</div>
+        <div class="next" onclick="nextSlide()">&#10095;</div>
+      </div>
+      
+      <script>
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const slider = document.querySelector('.slider');
+        const slideWidth = slides[0].clientWidth;
 
-    <main class="container grid-container" style="background-color: #ffbb00; border: 1px solid #ff0000;">
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        <div style="width: 200px; height:200px; line-height: 200px; border: 1px solid #fffeee; text-align: center;">img</div>
-        
-    </main>
+        function showSlide(index) {
+            currentIndex = index;
+            slider.style.transition = 'transform 0.5s ease-in-out';
+            slider.style.transform = `translateX(${-index * slideWidth}px)`;
+        }
 
-    <footer id="c" style="height: 150px; background: rgb(0, 0, 0, 0.2);">
-        fffff
-    </footer>
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            showSlide(currentIndex);
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % slides.length;
+            showSlide(currentIndex);
+        }
+
+        // 自动轮播
+        setInterval(nextSlide, 3000);
+      </script>
+      
 
 </body>
 </html>
