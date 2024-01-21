@@ -317,6 +317,7 @@ if(page_id == 'listing')
     // get external css
     // var get_listing_img_style = window.getComputedStyle(img_7,null).left
     // set mob img_7
+    var img_7_object = document.getElementById('img_7')
     var img_7_mob = document.getElementsByClassName('img-7')[0].children[0]
     var img_7_mob_width = window.getComputedStyle(img_7_mob).width
     console.log('img-7: ', img_7_mob_width)
@@ -353,6 +354,7 @@ if(page_id == 'listing')
     {
         var num = parseInt(num)
         var position = (num-1) * parseFloat(img_7_mob_width)
+        img_7_object.style.left = -position + 'px'
         console.log('position_cho: ', position)
     }
 }
