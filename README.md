@@ -1,3 +1,16 @@
+# E_trade V1.09
+## 功能更新：
+- 计划：更新manage功能，可查看useraccount\cart数据库更新情况
+
+# E_trade V1.08
+## 功能更新：
+- 升级pc、mob终端css，js
+- 升级coupon是否有效的设置功能
+
+# E_trade V1.07
+## 功能更新：
+- 跳过
+
 # E_trade V1.06
 ## 功能更新：
 - 增加coupon功能
